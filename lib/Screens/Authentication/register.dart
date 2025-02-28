@@ -82,6 +82,12 @@ class Register extends StatelessWidget {
                       icon2: Icons.visibility_off,
                       label: 'Password',
                     ),
+                    const SizedBox(height: 7),
+                    const CustomTextField(
+                      icon: Icons.lock,
+                      icon2: Icons.visibility_off,
+                      label: 'Confirm Password',
+                    ),
                     const SizedBox(height: 8),
                     const SizedBox(height: 8),
                     Row(

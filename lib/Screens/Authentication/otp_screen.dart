@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:hotelbookingapp/Screens/Authentication/resend_otp_screen.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -84,7 +85,8 @@ class OtpScreen extends StatelessWidget {
                   // Handle OTP verification here
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const HomePage()),
+                    MaterialPageRoute(
+                        builder: (_) => const BottomNavigationHome()),
                   );
                 },
               ),

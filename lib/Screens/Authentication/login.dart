@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -118,32 +119,19 @@ class LogIn extends StatelessWidget {
                       text: 'Log In',
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const OtpScreen()));
+                          context,
+                          MaterialPageRoute(builder: (_) => const OtpScreen()),
+                        );
                       }),
                   const Center(child: Text2(text2: 'Or')),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Do you want? "),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const LogIn()),
-                          );
-                        },
-                        child: const Text(
-                          'Register Acoount',
-                          style: TextStyle(
-                            color: AppColors.buttonColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  CustomButton(
+                      text: 'Register',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const Register()),
+                        );
+                      }),
                 ],
               ),
             ),
