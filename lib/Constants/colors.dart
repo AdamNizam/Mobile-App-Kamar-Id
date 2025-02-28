@@ -24,4 +24,14 @@ class AppColors {
       Color(0xffBDC3C7); // Muted Grey for strokes and borders
   static const Color redDark =
       Color(0xff891e0c); // Muted Grey for strokes and borders
+  static const Color white =
+      Color(0xffffffff); // Muted Grey for strokes and borders
+  static const Color redAwesome =
+      Color(0xffff2052); // Muted Grey for strokes and borders
+  static const Color redAuburn =
+      Color(0xffa52a2a); // Muted Grey for strokes and borders
+  static const Color yellowAurelion =
+      Color(0xfffdee00); // Muted Grey for strokes and borders
+  static const Color brightMaroon =
+      Color(0xffc32148); // Muted Grey for strokes and borders
 }

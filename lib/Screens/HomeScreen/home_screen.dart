@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Model/hotel_model.dart';
+import 'package:hotelbookingapp/Models/hotel_model.dart';
 
 import '../../../../CommonWidgets/address_widget.dart';
 import '../../../../CommonWidgets/categories_widget.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../Constants/colors.dart';
 import '../../../Widgets/detailstext1.dart';
 import '../../../Widgets/detailstext2.dart';
-import '../../Model/hotel_model.dart';
+import '../../Models/hotel_model.dart';
 import '../../Widgets/customapp_bar.dart';
 import '../../Widgets/text11.dart';
 import '../HomeScreen/details_screen.dart';
