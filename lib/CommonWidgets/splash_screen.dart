@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
-
-import '../../Constants/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -61,30 +60,30 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.tabColor,
+      // backgroundColor: AppColors.tabColor,
       body: SafeArea(
         child: Stack(
           children: [
             Center(
               child: FadeTransition(
                 opacity: _opacityAnimation,
-                child: Column(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       'images/Logo_Kamarid.png',
-                      width: 100,
-                      height: 100,
+                      width: 50,
+                      height: 50,
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(width: 10),
                     SlideTransition(
                       position: _textAnimation,
                       child: const Text(
                         'Kamar.Id',
                         style: TextStyle(
-                          fontSize: 45,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.redDark,
                         ),
                       ),
                     ),

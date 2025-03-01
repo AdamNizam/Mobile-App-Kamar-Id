@@ -67,12 +67,12 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
                 label: 'Search',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark_add),
-                label: 'Booking',
+                icon: Icon(Icons.book_rounded),
+                label: 'History',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
-                label: 'Favorites',
+                label: 'Wishlist',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),

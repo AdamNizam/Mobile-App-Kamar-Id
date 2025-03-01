@@ -35,7 +35,7 @@ class _EventsCardState extends State<EventsCard> {
             builder: (context) => const HotelDetailsScreen()));
       },
       child: Container(
-        width: 200,
+        width: 190,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -53,8 +53,12 @@ class _EventsCardState extends State<EventsCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(widget.imageUrl,
-                  width: 200, height: 150.0, fit: BoxFit.cover),
+              child: Image.asset(
+                widget.imageUrl,
+                width: 190,
+                height: 150.0,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -86,7 +90,14 @@ class _EventsCardState extends State<EventsCard> {
                       Text2(
                         text2: widget.location,
                       ),
-                      const Spacer(),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
+                  const SizedBox(height: 5.0),
+                  Row(
+                    children: [
                       const Row(
                         children: [
                           Icon(

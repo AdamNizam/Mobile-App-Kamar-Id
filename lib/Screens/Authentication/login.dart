@@ -17,6 +17,8 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  final emailController = TextEditingController(text: '');
+  final passwordController = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +45,8 @@ class _LogInState extends State<LogIn> {
                         children: [
                           Image.asset(
                             'images/Logo_Kamarid.png',
-                            width: 36,
-                            height: 36,
+                            width: 50,
+                            height: 50,
                           ),
                           const SizedBox(
                             width: 10,
@@ -73,24 +75,31 @@ class _LogInState extends State<LogIn> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const CustomTextField(
-                      icon: Icons.email, label: 'Email Address'),
+                  CustomTextField(
+                    icon: Icons.email,
+                    label: 'Email Address',
+                    controller: emailController,
+                  ),
                   const SizedBox(
                     height: 7,
                   ),
-                  const CustomTextField(
-                      icon: Icons.lock,
-                      icon2: Icons.visibility_off,
-                      label: 'Password'),
+                  CustomTextField(
+                    icon: Icons.lock,
+                    icon2: Icons.visibility_off,
+                    label: 'Password',
+                    controller: passwordController,
+                  ),
                   const SizedBox(
                     height: 8,
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const ForgotPassword()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ForgotPassword(),
+                        ),
+                      );
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
