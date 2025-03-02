@@ -81,12 +81,14 @@ class Register extends StatelessWidget {
                       icon: Icons.lock,
                       icon2: Icons.visibility_off,
                       label: 'Password',
+                      obscureText: true,
                     ),
                     const SizedBox(height: 7),
                     const CustomTextField(
                       icon: Icons.lock,
                       icon2: Icons.visibility_off,
                       label: 'Confirm Password',
+                      obscureText: true,
                     ),
                     const SizedBox(height: 8),
                     const SizedBox(height: 8),
@@ -123,7 +125,7 @@ class Register extends StatelessWidget {
                             );
                           },
                           child: const Text(
-                            'Log In',
+                            'Login',
                             style: TextStyle(
                               color: AppColors.buttonColor,
                               fontWeight: FontWeight.bold,

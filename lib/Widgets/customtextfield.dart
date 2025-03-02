@@ -10,13 +10,13 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
 
-  const CustomTextField({super.key,
+  const CustomTextField({
+    super.key,
     required this.label,
     this.icon,
     this.icon2,
     this.height = 42,
     this.obscureText = false,
-
     this.controller,
     this.onChanged,
   });
@@ -52,21 +52,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: TextFormField(
-
         controller: widget.controller,
         onChanged: widget.onChanged,
         focusNode: _focusNode,
         obscureText: widget.obscureText,
-        style: const TextStyle(color: Colors.black54,fontSize: 16,fontWeight: FontWeight.w400),
+        style: const TextStyle(
+            color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: widget.label,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
-          hintStyle: const TextStyle(color: Colors.black54,fontSize: 16,fontWeight: FontWeight.w400),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
+          hintStyle: const TextStyle(
+              color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400),
           prefixIcon: Icon(
             widget.icon,
             size: 20,
-            color:Colors.black54,
+            color: Colors.black54,
           ),
           suffixIcon: Icon(
             widget.icon2,

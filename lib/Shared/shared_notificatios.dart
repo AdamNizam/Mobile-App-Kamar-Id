@@ -1,7 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Constants/text_styles.dart';
 
 void showCustomSnackbar(BuildContext context, String message) {
   Flushbar(
@@ -12,7 +11,11 @@ void showCustomSnackbar(BuildContext context, String message) {
         Text(
           message,
           textAlign: TextAlign.center,
-          style: AppTextStyles.yellowAurelionTextStyle,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
+          ),
         ),
       ],
     ),

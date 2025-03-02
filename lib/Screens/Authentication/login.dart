@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -54,7 +55,7 @@ class _LogInState extends State<LogIn> {
                           const Text(
                             'Kamar.Id',
                             style: TextStyle(
-                              fontSize: 32,
+                              fontSize: 26,
                               color: AppColors.redDark,
                               fontWeight: FontWeight.bold,
                             ),
@@ -115,6 +116,22 @@ class _LogInState extends State<LogIn> {
                       ],
                     ),
                   ),
+                  CustomButton(
+                      text: 'Log In',
+                      onTap: () {
+                        if (emailController.text.isEmpty &&
+                            passwordController.text.isEmpty) {
+                          showCustomSnackbar(
+                              context, 'Please enter your username & password');
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const OtpScreen()),
+                          );
+                        }
+                      }),
+                  const Center(child: Text2(text2: 'Or')),
                   const SizedBox(
                     height: 8,
                   ),
@@ -129,23 +146,27 @@ class _LogInState extends State<LogIn> {
                   const SizedBox(
                     height: 15,
                   ),
-                  CustomButton(
-                      text: 'Log In',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const OtpScreen()),
-                        );
-                      }),
-                  const Center(child: Text2(text2: 'Or')),
-                  CustomButton(
-                      text: 'Register',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const Register()),
-                        );
-                      }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Do you want create new account? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const Register()),
+                          );
+                        },
+                        child: const Text(
+                          'Register',
+                          style: TextStyle(
+                            color: AppColors.buttonColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
                       child: const Text(
                         'Kamar.Id',
                         style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 26,
                           fontWeight: FontWeight.bold,
                           color: AppColors.redDark,
                         ),
