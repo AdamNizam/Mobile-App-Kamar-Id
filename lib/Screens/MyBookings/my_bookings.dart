@@ -1,13 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/upcoming.dart';
 
 import '../../../Constants/colors.dart';
-import '../../../Widgets/customapp_bar.dart';
 import '../../../Widgets/detailstext1.dart';
 import 'cancelledbooking.dart';
 import 'completed_bookings.dart';
-
 
 class MyBookingsScreen extends StatefulWidget {
   const MyBookingsScreen({super.key});
@@ -34,14 +31,12 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 13,vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
           child: Column(
             children: [
-              const CustomAppBar(text: 'My Bookings', text1: ''),
               const SizedBox(
                 height: 10,
               ),
-
               TabBar(
                 controller: _tabController,
                 indicator: const BoxDecoration(
@@ -52,7 +47,6 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
                     ),
                   ),
                 ),
-                indicatorSize: TabBarIndicatorSize.tab,
                 tabs: [
                   Tab(
                     child: Container(
@@ -84,12 +78,13 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
                       ),
                       child: const Center(
                         child: Text1(
-                          text1:  'Completed',
+                          text1: 'Completed',
                           color: Colors.white,
                         ),
                       ),
                     ),
-                  ),Tab(
+                  ),
+                  Tab(
                     child: Container(
                       height: 40,
                       width: 170,
@@ -101,7 +96,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
                       ),
                       child: const Center(
                         child: Text1(
-                          text1:  'Cancelled',
+                          text1: 'Cancelled',
                           color: Colors.white,
                         ),
                       ),
@@ -116,7 +111,6 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
                     UpcomingBooking(),
                     CompletedBooking(),
                     CancelledBooking(),
-
                   ],
                 ),
               ),

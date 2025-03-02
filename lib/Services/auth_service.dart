@@ -7,7 +7,7 @@ import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static final FlutterSecureStorage storage = FlutterSecureStorage();
+  static const FlutterSecureStorage storage = FlutterSecureStorage();
 
   Future<LoginResponseResult> login(SignInFormModel data) async {
     try {
@@ -73,9 +73,26 @@ class AuthService {
     return token != null ? 'Bearer $token' : '';
   }
 
-  Future<void> deleteToken() async {
-    await storage.delete(key: 'token');
-    await storage.delete(key: 'email');
-    await storage.delete(key: 'password');
+  Future<void> logout() async {
+    try {
+      final token = await getToken();
+      final res = await http.post(
+        Uri.parse('$baseUrl/auth/logout'),
+        headers: {
+          'Authorization': token,
+        },
+      );
+      if (res.statusCode == 200) {
+        await clearLocalStorage();
+      } else {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> clearLocalStorage() async {
+    await storage.deleteAll();
   }
 }

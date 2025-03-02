@@ -1,11 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Screens/Wallet/wallet_screen.dart';
-
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/customapp_bar.dart';
 import '../Settings/settings_screen.dart';
 import 'HelpCenter/help_center.dart';
 import 'PaymentMethods/payment_methods.dart';
@@ -18,103 +18,134 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
-          children: [
-
-             const CustomAppBar(text: 'Profile', text1: ''),
-            const SizedBox(
-              height: 20,
-            ),
-            const Center(
-              child: CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('images/c3.png'), // Example profile picture
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Center(
-              child: Text(
-                'John Doe', // Example username
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.text1Color,
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthInitial) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/login', (route) => false);
+          }
+          if (state is AuthFailed) {
+            showCustomSnackbar(context, state.error);
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return Center(
+              child: SizedBox(
+                width: 80,
+                height: 80,
+                child: CircularProgressIndicator(
+                  strokeWidth: 4.0,
+                  backgroundColor: Colors.grey[300],
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
                 ),
               ),
-            ),
-            const SizedBox(height: 4),
-            const Center(
-              child: Text(
-                'john.doe@example.com', // Example email
-                style: TextStyle(
-                  fontSize: 16,
-                  color: AppColors.text2Color,
+            );
+          }
+          return SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
+              children: [
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundImage:
+                        AssetImage('images/c3.png'), // Example profile picture
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Center(
+                  child: Text(
+                    'John Doe', // Example username
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.text1Color,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Center(
+                  child: Text(
+                    'john.doe@example.com', // Example email
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.text2Color,
+                    ),
+                  ),
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.person, // Updated icon for profile
+                  title: 'Your Profile',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const UserInformation()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.person, // Updated icon for profile
+                  title: 'Wallet',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const WalletScreen()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.person, // Updated icon for profile
+                  title: 'Invite Friends',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => InviteFriendsScreen()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon:
+                      Icons.credit_card, // Updated icon for payment methods
+                  title: 'Payment Methods',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const PaymentMethods()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.lock, // Updated icon for change password
+                  title: 'Change Password',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ChangePassword()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.settings, // Updated icon for settings
+                  title: 'Settings',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SettingsScreen()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.help, // Updated icon for help center
+                  title: 'Help Center',
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HelpCenterScreen()));
+                  },
+                ),
+                ProfileRow(
+                  leadingIcon: Icons.logout, // Updated icon for help center
+                  title: 'Logout',
+                  onTap: () {
+                    context.read<AuthBloc>().add(AuthLogout());
+                  },
+                ),
+              ],
             ),
-            ProfileRow(
-              leadingIcon: Icons.person, // Updated icon for profile
-              title: 'Your Profile',
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const UserInformation()));
-              },
-            ),ProfileRow(
-              leadingIcon: Icons.person, // Updated icon for profile
-              title: 'Wallet',
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  const WalletScreen()));
-              },
-            ),ProfileRow(
-              leadingIcon: Icons.person, // Updated icon for profile
-              title: 'Invite Friends',
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  InviteFriendsScreen()));
-              },
-            ),
-
-
-            ProfileRow(
-              leadingIcon: Icons.credit_card, // Updated icon for payment methods
-              title: 'Payment Methods',
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PaymentMethods()));
-              },
-            ),
-            ProfileRow(
-              leadingIcon: Icons.lock, // Updated icon for change password
-              title: 'Change Password',
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ChangePassword()));
-              },
-            ),
-
-
-
-            ProfileRow(
-              leadingIcon: Icons.settings, // Updated icon for settings
-              title: 'Settings',
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const SettingsScreen()));
-              },
-            ),
-            ProfileRow(
-              leadingIcon: Icons.help, // Updated icon for help center
-              title: 'Help Center',
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) =>  const HelpCenterScreen()));
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

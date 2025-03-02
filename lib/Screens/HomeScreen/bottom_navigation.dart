@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
 import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_hotels.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/home_screen.dart';
+import 'package:hotelbookingapp/Screens/MessagesFlow/no_messages.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Widgets/drawer_widget.dart';
 
@@ -18,8 +19,8 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const SearchBar(),
-    const AllCategoriesScreen(),
+    const MyBookingsScreen(),
+    const NoMessages(),
     const FavoriteHotels(),
     const ProfileScreen(),
   ];
@@ -43,13 +44,6 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10,
-              spreadRadius: 2,
-            ),
-          ],
         ),
         child: ClipRRect(
           borderRadius: const BorderRadius.only(
@@ -67,8 +61,8 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
                 label: 'history',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.flight),
-                label: 'Tour',
+                icon: Icon(Icons.message),
+                label: 'Pesan',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
@@ -80,8 +74,10 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: AppColors.redDark,
+            backgroundColor: Colors.white,
+            selectedItemColor: AppColors.tabColor,
             unselectedItemColor: Colors.grey,
+            elevation: 0,
             onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,
           ),

@@ -25,15 +25,15 @@ void showCustomSnackbar(BuildContext context, String message) {
   ).show(context);
 }
 
-void customLoading() {
-  Center(
+Widget loadingIndicator() {
+  return Center(
     child: SizedBox(
       width: 80,
       height: 80,
       child: CircularProgressIndicator(
-        strokeWidth: 3.0,
+        strokeWidth: 4.0,
         backgroundColor: Colors.grey[300],
-        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.buttonColor),
+        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
       ),
     ),
   );

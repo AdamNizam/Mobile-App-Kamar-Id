@@ -48,13 +48,13 @@ class _LogInState extends State<LogIn> {
           if (state is AuthLoading) {
             return Center(
               child: SizedBox(
-                width: 20,
+                width: 80,
                 height: 80,
                 child: CircularProgressIndicator(
-                  strokeWidth: 6.0,
+                  strokeWidth: 4.0,
                   backgroundColor: Colors.grey[300],
                   valueColor:
-                      const AlwaysStoppedAnimation<Color>(AppColors.redDark),
+                      const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
                 ),
               ),
             );

@@ -4,7 +4,6 @@ import '../../../Constants/colors.dart';
 import '../../../Widgets/detailstext1.dart';
 import '../../../Widgets/detailstext2.dart';
 import '../../Models/hotel_model.dart';
-import '../../Widgets/customapp_bar.dart';
 import '../../Widgets/text11.dart';
 import '../HomeScreen/details_screen.dart';
 
@@ -98,7 +97,6 @@ class FavoriteHotelsState extends State<FavoriteHotels>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(text: 'Favorites', text1: ''),
               const SizedBox(height: 4),
               Padding(
                 padding:
