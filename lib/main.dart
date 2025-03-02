@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
@@ -26,30 +28,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Hotel Booking',
-      theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.bgColor,
-        useMaterial3: true,
-      ),
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/login': (context) => const LogIn(),
-        '/register': (context) => const Register(),
-        '/home': (context) => const BottomNavigationHome(),
-        '/profile': (context) => const ProfileScreen(),
-        '/reviews': (context) => const Reviews(),
-        '/categories': (context) => const AllCategoriesScreen(),
-        '/settings': (context) => const SettingsScreen(),
-        '/notifications': (context) => const BookingNotifications(),
-        '/search-typing': (context) => const SearchTyping(),
-        '/my-booking': (context) => const MyBookingsScreen(),
-        '/cancel-booking': (context) => const CancelledBooking(),
-        '/completed-booking': (context) => const CompletedBooking(),
-        '/favorite-hotels': (context) => const FavoriteHotels(),
-        '/bookmark': (context) => const BookMarkHotel(),
-      },
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Hotel Booking',
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.bgColor,
+            useMaterial3: true,
+          ),
+          routes: {
+            '/': (context) => const SplashScreen(),
+            '/login': (context) => const LogIn(),
+            '/register': (context) => const Register(),
+            '/home': (context) => const BottomNavigationHome(),
+            '/profile': (context) => const ProfileScreen(),
+            '/reviews': (context) => const Reviews(),
+            '/categories': (context) => const AllCategoriesScreen(),
+            '/settings': (context) => const SettingsScreen(),
+            '/notifications': (context) => const BookingNotifications(),
+            '/search-typing': (context) => const SearchTyping(),
+            '/my-booking': (context) => const MyBookingsScreen(),
+            '/cancel-booking': (context) => const CancelledBooking(),
+            '/completed-booking': (context) => const CompletedBooking(),
+            '/favorite-hotels': (context) => const FavoriteHotels(),
+            '/bookmark': (context) => const BookMarkHotel(),
+          },
+        ));
   }
 }

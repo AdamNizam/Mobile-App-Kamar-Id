@@ -20,7 +20,21 @@ void showCustomSnackbar(BuildContext context, String message) {
       ],
     ),
     flushbarPosition: FlushbarPosition.TOP,
-    backgroundColor: AppColors.redDark,
+    backgroundColor: AppColors.buttonColor,
     duration: const Duration(seconds: 2),
   ).show(context);
+}
+
+void customLoading() {
+  Center(
+    child: SizedBox(
+      width: 80,
+      height: 80,
+      child: CircularProgressIndicator(
+        strokeWidth: 3.0,
+        backgroundColor: Colors.grey[300],
+        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.buttonColor),
+      ),
+    ),
+  );
 }

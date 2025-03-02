@@ -1,1 +1,1 @@
-String baseUrl = 'https://kamar.id/api/';
+String baseUrl = 'https://kamar.id/api';
