@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
+import 'package:hotelbookingapp/Screens/Authentication/message_register_success.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Screens/BookMark/book_marks_screen.dart';
 import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
@@ -31,8 +32,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
-          ),
+              create: (context) => AuthBloc()..add(AuthGetCurrentUser())),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -45,6 +45,8 @@ class MyApp extends StatelessWidget {
             '/': (context) => const SplashScreen(),
             '/login': (context) => const LogIn(),
             '/register': (context) => const Register(),
+            '/message-success-register': (context) =>
+                const MessageRegisterSuccess(),
             '/home': (context) => const BottomNavigationHome(),
             '/profile': (context) => const ProfileScreen(),
             '/reviews': (context) => const Reviews(),

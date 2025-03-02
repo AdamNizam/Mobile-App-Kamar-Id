@@ -37,7 +37,6 @@ class _LogInState extends State<LogIn> {
         listener: (context, state) {
           if (state is AuthFailed) {
             showCustomSnackbar(context, state.error);
-            print('eror login  ${state.error}');
           }
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
@@ -124,6 +123,7 @@ class _LogInState extends State<LogIn> {
                       CustomTextField(
                         icon: Icons.lock,
                         icon2: Icons.visibility_off,
+                        obscureText: true,
                         label: 'Password',
                         controller: passwordController,
                       ),
@@ -167,7 +167,7 @@ class _LogInState extends State<LogIn> {
                                 );
                           } else {
                             showCustomSnackbar(
-                                context, 'enter your username & password');
+                                context, 'Enter your username & password');
                           }
                         },
                       ),
@@ -195,7 +195,8 @@ class _LogInState extends State<LogIn> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const Register()),
+                                  builder: (_) => const Register(),
+                                ),
                               );
                             },
                             child: const Text(

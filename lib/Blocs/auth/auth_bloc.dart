@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hotelbookingapp/Models/sign_in_form_model.dart';
+import 'package:hotelbookingapp/Models/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Models/user_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 
@@ -19,20 +20,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthSuccess(userLog));
           } catch (e) {
-            emit(
-              AuthFailed(
-                e.toString(),
-              ),
-            );
+            emit(AuthFailed(e.toString()));
+          }
+        }
+
+        if (event is AuthRegister) {
+          try {
+            emit(AuthLoading());
+
+            final userReg = await AuthService().register(event.data);
+
+            emit(AuthRegSuccess(userReg));
+          } catch (e) {
+            emit(AuthFailed(e.toString()));
           }
         }
 
         if (event is AuthGetCurrentUser) {
           try {
-            emit(AuthLoading());
-
-            final SignInFormModel data =
+            final SignInFormModel? data =
                 await AuthService().getCredentialFromLocal();
+            print(data);
+            if (data == null) {
+              return;
+            }
+            emit(AuthLoading());
 
             final LoginResponseResult user = await AuthService().login(data);
 

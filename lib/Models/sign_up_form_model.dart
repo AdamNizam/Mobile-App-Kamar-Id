@@ -1,26 +1,26 @@
 class SignUpFormModel {
   final String? firstName;
   final String? lastName;
-  final String? noHp;
+  final String? phone;
   final String? email;
   final String? password;
-  final bool? term;
+  final bool term;
 
   const SignUpFormModel({
     this.firstName,
     this.lastName,
-    this.noHp,
+    this.phone,
     this.email,
     this.password,
-    this.term,
+    this.term = true,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'first_name': firstName,
       'last_name': lastName,
-      'no_hp': noHp,
       'email': email,
+      'phone': phone,
       'password': password,
       'term': term,
     };

@@ -1,145 +1,208 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
+import 'package:hotelbookingapp/Models/sign_up_form_model.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
 import '../../Widgets/customtextfield.dart';
 import '../../Widgets/detailstext2.dart';
 import 'login.dart';
-import 'otp_screen.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  final firstNameController = TextEditingController(text: '');
+  final lastNameController = TextEditingController(text: '');
+  final phoneController = TextEditingController(text: '');
+  final emailController = TextEditingController(text: '');
+  final passwordController = TextEditingController(text: '');
+
+  bool validate() {
+    if (firstNameController.text.isEmpty ||
+        lastNameController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 24),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthFailed) {
+            showCustomSnackbar(context, state.error);
+            print('error register ${state.error}');
+          }
+          if (state is AuthRegSuccess) {
+            showCustomSnackbar(context, 'Registrasi Sucess');
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return Center(
+              child: SizedBox(
+                width: 80,
+                height: 80,
+                child: CircularProgressIndicator(
+                  strokeWidth: 4.0,
+                  backgroundColor: Colors.grey[300],
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
+                ),
+              ),
+            );
+          }
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 24),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 16),
-                        Row(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              'images/Logo_Kamarid.png',
-                              width: 36,
-                              height: 36,
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'images/Logo_Kamarid.png',
+                                  width: 36,
+                                  height: 36,
+                                ),
+                                const SizedBox(width: 10),
+                                const Text(
+                                  'Kamar.Id',
+                                  style: TextStyle(
+                                    fontSize: 32,
+                                    color: AppColors.redDark,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 10),
+                            const SizedBox(height: 20),
                             const Text(
-                              'Kamar.Id',
+                              'Create Your Account',
                               style: TextStyle(
-                                fontSize: 32,
-                                color: AppColors.redDark,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'Create Your Account',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                        const SizedBox(height: 10),
+                        CustomTextField(
+                          icon: Icons.person,
+                          label: 'First Name',
+                          controller: firstNameController,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    const CustomTextField(
-                      icon: Icons.person,
-                      label: 'First Name',
-                    ),
-                    const SizedBox(height: 7),
-                    const CustomTextField(
-                      icon: Icons.person,
-                      label: 'Last Name',
-                    ),
-                    const SizedBox(height: 7),
-                    const CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email Address',
-                    ),
-                    const SizedBox(height: 7),
-                    const CustomTextField(
-                      icon: Icons.phone,
-                      label: 'Phone Number',
-                    ),
-                    const SizedBox(height: 7),
-                    const CustomTextField(
-                      icon: Icons.lock,
-                      icon2: Icons.visibility_off,
-                      label: 'Password',
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 7),
-                    const CustomTextField(
-                      icon: Icons.lock,
-                      icon2: Icons.visibility_off,
-                      label: 'Confirm Password',
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 8),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Checkbox(value: false, onChanged: (value) {}),
-                        const Expanded(
-                          child: Text(
-                            'Saya telah membaca dan menerima Syarat dan Kebijakan Privasi',
-                            style: TextStyle(fontSize: 14),
-                          ),
+                        const SizedBox(height: 7),
+                        CustomTextField(
+                          icon: Icons.person,
+                          label: 'Last Name',
+                          controller: lastNameController,
                         ),
-                      ],
-                    ),
-                    CustomButton(
-                      text: 'Register Now',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const OtpScreen()),
-                        );
-                      },
-                    ),
-                    const Center(child: Text2(text2: 'Or')),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Already have an account? "),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => const LogIn()),
-                            );
-                          },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              color: AppColors.buttonColor,
-                              fontWeight: FontWeight.bold,
+                        const SizedBox(height: 7),
+                        CustomTextField(
+                          icon: Icons.email,
+                          label: 'Email Address',
+                          controller: emailController,
+                        ),
+                        const SizedBox(height: 7),
+                        CustomTextField(
+                          icon: Icons.phone,
+                          label: 'Phone Number',
+                          controller: phoneController,
+                        ),
+                        const SizedBox(height: 7),
+                        CustomTextField(
+                          icon: Icons.lock,
+                          icon2: Icons.visibility_off,
+                          label: 'Password',
+                          obscureText: true,
+                          controller: passwordController,
+                        ),
+                        const SizedBox(height: 8),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Checkbox(value: false, onChanged: (value) {}),
+                            const Expanded(
+                              child: Text(
+                                'Saya telah membaca dan menerima Syarat dan Kebijakan Privasi',
+                                style: TextStyle(fontSize: 14),
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                        CustomButton(
+                          text: 'Register Now',
+                          onTap: () {
+                            if (validate()) {
+                              context.read<AuthBloc>().add(
+                                    AuthRegister(
+                                      SignUpFormModel(
+                                        firstName: firstNameController.text,
+                                        lastName: lastNameController.text,
+                                        phone: phoneController.text,
+                                        email: emailController.text,
+                                        password: passwordController.text,
+                                      ),
+                                    ),
+                                  );
+                            } else {
+                              showCustomSnackbar(
+                                  context, 'All field must be entered');
+                            }
+                          },
+                        ),
+                        const Center(child: Text2(text2: 'Or')),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Already have an account? "),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const LogIn()),
+                                );
+                              },
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                  color: AppColors.buttonColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
