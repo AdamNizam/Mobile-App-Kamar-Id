@@ -6,3 +6,5 @@ sealed class HotelEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetAllHotels extends HotelEvent {}

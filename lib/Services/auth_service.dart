@@ -38,7 +38,6 @@ class AuthService {
   Future<void> saveToken(LoginResponseResult userLog) async {
     if (userLog.token != null && userLog.token!.isNotEmpty) {
       await storage.write(key: 'token', value: userLog.token);
-      print('token : {$userLog.token}');
     } else {
       throw Exception("Token tidak valid");
     }
@@ -47,14 +46,10 @@ class AuthService {
   Future<void> saveCredentials(String email, String password) async {
     await storage.write(key: 'email', value: email);
     await storage.write(key: 'password', value: password);
-    print('email : {$email}');
-    print('password : {$password}');
   }
 
   Future<SignInFormModel?> getCredentialFromLocal() async {
     try {
-      const storage = FlutterSecureStorage();
-
       Map<String, String> values = await storage.readAll();
 
       if (values['email'] == null || values['password'] == null) {

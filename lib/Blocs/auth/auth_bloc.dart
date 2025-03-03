@@ -40,10 +40,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           try {
             final SignInFormModel? data =
                 await AuthService().getCredentialFromLocal();
-            print(data);
-            if (data == null) {
-              return;
-            }
+
+            if (data == null) return;
+
             emit(AuthLoading());
 
             final LoginResponseResult user = await AuthService().login(data);
@@ -57,7 +56,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (event is AuthLogout) {
           try {
             emit(AuthLoading());
+
             await AuthService().logout();
+
             emit(AuthInitial());
           } catch (e) {
             emit(AuthFailed(e.toString()));
