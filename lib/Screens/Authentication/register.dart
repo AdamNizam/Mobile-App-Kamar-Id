@@ -23,6 +23,7 @@ class _RegisterState extends State<Register> {
   final phoneController = TextEditingController(text: '');
   final emailController = TextEditingController(text: '');
   final passwordController = TextEditingController(text: '');
+  bool isChecked = false;
 
   bool validate() {
     if (firstNameController.text.isEmpty ||
@@ -41,11 +42,12 @@ class _RegisterState extends State<Register> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailed) {
-            showCustomSnackbar(context, state.error);
-            print('error register ${state.error}');
+            showCustomSnackbar(context, 'Register Failed');
           }
           if (state is AuthRegSuccess) {
-            showCustomSnackbar(context, 'Registrasi Sucess');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/message-success-register', (route) => false,
+                arguments: state.data);
           }
         },
         builder: (context, state) {
@@ -138,11 +140,18 @@ class _RegisterState extends State<Register> {
                           obscureText: true,
                           controller: passwordController,
                         ),
-                        const SizedBox(height: 8),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 16),
                         Row(
                           children: [
-                            Checkbox(value: false, onChanged: (value) {}),
+                            Checkbox(
+                              activeColor: AppColors.redDark,
+                              value: isChecked,
+                              onChanged: (value) {
+                                setState(() {
+                                  isChecked = value ?? false;
+                                });
+                              },
+                            ),
                             const Expanded(
                               child: Text(
                                 'Saya telah membaca dan menerima Syarat dan Kebijakan Privasi',
@@ -151,21 +160,27 @@ class _RegisterState extends State<Register> {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 8),
                         CustomButton(
                           text: 'Register Now',
                           onTap: () {
                             if (validate()) {
-                              context.read<AuthBloc>().add(
-                                    AuthRegister(
-                                      SignUpFormModel(
-                                        firstName: firstNameController.text,
-                                        lastName: lastNameController.text,
-                                        phone: phoneController.text,
-                                        email: emailController.text,
-                                        password: passwordController.text,
+                              if (isChecked) {
+                                context.read<AuthBloc>().add(
+                                      AuthRegister(
+                                        SignUpFormModel(
+                                          firstName: firstNameController.text,
+                                          lastName: lastNameController.text,
+                                          phone: phoneController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                              } else {
+                                showCustomSnackbar(
+                                    context, 'You Dont Cheklist');
+                              }
                             } else {
                               showCustomSnackbar(
                                   context, 'All field must be entered');

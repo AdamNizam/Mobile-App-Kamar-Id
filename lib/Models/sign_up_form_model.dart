@@ -4,7 +4,7 @@ class SignUpFormModel {
   final String? phone;
   final String? email;
   final String? password;
-  final bool term;
+  final bool? term;
 
   const SignUpFormModel({
     this.firstName,

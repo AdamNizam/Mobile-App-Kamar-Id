@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Models/user_model.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -10,6 +11,11 @@ class MessageRegisterSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as RegisterResponseResult?;
+    final String message = (arguments?.message['email'] as List?)?.first ??
+        "Registration Successful!";
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -19,22 +25,22 @@ class MessageRegisterSuccess extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(''),
-              const Center(
+              Center(
                 child: Column(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 55,
                       backgroundColor: AppColors.buttonColor,
                       child: Icon(Icons.check, color: Colors.white, size: 70),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text1(
-                        text1: 'Congratulations!',
-                        size: 30,
+                        text1: 'Registration Successful!',
+                        size: 25,
                       ),
                     ),
-                    Text2(text2: 'message'),
+                    Text2(text2: message),
                   ],
                 ),
               ),
