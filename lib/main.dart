@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
+import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
@@ -32,7 +33,11 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (context) => AuthBloc()..add(AuthGetCurrentUser())),
+            create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
+          ),
+          BlocProvider(
+            create: (context) => HotelBloc()..add(GetAllHotels()),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

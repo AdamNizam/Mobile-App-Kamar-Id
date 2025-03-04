@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Models/sign_in_form_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -46,15 +47,10 @@ class _LogInState extends State<LogIn> {
         builder: (context, state) {
           if (state is AuthLoading) {
             return Center(
-              child: SizedBox(
-                width: 80,
-                height: 80,
-                child: CircularProgressIndicator(
-                  strokeWidth: 4.0,
-                  backgroundColor: Colors.grey[300],
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
-                ),
+              child: LoadingAnimationWidget.flickr(
+                leftDotColor: AppColors.tabColor,
+                rightDotColor: AppColors.redDark,
+                size: 50,
               ),
             );
           }

@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/eventscard.dart';
 import 'package:hotelbookingapp/CommonWidgets/hotelscard.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../CommonWidgets/address_widget.dart';
 import '../../../../CommonWidgets/categories_widget.dart';
@@ -133,34 +134,25 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(2),
-                child: BlocProvider(
-                  create: (context) => HotelBloc()..add(GetAllHotels()),
-                  child: BlocBuilder<HotelBloc, HotelState>(
-                    builder: (context, state) {
-                      if (state is HotelSuccess) {
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: state.hotels.map((hotel) {
-                              return EventsCard(hotel: hotel);
-                            }).toList(),
-                          ),
-                        );
-                      }
-                      return Center(
-                        child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3.0,
-                            backgroundColor: Colors.grey[300],
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                                AppColors.tabColor),
-                          ),
+                child: BlocBuilder<HotelBloc, HotelState>(
+                  builder: (context, state) {
+                    if (state is HotelSuccess) {
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: state.hotels.map((hotel) {
+                            return EventsCard(hotel: hotel);
+                          }).toList(),
                         ),
                       );
-                    },
-                  ),
+                    }
+                    return Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: AppColors.tabColor,
+                        size: 30,
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -171,39 +163,30 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10.0),
               Container(
                 padding: const EdgeInsets.all(2),
-                child: BlocProvider(
-                  create: (context) => HotelBloc()..add(GetAllHotels()),
-                  child: BlocListener<HotelBloc, HotelState>(
-                    listener: (context, state) {
-                      if (state is HotelFailed) {
-                        showCustomSnackbar(context, state.error);
-                      }
-                    },
-                    child: BlocBuilder<HotelBloc, HotelState>(
-                      builder: (context, state) {
-                        if (state is HotelSuccess) {
-                          return SingleChildScrollView(
-                            child: Column(
-                              children: state.hotels.map((hotel) {
-                                return HotelsCard(hotel: hotel);
-                              }).toList(),
-                            ),
-                          );
-                        }
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                              backgroundColor: Colors.grey[300],
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                  AppColors.tabColor),
-                            ),
+                child: BlocListener<HotelBloc, HotelState>(
+                  listener: (context, state) {
+                    if (state is HotelFailed) {
+                      showCustomSnackbar(context, state.error);
+                    }
+                  },
+                  child: BlocBuilder<HotelBloc, HotelState>(
+                    builder: (context, state) {
+                      if (state is HotelSuccess) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: state.hotels.map((hotel) {
+                              return HotelsCard(hotel: hotel);
+                            }).toList(),
                           ),
                         );
-                      },
-                    ),
+                      }
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.tabColor,
+                          size: 30,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
