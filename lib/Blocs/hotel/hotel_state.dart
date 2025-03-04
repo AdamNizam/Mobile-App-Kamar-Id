@@ -11,6 +11,15 @@ final class HotelInitial extends HotelState {}
 
 final class HotelLoading extends HotelState {}
 
+final class HotelFailed extends HotelState {
+  final String error;
+
+  const HotelFailed(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
 class HotelSuccess extends HotelState {
   final List<HotelAllModel> hotels;
 
@@ -20,11 +29,11 @@ class HotelSuccess extends HotelState {
   List<Object> get props => [hotels];
 }
 
-final class HotelFailed extends HotelState {
-  final String error;
+class HotelDetailSuccess extends HotelState {
+  final HotelDetailModel hotelDetail;
 
-  const HotelFailed(this.error);
+  const HotelDetailSuccess(this.hotelDetail);
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [hotelDetail];
 }

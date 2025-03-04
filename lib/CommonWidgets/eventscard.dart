@@ -28,7 +28,7 @@ class _EventsCardState extends State<EventsCard> {
             builder: (context) => const HotelDetailsScreen()));
       },
       child: Container(
-        margin: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(5),
         width: 190,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -47,22 +47,20 @@ class _EventsCardState extends State<EventsCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                  widget.hotel.bannerImageId != null &&
-                          widget.hotel.bannerImageId!.isNotEmpty
-                      ? widget.hotel.bannerImageId!
-                      : 'images/no-image.jpg',
-                  width: 190,
-                  height: 150.0,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                return Image.asset(
-                  'images/no-image.jpg',
-                  fit: BoxFit.cover,
-                  width: 190,
-                  height: 150.0,
-                );
-              }),
+              child: widget.hotel.bannerImageId != null &&
+                      widget.hotel.bannerImageId!.isNotEmpty
+                  ? Image.network(
+                      widget.hotel.bannerImageId.toString(),
+                      width: 190,
+                      height: 130.0,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      'images/no-image.jpg',
+                      fit: BoxFit.cover,
+                      width: 190,
+                      height: 130.0,
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),

@@ -8,3 +8,9 @@ sealed class HotelEvent extends Equatable {
 }
 
 class GetAllHotels extends HotelEvent {}
+
+class GetDetailHotel extends HotelEvent {
+  final String slug;
+
+  const GetDetailHotel(this.slug);
+}

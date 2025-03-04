@@ -52,23 +52,20 @@ class _HotelsCardState extends State<HotelsCard> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      widget.hotel.bannerImageId != null &&
-                              widget.hotel.bannerImageId!.isNotEmpty
-                          ? widget.hotel.bannerImageId!
-                          : 'images/no-image.jpg',
-                      fit: BoxFit.cover,
-                      width: 100,
-                      height: 115,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          'images/no-image.jpg',
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 115,
-                        );
-                      },
-                    ),
+                    child: widget.hotel.bannerImageId != null &&
+                            widget.hotel.bannerImageId!.isNotEmpty
+                        ? Image.network(
+                            widget.hotel.bannerImageId.toString(),
+                            width: 100,
+                            height: 155,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'images/no-image.jpg',
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 155,
+                          ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(

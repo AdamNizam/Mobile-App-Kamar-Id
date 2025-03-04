@@ -24,9 +24,9 @@ class HotelService {
           jsonDecode(res.body)['data']
               .map((hotel) => HotelAllModel.fromJson(hotel)),
         );
+      } else {
+        throw jsonDecode(res.body)['message'];
       }
-
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }
@@ -47,9 +47,9 @@ class HotelService {
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(res.body);
         return HotelDetailModel.fromJson(data);
+      } else {
+        throw jsonDecode(res.body)['message'];
       }
-
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }

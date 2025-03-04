@@ -124,10 +124,6 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text1(text1: 'Recomended For You', size: 18),
-                    Text11(
-                      text2: 'See All',
-                      color: AppColors.tabColor,
-                    ),
                   ],
                 ),
               ),

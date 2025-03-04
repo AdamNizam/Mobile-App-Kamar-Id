@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hotelbookingapp/Models/hotel_all_model.dart';
+import 'package:hotelbookingapp/Models/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/hotel_service.dart';
 
 part 'hotel_event.dart';
@@ -16,13 +17,23 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             final hotels = await HotelService().gethAllHotels();
 
-            if (hotels.isNotEmpty) {
-              emit(HotelSuccess(hotels));
-            } else {
-              emit(const HotelFailed("Hotel is not available"));
-            }
-          } catch (e) {
-            emit(HotelFailed(e.toString()));
+            emit(HotelSuccess(hotels));
+
+            emit(const HotelFailed("Hotel is not available"));
+          } catch (error) {
+            emit(HotelFailed(error.toString()));
+          }
+        }
+
+        if (event is GetDetailHotel) {
+          try {
+            emit(HotelLoading());
+
+            final hotelDetail = await HotelService().getDetailHotel(event.slug);
+
+            emit(HotelDetailSuccess(hotelDetail));
+          } catch (error) {
+            emit(HotelFailed(error.toString()));
           }
         }
       },
