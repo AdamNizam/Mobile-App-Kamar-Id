@@ -36,6 +36,8 @@ class HotelDetailModel {
     this.reviewScore,
     this.extraPrice,
   });
+
+  // ✅ Factory method untuk konversi dari JSON ke Model
   factory HotelDetailModel.fromJson(Map<String, dynamic> json) {
     return HotelDetailModel(
       id: json['id'],
@@ -60,6 +62,29 @@ class HotelDetailModel {
           [],
     );
   }
+
+  // ✅ Tambahkan metode toJson()
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'slug': slug,
+      'content': content,
+      'imageId': imageId,
+      'bannerImageId': bannerImageId,
+      'locationId': locationId,
+      'address': address,
+      'mapLat': mapLat,
+      'mapLng': mapLng,
+      'mapZoom': mapZoom,
+      'price': price,
+      'checkInTime': checkInTime,
+      'checkOutTime': checkOutTime,
+      'status': status,
+      'reviewScore': reviewScore,
+      'extraPrice': extraPrice?.map((e) => e.toJson()).toList(),
+    };
+  }
 }
 
 class ExtraPrice {
@@ -75,5 +100,13 @@ class ExtraPrice {
       price: json['price'],
       type: json['type'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'price': price,
+      'type': type,
+    };
   }
 }

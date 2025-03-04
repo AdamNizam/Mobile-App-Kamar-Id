@@ -11,6 +11,8 @@ final class HotelInitial extends HotelState {}
 
 final class HotelLoading extends HotelState {}
 
+final class HotelDetailLoading extends HotelState {}
+
 final class HotelFailed extends HotelState {
   final String error;
 

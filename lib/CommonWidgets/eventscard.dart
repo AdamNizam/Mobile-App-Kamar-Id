@@ -24,8 +24,11 @@ class _EventsCardState extends State<EventsCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const HotelDetailsScreen()));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => HotelDetailsScreen(slug: widget.hotel.slug),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.all(5),

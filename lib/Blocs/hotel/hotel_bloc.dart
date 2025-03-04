@@ -18,22 +18,21 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
             final hotels = await HotelService().gethAllHotels();
 
             emit(HotelSuccess(hotels));
-
-            emit(const HotelFailed("Hotel is not available"));
           } catch (error) {
-            emit(HotelFailed(error.toString()));
+            // emit(HotelFailed(error.toString()));
+            emit(const HotelFailed('Terjandi Kesalahan'));
           }
         }
 
         if (event is GetDetailHotel) {
           try {
-            emit(HotelLoading());
+            emit(HotelDetailLoading());
 
             final hotelDetail = await HotelService().getDetailHotel(event.slug);
-
             emit(HotelDetailSuccess(hotelDetail));
           } catch (error) {
-            emit(HotelFailed(error.toString()));
+            // emit(HotelFailed(error.toString()));
+            emit(const HotelFailed('Terjadi Kesalahan'));
           }
         }
       },
