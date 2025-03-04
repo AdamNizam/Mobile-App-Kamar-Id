@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Models/hotel_all_model.dart';
 
 import '../Constants/colors.dart';
 import '../Screens/HomeScreen/details_screen.dart';
@@ -7,19 +8,11 @@ import '../Widgets/detailstext2.dart';
 import '../Widgets/text11.dart';
 
 class EventsCard extends StatefulWidget {
-  final String imageUrl;
-  final String title;
-  final String location;
-  final String date;
-  final String price;
+  final HotelAllModel hotel;
 
   const EventsCard({
     super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.location,
-    required this.date,
-    required this.price,
+    required this.hotel,
   });
 
   @override
@@ -35,6 +28,7 @@ class _EventsCardState extends State<EventsCard> {
             builder: (context) => const HotelDetailsScreen()));
       },
       child: Container(
+        margin: const EdgeInsets.all(10),
         width: 190,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -53,12 +47,22 @@ class _EventsCardState extends State<EventsCard> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                widget.imageUrl,
-                width: 190,
-                height: 150.0,
-                fit: BoxFit.cover,
-              ),
+              child: Image.network(
+                  widget.hotel.bannerImageId != null &&
+                          widget.hotel.bannerImageId!.isNotEmpty
+                      ? widget.hotel.bannerImageId!
+                      : 'images/no-image.jpg',
+                  width: 190,
+                  height: 150.0,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'images/no-image.jpg',
+                  fit: BoxFit.cover,
+                  width: 190,
+                  height: 150.0,
+                );
+              }),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -68,7 +72,7 @@ class _EventsCardState extends State<EventsCard> {
                   Row(
                     children: [
                       Text1(
-                        text1: widget.title,
+                        text1: widget.hotel.title.toString(),
                       ),
                       const Spacer(),
                       const Icon(
@@ -87,9 +91,13 @@ class _EventsCardState extends State<EventsCard> {
                         color: AppColors.tabColor,
                       ),
                       const SizedBox(width: 4.0),
-                      Text2(
-                        text2: widget.location,
-                      ),
+                      widget.hotel.address != null
+                          ? Expanded(
+                              child: Text2(
+                                text2: widget.hotel.address.toString(),
+                              ),
+                            )
+                          : const Text2(text2: 'Nothing'),
                     ],
                   ),
                   const SizedBox(
@@ -98,45 +106,55 @@ class _EventsCardState extends State<EventsCard> {
                   const SizedBox(height: 5.0),
                   Row(
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
-                            Icons.star,
-                            size: 20.0,
-                            color: AppColors.tabColor,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 20.0,
-                            color: AppColors.tabColor,
-                          ),
+                          widget.hotel.price != null
+                              ? Text1(
+                                  text1: "\$${widget.hotel.price.toString()}",
+                                  size: 18,
+                                  color: AppColors.tabColor,
+                                )
+                              : const Text1(
+                                  text1: '0',
+                                  size: 18,
+                                  color: AppColors.tabColor,
+                                ),
+                          const Text2(text2: '/night'),
                         ],
-                      ),
-                      Text2(
-                        text2: widget.date,
                       ),
                     ],
                   ),
                   const SizedBox(height: 5.0),
-                  const Row(
+                  Row(
                     children: [
-                      Text11(
+                      Row(
+                        children: List.generate(
+                          widget.hotel.starRate != null
+                              ? widget.hotel.starRate!.toInt()
+                              : 1,
+                          (index) => Icon(
+                            Icons.star,
+                            size: 20.0,
+                            color: index <
+                                    double.tryParse(
+                                        widget.hotel.reviewScore?.toString() ??
+                                            '0.0')!
+                                ? AppColors.tabColor
+                                : Colors.grey,
+                          ),
+                        ),
+                      ),
+                      widget.hotel.reviewScore != null
+                          ? Text2(text2: widget.hotel.reviewScore.toString())
+                          : const Text('0.0'),
+                      const Spacer(),
+                      const Text11(
                         text2: '10% Off',
                         color: AppColors.tabColor,
                       ),
-                      Spacer(),
-                      Row(
-                        children: [
-                          Text1(
-                            text1: '\$12.00',
-                            size: 18,
-                            color: AppColors.tabColor,
-                          ),
-                          Text2(text2: '/night')
-                        ],
-                      ),
                     ],
-                  )
+                  ),
+                  const SizedBox(height: 5.0),
                 ],
               ),
             ),

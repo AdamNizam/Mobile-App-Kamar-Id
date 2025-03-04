@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/CommonWidgets/hotelscard_widgnet.dart';
+import 'package:hotelbookingapp/CommonWidgets/eventscard.dart';
+import 'package:hotelbookingapp/CommonWidgets/hotelscard.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../../../CommonWidgets/address_widget.dart';
@@ -9,9 +10,7 @@ import '../../../../CommonWidgets/categories_widget.dart';
 import '../../../../CommonWidgets/home_widget.dart';
 import '../../../../Constants/colors.dart';
 import '../../../../Widgets/detailstext1.dart';
-import '../../../../Widgets/detailstext2.dart';
 import '../../../../Widgets/text11.dart';
-import '../../../CommonWidgets/eventscard.dart';
 import '../../../Widgets/drawer_widget.dart';
 import '../../CommonWidgets/search_widget.dart';
 import '../Categories/all_categories.dart';
@@ -55,9 +54,8 @@ class _HomePageState extends State<HomePage> {
                               const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text2(
-                                    text2: 'Your Location',
-                                    color: Colors.white,
+                                  SizedBox(
+                                    height: 10,
                                   ),
                                   AddressWidget(),
                                 ],
@@ -124,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text1(text1: 'Available Services', size: 18),
+                    Text1(text1: 'Recomended For You', size: 18),
                     Text11(
                       text2: 'See All',
                       color: AppColors.tabColor,
@@ -135,26 +133,33 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(2),
-                child: const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      EventsCard(
-                        imageUrl: 'images/AdventureHotels.jpg',
-                        title: 'AdventureHotels',
-                        location: 'USA 22 Street',
-                        date: '3.4',
-                        price: '\$35.00',
-                      ),
-                      SizedBox(width: 16.0),
-                      EventsCard(
-                        imageUrl: 'images/All-InclusiveHotels.jpg',
-                        title: 'InclusiveHotels',
-                        location: 'USA 22 Street',
-                        date: '3.4',
-                        price: '\$30.00',
-                      ),
-                    ],
+                child: BlocProvider(
+                  create: (context) => HotelBloc()..add(GetAllHotels()),
+                  child: BlocBuilder<HotelBloc, HotelState>(
+                    builder: (context, state) {
+                      if (state is HotelSuccess) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: state.hotels.map((hotel) {
+                              return EventsCard(hotel: hotel);
+                            }).toList(),
+                          ),
+                        );
+                      }
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3.0,
+                            backgroundColor: Colors.grey[300],
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                                AppColors.tabColor),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -179,8 +184,8 @@ class _HomePageState extends State<HomePage> {
                         if (state is HotelSuccess) {
                           return SingleChildScrollView(
                             child: Column(
-                              children: state.hotels.map((e) {
-                                return HotelsCard(hotel: e);
+                              children: state.hotels.map((hotel) {
+                                return HotelsCard(hotel: hotel);
                               }).toList(),
                             ),
                           );

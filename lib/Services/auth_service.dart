@@ -100,7 +100,6 @@ class AuthService {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data.toJson()),
       );
-      print('response ${res.body}');
 
       if (res.statusCode == 200) {
         return RegisterResponseResult.fromJson(jsonDecode(res.body));

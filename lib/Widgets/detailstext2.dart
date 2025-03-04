@@ -20,6 +20,8 @@ class Text2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text2,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: size,
         fontWeight: fontWeight, // Adjustable font weight

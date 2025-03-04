@@ -8,23 +8,24 @@ part 'hotel_state.dart';
 
 class HotelBloc extends Bloc<HotelEvent, HotelState> {
   HotelBloc() : super(HotelInitial()) {
-    on<GetAllHotels>(_getAllHotels); // ✅ Ganti dengan event spesifik
-  }
+    on<HotelEvent>(
+      (event, emit) async {
+        if (event is GetAllHotels) {
+          try {
+            emit(HotelLoading());
 
-  Future<void> _getAllHotels(
-      GetAllHotels event, Emitter<HotelState> emit) async {
-    try {
-      emit(HotelLoading());
-      final hotels = await HotelService().gethAllHotels();
+            final hotels = await HotelService().gethAllHotels();
 
-      if (hotels.isNotEmpty) {
-        emit(HotelSuccess(hotels));
-      } else {
-        emit(const HotelFailed("Hotel is not available"));
-      }
-    } catch (e) {
-      emit(const HotelFailed("Terjadi kesalahan"));
-      // print(e.toString());
-    }
+            if (hotels.isNotEmpty) {
+              emit(HotelSuccess(hotels));
+            } else {
+              emit(const HotelFailed("Hotel is not available"));
+            }
+          } catch (e) {
+            emit(HotelFailed(e.toString()));
+          }
+        }
+      },
+    );
   }
 }

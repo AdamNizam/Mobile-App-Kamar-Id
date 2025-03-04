@@ -54,28 +54,4 @@ class HotelAllModel {
       'review_score': reviewScore,
     };
   }
-
-  HotelAllModel copyWith({
-    int? id,
-    String? title,
-    String? slug,
-    String? imageId,
-    String? bannerImageId,
-    String? address,
-    double? starRate,
-    double? price,
-    double? reviewScore,
-  }) {
-    return HotelAllModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      slug: slug ?? this.slug,
-      imageId: imageId ?? this.imageId,
-      bannerImageId: bannerImageId ?? this.bannerImageId,
-      address: address ?? this.address,
-      starRate: starRate ?? this.starRate,
-      price: price ?? this.price,
-      reviewScore: reviewScore ?? this.reviewScore,
-    );
-  }
 }

@@ -56,13 +56,13 @@ class _HotelsCardState extends State<HotelsCard> {
                       widget.hotel.bannerImageId != null &&
                               widget.hotel.bannerImageId!.isNotEmpty
                           ? widget.hotel.bannerImageId!
-                          : 'images/All-InclusiveHotels.jpg',
+                          : 'images/no-image.jpg',
                       fit: BoxFit.cover,
                       width: 100,
                       height: 115,
                       errorBuilder: (context, error, stackTrace) {
                         return Image.asset(
-                          'images/All-InclusiveHotels.jpg',
+                          'images/no-image.jpg',
                           fit: BoxFit.cover,
                           width: 100,
                           height: 115,
