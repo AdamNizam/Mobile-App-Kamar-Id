@@ -142,6 +142,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     }
+
                     return Center(
                       child: LoadingAnimationWidget.staggeredDotsWave(
                         color: AppColors.tabColor,

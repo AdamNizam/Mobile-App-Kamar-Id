@@ -1,8 +1,13 @@
+import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
@@ -61,30 +66,148 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                         if (state is HotelFailed) {
                           showCustomSnackbar(context, state.error);
                         }
-                        if (state is HotelDetailSuccess) {
-                          showCustomSnackbar(context, 'Success Berhasil');
-                        }
                       });
+                      if (state is HotelDetailSuccess) {
+                        return SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Galeri gambar kecil
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GalleryImage(
+                                          imagePath:
+                                              'images/WaterfrontHotels.jpg',
+                                          isSelected: selectedImage ==
+                                              'images/WaterfrontHotels.jpg',
+                                          onTap: () {
+                                            setState(() {
+                                              selectedImage =
+                                                  'images/WaterfrontHotels.jpg';
+                                            });
+                                          }),
+                                      GalleryImage(
+                                          imagePath:
+                                              'images/Eco-FriendlyHotels.jpg',
+                                          isSelected: selectedImage ==
+                                              'images/Eco-FriendlyHotels.jpg',
+                                          onTap: () {
+                                            setState(() {
+                                              selectedImage =
+                                                  'images/Eco-FriendlyHotels.jpg';
+                                            });
+                                          }),
+                                      GalleryImage(
+                                          imagePath:
+                                              'images/AdventureHotels.jpg',
+                                          isSelected: selectedImage ==
+                                              'images/AdventureHotels.jpg',
+                                          onTap: () {
+                                            setState(() {
+                                              selectedImage =
+                                                  'images/AdventureHotels.jpg';
+                                            });
+                                          }),
+                                    ]),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text1(
+                                      text1: state.hotelDetail.title.toString(),
+                                      size: 17,
+                                    ),
+                                    const Icon(Icons.favorite_border,
+                                        color: Colors.red, size: 30),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.location_on,
+                                        size: 20, color: AppColors.tabColor),
+                                    const SizedBox(width: 8),
+                                    Text2(
+                                      text2:
+                                          state.hotelDetail.address.toString(),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
 
-                      if (state is HotelLoading) {
-                        return Center(
-                          child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: AppColors.tabColor,
-                            size: 50,
+                                // Rating dan Harga
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    RatingBar.readOnly(
+                                      initialRating: 4.8,
+                                      filledIcon: Icons.star,
+                                      emptyIcon: Icons.star_border,
+                                      filledColor: AppColors.tabColor,
+                                      size: 28,
+                                    ),
+                                    Text(
+                                      '\$150.00/night',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.buttonColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+
+                                // Deskripsi hotel
+                                const Text1(
+                                  text1: 'Hotel Description',
+                                  size: 17,
+                                ),
+                                const SizedBox(height: 10),
+                                HtmlWidget(
+                                  state.hotelDetail.content.toString(),
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+
+                                // Fasilitas utama
+                                const Text(
+                                  'Key Amenities:',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  '• Rooftop Pool\n'
+                                  '• Fine Dining Restaurant\n'
+                                  '• Spa & Wellness Center\n'
+                                  '• Free Wi-Fi\n'
+                                  '• 24/7 Room Service',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey),
+                                ),
+                                const SizedBox(
+                                    height: 100), // Spacer untuk tombol
+                              ],
+                            ),
                           ),
                         );
                       }
-
-                      if (state is HotelDetailSuccess) {
-                        return Center(
-                          child: Text(
-                              "Nama Hotel: ${state.hotelDetail.id} dan ${widget.slug}"), // ✅ Tampilkan data
-                        );
-                      }
-
-                      return const Center(
-                          child: Text(
-                              "Data tidak ditemukan")); // 🔥 Ditampilkan hanya jika tidak ada data sama sekali
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.tabColor,
+                          size: 50,
+                        ),
+                      );
                     },
                   ),
                 ),

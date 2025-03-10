@@ -57,14 +57,14 @@ class _HotelsCardState extends State<HotelsCard> {
                         ? Image.network(
                             widget.hotel.bannerImageId.toString(),
                             width: 100,
-                            height: 155,
+                            height: 113,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
                             'images/no-image.jpg',
                             fit: BoxFit.cover,
                             width: 100,
-                            height: 155,
+                            height: 113,
                           ),
                   ),
                   const SizedBox(width: 8),
@@ -98,7 +98,9 @@ class _HotelsCardState extends State<HotelsCard> {
                               widget.hotel.address != null
                                   ? Text2(
                                       text2: widget.hotel.address.toString())
-                                  : const Text2(text2: 'Nothing'),
+                                  : const Text2(
+                                      text2: 'Nothing',
+                                    ),
                               const Spacer(),
                             ],
                           ),
