@@ -1,3 +1,4 @@
+// Respone Login
 class LoginResponseResult {
   String? token;
 
@@ -8,6 +9,7 @@ class LoginResponseResult {
   }
 }
 
+// Respone Register
 class RegisterResponseResult {
   final int status;
   final Map<String, List<String>> message;
@@ -32,3 +34,5 @@ class RegisterResponseResult {
     };
   }
 }
+
+class UserProfileModel {}
