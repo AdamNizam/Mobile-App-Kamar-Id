@@ -49,7 +49,7 @@ dependencies:
   another_flushbar: ^1.12.30
   flutter_bloc: ^9.0.0
   video_player: ^2.7.2
-  flutter_widget_from_html: ^0.15.0
+  flutter_widget_from_html_core: ^0.14.9
   loading_animation_widget:
 
 dev_dependencies:

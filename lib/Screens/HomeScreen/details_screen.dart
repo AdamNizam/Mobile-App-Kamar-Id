@@ -1,7 +1,7 @@
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -139,11 +139,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 const SizedBox(height: 20),
 
                                 // Rating dan Harga
-                                const Row(
+                                Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    RatingBar.readOnly(
+                                    const RatingBar.readOnly(
                                       initialRating: 4.8,
                                       filledIcon: Icons.star,
                                       emptyIcon: Icons.star_border,
@@ -151,8 +151,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       size: 28,
                                     ),
                                     Text(
-                                      '\$150.00/night',
-                                      style: TextStyle(
+                                      '\$${state.hotelDetail.price.toString()}/night',
+                                      style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.buttonColor,
@@ -172,7 +172,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   state.hotelDetail.content.toString(),
                                   textStyle: const TextStyle(
                                     fontSize: 16,
-                                    color: Colors.grey,
                                   ),
                                 ),
                                 const SizedBox(height: 10),

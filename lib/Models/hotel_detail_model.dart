@@ -63,7 +63,6 @@ class HotelDetailModel {
     );
   }
 
-  // ✅ Tambahkan metode toJson()
   Map<String, dynamic> toJson() {
     return {
       'id': id,
