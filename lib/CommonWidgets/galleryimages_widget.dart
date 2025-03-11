@@ -21,11 +21,8 @@ class GalleryImage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Container(
           decoration: BoxDecoration(
-            // color: isSelected ? Colors.blueGrey[800] : Colors.transparent, // BG berubah saat dipilih
             border: Border.all(
-              color: isSelected
-                  ? AppColors.redAuburn
-                  : Colors.white, // Border berubah warna
+              color: isSelected ? AppColors.buttonColor : Colors.white,
               width: 3,
             ),
             borderRadius: BorderRadius.circular(10),

@@ -11,9 +11,6 @@ class HotelDetailModel {
   final String? mapLng;
   final int? mapZoom;
   final String? price;
-  final String? checkInTime;
-  final String? checkOutTime;
-  final String? status;
   final double? reviewScore;
   final List<ExtraPrice>? extraPrice;
 
@@ -30,33 +27,26 @@ class HotelDetailModel {
     this.mapLng,
     this.mapZoom,
     this.price,
-    this.checkInTime,
-    this.checkOutTime,
-    this.status,
     this.reviewScore,
     this.extraPrice,
   });
 
-  // ✅ Factory method untuk konversi dari JSON ke Model
   factory HotelDetailModel.fromJson(Map<String, dynamic> json) {
     return HotelDetailModel(
       id: json['id'],
       title: json['title'],
       slug: json['slug'],
       content: json['content'],
-      imageId: json['imageId'],
-      bannerImageId: json['bannerImageId'],
-      locationId: json['locationId'],
+      imageId: json['image_id'],
+      bannerImageId: json['banner_image_id'],
+      locationId: json['location_id'],
       address: json['address'],
-      mapLat: json['mapLat'],
-      mapLng: json['mapLng'],
-      mapZoom: json['mapZoom'],
+      mapLat: json['map_lat'],
+      mapLng: json['map_lng'],
+      mapZoom: json['map_zoom'],
       price: json['price'],
-      checkInTime: json['checkInTime'],
-      checkOutTime: json['checkOutTime'],
-      status: json['status'],
       reviewScore: (json['reviewScore'] as num?)?.toDouble(),
-      extraPrice: (json['extraPrice'] as List<dynamic>?)
+      extraPrice: (json['extra_price'] as List<dynamic>?)
               ?.map((e) => ExtraPrice.fromJson(e))
               .toList() ??
           [],
@@ -77,9 +67,6 @@ class HotelDetailModel {
       'mapLng': mapLng,
       'mapZoom': mapZoom,
       'price': price,
-      'checkInTime': checkInTime,
-      'checkOutTime': checkOutTime,
-      'status': status,
       'reviewScore': reviewScore,
       'extraPrice': extraPrice?.map((e) => e.toJson()).toList(),
     };

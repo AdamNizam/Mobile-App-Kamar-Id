@@ -50,8 +50,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       top: 40,
                       left: 16,
                       child: IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.white, size: 28),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 28,
+                        ),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -143,8 +146,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const RatingBar.readOnly(
-                                      initialRating: 4.8,
+                                    RatingBar.readOnly(
+                                      initialRating: state
+                                              .hotelDetail.reviewScore
+                                              ?.toDouble() ??
+                                          0.0,
                                       filledIcon: Icons.star,
                                       emptyIcon: Icons.star_border,
                                       filledColor: AppColors.tabColor,
@@ -168,34 +174,76 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   size: 17,
                                 ),
                                 const SizedBox(height: 10),
-                                HtmlWidget(
-                                  state.hotelDetail.content.toString(),
-                                  textStyle: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
+                                (state.hotelDetail.content != null &&
+                                        state.hotelDetail.content!.isNotEmpty)
+                                    ? HtmlWidget(
+                                        state.hotelDetail.content.toString(),
+                                        textStyle: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      )
+                                    : const Text(
+                                        'Description is not available',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
                                 const SizedBox(height: 10),
 
                                 // Fasilitas utama
                                 const Text(
-                                  'Key Amenities:',
+                                  'Fasilitas:',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                const Text(
-                                  '• Rooftop Pool\n'
-                                  '• Fine Dining Restaurant\n'
-                                  '• Spa & Wellness Center\n'
-                                  '• Free Wi-Fi\n'
-                                  '• 24/7 Room Service',
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.grey),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:
+                                      state.hotelDetail.extraPrice != null &&
+                                              state.hotelDetail.extraPrice!
+                                                  .isNotEmpty
+                                          ? state.hotelDetail.extraPrice!
+                                              .map((extra) {
+                                              return Text(
+                                                '• ${extra.name}: \$${extra.price}',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              );
+                                            }).toList()
+                                          : [
+                                              const Text(
+                                                'Fasilitas is not available',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ],
                                 ),
-                                const SizedBox(
-                                    height: 100), // Spacer untuk tombol
+
+                                const SizedBox(height: 20),
+
+                                Container(
+                                  height: 350,
+                                  width: 350,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 10,
+                                        spreadRadius: 2,
+                                        offset: Offset(2, 4),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 100),
                               ],
                             ),
                           ),
