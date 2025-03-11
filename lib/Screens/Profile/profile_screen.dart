@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
-import 'package:hotelbookingapp/Screens/Wallet/wallet_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';
 import '../Settings/settings_screen.dart';
 import 'HelpCenter/help_center.dart';
-import 'PaymentMethods/payment_methods.dart';
 import 'change_password.dart';
-import 'invite_friends.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -78,37 +75,15 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 ProfileRow(
                   leadingIcon: Icons.person, // Updated icon for profile
                   title: 'Your Profile',
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const UserInformation()));
-                  },
-                ),
-                ProfileRow(
-                  leadingIcon: Icons.person, // Updated icon for profile
-                  title: 'Wallet',
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const WalletScreen()));
-                  },
-                ),
-                ProfileRow(
-                  leadingIcon: Icons.person, // Updated icon for profile
-                  title: 'Invite Friends',
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => InviteFriendsScreen()));
-                  },
-                ),
-                ProfileRow(
-                  leadingIcon:
-                      Icons.credit_card, // Updated icon for payment methods
-                  title: 'Payment Methods',
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PaymentMethods()));
                   },
                 ),
                 ProfileRow(
@@ -151,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class ProfileRow extends StatelessWidget {
+class ProfileRow extends StatefulWidget {
   final IconData leadingIcon;
   final String title;
   final VoidCallback onTap;
@@ -164,9 +139,14 @@ class ProfileRow extends StatelessWidget {
   });
 
   @override
+  State<ProfileRow> createState() => _ProfileRowState();
+}
+
+class _ProfileRowState extends State<ProfileRow> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.symmetric(vertical: 3),
@@ -186,13 +166,13 @@ class ProfileRow extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              leadingIcon,
+              widget.leadingIcon,
               color: AppColors.tabColor,
             ),
             const SizedBox(width: 16),
             Expanded(
               child: Text(
-                title,
+                widget.title,
                 style: const TextStyle(fontSize: 16),
               ),
             ),

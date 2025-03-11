@@ -38,7 +38,7 @@ class RegisterResponseResult {
 }
 
 class UserProfileModel {
-  final Data data;
+  final DataProfile data;
   final Map<String, String> country;
   final int status;
 
@@ -55,7 +55,7 @@ class UserProfileModel {
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
       UserProfileModel(
-        data: Data.fromJson(json["data"]),
+        data: DataProfile.fromJson(json["data"]),
         country: Map.from(json["country"])
             .map((k, v) => MapEntry<String, String>(k, v)),
         status: json["status"],
@@ -69,7 +69,7 @@ class UserProfileModel {
       };
 }
 
-class Data {
+class DataProfile {
   final int id;
   final String name;
   final String firstName;
@@ -106,7 +106,7 @@ class Data {
   final DateTime otpExpiresAt;
   final String avatar;
 
-  Data({
+  DataProfile({
     required this.id,
     required this.name,
     required this.firstName,
@@ -144,11 +144,12 @@ class Data {
     required this.avatar,
   });
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+  factory DataProfile.fromRawJson(String str) =>
+      DataProfile.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DataProfile.fromJson(Map<String, dynamic> json) => DataProfile(
         id: json["id"],
         name: json["name"],
         firstName: json["first_name"],

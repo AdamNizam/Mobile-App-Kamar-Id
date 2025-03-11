@@ -3,12 +3,24 @@ import 'package:flutter/material.dart';
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
 import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import 'edit_profile.dart';
 
-
-class UserInformation extends StatelessWidget {
+class UserInformation extends StatefulWidget {
   const UserInformation({super.key});
+
+  @override
+  State<UserInformation> createState() => _UserInformationState();
+}
+
+class _UserInformationState extends State<UserInformation> {
+  final firstNameController = TextEditingController(text: '');
+  final lastNameController = TextEditingController(text: '');
+  final emailController = TextEditingController(text: '');
+  final phoneController = TextEditingController(text: '');
+  final streetAddressController = TextEditingController(text: '');
+  final cityController = TextEditingController(text: '');
+  final stateController = TextEditingController(text: '');
+  final zipCodeController = TextEditingController(text: '');
+  final countryController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -20,53 +32,16 @@ class UserInformation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.text3Color),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.arrow_back, color:Colors.black54, size: 20),
-                      ),
-                    ),
-                    const Text1(
-                      text1: 'User Info',
-                      size: 16,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const EditProfile())); // Navigate to EditProfile screen
-                      },
-                      child: const Text(
-                        'Edit',
-                        style: TextStyle(
-                          color: AppColors.buttonColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Center(
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage('images/c3.png'), // Example profile picture
+                        backgroundImage: AssetImage(
+                            'images/c3.png'), // Example profile picture
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -90,7 +65,6 @@ class UserInformation extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     const SizedBox(
                       height: 8,
                     ),
@@ -110,8 +84,7 @@ class UserInformation extends StatelessWidget {
                         icon: Icons.location_on, label: 'State'),
                     const CustomTextField(
                         icon: Icons.markunread_mailbox, label: 'Zip Code'),
-                    const CustomTextField(
-                        icon: Icons.flag, label: 'Country'),
+                    const CustomTextField(icon: Icons.flag, label: 'Country'),
                     const SizedBox(height: 15),
                     CustomButton(
                         text: 'Save Information',
