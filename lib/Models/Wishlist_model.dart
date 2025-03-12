@@ -38,10 +38,6 @@ class Datum {
   final int objectId;
   final String objectModel;
   final int userId;
-  final int createUser;
-  final dynamic updateUser;
-  final DateTime createdAt;
-  final DateTime updatedAt;
   final Service service;
 
   Datum({
@@ -49,10 +45,6 @@ class Datum {
     required this.objectId,
     required this.objectModel,
     required this.userId,
-    required this.createUser,
-    required this.updateUser,
-    required this.createdAt,
-    required this.updatedAt,
     required this.service,
   });
 
@@ -65,10 +57,6 @@ class Datum {
         objectId: json["object_id"],
         objectModel: json["object_model"],
         userId: json["user_id"],
-        createUser: json["create_user"],
-        updateUser: json["update_user"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
         service: Service.fromJson(json["service"]),
       );
 
@@ -77,10 +65,6 @@ class Datum {
         "object_id": objectId,
         "object_model": objectModel,
         "user_id": userId,
-        "create_user": createUser,
-        "update_user": updateUser,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
         "service": service.toJson(),
       };
 }

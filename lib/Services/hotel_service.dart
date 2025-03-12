@@ -14,7 +14,7 @@ class HotelService {
       final res = await http.get(
         Uri.parse('$baseUrl/hotel'),
         headers: {
-          'Authorization': token,
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       );

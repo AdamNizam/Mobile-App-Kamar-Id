@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../Constants/colors.dart';
-import '../../../Widgets/detailstext1.dart';
-import '../../../Widgets/detailstext2.dart';
 import '../../Models/hotel_model.dart';
-import '../../Widgets/text11.dart';
-import '../HomeScreen/details_screen.dart';
 
 class FavoriteHotels extends StatefulWidget {
   const FavoriteHotels({super.key});
@@ -111,149 +111,29 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                 ),
               ),
               const SizedBox(height: 8),
-              Expanded(
-                child: AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, child) {
-                    return ListView.builder(
-                      itemCount: products.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const HotelDetailsScreen()));
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.asset(
-                                          products[index].imagePath,
-                                          fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 90,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 12, top: 4, bottom: 4),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text1(
-                                                    text1: products[index].name,
-                                                  ),
-                                                  const Spacer(),
-                                                  const Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                    size: 20,
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(height: 5.0),
-                                              const Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.location_pin,
-                                                    size: 23.0,
-                                                    color: AppColors.tabColor,
-                                                  ),
-                                                  SizedBox(width: 4.0),
-                                                  Text2(
-                                                    text2: 'UK 32 Street',
-                                                  ),
-                                                  Spacer(),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        size: 20.0,
-                                                        color:
-                                                            AppColors.tabColor,
-                                                      ),
-                                                      Icon(
-                                                        Icons.star,
-                                                        size: 20.0,
-                                                        color:
-                                                            AppColors.tabColor,
-                                                      ),
-                                                      Icon(
-                                                        Icons.star,
-                                                        size: 20.0,
-                                                        color:
-                                                            AppColors.tabColor,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(width: 4.0),
-                                                  Text2(
-                                                    text2: '4.5',
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 5.0),
-                                              const Row(
-                                                children: [
-                                                  Text11(
-                                                    text2: '10% Off',
-                                                    color: AppColors.tabColor,
-                                                  ),
-                                                  Spacer(),
-                                                  Row(
-                                                    children: [
-                                                      Text1(
-                                                        text1: '\$12.00',
-                                                        size: 18,
-                                                        color:
-                                                            AppColors.tabColor,
-                                                      ),
-                                                      Text2(text2: '/night')
-                                                    ],
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
+              Container(
+                padding: const EdgeInsets.all(2),
+                child: BlocListener<UserBloc, UserState>(
+                  listener: (context, state) {
+                    if (state is UserFailed) {
+                      showCustomSnackbar(context, state.error);
+                    }
                   },
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: (context, state) {
+                      if (state is UserSuccess) {
+                        return const SingleChildScrollView(
+                          child: Column(children: [Text('data berhasil')]),
+                        );
+                      }
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.tabColor,
+                          size: 30,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
