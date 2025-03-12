@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Models/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/hotel_service.dart';
