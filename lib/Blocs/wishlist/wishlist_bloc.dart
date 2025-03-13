@@ -18,7 +18,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           emit(WishlistSuccess(wishlist));
         } catch (e) {
           emit(const WishlistFailed('Terjadi Kesalahan'));
-          print('pesan kesalahan : $e');
+          // print('pesan kesalahan : $e');
         }
       }
     });

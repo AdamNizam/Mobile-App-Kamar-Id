@@ -31,7 +31,6 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
             final hotelDetail = await HotelService().getDetailHotel(event.slug);
             emit(HotelDetailSuccess(hotelDetail));
           } catch (error) {
-            // emit(HotelFailed(error.toString()));
             emit(const HotelFailed('Terjadi Kesalahan'));
           }
         }
