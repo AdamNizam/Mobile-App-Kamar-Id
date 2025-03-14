@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
-import '../../Constants/colors.dart';
 import '../Settings/settings_screen.dart';
 import 'HelpCenter/help_center.dart';
 import 'change_password.dart';
@@ -27,59 +27,51 @@ class ProfileScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return Center(
-              child: SizedBox(
-                width: 80,
-                height: 80,
-                child: CircularProgressIndicator(
-                  strokeWidth: 4.0,
-                  backgroundColor: Colors.grey[300],
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
-                ),
-              ),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
           return SafeArea(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 const Center(
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundImage:
-                        AssetImage('images/c3.png'), // Example profile picture
+                    backgroundImage: AssetImage('images/c3.png'),
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Center(
-                  child: Text(
-                    'John Doe', // Example username
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.text1Color,
-                    ),
-                  ),
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) {
+                    if (state is UserLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (state is UserFailed) {
+                      return Center(child: Text(': ${state.error}'));
+                    }
+                    if (state is UserSuccess) {
+                      return Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          Text(
+                            state.userProfile.name,
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            state.userProfile.email,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      );
+                    }
+                    return const Center(child: Text("Tidak ada data pengguna"));
+                  },
                 ),
-                const SizedBox(height: 4),
-                const Center(
-                  child: Text(
-                    'john.doe@example.com', // Example email
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.text2Color,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 ProfileRow(
-                  leadingIcon: Icons.person, // Updated icon for profile
+                  leadingIcon: Icons.person,
                   title: 'Your Profile',
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -87,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileRow(
-                  leadingIcon: Icons.lock, // Updated icon for change password
+                  leadingIcon: Icons.lock,
                   title: 'Change Password',
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -95,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileRow(
-                  leadingIcon: Icons.settings, // Updated icon for settings
+                  leadingIcon: Icons.settings,
                   title: 'Settings',
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -103,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileRow(
-                  leadingIcon: Icons.help, // Updated icon for help center
+                  leadingIcon: Icons.help,
                   title: 'Help Center',
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -111,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileRow(
-                  leadingIcon: Icons.logout, // Updated icon for help center
+                  leadingIcon: Icons.logout,
                   title: 'Logout',
                   onTap: () {
                     context.read<AuthBloc>().add(AuthLogout());
@@ -121,68 +113,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class ProfileRow extends StatefulWidget {
-  final IconData leadingIcon;
-  final String title;
-  final VoidCallback onTap;
-
-  const ProfileRow({
-    required this.leadingIcon,
-    required this.title,
-    required this.onTap,
-    super.key,
-  });
-
-  @override
-  State<ProfileRow> createState() => _ProfileRowState();
-}
-
-class _ProfileRowState extends State<ProfileRow> {
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.onTap,
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 3),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Icon(
-              widget.leadingIcon,
-              color: AppColors.tabColor,
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                widget.title,
-                style: const TextStyle(fontSize: 16),
-              ),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: AppColors.tabColor,
-            ),
-          ],
-        ),
       ),
     );
   }

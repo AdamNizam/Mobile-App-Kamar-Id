@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 // Respone Login
 class LoginResponseResult {
   String? token;
@@ -37,73 +35,41 @@ class RegisterResponseResult {
   }
 }
 
-class UserProfileModel {
-  final DataProfile data;
-  final Map<String, String> country;
-  final int status;
-
-  UserProfileModel({
-    required this.data,
-    required this.country,
-    required this.status,
-  });
-
-  factory UserProfileModel.fromRawJson(String str) =>
-      UserProfileModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
-      UserProfileModel(
-        data: DataProfile.fromJson(json["data"]),
-        country: Map.from(json["country"])
-            .map((k, v) => MapEntry<String, String>(k, v)),
-        status: json["status"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
-        "country":
-            Map.from(country).map((k, v) => MapEntry<String, dynamic>(k, v)),
-        "status": status,
-      };
-}
-
 class DataProfile {
   final int id;
   final String name;
   final String firstName;
   final String lastName;
   final String email;
-  final DateTime emailVerifiedAt;
-  final dynamic twoFactorSecret;
-  final dynamic twoFactorRecoveryCodes;
-  final dynamic address;
-  final dynamic address2;
+  final DateTime? emailVerifiedAt;
+  final String? twoFactorSecret;
+  final String? twoFactorRecoveryCodes;
+  final String? address;
+  final String? address2;
   final String phone;
-  final DateTime birthday;
-  final dynamic city;
-  final dynamic state;
-  final String country;
-  final dynamic zipCode;
-  final dynamic lastLoginAt;
-  final dynamic avatarId;
-  final String bio;
+  final DateTime? birthday;
+  final String? city;
+  final String? state;
+  final String? country;
+  final String? zipCode;
+  final String? lastLoginAt;
+  final String? avatarId;
+  final String? bio;
   final String status;
-  final dynamic paymentGateway;
-  final dynamic totalGuests;
-  final dynamic locale;
-  final String businessName;
-  final dynamic verifySubmitStatus;
-  final dynamic isVerified;
+  final String? paymentGateway;
+  final String? totalGuests;
+  final String? locale;
+  final String? businessName;
+  final String? verifySubmitStatus;
+  final String? isVerified;
   final int activeStatus;
   final int darkMode;
   final String messengerColor;
-  final dynamic stripeCustomerId;
-  final dynamic totalBeforeFees;
-  final String userName;
-  final String otpCode;
-  final DateTime otpExpiresAt;
+  final String? stripeCustomerId;
+  final String? totalBeforeFees;
+  final String? userName;
+  final String? otpCode;
+  final DateTime? otpExpiresAt;
   final String avatar;
 
   DataProfile({
@@ -112,56 +78,55 @@ class DataProfile {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.emailVerifiedAt,
-    required this.twoFactorSecret,
-    required this.twoFactorRecoveryCodes,
-    required this.address,
-    required this.address2,
+    this.emailVerifiedAt,
+    this.twoFactorSecret,
+    this.twoFactorRecoveryCodes,
+    this.address,
+    this.address2,
     required this.phone,
-    required this.birthday,
-    required this.city,
-    required this.state,
-    required this.country,
-    required this.zipCode,
-    required this.lastLoginAt,
-    required this.avatarId,
-    required this.bio,
+    this.birthday,
+    this.city,
+    this.state,
+    this.country,
+    this.zipCode,
+    this.lastLoginAt,
+    this.avatarId,
+    this.bio,
     required this.status,
-    required this.paymentGateway,
-    required this.totalGuests,
-    required this.locale,
-    required this.businessName,
-    required this.verifySubmitStatus,
-    required this.isVerified,
+    this.paymentGateway,
+    this.totalGuests,
+    this.locale,
+    this.businessName,
+    this.verifySubmitStatus,
+    this.isVerified,
     required this.activeStatus,
     required this.darkMode,
     required this.messengerColor,
-    required this.stripeCustomerId,
-    required this.totalBeforeFees,
-    required this.userName,
-    required this.otpCode,
-    required this.otpExpiresAt,
+    this.stripeCustomerId,
+    this.totalBeforeFees,
+    this.userName,
+    this.otpCode,
+    this.otpExpiresAt,
     required this.avatar,
   });
 
-  factory DataProfile.fromRawJson(String str) =>
-      DataProfile.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory DataProfile.fromJson(Map<String, dynamic> json) => DataProfile(
         id: json["id"],
-        name: json["name"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        email: json["email"],
-        emailVerifiedAt: DateTime.parse(json["email_verified_at"]),
+        name: json["name"] ?? "",
+        firstName: json["first_name"] ?? "",
+        lastName: json["last_name"] ?? "",
+        email: json["email"] ?? "",
+        emailVerifiedAt: json["email_verified_at"] != null
+            ? DateTime.tryParse(json["email_verified_at"])
+            : null,
         twoFactorSecret: json["two_factor_secret"],
         twoFactorRecoveryCodes: json["two_factor_recovery_codes"],
         address: json["address"],
         address2: json["address2"],
-        phone: json["phone"],
-        birthday: DateTime.parse(json["birthday"]),
+        phone: json["phone"] ?? "",
+        birthday: json["birthday"] != null
+            ? DateTime.tryParse(json["birthday"])
+            : null,
         city: json["city"],
         state: json["state"],
         country: json["country"],
@@ -169,22 +134,24 @@ class DataProfile {
         lastLoginAt: json["last_login_at"],
         avatarId: json["avatar_id"],
         bio: json["bio"],
-        status: json["status"],
+        status: json["status"] ?? "unknown",
         paymentGateway: json["payment_gateway"],
         totalGuests: json["total_guests"],
         locale: json["locale"],
         businessName: json["business_name"],
         verifySubmitStatus: json["verify_submit_status"],
         isVerified: json["is_verified"],
-        activeStatus: json["active_status"],
-        darkMode: json["dark_mode"],
-        messengerColor: json["messenger_color"],
+        activeStatus: json["active_status"] ?? 0,
+        darkMode: json["dark_mode"] ?? 0,
+        messengerColor: json["messenger_color"] ?? "#000000",
         stripeCustomerId: json["stripe_customer_id"],
         totalBeforeFees: json["total_before_fees"],
         userName: json["user_name"],
         otpCode: json["otp_code"],
-        otpExpiresAt: DateTime.parse(json["otp_expires_at"]),
-        avatar: json["avatar"],
+        otpExpiresAt: json["otp_expires_at"] != null
+            ? DateTime.tryParse(json["otp_expires_at"])
+            : null,
+        avatar: json["avatar"] ?? "default.png",
       );
 
   Map<String, dynamic> toJson() => {
@@ -193,14 +160,13 @@ class DataProfile {
         "first_name": firstName,
         "last_name": lastName,
         "email": email,
-        "email_verified_at": emailVerifiedAt.toIso8601String(),
+        "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "two_factor_secret": twoFactorSecret,
         "two_factor_recovery_codes": twoFactorRecoveryCodes,
         "address": address,
         "address2": address2,
         "phone": phone,
-        "birthday":
-            "${birthday.year.toString().padLeft(4, '0')}-${birthday.month.toString().padLeft(2, '0')}-${birthday.day.toString().padLeft(2, '0')}",
+        "birthday": birthday?.toIso8601String(),
         "city": city,
         "state": state,
         "country": country,
@@ -222,7 +188,7 @@ class DataProfile {
         "total_before_fees": totalBeforeFees,
         "user_name": userName,
         "otp_code": otpCode,
-        "otp_expires_at": otpExpiresAt.toIso8601String(),
+        "otp_expires_at": otpExpiresAt?.toIso8601String(),
         "avatar": avatar,
       };
 }

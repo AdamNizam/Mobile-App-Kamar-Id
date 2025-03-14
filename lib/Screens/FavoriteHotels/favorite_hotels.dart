@@ -83,8 +83,8 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                         children: [
                           Image(
                             image: AssetImage('images/no-data.png'),
-                            width: 150, // Sesuaikan ukuran gambar
-                            height: 150,
+                            width: 250, // Sesuaikan ukuran gambar
+                            height: 300,
                             fit: BoxFit
                                 .cover, // Mengatur cara gambar ditampilkan
                           ),

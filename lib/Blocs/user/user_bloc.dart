@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           emit(UserSuccess(userProfile));
         } catch (e) {
           emit(const UserFailed('Terjadi Kesalahan'));
-          // print('pesan kesalahan: $e');
+          print('pesan kesalahan: $e');
         }
       }
     });
