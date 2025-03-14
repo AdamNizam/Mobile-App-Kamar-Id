@@ -21,7 +21,7 @@ final class BookingHistoryFailed extends BookingState {
 }
 
 final class BookingHistorySuccess extends BookingState {
-  final List<BookingHistoryModel> bookingHistory;
+  final List<Datum> bookingHistory;
 
   const BookingHistorySuccess(this.bookingHistory);
 

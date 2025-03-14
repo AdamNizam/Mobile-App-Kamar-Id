@@ -45,120 +45,149 @@ class _EventsCardState extends State<EventsCard> {
             ),
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: widget.hotel.bannerImageId != null &&
-                      widget.hotel.bannerImageId!.isNotEmpty
-                  ? Image.network(
-                      widget.hotel.bannerImageId.toString(),
-                      width: 190,
-                      height: 130.0,
-                      fit: BoxFit.cover,
-                    )
-                  : Image.asset(
-                      'images/no-image.jpg',
-                      fit: BoxFit.cover,
-                      width: 190,
-                      height: 130.0,
-                    ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text1(
-                        text1: widget.hotel.title.toString(),
-                      ),
-                      const Spacer(),
-                      const Icon(
-                        Icons.favorite_border,
-                        color: Colors.red,
-                        size: 20,
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 5.0),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_pin,
-                        size: 23.0,
-                        color: AppColors.tabColor,
-                      ),
-                      const SizedBox(width: 4.0),
-                      widget.hotel.address != null
-                          ? Expanded(
-                              child: Text2(
-                                text2: widget.hotel.address.toString(),
-                              ),
-                            )
-                          : const Text2(text2: 'Nothing'),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  const SizedBox(height: 5.0),
-                  Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: widget.hotel.bannerImageId != null &&
+                          widget.hotel.bannerImageId!.isNotEmpty
+                      ? Image.network(
+                          widget.hotel.bannerImageId.toString(),
+                          width: 190,
+                          height: 130.0,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          'images/no-image.jpg',
+                          fit: BoxFit.cover,
+                          width: 190,
+                          height: 130.0,
+                        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          widget.hotel.price != null
-                              ? Text1(
-                                  text1: "\$${widget.hotel.price.toString()}",
-                                  size: 18,
-                                  color: AppColors.tabColor,
-                                )
-                              : const Text1(
-                                  text1: '0',
-                                  size: 18,
-                                  color: AppColors.tabColor,
-                                ),
-                          const Text2(text2: '/night'),
+                          Text1(
+                            text1: widget.hotel.title.toString(),
+                          ),
+                          const Spacer(),
+                          const Icon(
+                            Icons.favorite_border,
+                            color: Colors.red,
+                            size: 20,
+                          )
                         ],
                       ),
+                      const SizedBox(height: 5.0),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_pin,
+                            size: 23.0,
+                            color: AppColors.tabColor,
+                          ),
+                          const SizedBox(width: 4.0),
+                          widget.hotel.address != null
+                              ? Expanded(
+                                  child: Text2(
+                                    text2: widget.hotel.address.toString(),
+                                  ),
+                                )
+                              : const Text2(text2: 'Nothing'),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      const SizedBox(height: 5.0),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              widget.hotel.price != null
+                                  ? Text1(
+                                      text1:
+                                          "\$${widget.hotel.price.toString()}",
+                                      size: 18,
+                                      color: AppColors.tabColor,
+                                    )
+                                  : const Text1(
+                                      text1: '0',
+                                      size: 18,
+                                      color: AppColors.tabColor,
+                                    ),
+                              const Text2(text2: '/night'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5.0),
+                      Row(
+                        children: [
+                          Row(
+                            children: List.generate(
+                              widget.hotel.starRate != null
+                                  ? widget.hotel.starRate!.toInt()
+                                  : 1,
+                              (index) => Icon(
+                                Icons.star,
+                                size: 20.0,
+                                color: index <
+                                        double.tryParse(widget.hotel.reviewScore
+                                                ?.toString() ??
+                                            '0.0')!
+                                    ? AppColors.tabColor
+                                    : Colors.grey,
+                              ),
+                            ),
+                          ),
+                          widget.hotel.reviewScore != null
+                              ? Text2(
+                                  text2: widget.hotel.reviewScore.toString())
+                              : const Text('0.0'),
+                          const Spacer(),
+                          Text11(
+                            text2:
+                                '10% Off ${widget.hotel.isFeatured.toString()}',
+                            color: AppColors.tabColor,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5.0),
                     ],
                   ),
-                  const SizedBox(height: 5.0),
-                  Row(
-                    children: [
-                      Row(
-                        children: List.generate(
-                          widget.hotel.starRate != null
-                              ? widget.hotel.starRate!.toInt()
-                              : 1,
-                          (index) => Icon(
-                            Icons.star,
-                            size: 20.0,
-                            color: index <
-                                    double.tryParse(
-                                        widget.hotel.reviewScore?.toString() ??
-                                            '0.0')!
-                                ? AppColors.tabColor
-                                : Colors.grey,
-                          ),
+                ),
+              ],
+            ),
+            (widget.hotel.isFeatured == 1)
+                ? Positioned(
+                    top: 5,
+                    left: 5,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.redAwesome,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text(
+                        'Featured',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      widget.hotel.reviewScore != null
-                          ? Text2(text2: widget.hotel.reviewScore.toString())
-                          : const Text('0.0'),
-                      const Spacer(),
-                      const Text11(
-                        text2: '10% Off',
-                        color: AppColors.tabColor,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5.0),
-                ],
-              ),
-            ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

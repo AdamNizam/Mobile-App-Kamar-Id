@@ -50,22 +50,47 @@ class _HotelsCardState extends State<HotelsCard> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: widget.hotel.bannerImageId != null &&
-                            widget.hotel.bannerImageId!.isNotEmpty
-                        ? Image.network(
-                            widget.hotel.bannerImageId.toString(),
-                            width: 100,
-                            height: 113,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            'images/no-image.jpg',
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 113,
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: widget.hotel.bannerImageId != null &&
+                                widget.hotel.bannerImageId!.isNotEmpty
+                            ? Image.network(
+                                widget.hotel.bannerImageId.toString(),
+                                width: 100,
+                                height: 113,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                'images/no-image.jpg',
+                                fit: BoxFit.cover,
+                                width: 100,
+                                height: 113,
+                              ),
+                      ),
+                      if (widget.hotel.isFeatured == 1)
+                        Positioned(
+                          top: 5,
+                          left: 5,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: AppColors.redAwesome,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Text(
+                              'Featured',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
                           ),
+                        ),
+                    ],
                   ),
                   const SizedBox(width: 8),
                   Expanded(

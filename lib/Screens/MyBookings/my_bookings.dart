@@ -1,122 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/upcoming.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 
-import '../../../Constants/colors.dart';
-import '../../../Widgets/detailstext1.dart';
 import 'cancelledbooking.dart';
 import 'completed_bookings.dart';
 
-class MyBookingsScreen extends StatefulWidget {
+class MyBookingsScreen extends StatelessWidget {
   const MyBookingsScreen({super.key});
 
   @override
-  State<MyBookingsScreen> createState() => _MyBookingsScreenState();
-}
-
-class _MyBookingsScreenState extends State<MyBookingsScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              TabBar(
-                controller: _tabController,
-                indicator: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.bgColor,
-                      width: 2.0,
-                    ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                _buildTabBar(),
+                const SizedBox(height: 5),
+                const Expanded(
+                  child: TabBarView(
+                    children: [
+                      CompletedBooking(),
+                      CancelledBooking(),
+                    ],
                   ),
                 ),
-                tabs: [
-                  Tab(
-                    child: Container(
-                      height: 40,
-                      width: 170,
-                      decoration: BoxDecoration(
-                        color: _tabController.index == 0
-                            ? AppColors.tabColor
-                            : const Color(0xff8C8C8C),
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      child: const Center(
-                        child: Text1(
-                          text1: 'Upcoming',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 40,
-                      width: 170,
-                      decoration: BoxDecoration(
-                        color: _tabController.index == 1
-                            ? AppColors.tabColor
-                            : const Color(0xff8C8C8C),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: const Center(
-                        child: Text1(
-                          text1: 'Completed',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Tab(
-                    child: Container(
-                      height: 40,
-                      width: 170,
-                      decoration: BoxDecoration(
-                        color: _tabController.index == 2
-                            ? AppColors.tabColor
-                            : const Color(0xff8C8C8C),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: const Center(
-                        child: Text1(
-                          text1: 'Cancelled',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    UpcomingBooking(),
-                    CompletedBooking(),
-                    CancelledBooking(),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTabBar() {
+    return Container(
+      height: 45,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: TabBar(
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        labelColor: AppColors.tabColor,
+        labelStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: AppColors.tabColor,
+        ), // Ukuran teks aktif
+        unselectedLabelStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400), // Ukuran teks tidak aktif
+        tabs: const [
+          Tab(text: 'Completed'),
+          Tab(text: 'Cancelled'),
+        ],
       ),
     );
   }

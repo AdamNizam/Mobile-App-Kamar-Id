@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class BookingService {
-  Future<List<BookingHistoryModel>> getBookingHistory() async {
+  Future<List<Datum>> getBookingHistory() async {
     try {
       final token = await AuthService().getToken();
 
@@ -25,9 +25,9 @@ class BookingService {
           throw 'Data booking history tidak ditemukan';
         }
 
-        return List<BookingHistoryModel>.from(
+        return List<Datum>.from(
           jsonData['data'].map(
-            (booking) => BookingHistoryModel.fromJson(booking),
+            (booking) => Datum.fromJson(booking),
           ),
         );
       }

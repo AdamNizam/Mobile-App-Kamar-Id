@@ -75,7 +75,7 @@ class Service {
   final String price;
   final dynamic salePrice;
   final dynamic discountPercent;
-  final bool image;
+  final String image;
   final String? content;
   final Location location;
   final int? isFeatured;

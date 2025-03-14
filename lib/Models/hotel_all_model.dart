@@ -5,6 +5,7 @@ class HotelAllModel {
   final String? imageId;
   final String? bannerImageId;
   final String? address;
+  final int? isFeatured;
   final double? starRate;
   final double? price;
   final double? reviewScore;
@@ -17,6 +18,7 @@ class HotelAllModel {
     this.bannerImageId,
     this.address,
     this.starRate,
+    this.isFeatured,
     this.price,
     this.reviewScore,
   });
@@ -27,6 +29,7 @@ class HotelAllModel {
       title: json['title'] as String?,
       slug: json['slug'] as String?,
       imageId: json['image_id'] as String?,
+      isFeatured: json['is_featured'] as int?,
       bannerImageId: json['banner_image_id'] as String?,
       address: json['address'] as String?,
       starRate: json['star_rate'] != null
@@ -50,6 +53,7 @@ class HotelAllModel {
       'banner_image_id': bannerImageId,
       'address': address,
       'star_rate': starRate,
+      'is_featured': isFeatured,
       'price': price,
       'review_score': reviewScore,
     };

@@ -18,7 +18,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
           emit(BookingHistorySuccess(bookingHistory));
         } catch (e) {
           emit(const BookingHistoryFailed('Terjadi Kesalahan'));
-          print('pesan kesalahannya: $e');
+          print('pesan booking kesalahannya: $e');
         }
       }
     });
