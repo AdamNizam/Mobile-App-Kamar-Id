@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Models/sign_in_form_model.dart';
-import 'package:hotelbookingapp/Models/sign_up_form_model.dart';
-import 'package:hotelbookingapp/Models/user_model.dart';
+import 'package:hotelbookingapp/Models/user/sign_in_form_model.dart';
+import 'package:hotelbookingapp/Models/user/sign_up_form_model.dart';
+import 'package:hotelbookingapp/Models/user/user_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 
 part 'auth_event.dart';

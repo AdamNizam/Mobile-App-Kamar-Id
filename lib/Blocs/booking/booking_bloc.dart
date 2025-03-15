@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Models/booking_history_model.dart';
+import 'package:hotelbookingapp/Models/booking/booking_history_model.dart';
 import 'package:hotelbookingapp/Services/booking_service.dart';
 
 part 'booking_event.dart';

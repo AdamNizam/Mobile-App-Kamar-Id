@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Models/user_model.dart';
+import 'package:hotelbookingapp/Models/user/user_model.dart';
 import 'package:hotelbookingapp/Services/user_service.dart';
 
 part 'user_event.dart';

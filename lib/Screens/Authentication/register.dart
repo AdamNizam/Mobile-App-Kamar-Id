@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
-import 'package:hotelbookingapp/Models/sign_up_form_model.dart';
+import 'package:hotelbookingapp/Models/user/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';

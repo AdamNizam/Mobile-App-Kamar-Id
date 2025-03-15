@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/hotel_all_model.dart';
+import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
 
 import '../Constants/colors.dart';
 import '../Screens/HomeScreen/details_screen.dart';

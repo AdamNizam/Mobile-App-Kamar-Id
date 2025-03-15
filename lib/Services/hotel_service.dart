@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/hotel_all_model.dart';
-import 'package:hotelbookingapp/Models/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
+import 'package:hotelbookingapp/Models/hotel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;

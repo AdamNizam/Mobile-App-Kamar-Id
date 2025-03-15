@@ -134,8 +134,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         size: 20, color: AppColors.tabColor),
                                     const SizedBox(width: 8),
                                     Text2(
-                                      text2:
-                                          state.hotelDetail.address.toString(),
+                                      text2: state.hotelDetail.location?.name
+                                              .toString() ??
+                                          'Location not available',
                                     ),
                                   ],
                                 ),
@@ -209,7 +210,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           ? state.hotelDetail.extraPrice!
                                               .map((extra) {
                                               return Text(
-                                                '• ${extra.name}: \$${extra.price}',
+                                                '• ${extra.name} + ${extra.price} ',
                                                 style: const TextStyle(
                                                   fontSize: 16,
                                                 ),
@@ -226,39 +227,67 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 const Text(
-                                  'Buyer Fees',
+                                  'Service Fee',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(
-                                  'Buyer Fees : ${state.hotelDetail}',
-                                  style: const TextStyle(fontSize: 16),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:
+                                      state.hotelDetail.serviceFee != null &&
+                                              state.hotelDetail.serviceFee!
+                                                  .isNotEmpty
+                                          ? state.hotelDetail.serviceFee!
+                                              .map((extra) {
+                                              return Text(
+                                                '• ${extra.name} + ${extra.price} + ${extra.desc} + ${extra.unit}',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              );
+                                            }).toList()
+                                          : [
+                                              const Text(
+                                                'Service Fee is not available',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ],
                                 ),
+                                const SizedBox(height: 10),
                                 const Text(
-                                  'service Fee',
+                                  'Offer',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Text(
-                                  'Service Fee : ${state.hotelDetail}',
-                                  style: const TextStyle(fontSize: 16),
                                 ),
 
-                                const Text(
-                                  'Location Category',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: state.hotelDetail.offer != null &&
+                                          state.hotelDetail.offer!.isNotEmpty
+                                      ? state.hotelDetail.offer!.map((offer) {
+                                          return Text(
+                                            '• ${offer.breakfastType} • ${offer.cancelPolicy}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          );
+                                        }).toList()
+                                      : [
+                                          const Text(
+                                            'Buffer is not available',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
                                 ),
-                                Text(
-                                  'Location Category : ${state.hotelDetail}',
-                                  style: const TextStyle(fontSize: 16),
-                                ),
+                                const SizedBox(height: 10),
 
                                 const SizedBox(height: 20),
                                 Container(
