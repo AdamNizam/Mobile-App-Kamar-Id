@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
 import 'HelpCenter/help_center.dart';
@@ -44,7 +46,12 @@ class ProfileScreen extends StatelessWidget {
                 BlocBuilder<UserBloc, UserState>(
                   builder: (context, state) {
                     if (state is UserLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.tabColor,
+                          size: 30,
+                        ),
+                      );
                     }
                     if (state is UserFailed) {
                       return Center(child: Text(': ${state.error}'));

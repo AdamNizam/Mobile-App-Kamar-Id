@@ -3,14 +3,10 @@ import 'dart:convert';
 class BookingHistoryModel {
   final List<Datum> data;
   final int total;
-  final int maxPages;
-  final int status;
 
   BookingHistoryModel({
     required this.data,
     required this.total,
-    required this.maxPages,
-    required this.status,
   });
 
   factory BookingHistoryModel.fromRawJson(String str) =>
@@ -22,15 +18,11 @@ class BookingHistoryModel {
       BookingHistoryModel(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         total: json["total"],
-        maxPages: json["max_pages"],
-        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "total": total,
-        "max_pages": maxPages,
-        "status": status,
       };
 }
 

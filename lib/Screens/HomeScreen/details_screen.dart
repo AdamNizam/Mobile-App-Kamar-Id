@@ -189,11 +189,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           color: Colors.black54,
                                         ),
                                       ),
-                                const SizedBox(height: 10),
-
-                                // Fasilitas utama
+                                const SizedBox(
+                                  height: 20,
+                                ),
                                 const Text(
-                                  'Fasilitas:',
+                                  'Extra Price',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -217,16 +217,50 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                             }).toList()
                                           : [
                                               const Text(
-                                                'Fasilitas is not available',
+                                                'Extra Price is not available',
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                 ),
                                               ),
                                             ],
                                 ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Buyer Fees',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Buyer Fees : ${state.hotelDetail}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                const Text(
+                                  'service Fee',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Service Fee : ${state.hotelDetail}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+
+                                const Text(
+                                  'Location Category',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'Location Category : ${state.hotelDetail}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
 
                                 const SizedBox(height: 20),
-
                                 Container(
                                   height: 350,
                                   width: 350,

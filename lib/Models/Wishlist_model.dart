@@ -3,14 +3,10 @@ import 'dart:convert';
 class WishlistModel {
   final List<Datum> data;
   final int total;
-  final int totalPages;
-  final int status;
 
   WishlistModel({
     required this.data,
     required this.total,
-    required this.totalPages,
-    required this.status,
   });
 
   factory WishlistModel.fromRawJson(String str) =>
@@ -21,15 +17,11 @@ class WishlistModel {
   factory WishlistModel.fromJson(Map<String, dynamic> json) => WishlistModel(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         total: json["total"],
-        totalPages: json["total_pages"],
-        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "total": total,
-        "total_pages": totalPages,
-        "status": status,
       };
 }
 

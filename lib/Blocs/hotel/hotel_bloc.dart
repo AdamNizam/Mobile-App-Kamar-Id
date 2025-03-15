@@ -32,6 +32,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
             emit(HotelDetailSuccess(hotelDetail));
           } catch (error) {
             emit(const HotelFailed('Terjadi Kesalahan'));
+            print('pesan error: $error');
           }
         }
       },
