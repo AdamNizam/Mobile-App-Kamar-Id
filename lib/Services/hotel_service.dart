@@ -32,7 +32,7 @@ class HotelService {
     }
   }
 
-  Future<HotelDetailModel> getDetailHotel(String slug) async {
+  Future<Row> getDetailHotel(String slug) async {
     try {
       final token = await AuthService().getToken();
 
@@ -45,7 +45,7 @@ class HotelService {
       );
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(res.body);
-        return HotelDetailModel.fromJson(data['row']);
+        return Row.fromJson(data['row']);
       }
 
       throw jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan';

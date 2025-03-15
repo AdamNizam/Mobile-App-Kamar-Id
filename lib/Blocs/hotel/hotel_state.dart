@@ -32,10 +32,10 @@ class HotelSuccess extends HotelState {
 }
 
 class HotelDetailSuccess extends HotelState {
-  final HotelDetailModel hotelDetail;
+  final Row rowHotel;
 
-  const HotelDetailSuccess(this.hotelDetail);
+  const HotelDetailSuccess(this.rowHotel);
 
   @override
-  List<Object> get props => [hotelDetail];
+  List<Object> get props => [rowHotel];
 }

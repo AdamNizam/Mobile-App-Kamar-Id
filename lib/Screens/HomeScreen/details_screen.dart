@@ -122,7 +122,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text1(
-                                      text1: state.hotelDetail.title.toString(),
+                                      text1: state.rowHotel.title.toString(),
                                       size: 17,
                                     ),
                                     const Icon(Icons.favorite_border,
@@ -135,7 +135,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         size: 20, color: AppColors.tabColor),
                                     const SizedBox(width: 8),
                                     Text2(
-                                      text2: state.hotelDetail.location?.name
+                                      text2: state.rowHotel.location?.name
                                               .toString() ??
                                           'Location not available',
                                     ),
@@ -149,8 +149,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     RatingBar.readOnly(
-                                      initialRating: state
-                                              .hotelDetail.reviewScore
+                                      initialRating: state.rowHotel.reviewScore
                                               ?.toDouble() ??
                                           0.0,
                                       filledIcon: Icons.star,
@@ -159,7 +158,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       size: 28,
                                     ),
                                     Text(
-                                      '\$${state.hotelDetail.price.toString()}/night',
+                                      '\$${state.rowHotel.price.toString()}/night',
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -176,10 +175,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   size: 17,
                                 ),
                                 const SizedBox(height: 10),
-                                (state.hotelDetail.content != null &&
-                                        state.hotelDetail.content!.isNotEmpty)
+                                (state.rowHotel.content != null &&
+                                        state.rowHotel.content!.isNotEmpty)
                                     ? HtmlWidget(
-                                        state.hotelDetail.content.toString(),
+                                        state.rowHotel.content.toString(),
                                         textStyle: const TextStyle(
                                           fontSize: 16,
                                         ),
@@ -201,12 +200,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 const SizedBox(height: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: state.hotelDetail.extraPrice !=
-                                              null &&
-                                          state.hotelDetail.extraPrice!
-                                              .isNotEmpty
-                                      ? state.hotelDetail.extraPrice!
-                                          .map((extra) {
+                                  children: state.rowHotel.extraPrice != null &&
+                                          state.rowHotel.extraPrice!.isNotEmpty
+                                      ? state.rowHotel.extraPrice!.map((extra) {
                                           return TaskCardService(
                                             title: extra.name, // Pastikan ada
                                             clientName:
@@ -231,11 +227,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: state.hotelDetail.serviceFee !=
-                                              null &&
-                                          state.hotelDetail.serviceFee!
-                                              .isNotEmpty
-                                      ? state.hotelDetail.serviceFee!
+                                  children: state.rowHotel.serviceFee != null &&
+                                          state.rowHotel.serviceFee!.isNotEmpty
+                                      ? state.rowHotel.serviceFee!
                                           .map((service) {
                                           return TaskCardService(
                                             title: service.name,
@@ -260,9 +254,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: state.hotelDetail.offer != null &&
-                                          state.hotelDetail.offer!.isNotEmpty
-                                      ? state.hotelDetail.offer!.map((offer) {
+                                  children: state.rowHotel.offer != null &&
+                                          state.rowHotel.offer!.isNotEmpty
+                                      ? state.rowHotel.offer!.map((offer) {
                                           return Column(
                                             children: [
                                               ListTile(

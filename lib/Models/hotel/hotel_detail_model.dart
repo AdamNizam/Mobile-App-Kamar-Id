@@ -1,6 +1,41 @@
 import 'dart:convert';
 
 class HotelDetailModel {
+  final Row? row;
+  final Author? author;
+  final List<ListGallery>? gallery;
+  final List<LocationCategory>? locationCategory;
+
+  HotelDetailModel({
+    this.row,
+    this.author,
+    this.gallery,
+    this.locationCategory,
+  });
+
+  factory HotelDetailModel.fromJson(Map<String, dynamic> json) =>
+      HotelDetailModel(
+        row: Row.fromJson(json["row"]),
+        author: Author.fromJson(json["author"]),
+        gallery: List<ListGallery>.from(
+          json["gallery"].map((g) => ListGallery.fromJson(g)),
+        ),
+        locationCategory: List<LocationCategory>.from(
+          json["location_category"].map((lc) => LocationCategory.fromJson(lc)),
+        ),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "row": row!.toJson(),
+        "author": author!.toJson(),
+        "gallery": List<dynamic>.from(gallery!.map((g) => g.toJson())),
+        "location_category":
+            List<dynamic>.from(locationCategory!.map((lc) => lc.toJson())),
+      };
+}
+
+// start Row
+class Row {
   final int? id;
   final String? title;
   final String? slug;
@@ -21,7 +56,7 @@ class HotelDetailModel {
   final Location? location;
   final List<Offer>? offer;
 
-  HotelDetailModel({
+  Row({
     this.id,
     this.title,
     this.slug,
@@ -43,8 +78,8 @@ class HotelDetailModel {
     this.location,
   });
 
-  factory HotelDetailModel.fromJson(Map<String, dynamic> json) {
-    return HotelDetailModel(
+  factory Row.fromJson(Map<String, dynamic> json) {
+    return Row(
       id: json['id'],
       title: json['title'],
       slug: json['slug'],
@@ -256,3 +291,127 @@ class Offer {
         "breakfast_type": breakfastType,
       };
 }
+// End Row
+
+// start Author
+class Author {
+  final int? id;
+  final String? name;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? phone;
+  final dynamic city;
+  final dynamic state;
+  final String? country;
+  final String? userName;
+  final String? avatar;
+
+  Author({
+    this.id,
+    this.name,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.city,
+    this.state,
+    this.country,
+    this.userName,
+    this.avatar,
+  });
+
+  factory Author.fromRawJson(String str) => Author.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Author.fromJson(Map<String, dynamic> json) => Author(
+        id: json["id"],
+        name: json["name"],
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        email: json["email"],
+        phone: json["phone"],
+        city: json["city"],
+        state: json["state"],
+        country: json["country"],
+        avatar: json["avatar"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": email,
+        "phone": phone,
+        "city": city,
+        "state": state,
+        "country": country,
+        "user_name": userName,
+        "avatar": avatar,
+      };
+}
+// End Author
+
+// Star Gallery
+class ListGallery {
+  final dynamic large;
+  final dynamic thumb;
+
+  ListGallery({
+    required this.large,
+    required this.thumb,
+  });
+
+  factory ListGallery.fromJson(Map<String, dynamic> json) => ListGallery(
+        large: json["large"],
+        thumb: json["thumb"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "large": large,
+        "thumb": thumb,
+      };
+}
+// End Gallery
+
+// Start Location Category
+class LocationCategory {
+  final int? id;
+  final String? name;
+  final String? iconClass;
+  final dynamic content;
+  final dynamic slug;
+  final String? status;
+
+  LocationCategory({
+    this.id,
+    this.name,
+    this.iconClass,
+    this.content,
+    this.slug,
+    this.status,
+  });
+
+  factory LocationCategory.fromJson(Map<String, dynamic> json) =>
+      LocationCategory(
+        id: json["id"],
+        name: json["name"],
+        iconClass: json["icon_class"],
+        content: json["content"],
+        slug: json["slug"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "icon_class": iconClass,
+        "content": content,
+        "slug": slug,
+        "status": status,
+      };
+}
+// End Location Category
+
