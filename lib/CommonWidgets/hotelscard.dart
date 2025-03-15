@@ -124,7 +124,7 @@ class _HotelsCardState extends State<HotelsCard> {
                                   ? Text2(
                                       text2: widget.hotel.address.toString())
                                   : const Text2(
-                                      text2: 'Nothing',
+                                      text2: 'No-data',
                                     ),
                               const Spacer(),
                             ],

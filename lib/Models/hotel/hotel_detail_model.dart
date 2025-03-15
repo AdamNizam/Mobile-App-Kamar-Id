@@ -158,9 +158,10 @@ class Location {
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         id: json["id"] ?? 0,
-        name: json["name"] ?? "Unknown",
-        content: json["content"] ?? "", // Bisa pakai dynamic atau string kosong
-        slug: json["slug"] ?? "unknown-slug",
+        name: json["name"] ?? "No Data",
+        content: json["content"] ??
+            "No Data", // Bisa pakai dynamic atau string kosong
+        slug: json["slug"] ?? "No Data",
         imageId: json["image_id"] ?? 0,
         mapLat: json["map_lat"] ?? "0.0",
         mapLng: json["map_lng"] ?? "0.0",
@@ -205,12 +206,12 @@ class ServiceFee {
 
   factory ServiceFee.fromJson(Map<String, dynamic> json) => ServiceFee(
         name: json["name"] ?? "Unknown Service",
-        desc: json["desc"] ?? "",
+        desc: json["desc"] ?? "No Desc",
         nameEn: json["name_en"] ?? "",
         descEn: json["desc_en"] ?? "",
         price: json["price"] ?? "0",
-        unit: json["unit"] ?? "unit",
-        type: json["type"] ?? "general",
+        unit: json["unit"] ?? "No Data",
+        type: json["type"] ?? "No Data",
       );
 
   Map<String, dynamic> toJson() => {
@@ -242,9 +243,9 @@ class Offer {
   String toRawJson() => json.encode(toJson());
 
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(
-        cancelPolicy: json["cancel_policy"] ?? "No cancellation policy",
-        foodPolicy: json["food_policy"] ?? "Unknown",
-        moveDate: json["move_date"] ?? "Not specified",
+        cancelPolicy: json["cancel_policy"] ?? "No Data",
+        foodPolicy: json["food_policy"] ?? "No Data",
+        moveDate: json["move_date"] ?? "No Data",
         breakfastType: json["breakfast_type"] ?? "None",
       );
 

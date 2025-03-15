@@ -100,7 +100,7 @@ class _EventsCardState extends State<EventsCard> {
                                     text2: widget.hotel.address.toString(),
                                   ),
                                 )
-                              : const Text2(text2: 'Nothing'),
+                              : const Text2(text2: 'No-data'),
                         ],
                       ),
                       const SizedBox(

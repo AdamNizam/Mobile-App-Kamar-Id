@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -191,91 +192,105 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         ),
                                       ),
                                 const SizedBox(
-                                  height: 20,
+                                  height: 10,
                                 ),
-                                const Text(
-                                  'Extra Price',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                const Text1(
+                                  text1: 'Extra Price',
+                                  size: 17,
                                 ),
                                 const SizedBox(height: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      state.hotelDetail.extraPrice != null &&
-                                              state.hotelDetail.extraPrice!
-                                                  .isNotEmpty
-                                          ? state.hotelDetail.extraPrice!
-                                              .map((extra) {
-                                              return Text(
-                                                '• ${extra.name} + ${extra.price} ',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              );
-                                            }).toList()
-                                          : [
-                                              const Text(
-                                                'Extra Price is not available',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
+                                  children: state.hotelDetail.extraPrice !=
+                                              null &&
+                                          state.hotelDetail.extraPrice!
+                                              .isNotEmpty
+                                      ? state.hotelDetail.extraPrice!
+                                          .map((extra) {
+                                          return TaskCardService(
+                                            title: extra.name, // Pastikan ada
+                                            clientName:
+                                                "\$${extra.price}", // Pastikan ada
+                                            backgroundColor: Colors.white,
+                                            statusColor: AppColors.buttonColor,
+                                          );
+                                        }).toList()
+                                      : [
+                                          const Text(
+                                            'Extra Price is not available',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
                                 ),
                                 const SizedBox(height: 10),
-                                const Text(
-                                  'Service Fee',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                const Text1(
+                                  text1: 'Service Fee',
+                                  size: 17,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      state.hotelDetail.serviceFee != null &&
-                                              state.hotelDetail.serviceFee!
-                                                  .isNotEmpty
-                                          ? state.hotelDetail.serviceFee!
-                                              .map((extra) {
-                                              return Text(
-                                                '• ${extra.name} + ${extra.price} + ${extra.desc} + ${extra.unit}',
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              );
-                                            }).toList()
-                                          : [
-                                              const Text(
-                                                'Service Fee is not available',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
+                                  children: state.hotelDetail.serviceFee !=
+                                              null &&
+                                          state.hotelDetail.serviceFee!
+                                              .isNotEmpty
+                                      ? state.hotelDetail.serviceFee!
+                                          .map((service) {
+                                          return TaskCardService(
+                                            title: service.name,
+                                            clientName: '\$${service.price}',
+                                            backgroundColor: Colors.white,
+                                            statusColor: AppColors.tabColor,
+                                          );
+                                        }).toList()
+                                      : [
+                                          const Text(
+                                            'Service Fee is not available',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
                                 ),
                                 const SizedBox(height: 10),
-                                const Text(
-                                  'Offer',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                const Text1(
+                                  text1: 'Offers',
+                                  size: 17,
                                 ),
-
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: state.hotelDetail.offer != null &&
                                           state.hotelDetail.offer!.isNotEmpty
                                       ? state.hotelDetail.offer!.map((offer) {
-                                          return Text(
-                                            '• ${offer.breakfastType} • ${offer.cancelPolicy}',
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                            ),
+                                          return Column(
+                                            children: [
+                                              ListTile(
+                                                leading: const Icon(
+                                                    Icons.check_circle,
+                                                    color: Colors.green),
+                                                title: Text(offer.cancelPolicy),
+                                              ),
+                                              ListTile(
+                                                leading: const Icon(
+                                                    Icons.check_circle,
+                                                    color: Colors.green),
+                                                title:
+                                                    Text(offer.breakfastType),
+                                              ),
+                                              ListTile(
+                                                leading: const Icon(
+                                                    Icons.check_circle,
+                                                    color: Colors.green),
+                                                title: Text(offer.moveDate),
+                                              ),
+                                              ListTile(
+                                                leading: const Icon(
+                                                    Icons.check_circle,
+                                                    color: Colors.green),
+                                                title: Text(offer.foodPolicy),
+                                              ),
+                                            ],
                                           );
                                         }).toList()
                                       : [

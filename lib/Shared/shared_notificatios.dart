@@ -24,17 +24,3 @@ void showCustomSnackbar(BuildContext context, String message) {
     duration: const Duration(seconds: 2),
   ).show(context);
 }
-
-Widget loadingIndicator() {
-  return Center(
-    child: SizedBox(
-      width: 80,
-      height: 80,
-      child: CircularProgressIndicator(
-        strokeWidth: 4.0,
-        backgroundColor: Colors.grey[300],
-        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
-      ),
-    ),
-  );
-}
