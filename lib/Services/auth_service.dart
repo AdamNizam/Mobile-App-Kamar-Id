@@ -24,6 +24,7 @@ class AuthService {
         );
 
         await saveToken(userResultLog);
+
         await saveCredentials(data.email.toString(), data.password.toString());
 
         return userResultLog;

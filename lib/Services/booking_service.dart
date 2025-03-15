@@ -20,11 +20,6 @@ class BookingService {
 
       if (res.statusCode == 200) {
         final jsonData = jsonDecode(res.body);
-
-        if (jsonData == null || !jsonData.containsKey('data')) {
-          throw 'Data booking history tidak ditemukan';
-        }
-
         return List<Datum>.from(
           jsonData['data'].map(
             (booking) => Datum.fromJson(booking),

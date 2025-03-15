@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class BookingHistoryModel {
-  final List<Datum> data;
-  final int total;
+  final List<Datum>? data;
+  final int? total;
 
   BookingHistoryModel({
     required this.data,
@@ -21,7 +21,7 @@ class BookingHistoryModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
         "total": total,
       };
 }

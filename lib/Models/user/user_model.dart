@@ -64,7 +64,7 @@ class DataProfile {
   final String? isVerified;
   final int activeStatus;
   final int darkMode;
-  final String messengerColor;
+  final String? messengerColor;
   final String? stripeCustomerId;
   final String? totalBeforeFees;
   final String? userName;

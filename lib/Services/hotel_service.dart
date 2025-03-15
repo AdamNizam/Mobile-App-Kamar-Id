@@ -45,17 +45,10 @@ class HotelService {
       );
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(res.body);
-
-        if (data['row'] == null) {
-          throw 'Data hotel tidak ditemukan';
-        }
-
         return HotelDetailModel.fromJson(data['row']);
-      } else {
-        final errorMessage =
-            jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan';
-        throw errorMessage;
       }
+
+      throw jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan';
     } catch (e) {
       rethrow;
     }
