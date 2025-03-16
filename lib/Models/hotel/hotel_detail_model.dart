@@ -281,7 +281,7 @@ class Offer {
         cancelPolicy: json["cancel_policy"] ?? "No Data",
         foodPolicy: json["food_policy"] ?? "No Data",
         moveDate: json["move_date"] ?? "No Data",
-        breakfastType: json["breakfast_type"] ?? "None",
+        breakfastType: json["breakfast_type"] ?? "No Data",
       );
 
   Map<String, dynamic> toJson() => {
@@ -291,8 +291,8 @@ class Offer {
         "breakfast_type": breakfastType,
       };
 }
-// End Row
 
+// End Row
 // start Author
 class Author {
   final int? id;
@@ -352,8 +352,8 @@ class Author {
         "avatar": avatar,
       };
 }
-// End Author
 
+// End Author
 // Star Gallery
 class ListGallery {
   final dynamic large;
@@ -374,8 +374,8 @@ class ListGallery {
         "thumb": thumb,
       };
 }
-// End Gallery
 
+// End Gallery
 // Start Location Category
 class LocationCategory {
   final int? id;

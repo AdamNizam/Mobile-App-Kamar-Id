@@ -28,8 +28,13 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
           try {
             emit(HotelDetailLoading());
 
-            final hotelDetail = await HotelService().getDetailHotel(event.slug);
-            emit(HotelDetailSuccess(hotelDetail));
+            final allDetailHotel =
+                await HotelService().getAllDetailHotel(event.slug);
+
+            emit(GetAllHotelDetailSuccess(allDetailHotel));
+
+            // final hotelDetail = await HotelService().getDetailHotel(event.slug);
+            // emit(HotelDetailSuccess(hotelDetail));
           } catch (error) {
             emit(const HotelFailed('Terjadi Kesalahan'));
             print('pesan error: $error');

@@ -21,7 +21,7 @@ class TaskCardService extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      elevation: 2,
+      elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -53,4 +53,29 @@ class HotelService {
       rethrow;
     }
   }
+
+  Future<HotelDetailModel> getAllDetailHotel(String slug) async {
+    try {
+      // Ambil token otorisasi
+      final token = await AuthService().getToken();
+
+      // Request data hotel dari API
+      final res = await http.get(
+        Uri.parse('$baseUrl/hotel/$slug'),
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(res.body);
+        return HotelDetailModel.fromJson(data);
+      }
+
+      throw jsonDecode(res.body)['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/error_card.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
@@ -71,7 +73,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           showCustomSnackbar(context, state.error);
                         }
                       });
-                      if (state is HotelDetailSuccess) {
+                      if (state is GetAllHotelDetailSuccess) {
                         return SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.all(16),
@@ -122,7 +124,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text1(
-                                      text1: state.rowHotel.title.toString(),
+                                      text1: state.allDetailHotel.row!.title
+                                          .toString(),
                                       size: 17,
                                     ),
                                     const Icon(Icons.favorite_border,
@@ -135,13 +138,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         size: 20, color: AppColors.tabColor),
                                     const SizedBox(width: 8),
                                     Text2(
-                                      text2: state.rowHotel.location?.name
+                                      text2: state.allDetailHotel.row!.location
+                                              ?.name
                                               .toString() ??
                                           'Location not available',
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 20),
+                                const SizedBox(height: 10),
 
                                 // Rating dan Harga
                                 Row(
@@ -149,7 +153,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     RatingBar.readOnly(
-                                      initialRating: state.rowHotel.reviewScore
+                                      initialRating: state
+                                              .allDetailHotel.row!.reviewScore
                                               ?.toDouble() ??
                                           0.0,
                                       filledIcon: Icons.star,
@@ -158,7 +163,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       size: 28,
                                     ),
                                     Text(
-                                      '\$${state.rowHotel.price.toString()}/night',
+                                      '\$${state.allDetailHotel.row!.price.toString()}/night',
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -175,24 +180,59 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   size: 17,
                                 ),
                                 const SizedBox(height: 10),
-                                (state.rowHotel.content != null &&
-                                        state.rowHotel.content!.isNotEmpty)
+                                (state.allDetailHotel.row!.content != null &&
+                                        state.allDetailHotel.row!.content!
+                                            .isNotEmpty)
                                     ? HtmlWidget(
-                                        state.rowHotel.content.toString(),
+                                        state.allDetailHotel.row!.content
+                                            .toString(),
                                         textStyle: const TextStyle(
-                                          fontSize: 16,
-                                        ),
+                                            fontSize: 16,
+                                            color: Colors.black87),
                                       )
-                                    : const Text(
-                                        'Description is not available',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
+                                    : const ErrorCard(
+                                        message:
+                                            'Description is not available'),
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                const Text1(
+                                  text1: 'Location Category',
+                                  size: 17,
+                                ),
+                                const SizedBox(height: 20),
+                                const Center(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        CategoryLocationCard(
+                                          icon: Icons.pets,
+                                          title: 'Friendly',
+                                        ),
+                                        SizedBox(
+                                            width: 23), // Spasi antara item
+                                        CategoryLocationCard(
+                                          icon: Icons.family_restroom,
+                                          title: 'Family',
+                                        ),
+                                        SizedBox(
+                                            width: 23), // Spasi antara item
+                                        CategoryLocationCard(
+                                          icon: Icons.pets,
+                                          title: 'Friendly',
+                                        ),
+                                        SizedBox(
+                                            width: 23), // Spasi antara item
+                                        CategoryLocationCard(
+                                          icon: Icons.family_restroom,
+                                          title: 'Family',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
                                 const Text1(
                                   text1: 'Extra Price',
                                   size: 17,
@@ -200,9 +240,13 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 const SizedBox(height: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: state.rowHotel.extraPrice != null &&
-                                          state.rowHotel.extraPrice!.isNotEmpty
-                                      ? state.rowHotel.extraPrice!.map((extra) {
+                                  children: state.allDetailHotel.row!
+                                                  .extraPrice !=
+                                              null &&
+                                          state.allDetailHotel.row!.extraPrice!
+                                              .isNotEmpty
+                                      ? state.allDetailHotel.row!.extraPrice!
+                                          .map((extra) {
                                           return TaskCardService(
                                             title: extra.name, // Pastikan ada
                                             clientName:
@@ -212,12 +256,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           );
                                         }).toList()
                                       : [
-                                          const Text(
-                                            'Extra Price is not available',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                            ),
-                                          ),
+                                          const ErrorCard(
+                                              message:
+                                                  'Extra Price is not available')
                                         ],
                                 ),
                                 const SizedBox(height: 10),
@@ -225,27 +266,32 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   text1: 'Service Fee',
                                   size: 17,
                                 ),
+                                const SizedBox(height: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: state.rowHotel.serviceFee != null &&
-                                          state.rowHotel.serviceFee!.isNotEmpty
-                                      ? state.rowHotel.serviceFee!
-                                          .map((service) {
-                                          return TaskCardService(
-                                            title: service.name,
-                                            clientName: '\$${service.price}',
-                                            backgroundColor: Colors.white,
-                                            statusColor: AppColors.tabColor,
-                                          );
-                                        }).toList()
-                                      : [
-                                          const Text(
-                                            'Service Fee is not available',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
+                                  children:
+                                      state.allDetailHotel.row!.serviceFee !=
+                                                  null &&
+                                              state.allDetailHotel.row!
+                                                  .serviceFee!.isNotEmpty
+                                          ? state
+                                              .allDetailHotel.row!.serviceFee!
+                                              .map((service) {
+                                              return TaskCardService(
+                                                title: service
+                                                    .name, // Pastikan ada
+                                                clientName:
+                                                    "\$${service.price}", // Pastikan ada
+                                                backgroundColor: Colors.white,
+                                                statusColor:
+                                                    AppColors.buttonColor,
+                                              );
+                                            }).toList()
+                                          : [
+                                              const ErrorCard(
+                                                  message:
+                                                      'Service Fee is not available')
+                                            ],
                                 ),
                                 const SizedBox(height: 10),
                                 const Text1(
@@ -254,9 +300,12 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: state.rowHotel.offer != null &&
-                                          state.rowHotel.offer!.isNotEmpty
-                                      ? state.rowHotel.offer!.map((offer) {
+                                  children: state.allDetailHotel.row!.offer !=
+                                              null &&
+                                          state.allDetailHotel.row!.offer!
+                                              .isNotEmpty
+                                      ? state.allDetailHotel.row!.offer!
+                                          .map((offer) {
                                           return Column(
                                             children: [
                                               ListTile(
@@ -269,8 +318,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                 leading: const Icon(
                                                     Icons.check_circle,
                                                     color: Colors.green),
-                                                title:
-                                                    Text(offer.breakfastType),
+                                                title: Text(offer.foodPolicy),
                                               ),
                                               ListTile(
                                                 leading: const Icon(
@@ -282,7 +330,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                 leading: const Icon(
                                                     Icons.check_circle,
                                                     color: Colors.green),
-                                                title: Text(offer.foodPolicy),
+                                                title:
+                                                    Text(offer.breakfastType),
                                               ),
                                             ],
                                           );
@@ -322,11 +371,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                         );
                       }
                       return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: AppColors.tabColor,
-                          size: 50,
-                        ),
-                      );
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: AppColors.tabColor,
+                        size: 30,
+                      ));
                     },
                   ),
                 ),
