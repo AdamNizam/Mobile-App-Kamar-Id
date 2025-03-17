@@ -307,29 +307,28 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 const SizedBox(height: 10),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      state.allDetailHotel.row!.serviceFee !=
-                                                  null &&
-                                              state.allDetailHotel.row!
-                                                  .serviceFee!.isNotEmpty
-                                          ? state
-                                              .allDetailHotel.row!.serviceFee!
-                                              .map((service) {
-                                              return TaskCardService(
-                                                title: service
-                                                    .name, // Pastikan ada
-                                                clientName:
-                                                    "\$${service.price}", // Pastikan ada
-                                                backgroundColor: Colors.white,
-                                                statusColor:
-                                                    AppColors.buttonColor,
-                                              );
-                                            }).toList()
-                                          : [
-                                              const ErrorCard(
-                                                  message:
-                                                      'Service Fee is not available')
-                                            ],
+                                  children: state.allDetailHotel.row!
+                                                  .serviceFee !=
+                                              null &&
+                                          state.allDetailHotel.row!.serviceFee!
+                                              .isNotEmpty
+                                      ? state.allDetailHotel.row!.serviceFee!
+                                          .map((service) {
+                                          return TaskCardService(
+                                            title: service.name,
+                                            clientName: service.unit == 'fixed'
+                                                ? '\$${service.price}'
+                                                : '${service.price}%',
+                                            backgroundColor: Colors.white,
+                                            statusColor: AppColors.buttonColor,
+                                          );
+                                        }).toList()
+                                      : [
+                                          const ErrorCard(
+                                            message:
+                                                'Service Fee is not available',
+                                          )
+                                        ],
                                 ),
                                 const SizedBox(height: 10),
 

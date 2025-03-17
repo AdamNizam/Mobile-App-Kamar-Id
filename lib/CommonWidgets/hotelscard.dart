@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
@@ -5,6 +7,7 @@ import 'package:hotelbookingapp/Screens/HomeScreen/details_screen.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:hotelbookingapp/Widgets/text11.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HotelsCard extends StatefulWidget {
   final HotelAllModel hotel;
@@ -16,6 +19,49 @@ class HotelsCard extends StatefulWidget {
 }
 
 class _HotelsCardState extends State<HotelsCard> {
+  late PageController _pageController;
+  int _currentPage = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+
+    // Pastikan widget sudah terpasang sebelum menjalankan timer
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+          if (_pageController.hasClients) {
+            _currentPage = (_currentPage + 1) % _imageUrls.length;
+            _pageController.animateToPage(
+              _currentPage,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  List<String> get _imageUrls {
+    return [
+      if (widget.hotel.imageId != null && widget.hotel.imageId!.isNotEmpty)
+        widget.hotel.imageId!,
+      if (widget.hotel.bannerImageId != null &&
+          widget.hotel.bannerImageId!.isNotEmpty)
+        widget.hotel.bannerImageId!,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,20 +100,43 @@ class _HotelsCardState extends State<HotelsCard> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: widget.hotel.bannerImageId != null &&
-                                widget.hotel.bannerImageId!.isNotEmpty
-                            ? Image.network(
-                                widget.hotel.bannerImageId.toString(),
+                        child: SizedBox(
+                          width: 100,
+                          height: 113,
+                          child: PageView.builder(
+                            controller: _pageController,
+                            itemCount:
+                                _imageUrls.isNotEmpty ? _imageUrls.length : 1,
+                            itemBuilder: (context, index) {
+                              return Image.network(
+                                _imageUrls.isNotEmpty
+                                    ? _imageUrls[index]
+                                    : 'https://via.placeholder.com/190x130',
                                 width: 100,
                                 height: 113,
                                 fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                'images/no-image.jpg',
-                                fit: BoxFit.cover,
-                                width: 100,
-                                height: 113,
-                              ),
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: LoadingAnimationWidget
+                                        .threeArchedCircle(
+                                      color: Colors.white,
+                                      size: 200,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset(
+                                  'images/no-image.jpg',
+                                  fit: BoxFit.cover,
+                                  width: 190,
+                                  height: 130.0,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                       if (widget.hotel.isFeatured == 1)
                         Positioned(
