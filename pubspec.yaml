@@ -48,7 +48,8 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   another_flushbar: ^1.12.30
   flutter_bloc: ^9.0.0
-  video_player: ^2.7.2
+  youtube_player_flutter: ^8.1.1
+  webview_flutter: ^4.4.4
   font_awesome_flutter: ^10.6.0
   flutter_widget_from_html_core: ^0.14.9
   loading_animation_widget:

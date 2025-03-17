@@ -12,7 +12,7 @@ import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:video_player/video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../Constants/colors.dart';
 import '../Booking/book_hotel.dart';
@@ -27,7 +27,8 @@ class HotelDetailsScreen extends StatefulWidget {
 
 class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
   String selectedImage = 'images/LuxuryHotels.jpg';
-  VideoPlayerController? _videoController;
+  bool isVideoPlaying = true;
+  YoutubePlayerController? _youtubeController;
 
   @override
   Widget build(BuildContext context) {
@@ -48,44 +49,81 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                 }
 
                 if (state is GetAllHotelDetailSuccess) {
+                  String? videoUrl = state.allDetailHotel.row!.video;
+                  String? videoId;
+
+                  if (videoUrl != null && videoUrl.isNotEmpty) {
+                    videoId = YoutubePlayer.convertUrlToId(videoUrl);
+                  }
+
+                  if (videoId != null && _youtubeController == null) {
+                    _youtubeController = YoutubePlayerController(
+                      initialVideoId: videoId,
+                      flags: const YoutubePlayerFlags(
+                        autoPlay: false,
+                        mute: false,
+                      ),
+                    );
+                  }
+
                   return Column(
                     children: [
-                      selectedImage.startsWith('http')
-                          ? Image.network(
-                              selectedImage,
-                              width: double.infinity,
-                              height: 250,
-                              fit: BoxFit.cover,
-                              filterQuality: FilterQuality.high,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            (loadingProgress
-                                                    .expectedTotalBytes ??
-                                                1)
-                                        : null,
-                                  ),
+                      videoId != null
+                          ? YoutubePlayerBuilder(
+                              player: YoutubePlayer(
+                                controller: _youtubeController!,
+                                showVideoProgressIndicator: true,
+                                onReady: () {
+                                  if (isVideoPlaying) {
+                                    _youtubeController!.play();
+                                  }
+                                },
+                              ),
+                              builder: (context, player) {
+                                return SizedBox(
+                                  width: double.infinity,
+                                  height: 250,
+                                  child: player,
                                 );
                               },
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
-                                Icons.broken_image,
-                                size: 100,
-                                color: Colors.grey,
-                              ),
                             )
-                          : Image.asset(
-                              selectedImage,
-                              width: double.infinity,
-                              height: 250,
-                              fit: BoxFit.cover,
-                            ),
+                          : (selectedImage.startsWith('http')
+                              ? Image.network(
+                                  selectedImage,
+                                  width: double.infinity,
+                                  height: 250,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.high,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                (loadingProgress
+                                                        .expectedTotalBytes ??
+                                                    1)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(
+                                    Icons.broken_image,
+                                    size: 100,
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              : Image.asset(
+                                  selectedImage,
+                                  width: double.infinity,
+                                  height: 250,
+                                  fit: BoxFit.cover,
+                                )),
                       Expanded(
                           child: SingleChildScrollView(
                         child: Padding(
