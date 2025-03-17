@@ -26,12 +26,16 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  late FocusNode _focusNode;
+  final FocusNode _focusNode = FocusNode();
+  bool _isObscured = false;
+  late IconData _currentIcon2;
 
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
+    _isObscured = widget.obscureText;
+    _currentIcon2 = widget.icon2 ??
+        Icons.visibility_off; // Default hanya jika icon2 dipanggil
   }
 
   @override
@@ -55,26 +59,45 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         onChanged: widget.onChanged,
         focusNode: _focusNode,
-        obscureText: widget.obscureText,
+        obscureText: _isObscured,
         style: const TextStyle(
-            color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400),
+          color: Colors.black54,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: widget.label,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
           hintStyle: const TextStyle(
-              color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400),
-          prefixIcon: Icon(
-            widget.icon,
-            size: 20,
             color: Colors.black54,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
           ),
-          suffixIcon: Icon(
-            widget.icon2,
-            size: 20,
-            color: Colors.black54,
-          ),
+          prefixIcon: widget.icon != null
+              ? Icon(
+                  widget.icon,
+                  size: 20,
+                  color: Colors.black54,
+                )
+              : null,
+          suffixIcon: widget.icon2 != null
+              ? IconButton(
+                  icon: Icon(
+                    _currentIcon2,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscured = !_isObscured;
+                      _currentIcon2 =
+                          _isObscured ? widget.icon2! : Icons.visibility;
+                    });
+                  },
+                )
+              : null,
         ),
       ),
     );

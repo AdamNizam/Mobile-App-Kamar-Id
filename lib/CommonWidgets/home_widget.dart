@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 
 import '../../../Widgets/detailstext1.dart';
 
@@ -9,33 +11,37 @@ class HomeWidgte extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Builder(
-          builder: (context) {
-            return InkWell(
-              onTap: (){
-                Scaffold.of(context).openDrawer();
-              },
-              child: const Icon(
-                Icons.menu_outlined,
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        if (state is UserSuccess) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Builder(builder: (context) {
+                return InkWell(
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: const Icon(
+                    Icons.menu_outlined,
+                    color: Colors.white,
+                  ),
+                );
+              }),
+              Text1(
+                text1: 'Hai, ${state.userProfile.firstName}',
+                size: 16,
                 color: Colors.white,
-
               ),
-            );
-          }
-        ),
-        const Text1(
-          text1: 'Home',
-          size: 16,
-          color: Colors.white,
-        ),
-        Image.asset(
-          'images/c3.png',
-          width: 30,
-        )
-      ],
+              Image.asset(
+                'images/c3.png',
+                width: 30,
+              )
+            ],
+          );
+        }
+        return Container();
+      },
     );
   }
 }

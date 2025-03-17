@@ -29,7 +29,13 @@ class ProfileScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: LoadingAnimationWidget.flickr(
+                leftDotColor: AppColors.tabColor,
+                rightDotColor: AppColors.redDark,
+                size: 50,
+              ),
+            );
           }
           return SafeArea(
             child: ListView(
