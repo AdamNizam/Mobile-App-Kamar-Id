@@ -81,43 +81,26 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // Galeri gambar kecil
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      GalleryImage(
-                                          imagePath:
-                                              'images/WaterfrontHotels.jpg',
-                                          isSelected: selectedImage ==
-                                              'images/WaterfrontHotels.jpg',
-                                          onTap: () {
-                                            setState(() {
-                                              selectedImage =
-                                                  'images/WaterfrontHotels.jpg';
-                                            });
-                                          }),
-                                      GalleryImage(
-                                          imagePath:
-                                              'images/Eco-FriendlyHotels.jpg',
-                                          isSelected: selectedImage ==
-                                              'images/Eco-FriendlyHotels.jpg',
-                                          onTap: () {
-                                            setState(() {
-                                              selectedImage =
-                                                  'images/Eco-FriendlyHotels.jpg';
-                                            });
-                                          }),
-                                      GalleryImage(
-                                          imagePath:
-                                              'images/AdventureHotels.jpg',
-                                          isSelected: selectedImage ==
-                                              'images/AdventureHotels.jpg',
-                                          onTap: () {
-                                            setState(() {
-                                              selectedImage =
-                                                  'images/AdventureHotels.jpg';
-                                            });
-                                          }),
-                                    ]),
+                                Center(
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        GalleryImage(
+                                            imagePath:
+                                                'images/WaterfrontHotels.jpg',
+                                            isSelected: selectedImage ==
+                                                'images/WaterfrontHotels.jpg',
+                                            onTap: () {
+                                              setState(() {
+                                                selectedImage =
+                                                    'images/WaterfrontHotels.jpg';
+                                              });
+                                            }),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 const SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment:
@@ -132,6 +115,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         color: Colors.red, size: 30),
                                   ],
                                 ),
+
                                 Row(
                                   children: [
                                     const Icon(Icons.location_on,
@@ -173,7 +157,48 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   ],
                                 ),
                                 const SizedBox(height: 10),
-
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const CircleAvatar(
+                                          radius: 18,
+                                          backgroundImage: NetworkImage(
+                                              "https://randomuser.me/api/portraits/women/1.jpg"),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                state
+                                                    .allDetailHotel.author!.name
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "2 days ago ",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey.shade600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
                                 // Deskripsi hotel
                                 const Text1(
                                   text1: 'Hotel Description',
@@ -201,38 +226,30 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   size: 17,
                                 ),
                                 const SizedBox(height: 20),
-                                const Center(
+                                Center(
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       children: [
-                                        CategoryLocationCard(
-                                          icon: Icons.pets,
-                                          title: 'Friendly',
-                                        ),
-                                        SizedBox(
-                                            width: 23), // Spasi antara item
-                                        CategoryLocationCard(
-                                          icon: Icons.family_restroom,
-                                          title: 'Family',
-                                        ),
-                                        SizedBox(
-                                            width: 23), // Spasi antara item
-                                        CategoryLocationCard(
-                                          icon: Icons.pets,
-                                          title: 'Friendly',
-                                        ),
-                                        SizedBox(
-                                            width: 23), // Spasi antara item
-                                        CategoryLocationCard(
-                                          icon: Icons.family_restroom,
-                                          title: 'Family',
-                                        ),
+                                        if (state.allDetailHotel
+                                                .locationCategory !=
+                                            null)
+                                          ...state
+                                              .allDetailHotel.locationCategory!
+                                              .map((category) {
+                                            return CategoryLocationCard(
+                                              icon: category.iconClass ??
+                                                  '', // Replace with appropriate icon
+                                              title: category.name
+                                                  .toString(), // Use the category name
+                                            );
+                                          }), // Spasi antara item
                                       ],
                                     ),
                                   ),
                                 ),
                                 const SizedBox(height: 20),
+
                                 const Text1(
                                   text1: 'Extra Price',
                                   size: 17,
@@ -262,6 +279,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         ],
                                 ),
                                 const SizedBox(height: 10),
+
                                 const Text1(
                                   text1: 'Service Fee',
                                   size: 17,
@@ -294,6 +312,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                             ],
                                 ),
                                 const SizedBox(height: 10),
+
                                 const Text1(
                                   text1: 'Offers',
                                   size: 17,
@@ -386,7 +405,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
               left: 16,
               right: 16,
               child: CustomButton(
-                text: 'Booking Now',
+                text: 'Continue',
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const BookHotelScreen(),
