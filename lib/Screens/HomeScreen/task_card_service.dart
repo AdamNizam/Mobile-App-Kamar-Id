@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 
-class TaskCardService extends StatelessWidget {
+class TaskCardService extends StatefulWidget {
   final String title;
   final String clientName;
   final Color backgroundColor;
@@ -15,48 +16,68 @@ class TaskCardService extends StatelessWidget {
   });
 
   @override
+  TaskCardServiceState createState() => TaskCardServiceState();
+}
+
+class TaskCardServiceState extends State<TaskCardService> {
+  bool _isSelected = false;
+
+  void _onCardTap() {
+    setState(() {
+      _isSelected = !_isSelected;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      color: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title, // Pastikan title ada di sini
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.black,
+    return GestureDetector(
+      onTap: _onCardTap,
+      child: Card(
+        color: widget.backgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color: _isSelected ? AppColors.buttonColor : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        elevation: 0,
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    _buildStatusIndicator(statusColor),
-                    _buildStatusIndicator(Colors.grey.shade300),
-                    _buildStatusIndicator(Colors.grey.shade300),
-                  ],
-                ),
-              ],
-            ),
-            Text(
-              clientName, // Pastikan clientName ada di sini
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      _buildStatusIndicator(widget.statusColor),
+                      _buildStatusIndicator(Colors.grey.shade300),
+                      _buildStatusIndicator(Colors.grey.shade300),
+                    ],
+                  ),
+                ],
               ),
-            ),
-          ],
+              Text(
+                widget.clientName,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
