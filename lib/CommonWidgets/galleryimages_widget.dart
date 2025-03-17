@@ -13,6 +13,11 @@ class GalleryImage extends StatelessWidget {
     required this.onTap,
     super.key,
   });
+
+  bool isNetworkImage(String path) {
+    return path.startsWith('http') || path.startsWith('https');
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -29,12 +34,24 @@ class GalleryImage extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              imagePath,
-              height: 60,
-              width: 80,
-              fit: BoxFit.cover,
-            ),
+            child: isNetworkImage(imagePath)
+                ? Image.network(
+                    imagePath,
+                    height: 60,
+                    width: 80,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => const Icon(
+                      Icons.broken_image,
+                      size: 60,
+                      color: Colors.grey,
+                    ),
+                  )
+                : Image.asset(
+                    imagePath,
+                    height: 60,
+                    width: 80,
+                    fit: BoxFit.cover,
+                  ),
           ),
         ),
       ),

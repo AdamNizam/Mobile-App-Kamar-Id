@@ -34,37 +34,47 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) =>
-            HotelBloc()..add(GetDetailHotel(widget.slug.toString())),
+        create: (context) => HotelBloc()
+          ..add(
+            GetDetailHotel(
+              widget.slug.toString(),
+            ),
+          ),
         child: Stack(
           children: [
             Column(
               children: [
-                // Gambar utama
-                Stack(
-                  children: [
-                    Image.asset(
-                      selectedImage,
-                      width: double.infinity,
-                      height: 250,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      top: 40,
-                      left: 16,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
+                selectedImage.startsWith('http')
+                    ? Image.network(
+                        selectedImage,
+                        width: double.infinity,
+                        height: 250,
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
                         },
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(
+                          Icons.broken_image,
+                          size: 100,
+                          color: Colors.grey,
+                        ),
+                      )
+                    : Image.asset(
+                        selectedImage,
+                        width: double.infinity,
+                        height: 250,
+                        fit: BoxFit.cover,
                       ),
-                    ),
-                  ],
-                ),
                 Expanded(
                   child: BlocBuilder<HotelBloc, HotelState>(
                     builder: (context, state) {
@@ -86,17 +96,27 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       children: [
-                                        GalleryImage(
-                                            imagePath:
-                                                'images/WaterfrontHotels.jpg',
-                                            isSelected: selectedImage ==
-                                                'images/WaterfrontHotels.jpg',
-                                            onTap: () {
-                                              setState(() {
-                                                selectedImage =
-                                                    'images/WaterfrontHotels.jpg';
-                                              });
-                                            }),
+                                        if (state.allDetailHotel.gallery !=
+                                            null)
+                                          ...state.allDetailHotel.gallery!.map(
+                                            (urlGambar) {
+                                              if (urlGambar.thumb is bool ||
+                                                  urlGambar.large is bool) {
+                                                return const SizedBox();
+                                              }
+                                              return GalleryImage(
+                                                imagePath: urlGambar.large,
+                                                isSelected: selectedImage ==
+                                                    urlGambar.large,
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectedImage =
+                                                        urlGambar.large;
+                                                  });
+                                                },
+                                              );
+                                            },
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -236,14 +256,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                             null)
                                           ...state
                                               .allDetailHotel.locationCategory!
-                                              .map((category) {
-                                            return CategoryLocationCard(
-                                              icon: category.iconClass ??
-                                                  '', // Replace with appropriate icon
-                                              title: category.name
-                                                  .toString(), // Use the category name
-                                            );
-                                          }), // Spasi antara item
+                                              .map(
+                                            (category) {
+                                              return CategoryLocationCard(
+                                                icon: category.iconClass ?? '',
+                                                title: category.name.toString(),
+                                              );
+                                            },
+                                          ),
                                       ],
                                     ),
                                   ),

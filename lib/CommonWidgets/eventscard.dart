@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Constants/colors.dart';
 import '../Screens/HomeScreen/details_screen.dart';
@@ -20,6 +23,49 @@ class EventsCard extends StatefulWidget {
 }
 
 class _EventsCardState extends State<EventsCard> {
+  late PageController _pageController;
+  int _currentPage = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+
+    // Pastikan widget sudah terpasang sebelum menjalankan timer
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+          if (_pageController.hasClients) {
+            _currentPage = (_currentPage + 1) % _imageUrls.length;
+            _pageController.animateToPage(
+              _currentPage,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  List<String> get _imageUrls {
+    return [
+      if (widget.hotel.imageId != null && widget.hotel.imageId!.isNotEmpty)
+        widget.hotel.imageId!,
+      if (widget.hotel.bannerImageId != null &&
+          widget.hotel.bannerImageId!.isNotEmpty)
+        widget.hotel.bannerImageId!,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -52,20 +98,40 @@ class _EventsCardState extends State<EventsCard> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: widget.hotel.bannerImageId != null &&
-                          widget.hotel.bannerImageId!.isNotEmpty
-                      ? Image.network(
-                          widget.hotel.bannerImageId.toString(),
+                  child: SizedBox(
+                    width: 190,
+                    height: 130,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: _imageUrls.isNotEmpty ? _imageUrls.length : 1,
+                      itemBuilder: (context, index) {
+                        return Image.network(
+                          _imageUrls.isNotEmpty
+                              ? _imageUrls[index]
+                              : 'https://via.placeholder.com/190x130',
                           width: 190,
                           height: 130.0,
                           fit: BoxFit.cover,
-                        )
-                      : Image.asset(
-                          'images/no-image.jpg',
-                          fit: BoxFit.cover,
-                          width: 190,
-                          height: 130.0,
-                        ),
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: LoadingAnimationWidget.threeArchedCircle(
+                                color: Colors.white,
+                                size: 200,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) =>
+                              Image.asset(
+                            'images/no-image.jpg',
+                            fit: BoxFit.cover,
+                            width: 190,
+                            height: 130.0,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
@@ -75,7 +141,7 @@ class _EventsCardState extends State<EventsCard> {
                       Row(
                         children: [
                           Text1(
-                            text1: widget.hotel.title.toString(),
+                            text1: widget.hotel.title ?? 'No Title',
                           ),
                           const Spacer(),
                           const Icon(
@@ -97,32 +163,24 @@ class _EventsCardState extends State<EventsCard> {
                           widget.hotel.address != null
                               ? Expanded(
                                   child: Text2(
-                                    text2: widget.hotel.address.toString(),
+                                    text2: widget.hotel.address!,
                                   ),
                                 )
                               : const Text2(text2: 'No-data'),
                         ],
-                      ),
-                      const SizedBox(
-                        height: 5.0,
                       ),
                       const SizedBox(height: 5.0),
                       Row(
                         children: [
                           Row(
                             children: [
-                              widget.hotel.price != null
-                                  ? Text1(
-                                      text1:
-                                          "\$${widget.hotel.price.toString()}",
-                                      size: 18,
-                                      color: AppColors.tabColor,
-                                    )
-                                  : const Text1(
-                                      text1: '0',
-                                      size: 18,
-                                      color: AppColors.tabColor,
-                                    ),
+                              Text1(
+                                text1: widget.hotel.price != null
+                                    ? "\$${widget.hotel.price}"
+                                    : '0',
+                                size: 18,
+                                color: AppColors.tabColor,
+                              ),
                               const Text2(text2: '/night'),
                             ],
                           ),
@@ -139,23 +197,20 @@ class _EventsCardState extends State<EventsCard> {
                               (index) => Icon(
                                 Icons.star,
                                 size: 20.0,
-                                color: index <
-                                        double.tryParse(widget.hotel.reviewScore
-                                                ?.toString() ??
-                                            '0.0')!
+                                color: index < (widget.hotel.reviewScore ?? 0)
                                     ? AppColors.tabColor
                                     : Colors.grey,
                               ),
                             ),
                           ),
-                          widget.hotel.reviewScore != null
-                              ? Text2(
-                                  text2: widget.hotel.reviewScore.toString())
-                              : const Text('0.0'),
+                          Text2(
+                            text2:
+                                widget.hotel.reviewScore?.toString() ?? '0.0',
+                          ),
                           const Spacer(),
                           Text11(
                             text2:
-                                '10% Off ${widget.hotel.isFeatured.toString()}',
+                                '10% Off ${widget.hotel.isFeatured == 1 ? "Yes" : "No"}',
                             color: AppColors.tabColor,
                           ),
                         ],
@@ -166,28 +221,27 @@ class _EventsCardState extends State<EventsCard> {
                 ),
               ],
             ),
-            (widget.hotel.isFeatured == 1)
-                ? Positioned(
-                    top: 5,
-                    left: 5,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.redAwesome,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: const Text(
-                        'Featured',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+            if (widget.hotel.isFeatured == 1)
+              Positioned(
+                top: 5,
+                left: 5,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.redAwesome,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    'Featured',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
                     ),
-                  )
-                : Container(),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
