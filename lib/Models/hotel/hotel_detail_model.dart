@@ -42,6 +42,9 @@ class Row {
   final String? content;
   final String? imageId;
   final String? bannerImageId;
+  final dynamic isFeatured;
+  final String? gallery;
+  final String? video;
   final int? locationId;
   final String? address;
   final String? mapLat;
@@ -63,6 +66,9 @@ class Row {
     this.content,
     this.imageId,
     this.bannerImageId,
+    this.isFeatured,
+    this.gallery,
+    this.video,
     this.locationId,
     this.address,
     this.mapLat,
@@ -86,6 +92,9 @@ class Row {
       content: json['content'],
       imageId: json['image_id'],
       bannerImageId: json['banner_image_id'],
+      isFeatured: json["is_featured"],
+      gallery: json["gallery"],
+      video: json["video"],
       locationId: json['location_id'],
       address: json['address'],
       mapLat: json['map_lat'],
@@ -120,6 +129,9 @@ class Row {
       'content': content,
       'imageId': imageId,
       'bannerImageId': bannerImageId,
+      "is_featured": isFeatured,
+      "gallery": gallery,
+      "video": video,
       'locationId': locationId,
       'address': address,
       'mapLat': mapLat,
