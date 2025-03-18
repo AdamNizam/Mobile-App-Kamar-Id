@@ -26,7 +26,8 @@ class HotelDetailsScreen extends StatefulWidget {
 }
 
 class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
-  String selectedImage = 'images/LuxuryHotels.jpg';
+  String selectedImage = '';
+  String? videoId;
   bool isVideoPlaying = true;
   YoutubePlayerController? _youtubeController;
 
@@ -56,19 +57,19 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                     videoId = YoutubePlayer.convertUrlToId(videoUrl);
                   }
 
-                  if (videoId != null && _youtubeController == null) {
-                    _youtubeController = YoutubePlayerController(
-                      initialVideoId: videoId,
-                      flags: const YoutubePlayerFlags(
-                        autoPlay: false,
-                        mute: false,
-                      ),
-                    );
-                  }
+                  videoId ??= '2DEvbRl9GZU';
+
+                  _youtubeController ??= YoutubePlayerController(
+                    initialVideoId: videoId,
+                    flags: const YoutubePlayerFlags(
+                      autoPlay: false,
+                      mute: false,
+                    ),
+                  );
 
                   return Column(
                     children: [
-                      videoId != null
+                      isVideoPlaying
                           ? YoutubePlayerBuilder(
                               player: YoutubePlayer(
                                 controller: _youtubeController!,
@@ -87,43 +88,36 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 );
                               },
                             )
-                          : (selectedImage.startsWith('http')
-                              ? Image.network(
-                                  selectedImage,
-                                  width: double.infinity,
-                                  height: 250,
-                                  fit: BoxFit.cover,
-                                  filterQuality: FilterQuality.high,
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                (loadingProgress
-                                                        .expectedTotalBytes ??
-                                                    1)
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(
-                                    Icons.broken_image,
-                                    size: 100,
-                                    color: Colors.grey,
+                          : Image.network(
+                              selectedImage,
+                              width: double.infinity,
+                              height: 250,
+                              fit: BoxFit.cover,
+                              filterQuality: FilterQuality.high,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            (loadingProgress
+                                                    .expectedTotalBytes ??
+                                                1)
+                                        : null,
                                   ),
-                                )
-                              : Image.asset(
-                                  selectedImage,
-                                  width: double.infinity,
-                                  height: 250,
-                                  fit: BoxFit.cover,
-                                )),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                Icons.broken_image,
+                                size: 100,
+                                color: Colors.grey,
+                              ),
+                            ),
+
                       Expanded(
                           child: SingleChildScrollView(
                         child: Padding(
@@ -137,6 +131,19 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
+                                      // if (!isVideoPlaying)
+                                      //   Padding(
+                                      //     padding: const EdgeInsets.all(8.0),
+                                      //     child: GalleryImage(
+                                      //         imagePath:
+                                      //             'images/watch-video.png',
+                                      //         isSelected: false,
+                                      //         onTap: () {
+                                      //           setState(() {
+                                      //             isVideoPlaying = true;
+                                      //           });
+                                      //         }),
+                                      //   ),
                                       if (state.allDetailHotel.gallery != null)
                                         ...state.allDetailHotel.gallery!.map(
                                           (urlGambar) {
@@ -150,6 +157,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                   urlGambar.large,
                                               onTap: () {
                                                 setState(() {
+                                                  isVideoPlaying = false;
                                                   selectedImage =
                                                       urlGambar.large;
                                                 });
@@ -200,7 +208,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     initialRating: state
                                             .allDetailHotel.row!.reviewScore
                                             ?.toDouble() ??
-                                        0.0,
+                                        3,
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
                                     filledColor: AppColors.tabColor,
@@ -420,9 +428,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         ),
                                       ],
                               ),
-                              const SizedBox(height: 10),
 
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 30),
                               Container(
                                 height: 350,
                                 width: 350,
@@ -444,6 +451,26 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           ),
                         ),
                       )),
+                      // Tombol booking di bagian bawah
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        child: Positioned(
+                          bottom: 16,
+                          left: 16,
+                          right: 16,
+                          child: CustomButton(
+                            text: 'Continue',
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const BookHotelScreen(),
+                              ));
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   );
                 }
@@ -453,20 +480,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                   size: 50,
                 ));
               },
-            ),
-            // Tombol booking di bagian bawah
-            Positioned(
-              bottom: 16,
-              left: 16,
-              right: 16,
-              child: CustomButton(
-                text: 'Continue',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const BookHotelScreen(),
-                  ));
-                },
-              ),
             ),
           ],
         ),

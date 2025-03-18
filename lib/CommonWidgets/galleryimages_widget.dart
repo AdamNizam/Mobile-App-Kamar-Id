@@ -49,7 +49,7 @@ class GalleryImage extends StatelessWidget {
                 : Image.asset(
                     imagePath,
                     height: 60,
-                    width: 80,
+                    width: 60,
                     fit: BoxFit.cover,
                   ),
           ),
