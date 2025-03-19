@@ -120,7 +120,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 color: Colors.grey,
                               ),
                             ),
-
                       Expanded(
                           child: SingleChildScrollView(
                         child: Padding(

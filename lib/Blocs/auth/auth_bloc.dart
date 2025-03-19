@@ -32,7 +32,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthRegSuccess(userReg));
           } catch (e) {
-            emit(AuthFailed(e.toString()));
+            emit(const AuthFailed('register failed'));
+            print('error register : ${e}');
           }
         }
 

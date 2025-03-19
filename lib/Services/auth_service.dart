@@ -97,7 +97,7 @@ class AuthService {
   Future<RegisterResponseResult> register(SignUpFormModel data) async {
     try {
       final res = await http.post(
-        Uri.parse('$baseUrl/user/auth/register'),
+        Uri.parse('$baseUrl/auth/register'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data.toJson()),
       );

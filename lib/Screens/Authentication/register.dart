@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Models/user/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -42,7 +43,7 @@ class _RegisterState extends State<Register> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailed) {
-            showCustomSnackbar(context, 'Register Failed');
+            showCustomSnackbar(context, state.error);
           }
           if (state is AuthRegSuccess) {
             Navigator.pushNamedAndRemoveUntil(
@@ -53,15 +54,9 @@ class _RegisterState extends State<Register> {
         builder: (context, state) {
           if (state is AuthLoading) {
             return Center(
-              child: SizedBox(
-                width: 80,
-                height: 80,
-                child: CircularProgressIndicator(
-                  strokeWidth: 4.0,
-                  backgroundColor: Colors.grey[300],
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(AppColors.tabColor),
-                ),
+              child: LoadingAnimationWidget.hexagonDots(
+                color: AppColors.tabColor,
+                size: 50,
               ),
             );
           }
