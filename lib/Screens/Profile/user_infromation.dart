@@ -119,10 +119,10 @@ class _UserInformationState extends State<UserInformation> {
                         ),
                       ),
                     ),
-                    const Center(
+                    Center(
                       child: Text(
-                        'john.doe@example.com', // Example email
-                        style: TextStyle(
+                        email, // Example email
+                        style: const TextStyle(
                           fontSize: 16,
                           color: AppColors.text2Color,
                         ),

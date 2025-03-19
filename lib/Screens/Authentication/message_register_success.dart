@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/user/user_model.dart';
+import 'package:hotelbookingapp/Models/user/sign_up_form_model.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';

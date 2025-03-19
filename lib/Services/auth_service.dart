@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hotelbookingapp/Models/user/sign_in_form_model.dart';
 import 'package:hotelbookingapp/Models/user/sign_up_form_model.dart';
-import 'package:hotelbookingapp/Models/user/user_model.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
