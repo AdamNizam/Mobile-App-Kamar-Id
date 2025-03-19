@@ -8,6 +8,7 @@ import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/error_card.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/google_maps_hotel.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/review_card.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
@@ -268,7 +269,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ],
                               ),
                               const SizedBox(height: 10),
-
                               // Deskripsi hotel
                               const Text1(
                                 text1: 'Hotel Description',
@@ -435,15 +435,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
 
                               const SizedBox(height: 10),
+                              // Google Maps
                               const Center(
                                 child: Text1(
-                                  text1: 'Google Maps',
+                                  text1: 'Maps',
                                   size: 17,
                                 ),
                               ),
                               const SizedBox(height: 20),
-
-                              // Google Maps
                               GoogleMapsHotel(
                                 initialPosition: LatLng(
                                   double.parse(state
@@ -458,6 +457,114 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     .toString(),
                               ),
                               const SizedBox(height: 10),
+
+                              Center(
+                                child: Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          RatingBar.readOnly(
+                                            initialRating: 3,
+                                            filledIcon: Icons.star,
+                                            emptyIcon: Icons.star_border,
+                                            filledColor: AppColors.tabColor,
+                                            size: 28,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            '5.0',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        '5.0 (1,092 Reviews)',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'Outstanding: Rated 5.0 with 1,092 Reviews.',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    '1,092 Reviews',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  DropdownButton<String>(
+                                    value: 'Latest',
+                                    items: const [
+                                      DropdownMenuItem(
+                                          value: 'Latest',
+                                          child: Text('Latest')),
+                                      DropdownMenuItem(
+                                          value: 'Oldest',
+                                          child: Text('Oldest')),
+                                    ],
+                                    onChanged: (value) {},
+                                  ),
+                                ],
+                              ),
+
+                              const SizedBox(height: 10),
+                              const ReviewCard(
+                                name: "Jamal Abdul",
+                                status: "New ",
+                                rating: 5.0,
+                                reviewText:
+                                    " My go-to for all travel plans. Highly recommended!",
+                                profileImageUrl:
+                                    "https://randomuser.me/api/portraits/men/1.jpg",
+                              ),
+                              const ReviewCard(
+                                name: "Adam Nizam",
+                                status: "10 minute ago",
+                                rating: 5.0,
+                                reviewText:
+                                    " My go-to for all travel plans. Highly recommended!",
+                                profileImageUrl:
+                                    "https://randomuser.me/api/portraits/men/4.jpg",
+                              ),
+                              const ReviewCard(
+                                name: "Andre Motel",
+                                status: "7 latest week",
+                                rating: 5.0,
+                                reviewText:
+                                    " My go-to for all travel plans. Highly recommended!",
+                                profileImageUrl:
+                                    "https://randomuser.me/api/portraits/men/3.jpg",
+                              ),
                             ],
                           ),
                         ),

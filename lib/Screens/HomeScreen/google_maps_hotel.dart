@@ -43,8 +43,8 @@ class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          height: 350,
-          width: 350,
+          height: 370,
+          width: 600,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -52,14 +52,6 @@ class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
               color: Colors.white,
               width: 5,
             ),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 10,
-                spreadRadius: 2,
-                offset: Offset(2, 4),
-              ),
-            ],
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
