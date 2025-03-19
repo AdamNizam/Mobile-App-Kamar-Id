@@ -8,8 +8,8 @@ import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/error_card.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/google_maps_hotel.dart';
-import 'package:hotelbookingapp/Screens/HomeScreen/review_card.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
+import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -554,35 +554,129 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   ),
                                 ],
                               ),
-
-                              const SizedBox(height: 10),
-                              const ReviewCard(
-                                name: "Jamal Abdul",
-                                status: "New ",
-                                rating: 5.0,
-                                reviewText:
-                                    " My go-to for all travel plans. Highly recommended!",
-                                profileImageUrl:
-                                    "https://randomuser.me/api/portraits/men/1.jpg",
-                              ),
-                              const ReviewCard(
-                                name: "Adam Nizam",
-                                status: "10 minute ago",
-                                rating: 5.0,
-                                reviewText:
-                                    " My go-to for all travel plans. Highly recommended!",
-                                profileImageUrl:
-                                    "https://randomuser.me/api/portraits/men/4.jpg",
-                              ),
-                              const ReviewCard(
-                                name: "Andre Motel",
-                                status: "7 latest week",
-                                rating: 5.0,
-                                reviewText:
-                                    " My go-to for all travel plans. Highly recommended!",
-                                profileImageUrl:
-                                    "https://randomuser.me/api/portraits/men/3.jpg",
-                              ),
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 20),
+                                  Center(
+                                    child: AnimatedSwitcher(
+                                      duration: Duration(milliseconds: 300),
+                                      child: Text(
+                                        '4.7',
+                                        key: ValueKey('rating'),
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: AnimatedOpacity(
+                                      opacity: 1.0,
+                                      duration: Duration(milliseconds: 300),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.star,
+                                              color: AppColors.tabColor),
+                                          Icon(Icons.star,
+                                              color: AppColors.tabColor),
+                                          Icon(Icons.star,
+                                              color: AppColors.tabColor),
+                                          Icon(Icons.star,
+                                              color: AppColors.tabColor),
+                                          Icon(Icons.star_half,
+                                              color: AppColors.tabColor),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: AnimatedOpacity(
+                                      opacity: 1.0,
+                                      duration: Duration(milliseconds: 300),
+                                      child: Text(
+                                        'based on 85 Reviews',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 25),
+                                  RatingRow(
+                                    text: 'Excellent',
+                                    width: 160,
+                                    color: Color(
+                                        0xE500FF00), // Equivalent to Colors.green.withOpacity(0.9)
+                                  ),
+                                  RatingRow(
+                                    text: 'Good',
+                                    width: 140,
+                                    color: Color(0xE500FF00),
+                                  ),
+                                  RatingRow(
+                                    text: 'Average',
+                                    width: 100,
+                                    color: Color(0xFFFFA500),
+                                  ),
+                                  RatingRow(
+                                    text: 'Below Average',
+                                    width: 70,
+                                    color: Colors.purple,
+                                  ),
+                                  RatingRow(
+                                    text: 'Poor',
+                                    width: 40,
+                                    color: Colors.red,
+                                  ),
+                                  SizedBox(height: 20),
+                                  ReviewContainer(
+                                    image: 'images/c5.png',
+                                    text1: 'John Smith',
+                                    text2: '4.6',
+                                    text3: '3 days ago',
+                                    reviewText:
+                                        'The hotel was fantastic! The room was clean and well-maintained.',
+                                  ),
+                                  ReviewContainer(
+                                    image: 'images/c2.png',
+                                    text1: 'Jane Doe',
+                                    text2: '4.2',
+                                    text3: '7 days ago',
+                                    reviewText:
+                                        'Good stay overall. Minor issues with the room service, but the staff was friendly.',
+                                  ),
+                                  ReviewContainer(
+                                    image: 'images/c3.png',
+                                    text1: 'Michael Johnson',
+                                    text2: '3.8',
+                                    text3: '2 weeks ago',
+                                    reviewText:
+                                        'Decent hotel but had some noise issues from the street.',
+                                  ),
+                                  ReviewContainer(
+                                    image: 'images/c4.png',
+                                    text1: 'Emily Davis',
+                                    text2: '5.0',
+                                    text3: '1 month ago',
+                                    reviewText:
+                                        'Absolutely perfect! The amenities were top-notch and the view was amazing.',
+                                  ),
+                                  ReviewContainer(
+                                    image: 'images/c5.png',
+                                    text1: 'William Brown',
+                                    text2: '2.5',
+                                    text3: '1 month ago',
+                                    reviewText:
+                                        'Not great. The room did not meet my expectations based on the photos.',
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

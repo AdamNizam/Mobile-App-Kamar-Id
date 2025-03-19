@@ -29,7 +29,9 @@ class HomeWidgte extends StatelessWidget {
                 );
               }),
               Text1(
-                text1: 'Hai, ${state.userProfile.userName}',
+                text1: state.userProfile.userName != null
+                    ? 'Hi, ${state.userProfile.userName}'
+                    : 'Hi, You',
                 size: 16,
                 color: Colors.white,
               ),
