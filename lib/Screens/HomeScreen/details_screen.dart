@@ -2,10 +2,12 @@ import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/error_card.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
@@ -266,6 +268,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ],
                               ),
                               const SizedBox(height: 10),
+
                               // Deskripsi hotel
                               const Text1(
                                 text1: 'Hotel Description',
@@ -286,6 +289,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
+
+                              // Location Category Hotel
                               const Text1(
                                 text1: 'Location Category',
                                 size: 17,
@@ -314,7 +319,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-
+                              // Extra Price Hotel
                               const Text1(
                                 text1: 'Extra Price',
                                 size: 17,
@@ -345,7 +350,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           ],
                               ),
                               const SizedBox(height: 10),
-
+                              // Service Hotel
                               const Text1(
                                 text1: 'Service Fee',
                                 size: 17,
@@ -377,7 +382,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ],
                               ),
                               const SizedBox(height: 10),
-
+                              // Offer Hotel
                               const Text1(
                                 text1: 'Offers',
                                 size: 17,
@@ -429,24 +434,30 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ],
                               ),
 
-                              const SizedBox(height: 30),
-                              Container(
-                                height: 350,
-                                width: 350,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 10,
-                                      spreadRadius: 2,
-                                      offset: Offset(2, 4),
-                                    ),
-                                  ],
+                              const SizedBox(height: 10),
+                              const Center(
+                                child: Text1(
+                                  text1: 'Google Maps',
+                                  size: 17,
                                 ),
                               ),
-                              const SizedBox(height: 100),
+                              const SizedBox(height: 20),
+
+                              // Google Maps
+                              GoogleMapsHotel(
+                                initialPosition: LatLng(
+                                  double.parse(state
+                                      .allDetailHotel.row!.location!.mapLat),
+                                  double.parse(state
+                                      .allDetailHotel.row!.location!.mapLng),
+                                ),
+                                title:
+                                    state.allDetailHotel.row!.title.toString(),
+                                snippet: state
+                                    .allDetailHotel.row!.location!.name
+                                    .toString(),
+                              ),
+                              const SizedBox(height: 10),
                             ],
                           ),
                         ),

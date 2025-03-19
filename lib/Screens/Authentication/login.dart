@@ -47,9 +47,8 @@ class _LogInState extends State<LogIn> {
         builder: (context, state) {
           if (state is AuthLoading) {
             return Center(
-              child: LoadingAnimationWidget.flickr(
-                leftDotColor: AppColors.tabColor,
-                rightDotColor: AppColors.redDark,
+              child: LoadingAnimationWidget.hexagonDots(
+                color: AppColors.tabColor,
                 size: 50,
               ),
             );
