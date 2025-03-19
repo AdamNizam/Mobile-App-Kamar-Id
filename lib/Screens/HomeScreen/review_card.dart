@@ -48,7 +48,7 @@ class ReviewCard extends StatelessWidget {
                       const Spacer(),
                       Row(
                         children: [
-                          const Icon(Icons.star, color: Colors.amber, size: 16),
+                          const Icon(Icons.star, color: Colors.amber, size: 20),
                           const SizedBox(width: 4),
                           Text(
                             rating.toString(),

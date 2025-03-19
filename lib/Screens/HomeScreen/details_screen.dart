@@ -173,6 +173,25 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10),
+                              state.allDetailHotel.row!.isFeatured == 1
+                                  ? Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.redAwesome,
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: const Text(
+                                        'Featured',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                              const SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -186,7 +205,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       color: Colors.red, size: 30),
                                 ],
                               ),
-
                               Row(
                                 children: [
                                   const Icon(Icons.location_on,
@@ -493,7 +511,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         height: 5,
                                       ),
                                       Text(
-                                        '5.0 (1,092 Reviews)',
+                                        '(1,092 Reviews)',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
