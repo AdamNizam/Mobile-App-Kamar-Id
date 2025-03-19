@@ -255,7 +255,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       const CircleAvatar(
                                         radius: 18,
                                         backgroundImage: NetworkImage(
-                                            "https://randomuser.me/api/portraits/women/1.jpg"),
+                                          "https://randomuser.me/api/portraits/men/1.jpg",
+                                        ),
                                       ),
                                       const SizedBox(width: 10),
                                       Expanded(

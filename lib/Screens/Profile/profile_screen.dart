@@ -44,7 +44,9 @@ class ProfileScreen extends StatelessWidget {
                 const Center(
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundImage: AssetImage('images/c3.png'),
+                    backgroundImage: NetworkImage(
+                      "https://randomuser.me/api/portraits/men/1.jpg",
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -66,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 10),
                           Text(
-                            state.userProfile.name,
+                            state.userProfile.userName.toString(),
                             style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),

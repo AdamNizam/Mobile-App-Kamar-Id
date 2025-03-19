@@ -29,13 +29,17 @@ class HomeWidgte extends StatelessWidget {
                 );
               }),
               Text1(
-                text1: 'Hai, ${state.userProfile.firstName}',
+                text1: 'Hai, ${state.userProfile.userName}',
                 size: 16,
                 color: Colors.white,
               ),
-              Image.asset(
-                'images/c3.png',
-                width: 30,
+              ClipOval(
+                child: Image.network(
+                  "https://randomuser.me/api/portraits/men/1.jpg",
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
+                ),
               )
             ],
           );

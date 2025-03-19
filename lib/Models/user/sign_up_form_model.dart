@@ -14,6 +14,7 @@ class SignUpFormModel {
     this.password,
     this.term = 1,
   });
+
   factory SignUpFormModel.fromJson(Map<String, dynamic> json) {
     return SignUpFormModel(
       firstName: json['first_name'],
@@ -21,7 +22,7 @@ class SignUpFormModel {
       email: json['email'],
       phone: json['phone'],
       password: json['password'],
-      term: (json['term'] == true) ? 1 : 0, // Ubah bool ke int
+      term: (json['term'] == true) ? 1 : 0,
     );
   }
 
