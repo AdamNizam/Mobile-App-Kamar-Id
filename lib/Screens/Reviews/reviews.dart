@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Reviews/writereview.dart';
+
 import '../../Constants/colors.dart';
 import '../../Widgets/customapp_bar.dart';
 import '../../Widgets/custombtn.dart';
@@ -97,7 +98,7 @@ class Reviews extends StatelessWidget {
                   text2: '4.6',
                   text3: '3 days ago',
                   reviewText:
-                  'The hotel was fantastic! The room was clean and well-maintained.',
+                      'The hotel was fantastic! The room was clean and well-maintained.',
                 ),
                 const ReviewContainer(
                   image: 'images/c2.png',
@@ -105,7 +106,7 @@ class Reviews extends StatelessWidget {
                   text2: '4.2',
                   text3: '7 days ago',
                   reviewText:
-                  'Good stay overall. Minor issues with the room service, but the staff was friendly.',
+                      'Good stay overall. Minor issues with the room service, but the staff was friendly.',
                 ),
                 const ReviewContainer(
                   image: 'images/c3.png',
@@ -113,7 +114,7 @@ class Reviews extends StatelessWidget {
                   text2: '3.8',
                   text3: '2 weeks ago',
                   reviewText:
-                  'Decent hotel but had some noise issues from the street.',
+                      'Decent hotel but had some noise issues from the street.',
                 ),
                 const ReviewContainer(
                   image: 'images/c4.png',
@@ -121,7 +122,7 @@ class Reviews extends StatelessWidget {
                   text2: '5.0',
                   text3: '1 month ago',
                   reviewText:
-                  'Absolutely perfect! The amenities were top-notch and the view was amazing.',
+                      'Absolutely perfect! The amenities were top-notch and the view was amazing.',
                 ),
                 const ReviewContainer(
                   image: 'images/c5.png',
@@ -129,7 +130,7 @@ class Reviews extends StatelessWidget {
                   text2: '2.5',
                   text3: '1 month ago',
                   reviewText:
-                  'Not great. The room did not meet my expectations based on the photos.',
+                      'Not great. The room did not meet my expectations based on the photos.',
                 ),
               ],
             ),
@@ -208,11 +209,16 @@ class ReviewContainer extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        Icon(Icons.star, color: Colors.yellow.shade800, size: 15),
-                        Icon(Icons.star, color: Colors.yellow.shade800, size: 15),
-                        Icon(Icons.star, color: Colors.yellow.shade800, size: 15),
-                        Icon(Icons.star, color: Colors.yellow.shade800, size: 15),
-                        Icon(Icons.star_half, color: Colors.yellow.shade800, size: 15),
+                        Icon(Icons.star,
+                            color: Colors.yellow.shade800, size: 15),
+                        Icon(Icons.star,
+                            color: Colors.yellow.shade800, size: 15),
+                        Icon(Icons.star,
+                            color: Colors.yellow.shade800, size: 15),
+                        Icon(Icons.star,
+                            color: Colors.yellow.shade800, size: 15),
+                        Icon(Icons.star_half,
+                            color: Colors.yellow.shade800, size: 15),
                         const SizedBox(width: 5),
                         Text1(text1: text2),
                         const Spacer(),

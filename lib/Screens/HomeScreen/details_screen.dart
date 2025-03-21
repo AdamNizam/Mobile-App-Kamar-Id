@@ -9,6 +9,7 @@ import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/error_card.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
+import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
@@ -476,181 +477,98 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
                               const SizedBox(height: 10),
 
-                              Center(
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: const Column(
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          RatingBar.readOnly(
-                                            initialRating: 3,
-                                            filledIcon: Icons.star,
-                                            emptyIcon: Icons.star_border,
-                                            filledColor: AppColors.tabColor,
-                                            size: 28,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            '5.0',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
+                                      RatingBar.readOnly(
+                                        initialRating: 3,
+                                        filledIcon: Icons.star,
+                                        emptyIcon: Icons.star_border,
+                                        filledColor: AppColors.tabColor,
+                                        size: 28,
                                       ),
                                       SizedBox(
-                                        height: 5,
+                                        width: 5,
                                       ),
                                       Text(
-                                        '(1,092 Reviews)',
+                                        '5.0',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 4),
-                                      Text(
-                                        'Outstanding: Rated 5.0 with 1,092 Reviews.',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    '1,092 Reviews',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  SizedBox(
+                                    height: 5,
                                   ),
-                                  DropdownButton<String>(
-                                    value: 'Latest',
-                                    items: const [
-                                      DropdownMenuItem(
-                                          value: 'Latest',
-                                          child: Text('Latest')),
-                                      DropdownMenuItem(
-                                          value: 'Oldest',
-                                          child: Text('Oldest')),
-                                    ],
-                                    onChanged: (value) {},
-                                  ),
-                                ],
-                              ),
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 20),
                                   Center(
-                                    child: AnimatedSwitcher(
-                                      duration: Duration(milliseconds: 300),
-                                      child: Text(
-                                        '4.7',
-                                        key: ValueKey('rating'),
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black87,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '(1,092 Reviews)',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: AnimatedOpacity(
-                                      opacity: 1.0,
-                                      duration: Duration(milliseconds: 300),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.star,
-                                              color: AppColors.tabColor),
-                                          Icon(Icons.star,
-                                              color: AppColors.tabColor),
-                                          Icon(Icons.star,
-                                              color: AppColors.tabColor),
-                                          Icon(Icons.star,
-                                              color: AppColors.tabColor),
-                                          Icon(Icons.star_half,
-                                              color: AppColors.tabColor),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Center(
-                                    child: AnimatedOpacity(
-                                      opacity: 1.0,
-                                      duration: Duration(milliseconds: 300),
-                                      child: Text(
-                                        'based on 85 Reviews',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
+                                        SizedBox(height: 4),
+                                        Text(
+                                          'Outstanding: Rated 5.0 with 1,092 Reviews.',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(height: 25),
-                                  RatingRow(
-                                    text: 'Excellent',
-                                    width: 160,
-                                    color: Color(
-                                        0xE500FF00), // Equivalent to Colors.green.withOpacity(0.9)
+                                  RatingReviewDetail(
+                                    text: 'Staf',
+                                    rate: 0.33,
+                                    star: 7.5,
+                                    color: AppColors.tabColor,
                                   ),
-                                  RatingRow(
-                                    text: 'Good',
-                                    width: 140,
-                                    color: Color(0xE500FF00),
+                                  SizedBox(height: 5),
+                                  RatingReviewDetail(
+                                    text: 'Kenyamanan',
+                                    rate: 0.10,
+                                    star: 7.5,
+                                    color: AppColors.tabColor,
                                   ),
-                                  RatingRow(
-                                    text: 'Average',
-                                    width: 100,
-                                    color: Color(0xFFFFA500),
+                                  SizedBox(height: 5),
+                                  RatingReviewDetail(
+                                    text: 'Wi-Fi gratis',
+                                    rate: 0.79,
+                                    star: 3.5,
+                                    color: AppColors.tabColor,
                                   ),
-                                  RatingRow(
-                                    text: 'Below Average',
-                                    width: 70,
-                                    color: Colors.purple,
+                                  SizedBox(height: 5),
+                                  RatingReviewDetail(
+                                    text: 'Fasilitas',
+                                    rate: 0.70,
+                                    star: 0.5,
+                                    color: AppColors.tabColor,
                                   ),
-                                  RatingRow(
-                                    text: 'Poor',
-                                    width: 40,
-                                    color: Colors.red,
+                                  SizedBox(height: 5),
+                                  RatingReviewDetail(
+                                    text: 'Kebersihan',
+                                    rate: 0.67,
+                                    star: 2.0,
+                                    color: AppColors.tabColor,
+                                  ),
+                                  SizedBox(height: 5),
+                                  RatingReviewDetail(
+                                    text: 'Lokasi',
+                                    rate: 0.40,
+                                    star: 7.5,
+                                    color: AppColors.tabColor,
                                   ),
                                   SizedBox(height: 20),
-                                  ReviewContainer(
-                                    image: 'images/c5.png',
-                                    text1: 'John Smith',
-                                    text2: '4.6',
-                                    text3: '3 days ago',
-                                    reviewText:
-                                        'The hotel was fantastic! The room was clean and well-maintained.',
-                                  ),
-                                  ReviewContainer(
-                                    image: 'images/c2.png',
-                                    text1: 'Jane Doe',
-                                    text2: '4.2',
-                                    text3: '7 days ago',
-                                    reviewText:
-                                        'Good stay overall. Minor issues with the room service, but the staff was friendly.',
-                                  ),
                                   ReviewContainer(
                                     image: 'images/c3.png',
                                     text1: 'Michael Johnson',
