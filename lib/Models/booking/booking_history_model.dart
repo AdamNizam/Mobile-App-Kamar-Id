@@ -1,28 +1,49 @@
 import 'dart:convert';
 
-class BookingHistoryModel {
-  final List<Datum>? data;
-  final int? total;
+class ResultCheckAvaibility {
+  final List<Datum> data;
+  final int total;
+  final int maxPages;
+  final int status;
 
-  BookingHistoryModel({
+  ResultCheckAvaibility({
     required this.data,
     required this.total,
+    required this.maxPages,
+    required this.status,
   });
 
-  factory BookingHistoryModel.fromRawJson(String str) =>
-      BookingHistoryModel.fromJson(json.decode(str));
+  ResultCheckAvaibility copyWith({
+    List<Datum>? data,
+    int? total,
+    int? maxPages,
+    int? status,
+  }) =>
+      ResultCheckAvaibility(
+        data: data ?? this.data,
+        total: total ?? this.total,
+        maxPages: maxPages ?? this.maxPages,
+        status: status ?? this.status,
+      );
+
+  factory ResultCheckAvaibility.fromRawJson(String str) =>
+      ResultCheckAvaibility.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory BookingHistoryModel.fromJson(Map<String, dynamic> json) =>
-      BookingHistoryModel(
+  factory ResultCheckAvaibility.fromJson(Map<String, dynamic> json) =>
+      ResultCheckAvaibility(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         total: json["total"],
+        maxPages: json["max_pages"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
         "total": total,
+        "max_pages": maxPages,
+        "status": status,
       };
 }
 
@@ -31,7 +52,7 @@ class Datum {
   final String code;
   final int vendorId;
   final int customerId;
-  final dynamic paymentId;
+  final int? paymentId;
   final String gateway;
   final int objectId;
   final String objectModel;
@@ -136,6 +157,118 @@ class Datum {
     required this.bookingMeta,
     required this.serviceIcon,
   });
+
+  Datum copyWith({
+    int? id,
+    String? code,
+    int? vendorId,
+    int? customerId,
+    int? paymentId,
+    String? gateway,
+    int? objectId,
+    String? objectModel,
+    DateTime? startDate,
+    DateTime? endDate,
+    String? total,
+    int? totalGuests,
+    dynamic currency,
+    String? status,
+    dynamic deposit,
+    dynamic depositType,
+    int? commission,
+    CommissionType? commissionType,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? phone,
+    dynamic address,
+    dynamic address2,
+    dynamic city,
+    dynamic state,
+    dynamic zipCode,
+    String? country,
+    dynamic customerNotes,
+    int? createUser,
+    int? updateUser,
+    dynamic deletedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    List<BuyerFee>? buyerFees,
+    String? totalBeforeFees,
+    dynamic paidVendor,
+    dynamic objectChildId,
+    dynamic number,
+    dynamic paid,
+    String? payNow,
+    int? walletCreditUsed,
+    int? walletTotalUsed,
+    dynamic walletTransactionId,
+    dynamic isRefundWallet,
+    String? vendorServiceFeeAmount,
+    String? vendorServiceFee,
+    dynamic isPaid,
+    String? totalBeforeDiscount,
+    String? couponAmount,
+    Service? service,
+    BookingMeta? bookingMeta,
+    String? serviceIcon,
+  }) =>
+      Datum(
+        id: id ?? this.id,
+        code: code ?? this.code,
+        vendorId: vendorId ?? this.vendorId,
+        customerId: customerId ?? this.customerId,
+        paymentId: paymentId ?? this.paymentId,
+        gateway: gateway ?? this.gateway,
+        objectId: objectId ?? this.objectId,
+        objectModel: objectModel ?? this.objectModel,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
+        total: total ?? this.total,
+        totalGuests: totalGuests ?? this.totalGuests,
+        currency: currency ?? this.currency,
+        status: status ?? this.status,
+        deposit: deposit ?? this.deposit,
+        depositType: depositType ?? this.depositType,
+        commission: commission ?? this.commission,
+        commissionType: commissionType ?? this.commissionType,
+        email: email ?? this.email,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        phone: phone ?? this.phone,
+        address: address ?? this.address,
+        address2: address2 ?? this.address2,
+        city: city ?? this.city,
+        state: state ?? this.state,
+        zipCode: zipCode ?? this.zipCode,
+        country: country ?? this.country,
+        customerNotes: customerNotes ?? this.customerNotes,
+        createUser: createUser ?? this.createUser,
+        updateUser: updateUser ?? this.updateUser,
+        deletedAt: deletedAt ?? this.deletedAt,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        buyerFees: buyerFees ?? this.buyerFees,
+        totalBeforeFees: totalBeforeFees ?? this.totalBeforeFees,
+        paidVendor: paidVendor ?? this.paidVendor,
+        objectChildId: objectChildId ?? this.objectChildId,
+        number: number ?? this.number,
+        paid: paid ?? this.paid,
+        payNow: payNow ?? this.payNow,
+        walletCreditUsed: walletCreditUsed ?? this.walletCreditUsed,
+        walletTotalUsed: walletTotalUsed ?? this.walletTotalUsed,
+        walletTransactionId: walletTransactionId ?? this.walletTransactionId,
+        isRefundWallet: isRefundWallet ?? this.isRefundWallet,
+        vendorServiceFeeAmount:
+            vendorServiceFeeAmount ?? this.vendorServiceFeeAmount,
+        vendorServiceFee: vendorServiceFee ?? this.vendorServiceFee,
+        isPaid: isPaid ?? this.isPaid,
+        totalBeforeDiscount: totalBeforeDiscount ?? this.totalBeforeDiscount,
+        couponAmount: couponAmount ?? this.couponAmount,
+        service: service ?? this.service,
+        bookingMeta: bookingMeta ?? this.bookingMeta,
+        serviceIcon: serviceIcon ?? this.serviceIcon,
+      );
 
   factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
 
@@ -278,6 +411,29 @@ class BookingMeta {
     required this.howToPay,
   });
 
+  BookingMeta copyWith({
+    dynamic duration,
+    int? basePrice,
+    dynamic salePrice,
+    int? guests,
+    int? adults,
+    String? children,
+    String? extraPrice,
+    String? locale,
+    String? howToPay,
+  }) =>
+      BookingMeta(
+        duration: duration ?? this.duration,
+        basePrice: basePrice ?? this.basePrice,
+        salePrice: salePrice ?? this.salePrice,
+        guests: guests ?? this.guests,
+        adults: adults ?? this.adults,
+        children: children ?? this.children,
+        extraPrice: extraPrice ?? this.extraPrice,
+        locale: locale ?? this.locale,
+        howToPay: howToPay ?? this.howToPay,
+      );
+
   factory BookingMeta.fromRawJson(String str) =>
       BookingMeta.fromJson(json.decode(str));
 
@@ -335,6 +491,33 @@ class BuyerFee {
     required this.type,
   });
 
+  BuyerFee copyWith({
+    String? name,
+    String? desc,
+    String? nameEn,
+    String? descEn,
+    dynamic nameJa,
+    dynamic descJa,
+    dynamic nameEgy,
+    dynamic descEgy,
+    String? price,
+    String? unit,
+    String? type,
+  }) =>
+      BuyerFee(
+        name: name ?? this.name,
+        desc: desc ?? this.desc,
+        nameEn: nameEn ?? this.nameEn,
+        descEn: descEn ?? this.descEn,
+        nameJa: nameJa ?? this.nameJa,
+        descJa: descJa ?? this.descJa,
+        nameEgy: nameEgy ?? this.nameEgy,
+        descEgy: descEgy ?? this.descEgy,
+        price: price ?? this.price,
+        unit: unit ?? this.unit,
+        type: type ?? this.type,
+      );
+
   factory BuyerFee.fromRawJson(String str) =>
       BuyerFee.fromJson(json.decode(str));
 
@@ -378,6 +561,15 @@ class CommissionType {
     required this.type,
   });
 
+  CommissionType copyWith({
+    String? amount,
+    String? type,
+  }) =>
+      CommissionType(
+        amount: amount ?? this.amount,
+        type: type ?? this.type,
+      );
+
   factory CommissionType.fromRawJson(String str) =>
       CommissionType.fromJson(json.decode(str));
 
@@ -400,6 +592,13 @@ class Service {
   Service({
     required this.title,
   });
+
+  Service copyWith({
+    String? title,
+  }) =>
+      Service(
+        title: title ?? this.title,
+      );
 
   factory Service.fromRawJson(String str) => Service.fromJson(json.decode(str));
 

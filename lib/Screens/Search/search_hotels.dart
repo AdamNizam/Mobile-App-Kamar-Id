@@ -9,7 +9,7 @@ import '../../Widgets/customtextfield.dart';
 import '../../Widgets/detailstext1.dart';
 import '../../Widgets/detailstext2.dart';
 import '../../Widgets/text11.dart';
-import '../HomeScreen/details_screen.dart';
+import '../DetailHotel/details_screen.dart';
 
 class SearchHotel extends StatefulWidget {
   const SearchHotel({super.key});

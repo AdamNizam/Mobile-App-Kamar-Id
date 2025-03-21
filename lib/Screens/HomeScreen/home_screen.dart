@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                       return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
-                          children: state.hotels.map((hotel) {
+                          children: state.data.map((hotel) {
                             return EventsCard(hotel: hotel);
                           }).toList(),
                         ),
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                       if (state is HotelSuccess) {
                         return SingleChildScrollView(
                           child: Column(
-                            children: state.hotels.map((hotel) {
+                            children: state.data.map((hotel) {
                               return HotelsCard(hotel: hotel);
                             }).toList(),
                           ),

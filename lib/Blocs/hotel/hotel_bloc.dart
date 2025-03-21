@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Models/booking/booking_history_model.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/hotel_service.dart';
@@ -15,9 +16,9 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
           try {
             emit(HotelLoading());
 
-            final rowHotel = await HotelService().gethAllHotels();
+            final data = await HotelService().gethAllHotels();
 
-            emit(HotelSuccess(rowHotel));
+            emit(HotelSuccess(data));
           } catch (error) {
             // emit(HotelFailed(error.toString()));
             emit(const HotelFailed('Terjandi Kesalahan'));
@@ -28,16 +29,12 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
           try {
             emit(HotelDetailLoading());
 
-            final allDetailHotel =
-                await HotelService().getAllDetailHotel(event.slug);
+            final data = await HotelService().getAllDetailHotel(event.slug);
 
-            emit(GetAllHotelDetailSuccess(allDetailHotel));
-
-            // final hotelDetail = await HotelService().getDetailHotel(event.slug);
-            // emit(HotelDetailSuccess(hotelDetail));
+            emit(GetAllHotelDetailSuccess(data));
           } catch (error) {
+            // print('pesan error: $error');
             emit(const HotelFailed('Terjadi Kesalahan'));
-            print('pesan error: $error');
           }
         }
       },

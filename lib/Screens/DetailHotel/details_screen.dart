@@ -6,15 +6,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
-import 'package:hotelbookingapp/Screens/HomeScreen/error_card.dart';
-import 'package:hotelbookingapp/Screens/HomeScreen/google_maps_hotel.dart';
-import 'package:hotelbookingapp/Screens/HomeScreen/task_card_service.dart';
+import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
+import 'package:hotelbookingapp/Widgets/error_card.dart';
+import 'package:hotelbookingapp/Widgets/task_card_service.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -54,7 +54,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                 }
 
                 if (state is GetAllHotelDetailSuccess) {
-                  String? videoUrl = state.allDetailHotel.row!.video;
+                  String? videoUrl = state.data.row!.video;
                   String? videoId;
 
                   if (videoUrl != null && videoUrl.isNotEmpty) {
@@ -147,8 +147,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       //           });
                                       //         }),
                                       //   ),
-                                      if (state.allDetailHotel.gallery != null)
-                                        ...state.allDetailHotel.gallery!.map(
+                                      if (state.data.gallery != null)
+                                        ...state.data.gallery!.map(
                                           (urlGambar) {
                                             if (urlGambar.thumb is bool ||
                                                 urlGambar.large is bool) {
@@ -173,7 +173,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              state.allDetailHotel.row!.isFeatured == 1
+                              state.data.row!.isFeatured == 1
                                   ? Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 4),
@@ -197,8 +197,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text1(
-                                    text1: state.allDetailHotel.row!.title
-                                        .toString(),
+                                    text1: state.data.row!.title.toString(),
                                     size: 17,
                                   ),
                                   const Icon(Icons.favorite_border,
@@ -211,8 +210,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       size: 20, color: AppColors.tabColor),
                                   const SizedBox(width: 8),
                                   Text2(
-                                    text2: state
-                                            .allDetailHotel.row!.location?.name
+                                    text2: state.data.row!.location?.name
                                             .toString() ??
                                         'Location not available',
                                   ),
@@ -226,8 +224,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   RatingBar.readOnly(
-                                    initialRating: state
-                                            .allDetailHotel.row!.reviewScore
+                                    initialRating: state.data.row!.reviewScore
                                             ?.toDouble() ??
                                         3,
                                     filledIcon: Icons.star,
@@ -236,7 +233,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     size: 28,
                                   ),
                                   Text(
-                                    '\$${state.allDetailHotel.row!.price.toString()}/night',
+                                    'Rp${state.data.row!.price.toString()}/night',
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -266,7 +263,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              state.allDetailHotel.author!.name
+                                              state.data.author!.name
                                                   .toString(),
                                               style: const TextStyle(
                                                 fontSize: 14,
@@ -294,12 +291,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 size: 17,
                               ),
                               const SizedBox(height: 10),
-                              (state.allDetailHotel.row!.content != null &&
-                                      state.allDetailHotel.row!.content!
-                                          .isNotEmpty)
+                              (state.data.row!.content != null &&
+                                      state.data.row!.content!.isNotEmpty)
                                   ? HtmlWidget(
-                                      state.allDetailHotel.row!.content
-                                          .toString(),
+                                      state.data.row!.content.toString(),
                                       textStyle: const TextStyle(
                                           fontSize: 16, color: Colors.black87),
                                     )
@@ -320,12 +315,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      if (state.allDetailHotel
-                                              .locationCategory !=
-                                          null)
-                                        ...state
-                                            .allDetailHotel.locationCategory!
-                                            .map(
+                                      if (state.data.locationCategory != null)
+                                        ...state.data.locationCategory!.map(
                                           (category) {
                                             return CategoryLocationCard(
                                               icon: category.iconClass ?? '',
@@ -346,27 +337,22 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               const SizedBox(height: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children:
-                                    state.allDetailHotel.row!.extraPrice !=
-                                                null &&
-                                            state.allDetailHotel.row!
-                                                .extraPrice!.isNotEmpty
-                                        ? state.allDetailHotel.row!.extraPrice!
-                                            .map((extra) {
-                                            return TaskCardService(
-                                              title: extra.name, // Pastikan ada
-                                              clientName:
-                                                  "\$${extra.price}", // Pastikan ada
-                                              backgroundColor: Colors.white,
-                                              statusColor:
-                                                  AppColors.buttonColor,
-                                            );
-                                          }).toList()
-                                        : [
-                                            const ErrorCard(
-                                                message:
-                                                    'Extra Price is not available')
-                                          ],
+                                children: state.data.row!.extraPrice != null &&
+                                        state.data.row!.extraPrice!.isNotEmpty
+                                    ? state.data.row!.extraPrice!.map((extra) {
+                                        return TaskCardService(
+                                          title: extra.name, // Pastikan ada
+                                          clientName:
+                                              "\$${extra.price}", // Pastikan ada
+                                          backgroundColor: Colors.white,
+                                          statusColor: AppColors.buttonColor,
+                                        );
+                                      }).toList()
+                                    : [
+                                        const ErrorCard(
+                                            message:
+                                                'Extra Price is not available')
+                                      ],
                               ),
                               const SizedBox(height: 10),
                               // Service Hotel
@@ -377,12 +363,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               const SizedBox(height: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: state.allDetailHotel.row!
-                                                .serviceFee !=
-                                            null &&
-                                        state.allDetailHotel.row!.serviceFee!
-                                            .isNotEmpty
-                                    ? state.allDetailHotel.row!.serviceFee!
+                                children: state.data.row!.serviceFee != null &&
+                                        state.data.row!.serviceFee!.isNotEmpty
+                                    ? state.data.row!.serviceFee!
                                         .map((service) {
                                         return TaskCardService(
                                           title: service.name,
@@ -408,12 +391,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: state.allDetailHotel.row!.offer !=
-                                            null &&
-                                        state.allDetailHotel.row!.offer!
-                                            .isNotEmpty
-                                    ? state.allDetailHotel.row!.offer!
-                                        .map((offer) {
+                                children: state.data.row!.offer != null &&
+                                        state.data.row!.offer!.isNotEmpty
+                                    ? state.data.row!.offer!.map((offer) {
                                         return Column(
                                           children: [
                                             ListTile(
@@ -464,16 +444,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               const SizedBox(height: 20),
                               GoogleMapsHotel(
                                 initialPosition: LatLng(
-                                  double.parse(state
-                                      .allDetailHotel.row!.location!.mapLat),
-                                  double.parse(state
-                                      .allDetailHotel.row!.location!.mapLng),
+                                  double.parse(
+                                      state.data.row!.location!.mapLat),
+                                  double.parse(
+                                      state.data.row!.location!.mapLng),
                                 ),
-                                title:
-                                    state.allDetailHotel.row!.title.toString(),
-                                snippet: state
-                                    .allDetailHotel.row!.location!.name
-                                    .toString(),
+                                title: state.data.row!.title.toString(),
+                                snippet:
+                                    state.data.row!.location!.name.toString(),
                               ),
                               const SizedBox(height: 10),
 

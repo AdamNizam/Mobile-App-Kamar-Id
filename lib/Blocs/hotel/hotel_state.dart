@@ -23,28 +23,28 @@ final class HotelFailed extends HotelState {
 }
 
 class HotelSuccess extends HotelState {
-  final List<HotelAllModel> hotels;
+  final List<HotelAllModel> data;
 
-  const HotelSuccess(this.hotels);
-
-  @override
-  List<Object> get props => [hotels];
-}
-
-class HotelDetailSuccess extends HotelState {
-  final Row rowHotel;
-
-  const HotelDetailSuccess(this.rowHotel);
+  const HotelSuccess(this.data);
 
   @override
-  List<Object> get props => [rowHotel];
+  List<Object> get props => [data];
 }
 
 class GetAllHotelDetailSuccess extends HotelState {
-  final HotelDetailModel allDetailHotel;
+  final HotelDetailModel data;
 
-  const GetAllHotelDetailSuccess(this.allDetailHotel);
+  const GetAllHotelDetailSuccess(this.data);
 
   @override
-  List<Object> get props => [allDetailHotel];
+  List<Object> get props => [data];
+}
+
+class CheckAvaibilitySuccess extends HotelState {
+  final ResultCheckAvaibility data;
+
+  const CheckAvaibilitySuccess(this.data);
+
+  @override
+  List<Object> get props => [data];
 }

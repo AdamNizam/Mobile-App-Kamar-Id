@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hotelbookingapp/Models/booking/booking_history_model.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
@@ -56,10 +57,8 @@ class HotelService {
 
   Future<HotelDetailModel> getAllDetailHotel(String slug) async {
     try {
-      // Ambil token otorisasi
       final token = await AuthService().getToken();
 
-      // Request data hotel dari API
       final res = await http.get(
         Uri.parse('$baseUrl/hotel/$slug'),
         headers: {
@@ -73,6 +72,29 @@ class HotelService {
         return HotelDetailModel.fromJson(data);
       }
 
+      throw jsonDecode(res.body)['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ResultCheckAvaibility> checkAvaibility(int id) async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.get(
+        Uri.parse('$baseUrl/hotel/$id/checkAvailability'),
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(res.body);
+        print(' Get Avaibality hotel sukses : $data');
+        return ResultCheckAvaibility.fromJson(data);
+      }
       throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;

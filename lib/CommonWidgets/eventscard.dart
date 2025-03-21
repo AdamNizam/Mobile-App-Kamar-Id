@@ -5,7 +5,7 @@ import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Constants/colors.dart';
-import '../Screens/HomeScreen/details_screen.dart';
+import '../Screens/DetailHotel/details_screen.dart';
 import '../Widgets/detailstext1.dart';
 import '../Widgets/detailstext2.dart';
 import '../Widgets/text11.dart';
