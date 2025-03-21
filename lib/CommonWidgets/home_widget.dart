@@ -31,7 +31,7 @@ class HomeWidgte extends StatelessWidget {
               Text1(
                 text1: state.userProfile.userName != null
                     ? 'Hi, ${state.userProfile.userName}'
-                    : 'Hi, You',
+                    : 'Hi, ${state.userProfile.firstName}',
                 size: 16,
                 color: Colors.white,
               ),

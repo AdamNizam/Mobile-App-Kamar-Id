@@ -22,6 +22,7 @@ import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Screens/Search/search_typing.dart';
 import 'package:hotelbookingapp/Screens/Settings/settings_screen.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,8 +59,9 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: AppColors.bgColor,
             useMaterial3: true,
           ),
+          home: const CheckInternetScreen(),
           routes: {
-            '/': (context) => const SplashScreen(),
+            '/splashScreen': (context) => const SplashScreen(),
             '/login': (context) => const LogIn(),
             '/register': (context) => const Register(),
             '/message-success-register': (context) =>
