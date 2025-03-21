@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/chek_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
@@ -19,7 +20,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../Constants/colors.dart';
-import '../Booking/book_hotel.dart';
 
 class HotelDetailsScreen extends StatefulWidget {
   final String? slug;
@@ -591,7 +591,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             text: 'Continue',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const BookHotelScreen(),
+                                builder: (context) =>
+                                    const CheckAvailabilityScreen(),
                               ));
                             },
                           ),
