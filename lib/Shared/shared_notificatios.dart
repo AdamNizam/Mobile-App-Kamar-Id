@@ -20,7 +20,7 @@ void showCustomSnackbar(BuildContext context, String message) {
       ],
     ),
     flushbarPosition: FlushbarPosition.TOP,
-    backgroundColor: AppColors.buttonColor,
+    backgroundColor: AppColors.redAwesome,
     duration: const Duration(seconds: 2),
   ).show(context);
 }

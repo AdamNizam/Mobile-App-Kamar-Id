@@ -198,7 +198,7 @@ class _EventsCardState extends State<EventsCard> {
                                 Icons.star,
                                 size: 20.0,
                                 color: index < (widget.hotel.reviewScore ?? 0)
-                                    ? AppColors.tabColor
+                                    ? AppColors.amberColor
                                     : Colors.grey,
                               ),
                             ),
@@ -211,7 +211,7 @@ class _EventsCardState extends State<EventsCard> {
                           Text11(
                             text2:
                                 '10% Off ${widget.hotel.isFeatured == 1 ? "Yes" : "No"}',
-                            color: AppColors.tabColor,
+                            color: Colors.black,
                           ),
                         ],
                       ),

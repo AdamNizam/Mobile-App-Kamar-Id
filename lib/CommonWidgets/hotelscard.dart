@@ -214,7 +214,7 @@ class _HotelsCardState extends State<HotelsCard> {
                                                     .hotel.reviewScore
                                                     ?.toString() ??
                                                 '0.0')!
-                                        ? AppColors.tabColor
+                                        ? AppColors.amberColor
                                         : Colors.grey,
                                   ),
                                 ),
@@ -246,7 +246,7 @@ class _HotelsCardState extends State<HotelsCard> {
                                       : const Text1(
                                           text1: '0',
                                           size: 18,
-                                          color: AppColors.tabColor,
+                                          color: Colors.black,
                                         ),
                                   const Text2(text2: '/night'),
                                 ],

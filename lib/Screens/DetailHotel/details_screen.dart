@@ -6,7 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/chek_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
@@ -229,7 +228,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         3,
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
-                                    filledColor: AppColors.tabColor,
+                                    filledColor: AppColors.amberColor,
                                     size: 28,
                                   ),
                                   Text(
@@ -465,7 +464,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         initialRating: 3,
                                         filledIcon: Icons.star,
                                         emptyIcon: Icons.star_border,
-                                        filledColor: AppColors.tabColor,
+                                        filledColor: AppColors.amberColor,
                                         size: 28,
                                       ),
                                       SizedBox(
@@ -590,10 +589,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           child: CustomButton(
                             text: 'Continue',
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const CheckAvailabilityScreen(),
-                              ));
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (context) =>
+                              //       const CheckAvailabilityScreen(),
+                              // ));
                             },
                           ),
                         ),

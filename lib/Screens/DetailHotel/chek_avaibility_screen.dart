@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/card_avaibility.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/modal_chek_avaibility.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/modal_chek_room.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
@@ -16,7 +18,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -28,6 +30,8 @@ class CheckAvailabilityScreen extends StatelessWidget {
                         height: 15,
                       ),
                       Container(
+                        width: 330,
+                        height: 55,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -36,29 +40,48 @@ class CheckAvailabilityScreen extends StatelessWidget {
                             color: AppColors.strokColor,
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: const Icon(Icons.calendar_month),
-                              title: const Text("Chek In - Chek Out"),
-                              onTap: () {},
-                            ),
-                            const Divider(
-                              color: AppColors.amberColor,
-                              thickness: 2,
-                            ),
-                            ListTile(
-                              leading: const Icon(Icons.person),
-                              title: const Text("Chek Room"),
-                              onTap: () {},
-                            ),
-                          ],
+                        child: ListTile(
+                          leading: const Icon(Icons.calendar_month, size: 24),
+                          title: const Text1(
+                            text1: "Check In - Check Out",
+                          ),
+                          onTap: () {
+                            showBookingModal(context);
+                          },
                         ),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
+                      Container(
+                        width: 339,
+                        height: 55,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            width: 2,
+                            color: AppColors.strokColor,
+                          ),
+                        ),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.people,
+                            size: 24,
+                          ),
+                          title: const Text1(
+                            text1: "0 Dewasa - 0 Anak-anak",
+                          ),
+                          onTap: () {
+                            showRoomSelectionModal(context);
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       SizedBox(
+                        height: 44.0,
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -71,7 +94,10 @@ class CheckAvailabilityScreen extends StatelessWidget {
                           onPressed: () {
                             // Aksi pencarian
                           },
-                          child: const Text("Cek Ketersediaan"),
+                          child: const Text(
+                            "Cek Ketersediaan",
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -87,7 +113,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text1(
-                    text1: 'Kamar Yangg Tersedia',
+                    text1: 'Kamar Yang Tersedia',
                     size: 16,
                   ),
                   SizedBox(
@@ -98,7 +124,6 @@ class CheckAvailabilityScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              // Tambahkan Expanded di sini
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
