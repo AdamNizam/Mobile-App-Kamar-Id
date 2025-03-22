@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 
 class CustomIcon2Avaibility extends StatelessWidget {
   final IconData icon;
@@ -18,7 +19,7 @@ class CustomIcon2Avaibility extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
-              color: Colors.grey,
+              color: AppColors.strokColor,
               width: 1,
             ),
           ),
@@ -26,7 +27,7 @@ class CustomIcon2Avaibility extends StatelessWidget {
           child: Icon(
             icon,
             size: 16,
-            color: Colors.grey,
+            color: AppColors.lightBlue,
           ),
         ),
       ],

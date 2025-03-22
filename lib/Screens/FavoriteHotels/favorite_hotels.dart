@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_cards.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -77,22 +78,21 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                         );
                       }
                     }
-                    return const Center(
+                    return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image(
-                            image: AssetImage('images/no-data.png'),
-                            width: 250, // Sesuaikan ukuran gambar
+                          SvgPicture.asset(
+                            'images/No data-bro.svg',
+                            semanticsLabel: 'Acme Logo',
+                            width: 350,
                             height: 300,
-                            fit: BoxFit
-                                .cover, // Mengatur cara gambar ditampilkan
+                            fit: BoxFit.contain,
                           ),
-                          SizedBox(height: 10), // Jarak antara gambar dan teks
-                          Text(
-                            'Tidak ada data tersedia.',
+                          const Text(
+                            'Oopss.. Data is not available',
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey),
                           ),

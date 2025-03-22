@@ -21,7 +21,7 @@ class CustomIcon1Avaibility extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Colors.grey,
+              color: Colors.amber,
               width: 1,
             ),
           ),
@@ -29,7 +29,7 @@ class CustomIcon1Avaibility extends StatelessWidget {
           child: Icon(
             icon,
             size: 20,
-            color: AppColors.tabColor,
+            color: AppColors.button2Color,
           ),
         ),
         const SizedBox(

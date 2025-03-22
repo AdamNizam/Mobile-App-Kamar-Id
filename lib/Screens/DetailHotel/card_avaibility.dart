@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
 
@@ -23,9 +24,9 @@ class CardAvailbility extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                "https://picsum.photos/400/300", // Ganti dengan gambar asli
+                "https://picsum.photos/400/300",
                 width: 100,
-                height: 120,
+                height: 130,
                 fit: BoxFit.cover,
               ),
             ),
@@ -36,11 +37,30 @@ class CardAvailbility extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      "Room 1",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Room 1",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        Spacer(),
+                        Text(
+                          "Rp2200",
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.button2Color,
+                          ),
+                        ),
+                        Text(
+                          "/mlm",
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w400),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: 10),
