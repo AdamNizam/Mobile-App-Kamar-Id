@@ -19,11 +19,9 @@ class CategoryLocationCard extends StatelessWidget {
       case 'fa fa-hospital-o':
         return FontAwesomeIcons.hospital;
       case 'fa fa-subway':
-        return FontAwesomeIcons.subway;
-      case 'icofont-education':
-        return FontAwesomeIcons.book; // ganti dengan icon yang mirip
+        return FontAwesomeIcons.book;
       default:
-        return Icons.error; // icon default kalau ga cocok
+        return Icons.error;
     }
   }
 

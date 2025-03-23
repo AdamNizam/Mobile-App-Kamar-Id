@@ -176,7 +176,7 @@ class _EventsCardState extends State<EventsCard> {
                             children: [
                               Text1(
                                 text1: widget.hotel.price != null
-                                    ? "\$${widget.hotel.price}"
+                                    ? "Rp${widget.hotel.price}"
                                     : '0',
                                 size: 18,
                                 color: AppColors.tabColor,
@@ -208,9 +208,8 @@ class _EventsCardState extends State<EventsCard> {
                                 widget.hotel.reviewScore?.toString() ?? '0.0',
                           ),
                           const Spacer(),
-                          Text11(
-                            text2:
-                                '10% Off ${widget.hotel.isFeatured == 1 ? "Yes" : "No"}',
+                          const Text11(
+                            text2: '10% Off',
                             color: Colors.black,
                           ),
                         ],

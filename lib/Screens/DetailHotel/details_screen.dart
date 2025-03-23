@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/chek_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
@@ -65,7 +66,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                   _youtubeController ??= YoutubePlayerController(
                     initialVideoId: videoId,
                     flags: const YoutubePlayerFlags(
-                      autoPlay: false,
+                      autoPlay: true,
                       mute: false,
                     ),
                   );
@@ -133,19 +134,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      // if (!isVideoPlaying)
-                                      //   Padding(
-                                      //     padding: const EdgeInsets.all(8.0),
-                                      //     child: GalleryImage(
-                                      //         imagePath:
-                                      //             'images/watch-video.png',
-                                      //         isSelected: false,
-                                      //         onTap: () {
-                                      //           setState(() {
-                                      //             isVideoPlaying = true;
-                                      //           });
-                                      //         }),
-                                      //   ),
                                       if (state.data.gallery != null)
                                         ...state.data.gallery!.map(
                                           (urlGambar) {
@@ -342,7 +330,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         return TaskCardService(
                                           title: extra.name, // Pastikan ada
                                           clientName:
-                                              "\$${extra.price}", // Pastikan ada
+                                              "Rp${extra.price}", // Pastikan ada
                                           backgroundColor: Colors.white,
                                           statusColor: AppColors.buttonColor,
                                         );
@@ -369,7 +357,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         return TaskCardService(
                                           title: service.name,
                                           clientName: service.unit == 'fixed'
-                                              ? '\$${service.price}'
+                                              ? 'Rp${service.price}'
                                               : '${service.price}%',
                                           backgroundColor: Colors.white,
                                           statusColor: AppColors.buttonColor,
@@ -508,42 +496,42 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     text: 'Staf',
                                     rate: 0.33,
                                     star: 7.5,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.amberColor,
                                   ),
                                   SizedBox(height: 5),
                                   RatingReviewDetail(
                                     text: 'Kenyamanan',
-                                    rate: 0.10,
+                                    rate: 0.99,
                                     star: 7.5,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.amberColor,
                                   ),
                                   SizedBox(height: 5),
                                   RatingReviewDetail(
                                     text: 'Wi-Fi gratis',
                                     rate: 0.79,
                                     star: 3.5,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.amberColor,
                                   ),
                                   SizedBox(height: 5),
                                   RatingReviewDetail(
                                     text: 'Fasilitas',
                                     rate: 0.70,
                                     star: 0.5,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.amberColor,
                                   ),
                                   SizedBox(height: 5),
                                   RatingReviewDetail(
                                     text: 'Kebersihan',
                                     rate: 0.67,
                                     star: 2.0,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.amberColor,
                                   ),
                                   SizedBox(height: 5),
                                   RatingReviewDetail(
                                     text: 'Lokasi',
                                     rate: 0.40,
                                     star: 7.5,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.amberColor,
                                   ),
                                   SizedBox(height: 20),
                                   ReviewContainer(
@@ -589,10 +577,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           child: CustomButton(
                             text: 'Continue',
                             onTap: () {
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //   builder: (context) =>
-                              //       const CheckAvailabilityScreen(),
-                              // ));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const CheckAvailabilityScreen(),
+                              ));
                             },
                           ),
                         ),

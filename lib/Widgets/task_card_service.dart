@@ -37,7 +37,7 @@ class TaskCardServiceState extends State<TaskCardService> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
-            color: _isSelected ? AppColors.buttonColor : Colors.transparent,
+            color: _isSelected ? AppColors.buttonColor : AppColors.strokColor,
             width: 2,
           ),
         ),

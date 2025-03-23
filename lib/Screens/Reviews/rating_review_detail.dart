@@ -36,9 +36,9 @@ class RatingReviewDetail extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.star,
-              color: AppColors.tabColor,
+              color: color,
               size: 16,
             ),
           ],

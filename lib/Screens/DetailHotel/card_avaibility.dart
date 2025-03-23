@@ -13,14 +13,17 @@ class CardAvailbility extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
+        side: const BorderSide(
+          color: AppColors.strokColor,
+          width: 1.5,
+        ),
       ),
       child: Container(
-        width: 330, // Sesuaikan ukuran kartu
+        width: 330,
         padding: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gambar
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(

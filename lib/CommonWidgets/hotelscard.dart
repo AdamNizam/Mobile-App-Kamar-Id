@@ -239,7 +239,7 @@ class _HotelsCardState extends State<HotelsCard> {
                                   widget.hotel.price != null
                                       ? Text1(
                                           text1:
-                                              "\$${widget.hotel.price.toString()}",
+                                              "Rp${widget.hotel.price.toString()}",
                                           size: 18,
                                           color: AppColors.tabColor,
                                         )
@@ -248,7 +248,7 @@ class _HotelsCardState extends State<HotelsCard> {
                                           size: 18,
                                           color: Colors.black,
                                         ),
-                                  const Text2(text2: '/night'),
+                                  const Text2(text2: '/mlm'),
                                 ],
                               ),
                             ],

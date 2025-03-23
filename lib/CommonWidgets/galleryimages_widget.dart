@@ -27,7 +27,7 @@ class GalleryImage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: isSelected ? AppColors.buttonColor : Colors.white,
+              color: isSelected ? AppColors.buttonColor : AppColors.white,
               width: 3,
             ),
             borderRadius: BorderRadius.circular(10),
