@@ -14,8 +14,8 @@ class SearchWidget extends StatelessWidget {
         Expanded(
           child: TextFormField(
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                  vertical: 1, horizontal: 10),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
               hintText: 'Search',
               prefixIcon: const Icon(
                 Icons.search,
@@ -23,14 +23,14 @@ class SearchWidget extends StatelessWidget {
                 size: 30,
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(color: Colors.white),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                    color: AppColors
-                        .buttonColor), // Red border when focused
+                    color: AppColors.doggerBlue,
+                    width: 2), // Red border when focused
               ),
               hintStyle: const TextStyle(
                 fontSize: 13,
@@ -41,12 +41,11 @@ class SearchWidget extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(
           width: 10,
         ),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(builder: (context) =>  const SearchProducts()),
@@ -60,11 +59,12 @@ class SearchWidget extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Image.asset('images/filter.png',color: AppColors.buttonColor,),
+            child: Image.asset(
+              'images/filter.png',
+              color: AppColors.buttonColor,
+            ),
           ),
         ),
-
-
       ],
     );
   }

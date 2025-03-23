@@ -18,7 +18,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(14.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -81,7 +81,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
                         height: 20,
                       ),
                       SizedBox(
-                        height: 44.0,
+                        height: 43.0,
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -91,14 +91,24 @@ class CheckAvailabilityScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.search_sharp),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              Text1(
+                                text1: "Cek Ketersediaan",
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w400,
+                                size: 16,
+                              ),
+                            ],
+                          ),
                           onPressed: () {
                             // Aksi pencarian
                           },
-                          child: const Text1(
-                            text1: "Cek Ketersediaan",
-                            color: AppColors.white,
-                            size: 16,
-                          ),
                         ),
                       ),
                       const SizedBox(
@@ -143,7 +153,10 @@ class CheckAvailabilityScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 14.0,
+          vertical: 10.0,
+        ),
         child: CustomButton(
           text: 'Continue',
           onTap: () {

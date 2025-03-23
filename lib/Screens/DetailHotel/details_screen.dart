@@ -207,8 +207,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
                               // Rating dan Harga
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   RatingBar.readOnly(
                                     initialRating: state.data.row!.reviewScore
@@ -217,14 +216,21 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
                                     filledColor: AppColors.amberColor,
-                                    size: 28,
+                                    size: 27,
                                   ),
+                                  const Spacer(),
                                   Text(
-                                    'Rp${state.data.row!.price.toString()}/night',
+                                    'Rp${state.data.row!.price.toString()}',
                                     style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500,
                                       color: AppColors.buttonColor,
+                                    ),
+                                  ),
+                                  const Text(
+                                    '/mlm',
+                                    style: TextStyle(
+                                      fontSize: 17,
                                     ),
                                   ),
                                 ],

@@ -36,8 +36,8 @@ class CategoryLocationCard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: AppColors.lightBlue,
-              width: 1,
+              color: AppColors.beauBlue,
+              width: 2,
             ),
           ),
           child: FaIcon(
