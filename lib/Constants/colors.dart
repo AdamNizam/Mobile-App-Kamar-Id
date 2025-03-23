@@ -43,4 +43,6 @@ class AppColors {
       Color(0xff1e90ff); // Muted Grey for strokes and borders
   static const Color lightBlue =
       Color(0xff5d8aa8); // Muted Grey for strokes and borders
+  static const Color beauBlue =
+      Color(0xffbcd4e6); // Muted Grey for strokes and borders
 }

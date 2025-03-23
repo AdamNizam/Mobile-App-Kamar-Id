@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
+import 'package:hotelbookingapp/CommonWidgets/modals/modal_chek_avaibility.dart';
+import 'package:hotelbookingapp/CommonWidgets/modals/modal_chek_room.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/card_avaibility.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/modal_chek_avaibility.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/modal_chek_room.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
@@ -37,7 +37,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             width: 2,
-                            color: AppColors.strokColor,
+                            color: AppColors.beauBlue,
                           ),
                         ),
                         child: ListTile(
@@ -61,7 +61,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             width: 2,
-                            color: AppColors.strokColor,
+                            color: AppColors.beauBlue,
                           ),
                         ),
                         child: ListTile(
@@ -94,9 +94,10 @@ class CheckAvailabilityScreen extends StatelessWidget {
                           onPressed: () {
                             // Aksi pencarian
                           },
-                          child: const Text(
-                            "Cek Ketersediaan",
-                            style: TextStyle(fontSize: 16),
+                          child: const Text1(
+                            text1: "Cek Ketersediaan",
+                            color: AppColors.white,
+                            size: 16,
                           ),
                         ),
                       ),
@@ -119,14 +120,15 @@ class CheckAvailabilityScreen extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  Divider(color: AppColors.button2Color, thickness: 2),
+                  Divider(color: AppColors.strokColor, thickness: 2),
                 ],
               ),
             ),
             Expanded(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                ),
                 child: ListView(
                   children: const [
                     CardAvailbility(),
