@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 import '../Widgets/detailstext1.dart';
 
@@ -13,17 +13,6 @@ class CategoryLocationCard extends StatelessWidget {
     required this.icon,
     required this.title,
   });
-
-  IconData getIcon(String iconClass) {
-    switch (iconClass) {
-      case 'fa fa-hospital-o':
-        return FontAwesomeIcons.hospital;
-      case 'fa fa-subway':
-        return FontAwesomeIcons.book;
-      default:
-        return Icons.error;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +29,7 @@ class CategoryLocationCard extends StatelessWidget {
               width: 2,
             ),
           ),
-          child: FaIcon(
+          child: Icon(
             getIcon(icon), // Pakai fungsi konversi
             color: AppColors.buttonColor,
             size: 25,

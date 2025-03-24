@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 class CustomIcon2Avaibility extends StatelessWidget {
-  final IconData icon;
-  const CustomIcon2Avaibility({
-    super.key,
-    required this.icon,
-  });
+  final TermFeature data;
+  const CustomIcon2Avaibility({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
+    IconData icon = getIcon(data.icon ?? 'default_icon');
+
     return Column(
       children: [
         Container(
@@ -26,8 +27,8 @@ class CustomIcon2Avaibility extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             icon,
+            color: AppColors.buttonColor,
             size: 12,
-            color: AppColors.lightBlue,
           ),
         ),
       ],

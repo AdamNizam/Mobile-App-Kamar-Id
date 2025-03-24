@@ -30,47 +30,58 @@ class CardAvailbility extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gambar kamar
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                "https://picsum.photos/400/300", // Fallback image
-                width: 105,
-                height: 130,
-                fit: BoxFit.cover,
-              ),
+              child: (data.image != false && data.image.isNotEmpty)
+                  ? Image.network(
+                      data.image,
+                      width: 105,
+                      height: 135,
+                      fit: BoxFit.cover,
+                    )
+                  : const SizedBox(
+                      width: 105,
+                      height: 135,
+                      child: Icon(
+                        Icons.image,
+                        size: 105,
+                        color: AppColors.strokColor,
+                      ),
+                    ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Nama Kamar dan Harga
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
                     child: Column(
                       children: [
                         Text(
                           data.title ?? "No-Data",
                           style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 2,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
                     child: Row(
                       children: [
                         Text(
                           'Rp${data.price}',
                           style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: AppColors.lightBlue,
                           ),
@@ -105,22 +116,12 @@ class CardAvailbility extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Row(
-                    children: [
-                      CustomIcon2Avaibility(
-                        icon: Icons.access_time,
-                      ),
-                      CustomIcon2Avaibility(
-                        icon: Icons.tv,
-                      ),
-                      CustomIcon2Avaibility(
-                        icon: Icons.wifi,
-                      ),
-                      CustomIcon2Avaibility(
-                        icon: Icons.local_cafe,
-                      ),
-                    ],
-                  ),
+                  Row(
+                      children: data.termFeatures!.map(
+                    (data) {
+                      return CustomIcon2Avaibility(data: data);
+                    },
+                  ).toList()),
                   const SizedBox(height: 5),
                 ],
               ),

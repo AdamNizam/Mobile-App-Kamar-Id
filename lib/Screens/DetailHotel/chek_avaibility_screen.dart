@@ -130,18 +130,18 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
                   Text1(
-                    text1: 'Kamar Yang Tersedia ${widget.id}',
+                    text1: 'Kamar Yang Tersedia',
                     size: 16,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 5,
                   ),
-                  const Divider(color: AppColors.strokColor, thickness: 2),
+                  Divider(color: AppColors.strokColor, thickness: 2),
                 ],
               ),
             ),
@@ -181,13 +181,19 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           horizontal: 12,
                         ),
                         child: state.data.rooms!.isEmpty
-                            ? const Center(
-                                child:
-                                    Text("Tidak ada data ketersediaan kamar"))
+                            ? Column(
+                                children: [
+                                  Image.asset(
+                                    'images/Sold_out_.png',
+                                    width: 350,
+                                    height: 300,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ],
+                              )
                             : ListView(
-                                children:
-                                    state.data.rooms!.map((dataAvaibility) {
-                                  return CardAvailbility(data: dataAvaibility);
+                                children: state.data.rooms!.map((data) {
+                                  return CardAvailbility(data: data);
                                 }).toList(),
                               ),
                       );
@@ -195,7 +201,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     return Center(
                       child: LoadingAnimationWidget.hexagonDots(
                         color: AppColors.tabColor,
-                        size: 30,
+                        size: 50,
                       ),
                     );
                   },
@@ -211,7 +217,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           vertical: 10.0,
         ),
         child: CustomButton(
-          text: 'Continue',
+          text: 'Booking Now',
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(

@@ -19,7 +19,6 @@ class ResultCheckAvaibility {
             ? List<Room>.from(json["rooms"].map((x) => Room.fromJson(x)))
             : [],
       );
-
   Map<String, dynamic> toJson() => {
         "rooms": rooms != null
             ? List<dynamic>.from(rooms!.map((x) => x.toJson()))
