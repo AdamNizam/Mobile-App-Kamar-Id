@@ -20,11 +20,4 @@ final class BookingHistoryFailed extends BookingState {
   List<Object> get props => [error];
 }
 
-final class BookingHistorySuccess extends BookingState {
-  final List<Datum> bookingHistory;
-
-  const BookingHistorySuccess(this.bookingHistory);
-
-  @override
-  List<Object> get props => [bookingHistory];
-}
+final class BookingHistorySuccess extends BookingState {}

@@ -29,7 +29,7 @@ class SearchWidget extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                    color: AppColors.doggerBlue,
+                    color: AppColors.amberColor,
                     width: 2), // Red border when focused
               ),
               hintStyle: const TextStyle(

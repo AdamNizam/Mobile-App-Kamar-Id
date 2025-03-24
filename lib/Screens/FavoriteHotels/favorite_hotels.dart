@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_cards.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -59,25 +58,7 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                     if (state is BookingHistoryFailed) {
                       showCustomSnackbar(context, state.error);
                     }
-                    if (state is BookingHistorySuccess) {
-                      if (state.bookingHistory.isEmpty) {
-                        return ListView.builder(
-                          padding: const EdgeInsets.all(10),
-                          itemCount: state.bookingHistory.length,
-                          itemBuilder: (context, index) {
-                            return FavoriteCard(
-                              imagePath: 'images/Eco-FriendlyHotels.jpg',
-                              hotelName: 'Unknown',
-                              location: 'Unknown',
-                              rating: 0.0,
-                              discount: 'No Discount',
-                              price: '\$0.00',
-                              onTap: () {},
-                            );
-                          },
-                        );
-                      }
-                    }
+                    if (state is BookingHistorySuccess) {}
                     return Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -92,9 +73,10 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                           const Text(
                             'Oopss.. Data is not available',
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                            ),
                           ),
                         ],
                       ),

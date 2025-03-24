@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/modal_chek_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/modal_chek_room.dart';
@@ -6,10 +9,18 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class CheckAvailabilityScreen extends StatelessWidget {
-  const CheckAvailabilityScreen({super.key});
+class CheckAvailabilityScreen extends StatefulWidget {
+  final int? id;
+  const CheckAvailabilityScreen({super.key, required this.id});
 
+  @override
+  State<CheckAvailabilityScreen> createState() =>
+      _CheckAvailabilityScreenState();
+}
+
+class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +96,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.button2Color,
+                            backgroundColor: AppColors.lightBlue,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -99,7 +110,7 @@ class CheckAvailabilityScreen extends StatelessWidget {
                                 width: 2,
                               ),
                               Text1(
-                                text1: "Cek Ketersediaan",
+                                text1: "Cek Ketersediaan ",
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w400,
                                 size: 16,
@@ -119,33 +130,73 @@ class CheckAvailabilityScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
                   Text1(
-                    text1: 'Kamar Yang Tersedia',
+                    text1: 'Kamar Yang Tersedia ${widget.id}',
                     size: 16,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
-                  Divider(color: AppColors.strokColor, thickness: 2),
+                  const Divider(color: AppColors.strokColor, thickness: 2),
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                ),
-                child: ListView(
-                  children: const [
-                    CardAvailbility(),
-                    CardAvailbility(),
-                    CardAvailbility(),
-                    CardAvailbility(),
-                  ],
+            BlocProvider(
+              create: (context) =>
+                  HotelBloc()..add(PostChekAvaibility(widget.id!)),
+              child: Expanded(
+                child: BlocBuilder<HotelBloc, HotelState>(
+                  builder: (context, state) {
+                    if (state is ChekAvaibilityFailed) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'images/Oops! _404_2.svg',
+                              semanticsLabel: 'Acme Logo',
+                              width: 350,
+                              height: 200,
+                              fit: BoxFit.contain,
+                            ),
+                            Text(
+                              'Oopss.. ${state.error} ',
+                              style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    if (state is CheckAvaibilitySuccess) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                        ),
+                        child: ListView(
+                          children: const [
+                            CardAvailbility(),
+                            CardAvailbility(),
+                            CardAvailbility(),
+                            CardAvailbility(),
+                          ],
+                        ),
+                      );
+                    }
+                    return Center(
+                      child: LoadingAnimationWidget.hexagonDots(
+                        color: AppColors.tabColor,
+                        size: 30,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

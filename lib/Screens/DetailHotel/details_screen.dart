@@ -571,21 +571,22 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                         ),
                       )),
                       // Tombol booking di bagian bawah
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        child: Positioned(
-                          bottom: 16,
-                          left: 16,
-                          right: 16,
+                      Positioned(
+                        bottom: 16,
+                        left: 16,
+                        right: 16,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
                           child: CustomButton(
                             text: 'Continue',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const CheckAvailabilityScreen(),
+                                builder: (context) => CheckAvailabilityScreen(
+                                  id: state.data.row!.id,
+                                ),
                               ));
                             },
                           ),

@@ -41,10 +41,21 @@ class GetAllHotelDetailSuccess extends HotelState {
 }
 
 class CheckAvaibilitySuccess extends HotelState {
-  final ResultCheckAvaibility data;
+  final ResultChekAvaibilityModel data;
 
   const CheckAvaibilitySuccess(this.data);
 
   @override
   List<Object> get props => [data];
 }
+
+final class ChekAvaibilityFailed extends HotelState {
+  final String error;
+
+  const ChekAvaibilityFailed(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
+final class ChekAvaibilityLoading extends HotelState {}

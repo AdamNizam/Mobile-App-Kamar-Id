@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 class AppColors {
-  static const Color tabColor = Color(0xff5d8aa8); // Dark Blue-Grey for tabs
+  static const Color tabColor = Color(0xff2980B9); // Dark Blue-Grey for tabs
   // static const Color tabColor = Color(0xff2C3E50); // Dark Blue-Grey for tabs
   static const Color bgColor =
       Color(0xffECEFF1); // Soft Light Grey for backgrounds
   static const Color buttonColor =
-      Color(0xff5d8aa8); // Elegant Deep Red for action buttons
+      Color(0xff2980B9); // Elegant Deep Red for action buttons
   // static const Color buttonColor =
   //     Color(0xffC0392B); // Elegant Deep Red for action buttons
   static const Color button2Color =
@@ -41,8 +41,8 @@ class AppColors {
       Color(0xffffbf00); // Muted Grey for strokes and borders
   static const Color doggerBlue =
       Color(0xff1e90ff); // Muted Grey for strokes and borders
-  static const Color lightBlue =
-      Color(0xff5d8aa8); // Muted Grey for strokes and borders
-  static const Color beauBlue =
-      Color(0xffbcd4e6); // Muted Grey for strokes and borders
+  static const Color lightBlue = Color(0xff5d8aa8);
+  static const Color beauBlue = Color(0xffbcd4e6);
+  static const Color babyBlue = Color(0xff89cff0);
+  // Muted Grey for strokes and borders
 }

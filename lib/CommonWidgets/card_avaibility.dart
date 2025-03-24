@@ -54,8 +54,8 @@ class CardAvailbility extends StatelessWidget {
                           "Rp2200",
                           style: TextStyle(
                             fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.button2Color,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.lightBlue,
                           ),
                         ),
                         Text(

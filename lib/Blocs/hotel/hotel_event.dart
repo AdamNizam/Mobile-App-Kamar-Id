@@ -14,3 +14,9 @@ class GetDetailHotel extends HotelEvent {
 
   const GetDetailHotel(this.slug);
 }
+
+class PostChekAvaibility extends HotelEvent {
+  final int id;
+
+  const PostChekAvaibility(this.id);
+}

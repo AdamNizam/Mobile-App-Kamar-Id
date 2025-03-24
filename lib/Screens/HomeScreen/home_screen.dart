@@ -15,7 +15,7 @@ import '../../../../Widgets/text11.dart';
 import '../../../Widgets/drawer_widget.dart';
 import '../../CommonWidgets/search_widget.dart';
 import '../Categories/all_categories.dart';
-import '../Notifications/notifications.dart';
+import '../DetailHotel/chek_avaibility_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppColors.lightBlue,
+                  color: AppColors.buttonColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -68,7 +68,10 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const BookingNotifications(),
+                                          // const BookingNotifications(),
+                                          const CheckAvailabilityScreen(
+                                        id: 11,
+                                      ),
                                     ),
                                   );
                                 },
