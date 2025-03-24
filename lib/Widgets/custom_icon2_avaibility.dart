@@ -13,8 +13,8 @@ class CustomIcon2Avaibility extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10.0),
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+          margin: const EdgeInsets.symmetric(horizontal: 5.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(6),
@@ -26,7 +26,7 @@ class CustomIcon2Avaibility extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             icon,
-            size: 16,
+            size: 12,
             color: AppColors.lightBlue,
           ),
         ),

@@ -180,14 +180,16 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                         ),
-                        child: ListView(
-                          children: const [
-                            CardAvailbility(),
-                            CardAvailbility(),
-                            CardAvailbility(),
-                            CardAvailbility(),
-                          ],
-                        ),
+                        child: state.data.rooms!.isEmpty
+                            ? const Center(
+                                child:
+                                    Text("Tidak ada data ketersediaan kamar"))
+                            : ListView(
+                                children:
+                                    state.data.rooms!.map((dataAvaibility) {
+                                  return CardAvailbility(data: dataAvaibility);
+                                }).toList(),
+                              ),
                       );
                     }
                     return Center(

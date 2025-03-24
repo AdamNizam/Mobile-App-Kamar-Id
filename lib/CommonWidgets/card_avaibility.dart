@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
 
 class CardAvailbility extends StatelessWidget {
-  const CardAvailbility({super.key});
+  final Room data;
+
+  const CardAvailbility({
+    super.key,
+    required this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,69 +26,86 @@ class CardAvailbility extends StatelessWidget {
       ),
       child: Container(
         width: 330,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Gambar kamar
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                "https://picsum.photos/400/300",
-                width: 100,
+                "https://picsum.photos/400/300", // Fallback image
+                width: 105,
                 height: 130,
                 fit: BoxFit.cover,
               ),
             ),
             const SizedBox(width: 10),
-            // Detail Kamar
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Nama Kamar dan Harga
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          data.title ?? "No-Data",
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 2.0),
                     child: Row(
                       children: [
                         Text(
-                          "Room 1",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        Spacer(),
-                        Text(
-                          "Rp2200",
-                          style: TextStyle(
+                          'Rp${data.price}',
+                          style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
                             color: AppColors.lightBlue,
                           ),
                         ),
-                        Text(
+                        const Text(
                           "/mlm",
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w400),
+                              fontSize: 12, fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Row(
+                  const SizedBox(height: 5),
+                  const Row(
                     children: [
                       CustomIcon1Avaibility(
-                          icon: Icons.access_time, name: '50 m2'),
+                        icon: Icons.access_time,
+                        name: '50 m2',
+                      ),
                       CustomIcon1Avaibility(
-                          icon: Icons.airplanemode_on, name: 'x2'),
+                        icon: Icons.airplanemode_on,
+                        name: 'x2',
+                      ),
                       CustomIcon1Avaibility(
-                          icon: Icons.vaping_rooms, name: 'x30'),
+                        icon: Icons.vaping_rooms,
+                        name: 'x30',
+                      ),
                       CustomIcon1Avaibility(
-                          icon: Icons.breakfast_dining, name: 'Timer'),
+                        icon: Icons.breakfast_dining,
+                        name: 'Timer',
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
+                  const SizedBox(height: 8),
+                  const Row(
                     children: [
                       CustomIcon2Avaibility(
                         icon: Icons.access_time,
@@ -98,6 +121,7 @@ class CardAvailbility extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 5),
                 ],
               ),
             ),

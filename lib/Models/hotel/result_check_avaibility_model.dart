@@ -1,7 +1,36 @@
-class ResultChekAvaibilityModel {
+import 'dart:convert';
+
+class ResultCheckAvaibility {
+  final List<Room>? rooms;
+
+  ResultCheckAvaibility({this.rooms});
+
+  ResultCheckAvaibility copyWith({List<Room>? rooms}) =>
+      ResultCheckAvaibility(rooms: rooms ?? this.rooms);
+
+  factory ResultCheckAvaibility.fromRawJson(String str) =>
+      ResultCheckAvaibility.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory ResultCheckAvaibility.fromJson(Map<String, dynamic> json) =>
+      ResultCheckAvaibility(
+        rooms: json["rooms"] != null
+            ? List<Room>.from(json["rooms"].map((x) => Room.fromJson(x)))
+            : [],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "rooms": rooms != null
+            ? List<dynamic>.from(rooms!.map((x) => x.toJson()))
+            : [],
+      };
+}
+
+class Room {
   final int? id;
   final String? title;
-  final int? price;
+  final dynamic price;
   final String? sizeHtml;
   final String? bedsHtml;
   final String? adultsHtml;
@@ -9,15 +38,15 @@ class ResultChekAvaibilityModel {
   final int? numberSelected;
   final int? number;
   final int? minDayStays;
-  final bool? image;
+  final dynamic image;
   final int? tmpNumber;
   final List<dynamic>? gallery;
-  final String? priceHtml;
-  final String? priceText;
+  final dynamic priceHtml;
+  final dynamic priceText;
   final Terms? terms;
   final List<TermFeature>? termFeatures;
 
-  ResultChekAvaibilityModel({
+  Room({
     this.id,
     this.title,
     this.price,
@@ -37,31 +66,38 @@ class ResultChekAvaibilityModel {
     this.termFeatures,
   });
 
-  factory ResultChekAvaibilityModel.fromJson(Map<String, dynamic> json) =>
-      ResultChekAvaibilityModel(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"],
-        sizeHtml: json["size_html"],
-        bedsHtml: json["beds_html"],
-        adultsHtml: json["adults_html"],
-        childrenHtml: json["children_html"],
-        numberSelected: json["number_selected"],
-        number: json["number"],
-        minDayStays: json["min_day_stays"],
-        image: json["image"],
-        tmpNumber: json["tmp_number"],
-        gallery: json["gallery"] != null
-            ? List<dynamic>.from(json["gallery"].map((x) => x))
-            : [],
-        priceHtml: json["price_html"],
-        priceText: json["price_text"],
-        terms: json["terms"] != null ? Terms.fromJson(json["terms"]) : null,
-        termFeatures: json["term_features"] != null
-            ? List<TermFeature>.from(
-                json["term_features"].map((x) => TermFeature.fromJson(x)))
-            : [],
-      );
+  factory Room.fromRawJson(String str) => Room.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Room.fromJson(Map<String, dynamic> json) {
+    return Room(
+      id: json["id"],
+      title: json["title"],
+      price: json["price"] != null
+          ? int.tryParse(json["price"].toString()) ?? 0
+          : 0,
+      sizeHtml: json["size_html"],
+      bedsHtml: json["beds_html"],
+      adultsHtml: json["adults_html"],
+      childrenHtml: json["children_html"],
+      numberSelected: json["number_selected"] ?? 0,
+      number: json["number"] ?? 0,
+      minDayStays: json["min_day_stays"] ?? 0,
+      image: json["image"],
+      tmpNumber: json["tmp_number"] ?? 0,
+      gallery: json["gallery"] != null
+          ? List<dynamic>.from(json["gallery"].map((x) => x))
+          : [],
+      priceHtml: json["price_html"],
+      priceText: json["price_text"],
+      terms: json["terms"] != null ? Terms.fromJson(json["terms"]) : null,
+      termFeatures: json["term_features"] != null
+          ? List<TermFeature>.from(
+              json["term_features"].map((x) => TermFeature.fromJson(x)))
+          : [],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -76,12 +112,23 @@ class ResultChekAvaibilityModel {
         "min_day_stays": minDayStays,
         "image": image,
         "tmp_number": tmpNumber,
-        "gallery": gallery ?? [],
+        "gallery":
+            gallery != null ? List<dynamic>.from(gallery!.map((x) => x)) : [],
         "price_html": priceHtml,
         "price_text": priceText,
         "terms": terms?.toJson(),
-        "term_features": termFeatures?.map((x) => x.toJson()).toList() ?? [],
+        "term_features": termFeatures != null
+            ? List<dynamic>.from(termFeatures!.map((x) => x.toJson()))
+            : [],
       };
+}
+
+class Terms {
+  Terms();
+
+  factory Terms.fromJson(Map<String, dynamic> json) => Terms();
+
+  Map<String, dynamic> toJson() => {};
 }
 
 class TermFeature {
@@ -98,114 +145,5 @@ class TermFeature {
   Map<String, dynamic> toJson() => {
         "icon": icon,
         "title": title,
-      };
-}
-
-class Terms {
-  final The8? the8;
-
-  Terms({this.the8});
-
-  factory Terms.fromJson(Map<String, dynamic> json) => Terms(
-        the8: json["8"] != null ? The8.fromJson(json["8"]) : null,
-      );
-
-  Map<String, dynamic> toJson() => {
-        "8": the8?.toJson(),
-      };
-}
-
-class The8 {
-  final Parent? parent;
-  final List<Child>? child;
-
-  The8({this.parent, this.child});
-
-  factory The8.fromJson(Map<String, dynamic> json) => The8(
-        parent: json["parent"] != null ? Parent.fromJson(json["parent"]) : null,
-        child: json["child"] != null
-            ? List<Child>.from(json["child"].map((x) => Child.fromJson(x)))
-            : [],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "parent": parent?.toJson(),
-        "child": child?.map((x) => x.toJson()).toList() ?? [],
-      };
-}
-
-class Child {
-  final int? id;
-  final String? title;
-  final dynamic content;
-  final dynamic imageId;
-  final String? icon;
-  final int? attrId;
-  final String? slug;
-
-  Child({
-    this.id,
-    this.title,
-    this.content,
-    this.imageId,
-    this.icon,
-    this.attrId,
-    this.slug,
-  });
-
-  factory Child.fromJson(Map<String, dynamic> json) => Child(
-        id: json["id"],
-        title: json["title"],
-        content: json["content"],
-        imageId: json["image_id"],
-        icon: json["icon"],
-        attrId: json["attr_id"],
-        slug: json["slug"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "content": content,
-        "image_id": imageId,
-        "icon": icon,
-        "attr_id": attrId,
-        "slug": slug,
-      };
-}
-
-class Parent {
-  final int? id;
-  final String? title;
-  final String? slug;
-  final String? service;
-  final dynamic displayType;
-  final dynamic hideInSingle;
-
-  Parent({
-    this.id,
-    this.title,
-    this.slug,
-    this.service,
-    this.displayType,
-    this.hideInSingle,
-  });
-
-  factory Parent.fromJson(Map<String, dynamic> json) => Parent(
-        id: json["id"],
-        title: json["title"],
-        slug: json["slug"],
-        service: json["service"],
-        displayType: json["display_type"],
-        hideInSingle: json["hide_in_single"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "service": service,
-        "display_type": displayType,
-        "hide_in_single": hideInSingle,
       };
 }

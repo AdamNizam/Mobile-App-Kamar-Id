@@ -28,7 +28,7 @@ class CustomIcon1Avaibility extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             icon,
-            size: 20,
+            size: 16,
             color: AppColors.button2Color,
           ),
         ),
@@ -40,7 +40,7 @@ class CustomIcon1Avaibility extends StatelessWidget {
             name,
             style: const TextStyle(
               color: AppColors.tabColor,
-              fontSize: 14,
+              fontSize: 10,
             ),
           ),
         ),

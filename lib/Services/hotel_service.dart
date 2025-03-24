@@ -79,7 +79,7 @@ class HotelService {
     }
   }
 
-  Future<ResultChekAvaibilityModel> checkAvaibility(int id) async {
+  Future<ResultCheckAvaibility> checkAvaibility(int id) async {
     try {
       final token = await AuthService().getToken();
 
@@ -90,13 +90,11 @@ class HotelService {
           'Content-Type': 'application/json',
         },
       );
-      print('Url $res');
-
-      print('Response Body: ${res.body}');
+      // print("API Response: ${res.body}");
 
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);
-        return ResultChekAvaibilityModel.fromJson(data);
+        return ResultCheckAvaibility.fromJson(data);
       }
       throw jsonDecode(res.body)['message'];
     } catch (e) {

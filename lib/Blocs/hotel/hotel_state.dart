@@ -41,7 +41,7 @@ class GetAllHotelDetailSuccess extends HotelState {
 }
 
 class CheckAvaibilitySuccess extends HotelState {
-  final ResultChekAvaibilityModel data;
+  final ResultCheckAvaibility data;
 
   const CheckAvaibilitySuccess(this.data);
 

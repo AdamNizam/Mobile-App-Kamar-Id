@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/eventscard.dart';
 import 'package:hotelbookingapp/CommonWidgets/hotelscard.dart';
+import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -15,7 +16,6 @@ import '../../../../Widgets/text11.dart';
 import '../../../Widgets/drawer_widget.dart';
 import '../../CommonWidgets/search_widget.dart';
 import '../Categories/all_categories.dart';
-import '../DetailHotel/chek_avaibility_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -68,10 +68,7 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          // const BookingNotifications(),
-                                          const CheckAvailabilityScreen(
-                                        id: 11,
-                                      ),
+                                          const BookingNotifications(),
                                     ),
                                   );
                                 },
