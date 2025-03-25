@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/details_screen.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:hotelbookingapp/Widgets/text11.dart';

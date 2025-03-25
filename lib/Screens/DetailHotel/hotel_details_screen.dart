@@ -392,25 +392,25 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                             ListTile(
                                               leading: const Icon(
                                                   Icons.check_circle,
-                                                  color: Colors.green),
+                                                  color: AppColors.buttonColor),
                                               title: Text(offer.cancelPolicy),
                                             ),
                                             ListTile(
                                               leading: const Icon(
                                                   Icons.check_circle,
-                                                  color: Colors.green),
+                                                  color: AppColors.buttonColor),
                                               title: Text(offer.foodPolicy),
                                             ),
                                             ListTile(
                                               leading: const Icon(
                                                   Icons.check_circle,
-                                                  color: Colors.green),
+                                                  color: AppColors.buttonColor),
                                               title: Text(offer.moveDate),
                                             ),
                                             ListTile(
                                               leading: const Icon(
                                                   Icons.check_circle,
-                                                  color: Colors.green),
+                                                  color: AppColors.buttonColor),
                                               title: Text(offer.breakfastType),
                                             ),
                                           ],
@@ -581,7 +581,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             vertical: 12,
                           ),
                           child: CustomButton(
-                            text: 'Continue',
+                            text: 'Select Room',
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => CheckAvailabilityScreen(

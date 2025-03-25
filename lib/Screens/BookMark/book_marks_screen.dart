@@ -6,7 +6,7 @@ import '../../../Widgets/detailstext2.dart';
 import '../../Models/hotel_model.dart';
 import '../../Widgets/customapp_bar.dart';
 import '../../Widgets/text11.dart';
-import '../DetailHotel/details_screen.dart';
+import '../DetailHotel/hotel_details_screen.dart';
 
 class BookMarkHotel extends StatefulWidget {
   const BookMarkHotel({super.key});

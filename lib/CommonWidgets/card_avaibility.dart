@@ -59,7 +59,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
                             width: 105,
                             height: 135,
                             child: Icon(
-                              Icons.image,
+                              Icons.image_rounded,
                               size: 105,
                               color: AppColors.strokColor,
                             ),

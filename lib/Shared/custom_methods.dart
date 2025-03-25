@@ -10,7 +10,7 @@ IconData getIcon(String iconName) {
     case 'icofont-recycle-alt':
       return Icons.local_laundry_service;
     case 'icofont-imac':
-      return Icons.image;
+      return Icons.dinner_dining;
     case 'icofont-wall-clock':
       return Icons.alarm;
     case 'icofont-education':
