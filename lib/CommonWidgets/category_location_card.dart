@@ -30,7 +30,7 @@ class CategoryLocationCard extends StatelessWidget {
             ),
           ),
           child: Icon(
-            getIcon(icon), // Pakai fungsi konversi
+            getIcon(icon),
             color: AppColors.buttonColor,
             size: 25,
           ),

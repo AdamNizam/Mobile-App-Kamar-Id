@@ -27,7 +27,7 @@ class CustomIcon2Avaibility extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             icon,
-            color: AppColors.buttonColor,
+            color: AppColors.cadetGray,
             size: 12,
           ),
         ),

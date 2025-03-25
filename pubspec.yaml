@@ -55,6 +55,7 @@ dependencies:
   internet_connection_checker_plus: ^2.3.0
   connectivity_plus: ^6.1.3
   flutter_svg: ^2.0.10
+  icofont_flutter: ^1.4.0
   loading_animation_widget:
 
 dev_dependencies:

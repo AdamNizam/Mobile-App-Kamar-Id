@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 class CustomIcon1Avaibility extends StatelessWidget {
-  final IconData icon;
-  final String name;
+  final Child data;
   const CustomIcon1Avaibility({
     super.key,
-    required this.icon,
-    required this.name,
+    required this.data,
   });
 
   @override
@@ -27,23 +27,23 @@ class CustomIcon1Avaibility extends StatelessWidget {
           ),
           alignment: Alignment.center,
           child: Icon(
-            icon,
+            getIcon(data.icon),
             size: 16,
             color: AppColors.button2Color,
           ),
         ),
         const SizedBox(
-          height: 4,
+          height: 5,
         ),
-        Center(
-          child: Text(
-            name,
-            style: const TextStyle(
-              color: AppColors.tabColor,
-              fontSize: 10,
-            ),
-          ),
-        ),
+        // Center(
+        //   child: Text(
+        //     data.title,
+        //     style: const TextStyle(
+        //       color: AppColors.tabColor,
+        //       fontSize: 10,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

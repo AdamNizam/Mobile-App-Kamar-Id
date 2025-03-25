@@ -122,14 +122,6 @@ class Room {
       };
 }
 
-class Terms {
-  Terms();
-
-  factory Terms.fromJson(Map<String, dynamic> json) => Terms();
-
-  Map<String, dynamic> toJson() => {};
-}
-
 class TermFeature {
   final String? icon;
   final String? title;
@@ -144,5 +136,125 @@ class TermFeature {
   Map<String, dynamic> toJson() => {
         "icon": icon,
         "title": title,
+      };
+}
+
+class Terms {
+  final The8 the8;
+
+  Terms({
+    required this.the8,
+  });
+
+  factory Terms.fromRawJson(String str) => Terms.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Terms.fromJson(Map<String, dynamic> json) => Terms(
+        the8: The8.fromJson(json["8"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "8": the8.toJson(),
+      };
+}
+
+class The8 {
+  final Parent parent;
+  final List<Child> child;
+
+  The8({
+    required this.parent,
+    required this.child,
+  });
+
+  factory The8.fromRawJson(String str) => The8.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory The8.fromJson(Map<String, dynamic> json) => The8(
+        parent: Parent.fromJson(json["parent"]),
+        child: List<Child>.from(json["child"].map((x) => Child.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "parent": parent.toJson(),
+        "child": List<dynamic>.from(child.map((x) => x.toJson())),
+      };
+}
+
+class Child {
+  final int id;
+  final String title;
+  final dynamic content;
+  final dynamic imageId;
+  final String icon;
+  final int attrId;
+  final String slug;
+
+  Child({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.imageId,
+    required this.icon,
+    required this.attrId,
+    required this.slug,
+  });
+
+  factory Child.fromRawJson(String str) => Child.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Child.fromJson(Map<String, dynamic> json) => Child(
+        id: json["id"],
+        title: json["title"],
+        content: json["content"],
+        imageId: json["image_id"],
+        icon: json["icon"],
+        attrId: json["attr_id"],
+        slug: json["slug"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "content": content,
+        "image_id": imageId,
+        "icon": icon,
+        "attr_id": attrId,
+        "slug": slug,
+      };
+}
+
+class Parent {
+  final int id;
+  final String title;
+  final String slug;
+  final String service;
+
+  Parent({
+    required this.id,
+    required this.title,
+    required this.slug,
+    required this.service,
+  });
+
+  factory Parent.fromRawJson(String str) => Parent.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Parent.fromJson(Map<String, dynamic> json) => Parent(
+        id: json["id"],
+        title: json["title"],
+        slug: json["slug"],
+        service: json["service"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "slug": slug,
+        "service": service,
       };
 }

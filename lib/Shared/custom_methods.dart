@@ -13,7 +13,12 @@ IconData getIcon(String iconName) {
       return Icons.image;
     case 'icofont-wall-clock':
       return Icons.alarm;
-
+    case 'icofont-education':
+      return Icons.cast_for_education;
+    case 'fa fa-hospital-o':
+      return Icons.local_hospital;
+    case 'fa fa-subway':
+      return Icons.subway;
     default:
       return Icons.close;
   }
