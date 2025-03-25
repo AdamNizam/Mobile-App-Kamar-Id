@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
-import 'package:hotelbookingapp/CommonWidgets/modals/modal_chek_avaibility.dart';
-import 'package:hotelbookingapp/CommonWidgets/modals/modal_chek_room.dart';
+import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
+import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
@@ -21,6 +22,38 @@ class CheckAvailabilityScreen extends StatefulWidget {
 }
 
 class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
+  DateTime? checkInDate;
+  DateTime? checkOutDate;
+  int room = 0;
+  int adult = 0;
+  int child = 0;
+
+  void _selectRoom() {
+    showRoomSelectionModal(
+      context,
+      room,
+      adult,
+      child,
+      (int newRoom, int newAdult, int newChild) {
+        setState(() {
+          room = newRoom;
+          adult = newAdult;
+          child = newChild;
+        });
+      },
+    );
+  }
+
+  void _selectDates() async {
+    final selectedDates = await showDateSelectionModal(context);
+    if (selectedDates != null) {
+      setState(() {
+        checkInDate = selectedDates["checkIn"];
+        checkOutDate = selectedDates["checkOut"];
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,12 +86,12 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         ),
                         child: ListTile(
                           leading: const Icon(Icons.calendar_month, size: 24),
-                          title: const Text1(
-                            text1: "Check In - Check Out",
+                          title: Text1(
+                            text1: checkInDate != null && checkOutDate != null
+                                ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - (${checkOutDate!.difference(checkInDate!).inDays} malam)"
+                                : "Check In - Check Out",
                           ),
-                          onTap: () {
-                            showBookingModal(context);
-                          },
+                          onTap: _selectDates,
                         ),
                       ),
                       const SizedBox(
@@ -80,12 +113,10 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                             Icons.people,
                             size: 24,
                           ),
-                          title: const Text1(
-                            text1: "0 Dewasa - 0 Anak-anak",
+                          title: Text1(
+                            text1: "$room Room - $adult Adult - $child Child",
                           ),
-                          onTap: () {
-                            showRoomSelectionModal(context);
-                          },
+                          onTap: _selectRoom,
                         ),
                       ),
                       const SizedBox(
@@ -110,9 +141,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                 width: 2,
                               ),
                               Text1(
-                                text1: "Cek Ketersediaan ",
+                                text1: 'Check availability',
                                 color: AppColors.white,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 size: 16,
                               ),
                             ],
@@ -135,7 +166,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
               child: Column(
                 children: [
                   Text1(
-                    text1: 'Kamar Yang Tersedia',
+                    text1: 'Available Rooms',
                     size: 16,
                   ),
                   SizedBox(
