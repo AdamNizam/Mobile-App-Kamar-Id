@@ -2,6 +2,7 @@ import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
@@ -288,8 +289,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       state.data.row!.content!.isNotEmpty)
                                   ? HtmlWidget(
                                       state.data.row!.content.toString(),
-                                      textStyle: const TextStyle(
-                                          fontSize: 16, color: Colors.black87),
+                                      textStyle:
+                                          GoogleFonts.poppins(fontSize: 14),
                                     )
                                   : const ErrorCard(
                                       message: 'Description is not available'),

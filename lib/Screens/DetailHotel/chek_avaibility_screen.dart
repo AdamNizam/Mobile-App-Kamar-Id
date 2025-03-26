@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/room_details_screen.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:intl/intl.dart';
@@ -110,7 +110,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         ),
                         child: ListTile(
                           leading: const Icon(
-                            Icons.people,
+                            Icons.hotel,
                             size: 24,
                           ),
                           title: Text1(
@@ -252,7 +252,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const ReviewSummary(),
+                builder: (context) => const RoomDetailsScreen(),
               ),
             );
           },

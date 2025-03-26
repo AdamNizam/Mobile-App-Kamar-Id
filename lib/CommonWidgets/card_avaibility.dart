@@ -106,14 +106,17 @@ class CardAvailbilityState extends State<CardAvailbility> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: widget.data.terms!.the8.child.map((data) {
-                          return CustomIcon1Avaibility(data: data);
-                        }).toList(),
-                      ),
+                    const SizedBox(height: 8),
+                    const Row(
+                      children: [
+                        CustomIcon1Avaibility(
+                            icon: Icons.apartment, title: '200 m2'),
+                        CustomIcon1Avaibility(icon: Icons.surfing, title: 'x2'),
+                        CustomIcon1Avaibility(
+                            icon: Icons.family_restroom, title: 'x5'),
+                        CustomIcon1Avaibility(
+                            icon: Icons.settings_accessibility, title: 'x5'),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     SingleChildScrollView(
