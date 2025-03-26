@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/room_details_screen.dart';
-import 'package:hotelbookingapp/Widgets/custombtn.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -62,7 +60,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           children: [
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -86,10 +84,12 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         ),
                         child: ListTile(
                           leading: const Icon(Icons.calendar_month, size: 24),
-                          title: Text1(
-                            text1: checkInDate != null && checkOutDate != null
+                          title: Text(
+                            checkInDate != null && checkOutDate != null
                                 ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - (${checkOutDate!.difference(checkInDate!).inDays} malam)"
                                 : "Check In - Check Out",
+                            style: GoogleFonts.poppins(
+                                fontSize: 14, fontWeight: FontWeight.w400),
                           ),
                           onTap: _selectDates,
                         ),
@@ -113,8 +113,10 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                             Icons.hotel,
                             size: 24,
                           ),
-                          title: Text1(
-                            text1: "$room Room - $adult Adult - $child Child",
+                          title: Text(
+                            "$room Room - $adult Adult - $child Child",
+                            style: GoogleFonts.poppins(
+                                fontSize: 14, fontWeight: FontWeight.w400),
                           ),
                           onTap: _selectRoom,
                         ),
@@ -123,29 +125,31 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         height: 20,
                       ),
                       SizedBox(
-                        height: 43.0,
+                        height: 42,
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.lightBlue,
+                            backgroundColor: AppColors.buttonColor,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.search_sharp),
-                              SizedBox(
+                              const Icon(
+                                Icons.search_sharp,
+                                size: 18,
+                              ),
+                              const SizedBox(
                                 width: 2,
                               ),
-                              Text1(
-                                text1: 'Check availability',
-                                color: AppColors.white,
-                                fontWeight: FontWeight.w500,
-                                size: 16,
-                              ),
+                              Text(
+                                'Check availability',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              )
                             ],
                           ),
                           onPressed: () {
@@ -153,26 +157,24 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           },
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
-                  Text1(
-                    text1: 'Available Rooms',
-                    size: 16,
+                  Text(
+                    'Available Rooms',
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(
-                    height: 5,
+                  const SizedBox(
+                    height: 2,
                   ),
-                  Divider(color: AppColors.strokColor, thickness: 2),
+                  const Divider(color: AppColors.strokColor, thickness: 2),
                 ],
               ),
             ),
@@ -242,21 +244,21 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.symmetric(
           horizontal: 14.0,
           vertical: 10.0,
         ),
-        child: CustomButton(
-          text: 'Booking Now',
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const RoomDetailsScreen(),
-              ),
-            );
-          },
-        ),
+        // child: CustomButton(
+        //   text: 'Booking Now',
+        //   onTap: () {
+        //     Navigator.of(context).push(
+        //       MaterialPageRoute(
+        //         builder: (context) => const RoomDetailsScreen(),
+        //       ),
+        //     );
+        //   },
+        // ),
       ),
     );
   }

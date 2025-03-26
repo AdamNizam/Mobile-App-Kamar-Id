@@ -8,7 +8,7 @@ IconData getIcon(String iconName) {
     case 'icofont-wifi-alt':
       return Icons.wifi;
     case 'icofont-recycle-alt':
-      return Icons.local_laundry_service;
+      return Icons.clean_hands;
     case 'icofont-imac':
       return Icons.desktop_mac_outlined;
     case 'icofont-wall-clock':

@@ -280,9 +280,12 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
                               const SizedBox(height: 10),
                               // Deskripsi hotel
-                              const Text1(
-                                text1: 'Hotel Description',
-                                size: 17,
+                              Text(
+                                'Hotel Description',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(height: 10),
                               (state.data.row!.content != null &&
@@ -299,9 +302,12 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
 
                               // Location Category Hotel
-                              const Text1(
-                                text1: 'Location Category',
-                                size: 17,
+                              Text(
+                                'Location Category',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(height: 20),
                               Center(
@@ -324,9 +330,12 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
                               const SizedBox(height: 20),
                               // Extra Price Hotel
-                              const Text1(
-                                text1: 'Extra Price',
-                                size: 17,
+                              Text(
+                                'Extra Price',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(height: 10),
                               Column(
@@ -350,9 +359,12 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
                               const SizedBox(height: 10),
                               // Service Hotel
-                              const Text1(
-                                text1: 'Service Fee',
-                                size: 17,
+                              Text(
+                                'Service Fee',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               const SizedBox(height: 10),
                               Column(
@@ -514,7 +526,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   ),
                                   SizedBox(height: 5),
                                   RatingReviewDetail(
-                                    text: 'Wi-Fi gratis',
+                                    text: 'Free Wi-Fi',
                                     rate: 0.79,
                                     star: 3.5,
                                     color: AppColors.amberColor,

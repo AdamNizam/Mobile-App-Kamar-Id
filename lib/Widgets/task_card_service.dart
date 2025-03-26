@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 
 class TaskCardService extends StatefulWidget {
@@ -53,10 +54,9 @@ class TaskCardServiceState extends State<TaskCardService> {
                 children: [
                   Text(
                     widget.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 8),

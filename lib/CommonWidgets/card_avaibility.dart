@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/room_details_screen.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
 
@@ -28,12 +30,19 @@ class CardAvailbilityState extends State<CardAvailbility> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: toggleSelection,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const RoomDetailsScreen(),
+          ),
+        );
+      },
       child: Card(
         color: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
           side: BorderSide(
             color: isSelected ? Colors.blue : AppColors.strokColor,
             width: 2,
@@ -42,22 +51,23 @@ class CardAvailbilityState extends State<CardAvailbility> {
         child: Container(
           width: 330,
           padding: const EdgeInsets.all(4.0),
+          margin: const EdgeInsets.all(2.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(9),
                 child:
                     (widget.data.image != false && widget.data.image.isNotEmpty)
                         ? Image.network(
                             widget.data.image,
                             width: 105,
-                            height: 135,
+                            height: 140,
                             fit: BoxFit.cover,
                           )
                         : const SizedBox(
                             width: 105,
-                            height: 135,
+                            height: 140,
                             child: Icon(
                               Icons.image_rounded,
                               size: 105,
@@ -77,10 +87,8 @@ class CardAvailbilityState extends State<CardAvailbility> {
                         children: [
                           Text(
                             widget.data.title ?? "No-Data",
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: GoogleFonts.poppins(
+                                fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -92,17 +100,17 @@ class CardAvailbilityState extends State<CardAvailbility> {
                         children: [
                           Text(
                             'Rp${widget.data.price}',
-                            style: const TextStyle(
+                            style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: AppColors.lightBlue,
+                              color: AppColors.buttonColor,
                             ),
                           ),
-                          const Text(
+                          Text(
                             "/mlm",
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w400),
-                          ),
+                            style: GoogleFonts.poppins(
+                                fontSize: 13, fontWeight: FontWeight.w400),
+                          )
                         ],
                       ),
                     ),
@@ -135,6 +143,32 @@ class CardAvailbilityState extends State<CardAvailbility> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class DetailRoomPage extends StatelessWidget {
+  final Room room;
+
+  const DetailRoomPage({super.key, required this.room});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(room.title ?? "Detail Kamar")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            room.image != false && room.image.isNotEmpty
+                ? Image.network(room.image, width: 200, height: 200)
+                : const Icon(Icons.image, size: 100),
+            const SizedBox(height: 20),
+            Text('Harga: Rp${room.price}',
+                style: const TextStyle(fontSize: 18)),
+          ],
         ),
       ),
     );

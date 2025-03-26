@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Widgets/customtextfield.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class RoomDetailsScreen extends StatefulWidget {
 
 class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   final PageController _pageController = PageController();
+  final TextEditingController _controller = TextEditingController(text: "0");
 
   final List<String> _imageUrls = [
     'https://picsum.photos/800/400?random=1',
@@ -61,7 +64,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         Positioned(
                           top: 20,
                           left: 16,
-                          child: _iconButton(Icons.arrow_back, () {
+                          child: iconBackButton(Icons.arrow_back, () {
                             Navigator.pop(context);
                           }),
                         ),
@@ -76,7 +79,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                               effect: ExpandingDotsEffect(
                                 dotHeight: 8,
                                 dotWidth: 8,
-                                activeDotColor: AppColors.bgColor,
+                                activeDotColor: AppColors.white,
                                 dotColor: Colors.white.withOpacity(0.5),
                               ),
                             ),
@@ -106,7 +109,34 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 8),
-                          _facilityGrid(),
+                          const Wrap(
+                            spacing: 12,
+                            runSpacing: 12,
+                            children: [
+                              FacilityIconItem(
+                                icon: Icons.pool,
+                                label: 'Swimming Pool',
+                              ),
+                              FacilityIconItem(
+                                icon: Icons.local_parking,
+                                label: 'Parking Area',
+                              ),
+                              FacilityIconItem(
+                                icon: Icons.hotel,
+                                label: '4 Rooms',
+                              ),
+                              FacilityIconItem(
+                                icon: Icons.wifi,
+                                label: 'Wifi',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Hotel Service',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ),
@@ -121,7 +151,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     );
   }
 
-  Widget _iconButton(IconData icon, VoidCallback onTap,
+  Widget iconBackButton(IconData icon, VoidCallback onTap,
       {Color color = Colors.black}) {
     return CircleAvatar(
       backgroundColor: Colors.white.withOpacity(0.8),
@@ -132,44 +162,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     );
   }
 
-  Widget _facilityGrid() {
-    final List<Map<String, dynamic>> facilities = [
-      {'icon': Icons.pool, 'label': 'Swimming Pool'},
-      {'icon': Icons.local_parking, 'label': 'Parking Area'},
-      {'icon': Icons.hotel, 'label': '4 Rooms'},
-      {'icon': Icons.local_bar, 'label': 'Bars'},
-    ];
-
-    return Wrap(
-      spacing: 12,
-      runSpacing: 12,
-      children: facilities.map((facility) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 5,
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(facility['icon'], color: Colors.blue),
-              const SizedBox(width: 8),
-              Text(facility['label'], style: GoogleFonts.poppins(fontSize: 14)),
-            ],
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  // ignore: non_constant_identifier_names
   Widget BottomBarPrice(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -186,36 +178,66 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          const Row(
             children: [
               Text(
-                'Price per night',
-                style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                'Rp10.500',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
               ),
-              const Text1(
-                text1: 'Rp480.00',
-                fontWeight: FontWeight.bold,
-                size: 18,
+              Text(
+                '/Night',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.tabColor,
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+          const CustomTextField(label: 'pilih'),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Total Price :',
+                    style:
+                        GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                  ),
+                  const Text1(
+                    text1: 'Rp480.00',
+                    fontWeight: FontWeight.bold,
+                    size: 18,
+                  ),
+                ],
               ),
-            ),
-            child: Text(
-              'Reserve Now',
-              style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
-            ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.tabColor,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text(
+                  'Pay Now',
+                  style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            ],
           ),
         ],
       ),
