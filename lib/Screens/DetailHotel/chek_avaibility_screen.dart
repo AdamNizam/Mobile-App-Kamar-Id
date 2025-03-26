@@ -46,8 +46,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
     final selectedDates = await showDateSelectionModal(context);
     if (selectedDates != null) {
       setState(() {
-        checkInDate = selectedDates["Check In"];
-        checkOutDate = selectedDates["Check Out"];
+        checkInDate = selectedDates["checkIn"];
+        checkOutDate = selectedDates["checkOut"];
       });
     }
   }

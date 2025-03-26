@@ -6,7 +6,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
     BuildContext context) async {
   return await showModalBottomSheet<Map<String, DateTime>>(
     context: context,
-    backgroundColor: Colors.white,
+    backgroundColor: AppColors.white,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
@@ -132,7 +132,10 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 40),
-                          backgroundColor: AppColors.button2Color,
+                          backgroundColor: AppColors.buttonColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
                         ),
                         child: const Text(
                           "Save",

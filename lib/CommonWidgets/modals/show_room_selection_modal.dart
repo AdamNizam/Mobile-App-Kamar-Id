@@ -99,10 +99,17 @@ class _RoomSelectionContentState extends State<_RoomSelectionContent> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          _buildCounter("Room", room, incrementRoom, decrementRoom),
-          _buildCounter("Adult", adult, incrementAdult, decrementAdult),
-          _buildCounter(
-              "Child (0 - 17 years)", child, incrementChild, decrementChild),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Column(
+              children: [
+                _buildCounter("Room", room, incrementRoom, decrementRoom),
+                _buildCounter("Adult", adult, incrementAdult, decrementAdult),
+                _buildCounter("Child (0 - 17 years)", child, incrementChild,
+                    decrementChild),
+              ],
+            ),
+          ),
           const SizedBox(height: 16),
           Text(
             "Total: $room Room, ${adult + child} Guest",
@@ -115,8 +122,11 @@ class _RoomSelectionContentState extends State<_RoomSelectionContent> {
               Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.button2Color,
+              backgroundColor: AppColors.buttonColor,
               minimumSize: const Size(double.infinity, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
             ),
             child: const Text(
               "Save",
@@ -140,12 +150,17 @@ Widget _buildCounter(
         children: [
           IconButton(
             onPressed: onRemove,
-            icon: const Icon(Icons.remove),
+            icon: const Icon(
+              Icons.remove,
+              color: AppColors.redDark,
+            ),
           ),
           Text(value.toString(), style: const TextStyle(fontSize: 16)),
           IconButton(
             onPressed: onAdd,
-            icon: const Icon(Icons.add),
+            icon: const Icon(
+              Icons.add,
+            ),
           ),
         ],
       ),

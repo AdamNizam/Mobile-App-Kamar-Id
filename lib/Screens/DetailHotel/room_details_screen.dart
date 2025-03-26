@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Widgets/customtextfield.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -15,7 +16,32 @@ class RoomDetailsScreen extends StatefulWidget {
 
 class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   final PageController _pageController = PageController();
-  final TextEditingController _controller = TextEditingController(text: "0");
+  final TextEditingController _controller = TextEditingController();
+  String _selectedPrice = "";
+
+  void _updateSelectedPrice(String price) {
+    setState(() {
+      _selectedPrice = price;
+    });
+  }
+
+  void _showList() {
+    showPriceRoomModal(
+      context: context,
+      controller: _controller,
+      priceRoom: _priceRoom,
+      onSelectPrice: _updateSelectedPrice,
+    );
+  }
+
+  final List<Map<String, String>> _priceRoom = [
+    {"room": "1 Room", "price": "Rp100.200"},
+    {"room": "2 Room", "price": "Rp124.500"},
+    {"room": "3 Room", "price": "Rp136.800"},
+    {"room": "4 Room", "price": "Rp250.100"},
+    {"room": "5 Room", "price": "350.100"},
+    {"room": "6 Room", "price": "Rp1.000.000"},
+  ];
 
   final List<String> _imageUrls = [
     'https://picsum.photos/800/400?random=1',
@@ -162,6 +188,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget BottomBarPrice(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -188,19 +215,31 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                  color: AppColors.buttonColor,
                 ),
               ),
               Text(
-                '/Night',
+                '/night',
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey,
+                  color: AppColors.cadetGray,
                 ),
               ),
             ],
           ),
-          const CustomTextField(label: 'pilih'),
+          TextFormField(
+            controller: _controller,
+            readOnly: true,
+            decoration: const InputDecoration(
+              labelText: "Select Room",
+              labelStyle: TextStyle(color: AppColors.buttonColor),
+              suffixIcon: Icon(Icons.arrow_drop_down),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: AppColors.doggerBlue, width: 2.0),
+              ),
+            ),
+            onTap: _showList,
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -212,20 +251,34 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 children: [
                   Text(
                     'Total Price :',
-                    style:
-                        GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: AppColors.cadetGray,
+                    ),
                   ),
-                  const Text1(
-                    text1: 'Rp480.00',
-                    fontWeight: FontWeight.bold,
-                    size: 18,
+                  Text(
+                    _selectedPrice.isNotEmpty ? _selectedPrice : 'Rp0',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_selectedPrice.isEmpty) {
+                    showCustomSnackbar(context, 'Youre not seleceted room');
+                  } else {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ReviewSummary(),
+                      ),
+                    );
+                  }
+                },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.tabColor,
+                  backgroundColor: AppColors.buttonColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   shape: RoundedRectangleBorder(
