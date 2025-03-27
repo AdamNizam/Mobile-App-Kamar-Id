@@ -160,6 +160,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                             if (checkInDate == null || checkOutDate == null) {
                               showCustomSnackbar(
                                   context, 'Please Chek In - Chek Out');
+                            } else {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/maintenance', (route) => false);
                             }
                           },
                         ),

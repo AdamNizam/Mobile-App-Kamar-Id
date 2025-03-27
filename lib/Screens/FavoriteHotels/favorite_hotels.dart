@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -64,18 +65,18 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            'images/No data-bro.svg',
+                            'images/Maintenance.svg',
                             semanticsLabel: 'Acme Logo',
                             width: 350,
                             height: 300,
                             fit: BoxFit.contain,
                           ),
-                          const Text(
+                          Text(
                             'Oopss.. Data is not available',
-                            style: TextStyle(
-                              fontSize: 20,
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
-                              color: Colors.grey,
+                              color: AppColors.cadetGray,
                             ),
                           ),
                         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 
 class OfflineModeScreen extends StatelessWidget {
@@ -6,16 +7,20 @@ class OfflineModeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.wifi_off, size: 100, color: AppColors.buttonColor),
-            SizedBox(height: 20),
+            const Icon(Icons.wifi_off, size: 100, color: AppColors.buttonColor),
+            const SizedBox(height: 20),
             Text(
               "You're Offline",
-              style: TextStyle(fontSize: 18),
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: AppColors.cadetGray,
+              ),
             ),
           ],
         ),

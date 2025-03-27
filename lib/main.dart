@@ -22,6 +22,7 @@ import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Screens/Search/search_typing.dart';
 import 'package:hotelbookingapp/Screens/Settings/settings_screen.dart';
+import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
             '/completed-booking': (context) => const CompletedBooking(),
             '/favorite-hotels': (context) => const FavoriteHotels(),
             '/bookmark': (context) => const BookMarkHotel(),
+            '/maintenance': (context) => const MaintenanceScreen(),
           },
         ));
   }
