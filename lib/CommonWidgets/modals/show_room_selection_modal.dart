@@ -12,7 +12,8 @@ void showRoomSelectionModal(
 ) {
   showModalBottomSheet(
     context: context,
-    backgroundColor: Colors.white,
+    backgroundColor: AppColors.white,
+    elevation: 0,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
@@ -130,7 +131,7 @@ class _RoomSelectionContentState extends State<_RoomSelectionContent> {
             ),
             child: const Text(
               "Save",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              style: TextStyle(fontSize: 16, color: AppColors.white),
             ),
           ),
         ],

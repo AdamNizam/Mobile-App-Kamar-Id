@@ -7,6 +7,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
   return await showModalBottomSheet<Map<String, DateTime>>(
     context: context,
     backgroundColor: AppColors.white,
+    elevation: 0,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
