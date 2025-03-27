@@ -35,4 +35,5 @@ class AppColors {
   static const Color beauBlue = Color(0xffbcd4e6);
   static const Color babyBlue = Color(0xff89cff0);
   static const Color cadetGray = Color(0xff778899);
+  static const Color deepPink = Color(0xffff1493);
 }

@@ -65,7 +65,7 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            'images/Maintenance.svg',
+                            'images/no-data.svg',
                             semanticsLabel: 'Acme Logo',
                             width: 350,
                             height: 300,

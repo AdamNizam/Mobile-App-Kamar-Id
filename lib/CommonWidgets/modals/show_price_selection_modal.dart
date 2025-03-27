@@ -21,7 +21,7 @@ void showPriceRoomModal({
       return StatefulBuilder(
         builder: (context, setState) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -13,8 +13,16 @@ class MaintenanceScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Maintenance',
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: AppColors.cadetGray,
+              ),
+            ),
             SvgPicture.asset(
-              'images/No data-bro.svg',
+              'images/Maintenance.svg',
               semanticsLabel: 'Acme Logo',
               width: 350,
               height: 300,
