@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/Booking/booking_summary.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -270,7 +270,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   } else {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const ReviewSummary(),
+                        builder: (context) => const ConfirmBookingScreen(),
                       ),
                     );
                   }

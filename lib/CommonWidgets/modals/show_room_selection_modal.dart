@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 
 typedef RoomSelectionCallback = void Function(int room, int adult, int child);
@@ -114,7 +115,10 @@ class _RoomSelectionContentState extends State<_RoomSelectionContent> {
           const SizedBox(height: 16),
           Text(
             "Total: $room Room, ${adult + child} Guest",
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 16),
           ElevatedButton(

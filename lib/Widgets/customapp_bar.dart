@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../Constants/colors.dart';
 import 'detailstext1.dart';
 
@@ -10,16 +11,21 @@ class CustomAppBar extends StatelessWidget {
     super.key,
     required this.text,
     required this.text1,
-    this.backgroundColor = AppColors.tabColor, // Set background color as purpleAccent
+    this.backgroundColor =
+        AppColors.bgColor, // Set background color as purpleAccent
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10), // Decreased vertical padding for reduced height
+      padding: const EdgeInsets.symmetric(
+          vertical: 5,
+          horizontal: 10), // Decreased vertical padding for reduced height
       decoration: BoxDecoration(
-        color: backgroundColor, // Use the background color passed or default to purpleAccent
-        borderRadius: BorderRadius.circular(8), // Added border radius for rounded corners
+        color:
+            backgroundColor, // Use the background color passed or default to purpleAccent
+        borderRadius:
+            BorderRadius.circular(8), // Added border radius for rounded corners
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1), // Subtle shadow
@@ -37,14 +43,16 @@ class CustomAppBar extends StatelessWidget {
             backgroundColor: Colors.white,
             child: Center(
               child: IconButton(
-                icon: const Icon(Icons.arrow_back, color:AppColors.tabColor,size: 20,),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.tabColor,
+                  size: 20,
+                ),
                 onPressed: () {
                   Navigator.of(context).pop(); // Back navigation
                 },
               ),
             ),
-
-
           ),
           Text1(
             text1: text,

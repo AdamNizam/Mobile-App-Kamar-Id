@@ -25,6 +25,7 @@ void showPriceRoomModal({
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                const SizedBox(height: 10),
                 Container(
                   width: 50,
                   height: 5,
@@ -33,7 +34,7 @@ void showPriceRoomModal({
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 2),
                 const Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Text(

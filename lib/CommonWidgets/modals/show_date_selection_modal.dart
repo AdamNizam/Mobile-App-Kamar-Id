@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:intl/intl.dart';
 
@@ -121,7 +122,10 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                       const SizedBox(height: 10),
                       Text(
                         "${DateFormat('d MMM').format(checkInDate)} - ${DateFormat('d MMM').format(checkOutDate)} (${checkOutDate.difference(checkInDate).inDays} malam)",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       ElevatedButton(
