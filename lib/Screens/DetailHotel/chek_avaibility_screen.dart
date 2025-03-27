@@ -7,6 +7,7 @@ import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -129,8 +130,11 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            foregroundColor: Colors.white,
+                            backgroundColor:
+                                (checkInDate == null || checkOutDate == null)
+                                    ? AppColors.beauBlue
+                                    : AppColors.buttonColor,
+                            foregroundColor: AppColors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -153,7 +157,10 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                             ],
                           ),
                           onPressed: () {
-                            // Aksi pencarian
+                            if (checkInDate == null || checkOutDate == null) {
+                              showCustomSnackbar(
+                                  context, 'Please Chek In - Chek Out');
+                            }
                           },
                         ),
                       ),

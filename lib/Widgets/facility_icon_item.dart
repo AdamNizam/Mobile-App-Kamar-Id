@@ -28,9 +28,7 @@ class FacilityIconItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon,
-              color: AppColors
-                  .buttonColor), // Ganti warna sesuai AppColors.buttonColor
+          Icon(icon, color: AppColors.doggerBlue),
           const SizedBox(width: 8),
           Text(label, style: GoogleFonts.poppins(fontSize: 14)),
         ],

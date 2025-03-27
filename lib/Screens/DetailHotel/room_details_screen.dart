@@ -208,17 +208,15 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Text(
-                'Rp10.500',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.buttonColor,
-                ),
-              ),
-              Text(
+              Text('Rp10.500',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: AppColors.doggerBlue,
+                    fontWeight: FontWeight.w500,
+                  )),
+              const Text(
                 '/night',
                 style: TextStyle(
                   fontSize: 14,
@@ -232,7 +230,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
             readOnly: true,
             decoration: const InputDecoration(
               labelText: "Select Room",
-              labelStyle: TextStyle(color: AppColors.buttonColor),
+              labelStyle: TextStyle(color: AppColors.doggerBlue),
               suffixIcon: Icon(Icons.arrow_drop_down),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: AppColors.doggerBlue, width: 2.0),
@@ -278,15 +276,17 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.buttonColor,
+                  backgroundColor: _selectedPrice.isEmpty
+                      ? AppColors.beauBlue
+                      : AppColors.buttonColor,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: Text(
-                  'Pay Now',
+                  'Book Now',
                   style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                 ),
               ),

@@ -125,7 +125,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       Expanded(
                           child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -229,7 +232,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     ),
                                   ),
                                   const Text(
-                                    '/mlm',
+                                    '/night',
                                     style: TextStyle(
                                       fontSize: 17,
                                     ),
