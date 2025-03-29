@@ -121,7 +121,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        "${DateFormat('d MMM').format(checkInDate)} - ${DateFormat('d MMM').format(checkOutDate)} (${checkOutDate.difference(checkInDate).inDays} malam)",
+                        "${DateFormat('d MMM').format(checkInDate)} - ${DateFormat('d MMM').format(checkOutDate)} (${checkOutDate.difference(checkInDate).inDays} night)",
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

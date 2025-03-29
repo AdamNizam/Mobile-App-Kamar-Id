@@ -4,7 +4,12 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 
 class CustomNavTitle extends StatelessWidget {
   final String title;
-  const CustomNavTitle({super.key, required this.title});
+  final Color color;
+  const CustomNavTitle({
+    super.key,
+    required this.title,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +19,14 @@ class CustomNavTitle extends StatelessWidget {
         children: [
           // Tombol kembali
           CircleAvatar(
-            radius: 20,
+            radius: 18,
             backgroundColor: AppColors.white,
             child: Center(
               child: IconButton(
                 icon: const Icon(
                   Icons.arrow_back,
                   color: AppColors.tabColor,
-                  size: 20,
+                  size: 18,
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -35,6 +40,7 @@ class CustomNavTitle extends StatelessWidget {
               child: Text(
                 title,
                 style: GoogleFonts.poppins(
+                  color: color,
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
                 ),
@@ -42,7 +48,7 @@ class CustomNavTitle extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 20,
+            width: 10,
           ),
         ],
       ),
