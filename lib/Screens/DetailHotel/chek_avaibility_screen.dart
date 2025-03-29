@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/custom_nav_title.dart';
 import 'package:intl/intl.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
   final int? id;
@@ -67,20 +63,23 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      const CustomNavTitle(title: 'Chek Avaibility Room'),
                       const SizedBox(
                         height: 15,
                       ),
                       Container(
-                        width: 330,
+                        width: 320,
                         height: 55,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.white,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             width: 2,
-                            color: AppColors.beauBlue,
+                            color: (checkInDate != null && checkOutDate != null)
+                                ? AppColors.amberColor
+                                : AppColors.beauBlue,
                           ),
                         ),
                         child: ListTile(
@@ -99,14 +98,16 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         height: 10,
                       ),
                       Container(
-                        width: 339,
+                        width: 320,
                         height: 55,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.white,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             width: 2,
-                            color: AppColors.beauBlue,
+                            color: (room == 0 && adult == 0)
+                                ? AppColors.beauBlue
+                                : AppColors.amberColor,
                           ),
                         ),
                         child: ListTile(
@@ -127,7 +128,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                       ),
                       SizedBox(
                         height: 42,
-                        width: double.infinity,
+                        width: 320,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -161,8 +162,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                               showCustomSnackbar(
                                   context, 'Please Chek In - Chek Out');
                             } else {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/maintenance', (route) => false);
+                              Navigator.pushNamed(context, '/maintenance');
                             }
                           },
                         ),
@@ -172,85 +172,85 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  Text(
-                    'Available Rooms',
-                    style: GoogleFonts.poppins(
-                        fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  const Divider(color: AppColors.strokColor, thickness: 2),
-                ],
-              ),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  HotelBloc()..add(PostChekAvaibility(widget.id!)),
-              child: Expanded(
-                child: BlocBuilder<HotelBloc, HotelState>(
-                  builder: (context, state) {
-                    if (state is ChekAvaibilityFailed) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'images/Oops! _404_2.svg',
-                              semanticsLabel: 'Acme Logo',
-                              width: 350,
-                              height: 200,
-                              fit: BoxFit.contain,
-                            ),
-                            Text(
-                              'Oopss.. ${state.error} ',
-                              style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            //   child: Column(
+            //     children: [
+            //       Text(
+            //         'Available Rooms',
+            //         style: GoogleFonts.poppins(
+            //             fontSize: 14, fontWeight: FontWeight.w500),
+            //       ),
+            //       const SizedBox(
+            //         height: 2,
+            //       ),
+            //       const Divider(color: AppColors.strokColor, thickness: 2),
+            //     ],
+            //   ),
+            // ),
+            // BlocProvider(
+            //   create: (context) =>
+            //       HotelBloc()..add(PostChekAvaibility(widget.id!)),
+            //   child: Expanded(
+            //     child: BlocBuilder<HotelBloc, HotelState>(
+            //       builder: (context, state) {
+            //         if (state is ChekAvaibilityFailed) {
+            //           return Center(
+            //             child: Column(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 SvgPicture.asset(
+            //                   'images/Oops! _404_2.svg',
+            //                   semanticsLabel: 'Acme Logo',
+            //                   width: 350,
+            //                   height: 200,
+            //                   fit: BoxFit.contain,
+            //                 ),
+            //                 Text(
+            //                   'Oopss.. ${state.error} ',
+            //                   style: const TextStyle(
+            //                       fontSize: 17,
+            //                       fontWeight: FontWeight.w500,
+            //                       color: Colors.grey),
+            //                 ),
+            //               ],
+            //             ),
+            //           );
+            //         }
 
-                    if (state is CheckAvaibilitySuccess) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                        ),
-                        child: state.data.rooms!.isEmpty
-                            ? Column(
-                                children: [
-                                  Image.asset(
-                                    'images/Sold_out_.png',
-                                    width: 350,
-                                    height: 300,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ],
-                              )
-                            : ListView(
-                                children: state.data.rooms!.map((data) {
-                                  return CardAvailbility(data: data);
-                                }).toList(),
-                              ),
-                      );
-                    }
-                    return Center(
-                      child: LoadingAnimationWidget.hexagonDots(
-                        color: AppColors.tabColor,
-                        size: 50,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+            //         if (state is CheckAvaibilitySuccess) {
+            //           return Padding(
+            //             padding: const EdgeInsets.symmetric(
+            //               horizontal: 12,
+            //             ),
+            //             child: state.data.rooms!.isEmpty
+            //                 ? Column(
+            //                     children: [
+            //                       Image.asset(
+            //                         'images/Sold_out_.png',
+            //                         width: 350,
+            //                         height: 300,
+            //                         fit: BoxFit.contain,
+            //                       ),
+            //                     ],
+            //                   )
+            //                 : ListView(
+            //                     children: state.data.rooms!.map((data) {
+            //                       return CardAvailbility(data: data);
+            //                     }).toList(),
+            //                   ),
+            //           );
+            //         }
+            //         return Center(
+            //           child: LoadingAnimationWidget.hexagonDots(
+            //             color: AppColors.tabColor,
+            //             size: 50,
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

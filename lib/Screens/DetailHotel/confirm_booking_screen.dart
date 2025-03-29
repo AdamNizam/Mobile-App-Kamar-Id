@@ -28,7 +28,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.white,
                     child: Center(
                       child: IconButton(
                         icon: const Icon(
