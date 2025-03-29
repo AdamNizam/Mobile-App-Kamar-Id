@@ -67,7 +67,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
                         height: 15,

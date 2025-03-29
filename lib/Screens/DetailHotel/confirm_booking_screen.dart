@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_confirm_booking.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_list_booking.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Booking/booking_successfully.dart';
 
 import '../../../Widgets/custombtn.dart';
-import '../../Widgets/customapp_bar.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
   const ConfirmBookingScreen({super.key});
@@ -23,21 +24,51 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(text: 'Booking Summary', text1: ''),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.white,
+                    child: Center(
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: AppColors.tabColor,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 50),
+                  Text(
+                    'Confirmation Hotel',
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ), // Make the title stand out
+                  ),
+                ],
+              ),
               const SizedBox(height: 23),
               const CardConfirmaBooking(),
               const SizedBox(height: 16),
               const CardListBooking(),
               const SizedBox(height: 10),
-              CustomButton(
-                text: 'Confirm Booking',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const BookingSuccessFully()));
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(14),
+        child: CustomButton(
+          text: 'Pay Now',
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const BookingSuccessFully()));
+          },
         ),
       ),
     );

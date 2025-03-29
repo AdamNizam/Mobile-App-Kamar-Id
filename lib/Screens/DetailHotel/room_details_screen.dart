@@ -286,7 +286,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   ),
                 ),
                 child: Text(
-                  'Book Now',
+                  'Confirm',
                   style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                 ),
               ),
