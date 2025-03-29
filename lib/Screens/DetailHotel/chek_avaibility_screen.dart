@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custom_nav_title.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
-  final int? id;
-  const CheckAvailabilityScreen({super.key, required this.id});
+  final int? hotelId;
+  const CheckAvailabilityScreen({super.key, required this.hotelId});
 
   @override
   State<CheckAvailabilityScreen> createState() =>
@@ -18,6 +22,8 @@ class CheckAvailabilityScreen extends StatefulWidget {
 }
 
 class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
+  bool isLoading = false;
+  List<dynamic> availableRooms = [];
   DateTime? checkInDate;
   DateTime? checkOutDate;
   int room = 0;
@@ -54,85 +60,192 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: 275,
-              decoration: const BoxDecoration(
-                color: AppColors.tabColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
+        child: BlocListener<HotelBloc, HotelState>(
+          listener: (context, state) {
+            if (state is CheckAvaibilitySuccess) {
+              showCustomSnackbar(context, 'Availability checked successfully!');
+            }
+            if (state is ChekAvaibilityFailed) {
+              showCustomSnackbar(
+                  context, 'Failed to check availability: ${state.error}');
+            }
+          },
+          child: Column(
+            children: [
+              Container(
+                height: 280,
+                decoration: const BoxDecoration(
+                  color: AppColors.tabColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 8),
+                            const CustomNavTitle(
+                              title: 'Check Availability Room',
+                              color: AppColors.white,
+                            ),
+                            const SizedBox(height: 20),
+                            _buildDateSelection(),
+                            const SizedBox(height: 10),
+                            _buildRoomSelection(),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              height: 42,
+                              width: 320,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: (checkInDate == null ||
+                                          checkOutDate == null)
+                                      ? AppColors.beauBlue
+                                      : AppColors.amberColor,
+                                  foregroundColor: AppColors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                onPressed: isLoading
+                                    ? null
+                                    : () {
+                                        if (checkInDate == null ||
+                                            checkOutDate == null) {
+                                          showCustomSnackbar(context,
+                                              'Please select Check In - Check Out');
+                                        } else {
+                                          setState(() {
+                                            isLoading =
+                                                true; // Tampilkan loading
+                                          });
+
+                                          Future.delayed(
+                                              const Duration(seconds: 5), () {
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                            context.read<HotelBloc>().add(
+                                                  PostCheckAvailability(
+                                                    hotelId: widget.hotelId!,
+                                                    startDate: checkInDate!,
+                                                    endDate: checkOutDate!,
+                                                    adults: adult,
+                                                    children: child,
+                                                  ),
+                                                );
+                                          });
+                                        }
+                                      },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    isLoading
+                                        ? LoadingAnimationWidget
+                                            .fourRotatingDots(
+                                            color: AppColors.white,
+                                            size: 27,
+                                          )
+                                        : Row(
+                                            children: [
+                                              const Icon(
+                                                  Icons
+                                                      .location_searching_rounded,
+                                                  size: 22),
+                                              const SizedBox(width: 3),
+                                              Text(
+                                                'Checking',
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Available Rooms',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    const Divider(color: AppColors.strokColor, thickness: 2),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 15),
+              BlocBuilder<HotelBloc, HotelState>(
+                builder: (context, state) {
+                  if (state is CheckAvaibilitySuccess) {
+                    return Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 8),
-                          const CustomNavTitle(
-                            title: 'Check Availability Room',
-                            color: AppColors.white,
-                          ),
-                          const SizedBox(height: 20),
-                          _buildDateSelection(),
-                          const SizedBox(height: 10),
-                          _buildRoomSelection(),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            height: 42,
-                            width: 320,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: (checkInDate == null ||
-                                        checkOutDate == null)
-                                    ? AppColors.beauBlue
-                                    : AppColors.amberColor,
-                                foregroundColor: AppColors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.search_sharp, size: 18),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    'Checking',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              onPressed: () {
-                                if (checkInDate == null ||
-                                    checkOutDate == null) {
-                                  showCustomSnackbar(context,
-                                      'Please select Check In - Check Out');
-                                } else {
-                                  Navigator.pushNamed(context, '/maintenance');
-                                }
-                              },
-                            ),
+                          ListView(
+                            children: state.data.rooms!.map((data) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: CardAvailbility(data: data),
+                              );
+                            }).toList(),
                           ),
                         ],
                       ),
+                    );
+                  }
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'images/Search-rafiki.svg',
+                          semanticsLabel: 'Acme Logo',
+                          width: 350,
+                          height: 200,
+                          fit: BoxFit.contain,
+                        ),
+                        const Text(
+                          'Ready To your Trip',
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            _buildNoDataWidget(),
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -153,7 +266,11 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
         ),
       ),
       child: ListTile(
-        leading: const Icon(Icons.calendar_month, size: 24),
+        leading: const Icon(
+          Icons.calendar_month,
+          size: 24,
+          color: AppColors.buttonColor,
+        ),
         title: Text(
           checkInDate != null && checkOutDate != null
               ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - (${checkOutDate!.difference(checkInDate!).inDays} night)"
@@ -180,7 +297,11 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
         ),
       ),
       child: ListTile(
-        leading: const Icon(Icons.hotel, size: 24),
+        leading: const Icon(
+          Icons.hotel,
+          size: 24,
+          color: AppColors.buttonColor,
+        ),
         title: Text(
           "$room Room - $adult Adult - $child Child",
           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
@@ -198,7 +319,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
               width: 200, height: 200),
           const SizedBox(height: 10),
           Text(
-            'Oops.. No data available',
+            'Oops.. No data available ${widget.hotelId}',
             style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

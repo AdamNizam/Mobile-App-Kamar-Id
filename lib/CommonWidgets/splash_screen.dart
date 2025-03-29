@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
 
@@ -60,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 20, 76, 121),
+      backgroundColor: AppColors.tab1Color,
       body: SafeArea(
         child: Stack(
           children: [
@@ -78,10 +79,10 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(width: 10),
                     SlideTransition(
                       position: _textAnimation,
-                      child: const Text(
+                      child: Text(
                         'Kamar.Id',
-                        style: TextStyle(
-                          fontSize: 26,
+                        style: GoogleFonts.poppins(
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: AppColors.white,
                         ),

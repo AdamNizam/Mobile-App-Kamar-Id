@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Models/hotel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import '../Models/hotel/result_check_avaibility_model.dart';
 
@@ -79,18 +80,32 @@ class HotelService {
     }
   }
 
-  Future<ResultCheckAvaibility> checkAvaibility(int id) async {
+  Future<ResultCheckAvaibility> checkAvaibility({
+    required int hotelId,
+    required DateTime startDate,
+    required DateTime endDate,
+    required int adults,
+    bool firstLoad = false,
+    int? children,
+  }) async {
     try {
       final token = await AuthService().getToken();
 
       final res = await http.post(
-        Uri.parse('$baseUrl/hotel/$id/checkAvailability'),
+        Uri.parse('$baseUrl/hotel/$hotelId/checkAvailability'),
         headers: {
           'Authorization': token,
           'Content-Type': 'application/json',
         },
+        body: jsonEncode({
+          "hotel_id": hotelId,
+          "start_date": DateFormat('yyyy-MM-dd').format(startDate),
+          "end_date": DateFormat('yyyy-MM-dd').format(endDate),
+          "firstLoad": firstLoad,
+          "adults": adults,
+          "children": children ?? "",
+        }),
       );
-      // print("API Response: ${res.body}");
 
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);

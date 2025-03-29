@@ -38,15 +38,21 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
           }
         }
 
-        if (event is PostChekAvaibility) {
+        if (event is PostCheckAvailability) {
           try {
             emit(ChekAvaibilityLoading());
 
-            final data = await HotelService().checkAvaibility(event.id);
+            final data = await HotelService().checkAvaibility(
+              hotelId: event.hotelId,
+              startDate: event.startDate,
+              endDate: event.endDate,
+              adults: event.adults,
+              children: event.children,
+            );
 
             emit(CheckAvaibilitySuccess(data));
           } catch (error) {
-            print('chek avaibility : $error');
+            print('check availability error: $error');
             emit(const ChekAvaibilityFailed('Terjadi Kesalahan'));
           }
         }
