@@ -16,7 +16,7 @@ class FacilityIconItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -28,7 +28,7 @@ class FacilityIconItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColors.doggerBlue),
+          Icon(icon, color: AppColors.buttonColor),
           const SizedBox(width: 8),
           Text(label, style: GoogleFonts.poppins(fontSize: 14)),
         ],

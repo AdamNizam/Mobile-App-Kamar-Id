@@ -34,17 +34,19 @@ class CardAvailbilityState extends State<CardAvailbility> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const RoomDetailsScreen(),
+            builder: (context) => RoomDetailsScreen(
+              dataDetailRoom: widget.data,
+            ),
           ),
         );
       },
       child: Card(
-        color: Colors.white,
+        color: AppColors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: isSelected ? Colors.blue : AppColors.strokColor,
+            color: isSelected ? AppColors.beauBlue : AppColors.strokColor,
             width: 2,
           ),
         ),
@@ -71,7 +73,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
                             child: Icon(
                               Icons.image_rounded,
                               size: 105,
-                              color: AppColors.strokColor,
+                              color: AppColors.beauBlue,
                             ),
                           ),
               ),
@@ -109,7 +111,9 @@ class CardAvailbilityState extends State<CardAvailbility> {
                           Text(
                             "/mlm",
                             style: GoogleFonts.poppins(
-                                fontSize: 13, fontWeight: FontWeight.w400),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
                           )
                         ],
                       ),
@@ -118,12 +122,21 @@ class CardAvailbilityState extends State<CardAvailbility> {
                     const Row(
                       children: [
                         CustomIcon1Avaibility(
-                            icon: Icons.apartment, title: '200 m2'),
-                        CustomIcon1Avaibility(icon: Icons.surfing, title: 'x2'),
+                          icon: Icons.apartment,
+                          title: '200 m2',
+                        ),
                         CustomIcon1Avaibility(
-                            icon: Icons.family_restroom, title: 'x5'),
+                          icon: Icons.surfing,
+                          title: 'x2',
+                        ),
                         CustomIcon1Avaibility(
-                            icon: Icons.settings_accessibility, title: 'x5'),
+                          icon: Icons.family_restroom,
+                          title: 'x5',
+                        ),
+                        CustomIcon1Avaibility(
+                          icon: Icons.settings_accessibility,
+                          title: 'x5',
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -143,32 +156,6 @@ class CardAvailbilityState extends State<CardAvailbility> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class DetailRoomPage extends StatelessWidget {
-  final Room room;
-
-  const DetailRoomPage({super.key, required this.room});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(room.title ?? "Detail Kamar")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            room.image != false && room.image.isNotEmpty
-                ? Image.network(room.image, width: 200, height: 200)
-                : const Icon(Icons.image, size: 100),
-            const SizedBox(height: 20),
-            Text('Harga: Rp${room.price}',
-                style: const TextStyle(fontSize: 18)),
-          ],
         ),
       ),
     );

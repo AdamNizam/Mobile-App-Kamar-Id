@@ -62,9 +62,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
       body: SafeArea(
         child: BlocListener<HotelBloc, HotelState>(
           listener: (context, state) {
-            if (state is CheckAvaibilitySuccess) {
-              showCustomSnackbar(context, 'Availability checked successfully!');
-            }
             if (state is ChekAvaibilityFailed) {
               showCustomSnackbar(
                   context, 'Failed to check availability: ${state.error}');
@@ -73,14 +70,19 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           child: Column(
             children: [
               Container(
-                height: 280,
-                decoration: const BoxDecoration(
-                  color: AppColors.tabColor,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
-                ),
+                height: 285,
+                decoration: BoxDecoration(
+                    color: AppColors.tabColor,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 5,
+                      ),
+                    ]),
                 child: Column(
                   children: [
                     Center(
@@ -189,7 +191,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     Text(
                       'Available Rooms',
                       style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w500),
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       height: 2,
@@ -203,12 +205,28 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                 builder: (context, state) {
                   if (state is ChekAvaibilityLoading) {
                     return Center(
-                        child: LoadingAnimationWidget.hexagonDots(
-                      color: AppColors.tabColor,
-                      size: 50,
-                    ));
+                      child: LoadingAnimationWidget.hexagonDots(
+                        color: AppColors.buttonColor,
+                        size: 30,
+                      ),
+                    );
                   }
                   if (state is CheckAvaibilitySuccess) {
+                    if (state.data.rooms == null || state.data.rooms!.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'images/Sold_out_.png',
+                              width: 300,
+                              height: 250,
+                              fit: BoxFit.contain,
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                     return Expanded(
                       child: ListView(
                         children: state.data.rooms!.map((data) {
@@ -244,7 +262,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                       ),
                     );
                   }
-
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -252,12 +269,15 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         SvgPicture.asset(
                           'images/avaibility.svg',
                           semanticsLabel: 'Acme Logo',
-                          width: 350,
-                          height: 200,
+                          width: 150,
+                          height: 150,
                           fit: BoxFit.contain,
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         const Text(
-                          'Ready To your Trip',
+                          'Search your rooms',
                           style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w500,
@@ -334,25 +354,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
         ),
         onTap: _selectRoom,
-      ),
-    );
-  }
-
-  Widget _buildNoDataWidget() {
-    return Center(
-      child: Column(
-        children: [
-          SvgPicture.asset('images/chek_avaibility.svg',
-              width: 200, height: 200),
-          const SizedBox(height: 10),
-          Text(
-            'Oops.. No data available ${widget.hotelId}',
-            style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.cadetGray),
-          ),
-        ],
       ),
     );
   }

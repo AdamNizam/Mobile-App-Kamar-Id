@@ -41,7 +41,7 @@ class CustomNavTitle extends StatelessWidget {
                 title,
                 style: GoogleFonts.poppins(
                   color: color,
-                  fontSize: 17,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),

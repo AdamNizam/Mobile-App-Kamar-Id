@@ -34,14 +34,14 @@ void showPriceRoomModal({
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                const SizedBox(height: 2),
-                const Padding(
-                  padding: EdgeInsets.all(12.0),
+                const SizedBox(height: 12),
+                const Center(
                   child: Text(
                     "Select Price",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
+                const SizedBox(height: 5),
                 const Divider(color: AppColors.buttonColor),
                 Expanded(
                   child: ListView.separated(
@@ -82,7 +82,7 @@ void showPriceRoomModal({
                                       ? FontWeight.bold
                                       : FontWeight.normal,
                                   color: isSelected
-                                      ? AppColors.doggerBlue
+                                      ? AppColors.buttonColor
                                       : Colors.black,
                                 ),
                               ),
@@ -95,7 +95,7 @@ void showPriceRoomModal({
                                       ? FontWeight.bold
                                       : FontWeight.normal,
                                   color: isSelected
-                                      ? AppColors.doggerBlue
+                                      ? AppColors.buttonColor
                                       : Colors.black,
                                 ),
                               ),
@@ -122,7 +122,7 @@ void showPriceRoomModal({
                     "Save",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white,
+                      color: AppColors.white,
                     ),
                   ),
                 ),

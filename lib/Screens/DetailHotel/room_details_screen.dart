@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
-  const RoomDetailsScreen({super.key});
+  final Room dataDetailRoom;
+  const RoomDetailsScreen({
+    super.key,
+    required this.dataDetailRoom,
+  });
 
   @override
   State<RoomDetailsScreen> createState() => _RoomDetailsScreenState();
@@ -119,7 +124,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Paradise Resort',
+                            widget.dataDetailRoom.title!,
                             style: GoogleFonts.poppins(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
@@ -170,7 +175,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 ),
               ),
             ),
-            BottomBarPrice(context),
+            BottomBarPrice(context, widget.dataDetailRoom.price),
           ],
         ),
       ),
@@ -189,7 +194,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   }
 
   // ignore: non_constant_identifier_names
-  Widget BottomBarPrice(BuildContext context) {
+  Widget BottomBarPrice(BuildContext context, int price) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -210,12 +215,14 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
         children: [
           Row(
             children: [
-              Text('Rp10.500',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: AppColors.doggerBlue,
-                    fontWeight: FontWeight.w500,
-                  )),
+              Text(
+                'Rp${price.toString()}',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: AppColors.buttonColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               const Text(
                 '/night',
                 style: TextStyle(
@@ -230,10 +237,13 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
             readOnly: true,
             decoration: const InputDecoration(
               labelText: "Select Room",
-              labelStyle: TextStyle(color: AppColors.doggerBlue),
+              labelStyle: TextStyle(color: AppColors.buttonColor),
               suffixIcon: Icon(Icons.arrow_drop_down),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: AppColors.doggerBlue, width: 2.0),
+                borderSide: BorderSide(
+                  color: AppColors.buttonColor,
+                  width: 2,
+                ),
               ),
             ),
             onTap: _showList,
@@ -287,7 +297,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 ),
                 child: Text(
                   'Confirm',
-                  style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ],
