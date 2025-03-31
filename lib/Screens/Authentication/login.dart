@@ -86,8 +86,8 @@ class _LogInState extends State<LogIn> {
                               const Text(
                                 'Kamar.Id',
                                 style: TextStyle(
-                                  fontSize: 26,
-                                  color: AppColors.redDark,
+                                  fontSize: 27,
+                                  color: AppColors.buttonColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

@@ -201,29 +201,56 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
               const SizedBox(height: 15),
               BlocBuilder<HotelBloc, HotelState>(
                 builder: (context, state) {
+                  if (state is ChekAvaibilityLoading) {
+                    return Center(
+                        child: LoadingAnimationWidget.hexagonDots(
+                      color: AppColors.tabColor,
+                      size: 50,
+                    ));
+                  }
                   if (state is CheckAvaibilitySuccess) {
                     return Expanded(
+                      child: ListView(
+                        children: state.data.rooms!.map((data) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: CardAvailbility(data: data),
+                          );
+                        }).toList(),
+                      ),
+                    );
+                  }
+                  if (state is ChekAvaibilityFailed) {
+                    return Center(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ListView(
-                            children: state.data.rooms!.map((data) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0),
-                                child: CardAvailbility(data: data),
-                              );
-                            }).toList(),
+                          SvgPicture.asset(
+                            'images/Oops! _404_2.svg',
+                            semanticsLabel: 'Acme Logo',
+                            width: 350,
+                            height: 200,
+                            fit: BoxFit.contain,
+                          ),
+                          Text(
+                            'Oopss.. ${state.error} ',
+                            style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey),
                           ),
                         ],
                       ),
                     );
                   }
+
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          'images/Search-rafiki.svg',
+                          'images/avaibility.svg',
                           semanticsLabel: 'Acme Logo',
                           width: 350,
                           height: 200,
