@@ -602,6 +602,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => CheckAvailabilityScreen(
                                   hotelId: state.data.row!.id,
+                                  hotelName: state.data.row!.title,
                                 ),
                               ));
                             },

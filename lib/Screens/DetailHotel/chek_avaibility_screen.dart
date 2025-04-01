@@ -14,7 +14,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
   final int? hotelId;
-  const CheckAvailabilityScreen({super.key, required this.hotelId});
+  final String? hotelName;
+  const CheckAvailabilityScreen({
+    super.key,
+    required this.hotelId,
+    required this.hotelName,
+  });
 
   @override
   State<CheckAvailabilityScreen> createState() =>
