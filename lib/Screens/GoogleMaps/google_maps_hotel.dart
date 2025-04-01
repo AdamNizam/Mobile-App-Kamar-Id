@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 
 class GoogleMapsHotel extends StatefulWidget {
   final LatLng initialPosition;
@@ -18,11 +19,9 @@ class GoogleMapsHotel extends StatefulWidget {
 }
 
 class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
-  late GoogleMapController _mapController;
   final Set<Marker> _markers = {};
 
   void _onMapCreated(GoogleMapController controller) {
-    _mapController = controller;
     setState(() {
       _markers.add(
         Marker(
@@ -46,10 +45,10 @@ class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
           height: 370,
           width: 600,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Colors.white,
+              color: AppColors.white,
               width: 5,
             ),
           ),
