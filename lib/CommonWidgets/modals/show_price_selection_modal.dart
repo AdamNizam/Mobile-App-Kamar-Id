@@ -7,8 +7,7 @@ void showPriceRoomModal({
   required List<Map<String, String>> priceRoom,
   required Function(String) onSelectPrice,
 }) {
-  int?
-      selectedIndex; // Pindahkan ke luar StatefulBuilder agar tidak di-reset setiap kali UI diperbarui
+  int? selectedIndex;
 
   showModalBottomSheet(
     context: context,
@@ -42,7 +41,6 @@ void showPriceRoomModal({
                   ),
                 ),
                 const SizedBox(height: 5),
-                const Divider(color: AppColors.buttonColor),
                 Expanded(
                   child: ListView.separated(
                     shrinkWrap: true,
@@ -61,44 +59,63 @@ void showPriceRoomModal({
                           onSelectPrice(priceRoom[index]['price']!);
                         },
                         child: Container(
+                          margin: const EdgeInsets.only(bottom: 8),
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? Colors.grey[300]
+                                ? AppColors.buttonColor.withOpacity(0.1)
                                 : Colors.transparent,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           padding: const EdgeInsets.symmetric(
-                            vertical: 12.0,
-                            horizontal: 16.0,
+                            vertical: 16.0,
+                            horizontal: 18.0,
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                priceRoom[index]['room']!,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: isSelected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: isSelected
-                                      ? AppColors.buttonColor
-                                      : Colors.black,
+                              Icon(
+                                isSelected
+                                    ? Icons.check_circle
+                                    : Icons.circle_outlined,
+                                color: isSelected
+                                    ? AppColors.buttonColor
+                                    : Colors.grey,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      priceRoom[index]['room']!,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: isSelected
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                        color: isSelected
+                                            ? AppColors.buttonColor
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      " - (${priceRoom[index]['price']!}/night)",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: isSelected
+                                            ? AppColors.buttonColor
+                                            : AppColors.cadetGray,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(width: 5),
-                              Text(
-                                "(${priceRoom[index]['price']!}/night)",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: isSelected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: isSelected
-                                      ? AppColors.buttonColor
-                                      : Colors.black,
+                              if (isSelected)
+                                const Icon(
+                                  Icons.check,
+                                  color: AppColors.buttonColor,
+                                  size: 20,
                                 ),
-                              ),
                             ],
                           ),
                         ),

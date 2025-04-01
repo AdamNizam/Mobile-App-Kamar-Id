@@ -31,22 +31,23 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   }
 
   void _showList() {
+    int number = widget.dataDetailRoom.number ?? 0;
+    int price = widget.dataDetailRoom.price ?? 0;
+
+    List<Map<String, String>> listRoomAndPrice = List.generate(number, (index) {
+      return {
+        'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
+        'price': 'Rp${price * (index + 1)}',
+      };
+    });
+
     showPriceRoomModal(
       context: context,
       controller: _controller,
-      priceRoom: _priceRoom,
+      priceRoom: listRoomAndPrice,
       onSelectPrice: _updateSelectedPrice,
     );
   }
-
-  final List<Map<String, String>> _priceRoom = [
-    {"room": "1 Room", "price": "Rp100.200"},
-    {"room": "2 Room", "price": "Rp124.500"},
-    {"room": "3 Room", "price": "Rp136.800"},
-    {"room": "4 Room", "price": "Rp250.100"},
-    {"room": "5 Room", "price": "350.100"},
-    {"room": "6 Room", "price": "Rp1.000.000"},
-  ];
 
   final List<String> _imageUrls = [
     'https://picsum.photos/800/400?random=1',
@@ -59,7 +60,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
       body: SafeArea(
         child: Column(
           children: [
@@ -111,7 +111,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 dotHeight: 8,
                                 dotWidth: 8,
                                 activeDotColor: AppColors.white,
-                                dotColor: Colors.white.withOpacity(0.5),
+                                dotColor: AppColors.white.withOpacity(0.5),
                               ),
                             ),
                           ),
@@ -130,7 +130,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
+                            '${widget.dataDetailRoom.number} Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
                             style: GoogleFonts.poppins(fontSize: 14),
                           ),
                           const SizedBox(height: 16),
@@ -198,7 +198,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -299,6 +299,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   'Confirm',
                   style: GoogleFonts.poppins(
                     fontSize: 16,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.white,
                   ),
                 ),
