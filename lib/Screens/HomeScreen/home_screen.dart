@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                   width: 42,
                                   padding: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Icon(

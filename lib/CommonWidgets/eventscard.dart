@@ -80,7 +80,7 @@ class _EventsCardState extends State<EventsCard> {
         margin: const EdgeInsets.all(5),
         width: 190,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
@@ -178,10 +178,13 @@ class _EventsCardState extends State<EventsCard> {
                                 text1: widget.hotel.price != null
                                     ? "Rp${widget.hotel.price}"
                                     : '0',
-                                size: 18,
+                                size: 16,
                                 color: AppColors.tabColor,
                               ),
-                              const Text2(text2: '/night'),
+                              const Text2(
+                                text2: '/night',
+                                size: 14,
+                              ),
                             ],
                           ),
                         ],

@@ -39,7 +39,7 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
       bottomNavigationBar: Container(
         height: 70,
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -74,9 +74,9 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
               ),
             ],
             currentIndex: _selectedIndex,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.white,
             selectedItemColor: AppColors.tabColor,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: AppColors.cadetGray,
             elevation: 0,
             onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,

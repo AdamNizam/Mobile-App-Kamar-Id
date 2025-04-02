@@ -79,7 +79,7 @@ class _HotelsCardState extends State<HotelsCard> {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
@@ -121,7 +121,7 @@ class _HotelsCardState extends State<HotelsCard> {
                                   return Center(
                                     child: LoadingAnimationWidget
                                         .threeArchedCircle(
-                                      color: Colors.white,
+                                      color: AppColors.white,
                                       size: 200,
                                     ),
                                   );
@@ -152,7 +152,7 @@ class _HotelsCardState extends State<HotelsCard> {
                             child: const Text(
                               'Featured',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
                               ),
@@ -236,19 +236,17 @@ class _HotelsCardState extends State<HotelsCard> {
                               const Spacer(),
                               Row(
                                 children: [
-                                  widget.hotel.price != null
-                                      ? Text1(
-                                          text1:
-                                              "Rp${widget.hotel.price.toString()}",
-                                          size: 18,
-                                          color: AppColors.tabColor,
-                                        )
-                                      : const Text1(
-                                          text1: '0',
-                                          size: 18,
-                                          color: Colors.black,
-                                        ),
-                                  const Text2(text2: '/mlm'),
+                                  Text1(
+                                    text1: widget.hotel.price != null
+                                        ? "Rp${widget.hotel.price}"
+                                        : '0',
+                                    size: 16,
+                                    color: AppColors.tabColor,
+                                  ),
+                                  const Text2(
+                                    text2: '/night',
+                                    size: 14,
+                                  ),
                                 ],
                               ),
                             ],
