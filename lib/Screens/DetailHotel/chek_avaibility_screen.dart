@@ -97,8 +97,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(height: 8),
-                            const CustomNavTitle(
-                              title: 'Check Availability Room',
+                            CustomNavTitle(
+                              title:
+                                  widget.hotelName ?? 'Check Availability Room',
                               color: AppColors.white,
                             ),
                             const SizedBox(height: 20),

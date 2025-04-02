@@ -4,11 +4,13 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 
 class FacilityIconItem extends StatelessWidget {
   final IconData icon;
-  final String label;
+  final Color color;
+  final String title;
   const FacilityIconItem({
     super.key,
     required this.icon,
-    required this.label,
+    required this.color,
+    required this.title,
   });
 
   @override
@@ -28,9 +30,9 @@ class FacilityIconItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColors.buttonColor),
+          Icon(icon, color: color),
           const SizedBox(width: 8),
-          Text(label, style: GoogleFonts.poppins(fontSize: 14)),
+          Text(title, style: GoogleFonts.poppins(fontSize: 14)),
         ],
       ),
     );

@@ -140,27 +140,16 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 8),
-                          const Wrap(
+                          Wrap(
                             spacing: 12,
                             runSpacing: 12,
-                            children: [
-                              FacilityIconItem(
-                                icon: Icons.pool,
-                                label: 'Swimming Pool',
-                              ),
-                              FacilityIconItem(
-                                icon: Icons.local_parking,
-                                label: 'Parking Area',
-                              ),
-                              FacilityIconItem(
-                                icon: Icons.hotel,
-                                label: '4 Rooms',
-                              ),
-                              FacilityIconItem(
-                                icon: Icons.wifi,
-                                label: 'Wifi',
-                              ),
-                            ],
+                            children: widget.dataDetailRoom.termFeatures!
+                                .map((facilitiesRoom) => FacilityIconItem(
+                                      icon: Icons.pool,
+                                      color: AppColors.buttonColor,
+                                      title: facilitiesRoom.title ?? '',
+                                    ))
+                                .toList(),
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -175,7 +164,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 ),
               ),
             ),
-            BottomBarPrice(context, widget.dataDetailRoom.price),
+            _bottomBarPrice(context, widget.dataDetailRoom.price),
           ],
         ),
       ),
@@ -193,8 +182,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Widget BottomBarPrice(BuildContext context, int price) {
+  Widget _bottomBarPrice(BuildContext context, int price) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

@@ -119,7 +119,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   const Icon(
                                 Icons.broken_image,
                                 size: 100,
-                                color: Colors.grey,
+                                color: AppColors.beauBlue,
                               ),
                             ),
                       Expanded(
@@ -175,7 +175,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       child: const Text(
                                         'Featured',
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: AppColors.white,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -192,7 +192,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     size: 17,
                                   ),
                                   const Icon(Icons.favorite_border,
-                                      color: Colors.red, size: 30),
+                                      color: AppColors.redAwesome, size: 30),
                                 ],
                               ),
                               Row(
@@ -267,11 +267,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text(
+                                            const Text(
                                               "2 days ago ",
                                               style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.grey.shade600,
+                                                color: AppColors.cadetGray,
                                               ),
                                             ),
                                           ],
@@ -299,7 +299,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           GoogleFonts.poppins(fontSize: 14),
                                     )
                                   : const ErrorCard(
-                                      message: 'Description is not available'),
+                                      message: 'Description is not available',
+                                    ),
                               const SizedBox(
                                 height: 10,
                               ),
@@ -381,7 +382,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           clientName: service.unit == 'fixed'
                                               ? 'Rp${service.price}'
                                               : '${service.price}%',
-                                          backgroundColor: Colors.white,
+                                          backgroundColor: AppColors.white,
                                           statusColor: AppColors.buttonColor,
                                         );
                                       }).toList()
@@ -507,7 +508,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           'Outstanding: Rated 5.0 with 1,092 Reviews.',
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: Colors.grey,
+                                            color: AppColors.cadetGray,
                                           ),
                                         ),
                                       ],
