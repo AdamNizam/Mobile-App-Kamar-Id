@@ -119,16 +119,16 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           child: Text2(text2: widget.roomType), // Room type
                         ),
                         const SizedBox(height: 4),
-                        const Row(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on,
                               size: 20,
                               color: AppColors.buttonColor,
                             ),
-                            SizedBox(width: 3),
-                            Text2(text2: '123 Main St, City Name'),
+                            const SizedBox(width: 3),
+                            Text2(text2: widget.location),
                           ],
                         ),
                       ],
@@ -206,6 +206,26 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         ],
                       ),
                     ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text2(text2: 'Servie Fee'),
+                          Text1(text1: '20%'),
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 6),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text2(text2: 'cleanliness'),
+                          Text1(text1: 'Rp20.000'),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 6),
                       child: Row(
@@ -214,7 +234,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           const Text2(text2: 'Total Amount'),
                           Text1(
                             text1:
-                                'Rp${extractNumber(widget.totalAmount).toString()}',
+                                'Rp${formatToRp(extractNumber(widget.totalAmount))}',
                           ),
                         ],
                       ),

@@ -505,7 +505,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         ),
                                         SizedBox(height: 4),
                                         Text(
-                                          'Outstanding: Rated 5.0 with 1,092 Reviews.',
+                                          'Outstanding: Rated 0 with 0 Reviews.',
                                           style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.cadetGray,

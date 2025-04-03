@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -257,7 +258,9 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     ),
                   ),
                   Text(
-                    _selectedPrice.isNotEmpty ? _selectedPrice : 'Rp0',
+                    _selectedPrice.isNotEmpty
+                        ? 'Rp${formatToRp(extractNumber(_selectedPrice))}'
+                        : 'Rp0',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -296,7 +299,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           location: 'Default location',
                           chekIn: DateTime.now(),
                           chekOut: DateTime.now(),
-                          roomType: widget.dataDetailRoom.title ?? 'no-dara',
+                          roomType: widget.dataDetailRoom.title ?? 'no-data',
                           guest: 'guest',
                           pricePerNight: _selectedPrice,
                           totalAmount: _selectedPrice,

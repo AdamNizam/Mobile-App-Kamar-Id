@@ -33,7 +33,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   List<dynamic> availableRooms = [];
   DateTime? checkInDate;
   DateTime? checkOutDate;
-  int room = 0;
+  int room = 1;
   int adult = 0;
   int child = 0;
 
@@ -127,13 +127,13 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                     ? null
                                     : () {
                                         if (checkInDate == null ||
-                                            checkOutDate == null) {
+                                            checkOutDate == null ||
+                                            room == 0) {
                                           showCustomSnackbar(context,
-                                              'Please select Check In - Check Out');
+                                              'Please select Check In - Check Out & select Room');
                                         } else {
                                           setState(() {
-                                            isLoading =
-                                                true; // Tampilkan loading
+                                            isLoading = true;
                                           });
 
                                           Future.delayed(
@@ -245,7 +245,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                               data: data,
                               imageUrl: widget.imageUrl ??
                                   'https://picsum.photos/400/300',
-                              hotelName: widget.hotelName ?? 'No-Data',
+                              hotelName: widget.hotelName ?? 'No-data',
                             ),
                           );
                         }).toList(),

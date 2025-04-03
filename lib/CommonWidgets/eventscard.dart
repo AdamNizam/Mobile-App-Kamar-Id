@@ -213,7 +213,7 @@ class _EventsCardState extends State<EventsCard> {
                           const Spacer(),
                           const Text11(
                             text2: '10% Off',
-                            color: Colors.black,
+                            color: AppColors.black,
                           ),
                         ],
                       ),
@@ -237,7 +237,7 @@ class _EventsCardState extends State<EventsCard> {
                   child: const Text(
                     'Featured',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),

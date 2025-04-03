@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 IconData getIcon(String iconName) {
   switch (iconName) {
@@ -28,4 +29,15 @@ int extractNumber(String text) {
   String cleaned = text.replaceAll(RegExp(r'[^\d.]'), '');
   cleaned = cleaned.replaceAll('.', '');
   return int.tryParse(cleaned) ?? 0;
+}
+
+String formatToRp(int number) {
+  final formatter = NumberFormat('#,###', 'id_ID');
+  return formatter.format(number).replaceAll(',', '.');
+}
+
+String formatToUsd(int number, {double exchangeRate = 16.560}) {
+  double usdValue = number / exchangeRate;
+  final formatter = NumberFormat('#,###.##', 'en_US');
+  return '\$${formatter.format(usdValue)}';
 }
