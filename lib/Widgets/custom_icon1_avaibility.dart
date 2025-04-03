@@ -18,10 +18,10 @@ class CustomIcon1Avaibility extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
           margin: const EdgeInsets.symmetric(horizontal: 6.0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Colors.amber,
+              color: AppColors.amberColor,
               width: 1,
             ),
           ),

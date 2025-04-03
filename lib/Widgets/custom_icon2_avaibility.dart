@@ -17,7 +17,7 @@ class CustomIcon2Avaibility extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
           margin: const EdgeInsets.symmetric(horizontal: 5.0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
               color: AppColors.strokColor,

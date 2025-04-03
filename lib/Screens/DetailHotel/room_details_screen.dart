@@ -37,7 +37,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     List<Map<String, String>> listRoomAndPrice = List.generate(number, (index) {
       return {
         'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
-        'price': 'Rp${price * (index + 1)}',
+        'price': 'Rp${price * (index + 1)}/night',
       };
     });
 
@@ -71,7 +71,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     Stack(
                       children: [
                         SizedBox(
-                          height: 280,
+                          height: 250,
                           width: double.infinity,
                           child: PageView.builder(
                             controller: _pageController,
@@ -84,7 +84,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 ),
                                 child: Image.network(
                                   _imageUrls[index],
-                                  height: 280,
+                                  height: 250,
                                   width: double.infinity,
                                   fit: BoxFit.cover,
                                 ),
@@ -130,7 +130,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            '${widget.dataDetailRoom.number} Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
+                            'Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
                             style: GoogleFonts.poppins(fontSize: 14),
                           ),
                           const SizedBox(height: 16),
@@ -143,11 +143,11 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           Wrap(
                             spacing: 12,
                             runSpacing: 12,
-                            children: widget.dataDetailRoom.termFeatures!
+                            children: widget.dataDetailRoom.terms!.the8.child
                                 .map((facilitiesRoom) => FacilityIconItem(
-                                      icon: Icons.pool,
+                                      icon: facilitiesRoom.icon,
                                       color: AppColors.buttonColor,
-                                      title: facilitiesRoom.title ?? '',
+                                      title: facilitiesRoom.title,
                                     ))
                                 .toList(),
                           ),
@@ -172,9 +172,9 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   }
 
   Widget iconBackButton(IconData icon, VoidCallback onTap,
-      {Color color = Colors.black}) {
+      {Color color = AppColors.black}) {
     return CircleAvatar(
-      backgroundColor: Colors.white.withOpacity(0.8),
+      backgroundColor: AppColors.white.withOpacity(0.8),
       child: IconButton(
         icon: Icon(icon, color: color),
         onPressed: onTap,
@@ -193,7 +193,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: AppColors.black.withOpacity(0.1),
             blurRadius: 10,
           ),
         ],
@@ -254,7 +254,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   ),
                   Text(
                     _selectedPrice.isNotEmpty ? _selectedPrice : 'Rp0',
-                    style: GoogleFonts.poppins(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -262,17 +262,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {
-                  if (_selectedPrice.isEmpty) {
-                    showCustomSnackbar(context, 'Youre not seleceted room');
-                  } else {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ConfirmBookingScreen(),
-                      ),
-                    );
-                  }
-                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _selectedPrice.isEmpty
                       ? AppColors.beauBlue
@@ -291,6 +280,17 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     color: AppColors.white,
                   ),
                 ),
+                onPressed: () {
+                  if (_selectedPrice.isEmpty) {
+                    showCustomSnackbar(context, 'Youre not seleceted room');
+                  } else {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ConfirmBookingScreen(),
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),

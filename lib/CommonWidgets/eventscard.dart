@@ -110,13 +110,13 @@ class _EventsCardState extends State<EventsCard> {
                               ? _imageUrls[index]
                               : 'https://via.placeholder.com/190x130',
                           width: 190,
-                          height: 130.0,
+                          height: 130,
                           fit: BoxFit.cover,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
                               child: LoadingAnimationWidget.threeArchedCircle(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 size: 200,
                               ),
                             );
@@ -146,7 +146,7 @@ class _EventsCardState extends State<EventsCard> {
                           const Spacer(),
                           const Icon(
                             Icons.favorite_border,
-                            color: Colors.red,
+                            color: AppColors.redAwesome,
                             size: 20,
                           )
                         ],

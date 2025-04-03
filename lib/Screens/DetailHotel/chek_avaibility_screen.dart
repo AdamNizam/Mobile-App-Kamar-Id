@@ -84,7 +84,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
+                        color: AppColors.black.withOpacity(0.5),
                         blurRadius: 5,
                       ),
                     ]),

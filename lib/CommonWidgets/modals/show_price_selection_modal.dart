@@ -99,7 +99,7 @@ void showPriceRoomModal({
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      " - (${priceRoom[index]['price']!}/night)",
+                                      " - (${priceRoom[index]['price']!})",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: isSelected

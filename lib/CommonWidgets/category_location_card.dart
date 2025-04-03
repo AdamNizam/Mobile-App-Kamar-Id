@@ -22,7 +22,7 @@ class CategoryLocationCard extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           margin: const EdgeInsets.symmetric(horizontal: 15.0),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: AppColors.beauBlue,

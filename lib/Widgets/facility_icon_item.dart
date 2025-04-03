@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 class FacilityIconItem extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final Color color;
   final String title;
   const FacilityIconItem({
@@ -22,7 +23,7 @@ class FacilityIconItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: AppColors.black.withOpacity(0.1),
             blurRadius: 5,
           ),
         ],
@@ -30,7 +31,10 @@ class FacilityIconItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: color),
+          Icon(
+            getIcon(icon),
+            color: color,
+          ),
           const SizedBox(width: 8),
           Text(title, style: GoogleFonts.poppins(fontSize: 14)),
         ],
