@@ -3,16 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/confirm_booking_screen.dart';
+import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
   final Room dataDetailRoom;
+  final String hotelName;
+  final String imageUrl;
   const RoomDetailsScreen({
     super.key,
     required this.dataDetailRoom,
+    required this.hotelName,
+    required this.imageUrl,
   });
 
   @override
@@ -151,12 +155,12 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                     ))
                                 .toList(),
                           ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Hotel Service',
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
+                          // const SizedBox(height: 16),
+                          // Text(
+                          //   'Hotel Service',
+                          //   style: GoogleFonts.poppins(
+                          //       fontSize: 18, fontWeight: FontWeight.bold),
+                          // ),
                         ],
                       ),
                     ),
@@ -286,7 +290,17 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   } else {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const ConfirmBookingScreen(),
+                        builder: (context) => ConfirmBookingScreen(
+                          imageUrl: widget.imageUrl,
+                          hotelName: widget.hotelName,
+                          location: 'Default location',
+                          chekIn: DateTime.now(),
+                          chekOut: DateTime.now(),
+                          roomType: widget.dataDetailRoom.title ?? 'no-dara',
+                          guest: 'guest',
+                          pricePerNight: _selectedPrice,
+                          totalAmount: _selectedPrice,
+                        ),
                       ),
                     );
                   }

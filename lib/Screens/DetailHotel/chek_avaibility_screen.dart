@@ -15,10 +15,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class CheckAvailabilityScreen extends StatefulWidget {
   final int? hotelId;
   final String? hotelName;
+  final String? imageUrl;
   const CheckAvailabilityScreen({
     super.key,
     required this.hotelId,
     required this.hotelName,
+    required this.imageUrl,
   });
 
   @override
@@ -239,7 +241,12 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           return Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: CardAvailbility(data: data),
+                            child: CardAvailbility(
+                              data: data,
+                              imageUrl: widget.imageUrl ??
+                                  'https://picsum.photos/400/300',
+                              hotelName: widget.hotelName ?? 'No-Data',
+                            ),
                           );
                         }).toList(),
                       ),

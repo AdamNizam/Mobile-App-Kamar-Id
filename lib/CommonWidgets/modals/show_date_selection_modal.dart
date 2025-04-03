@@ -72,8 +72,9 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                                     ),
                                     child: CalendarDatePicker(
                                       initialDate: checkInDate,
-                                      firstDate: DateTime(2020),
-                                      lastDate: DateTime(2030),
+                                      firstDate: DateTime(DateTime.now().year),
+                                      lastDate:
+                                          DateTime(DateTime.now().year + 5),
                                       onDateChanged: (date) {
                                         setState(() {
                                           checkInDate = date;

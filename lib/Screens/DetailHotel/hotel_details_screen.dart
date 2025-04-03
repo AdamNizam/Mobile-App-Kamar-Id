@@ -604,6 +604,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 builder: (context) => CheckAvailabilityScreen(
                                   hotelId: state.data.row!.id,
                                   hotelName: state.data.row!.title,
+                                  imageUrl: state.data.row!.imageId,
                                 ),
                               ));
                             },

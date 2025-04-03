@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
-import 'package:hotelbookingapp/Screens/DetailHotel/room_details_screen.dart';
+import 'package:hotelbookingapp/Screens/DetailRoom/room_details_screen.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
 
 class CardAvailbility extends StatefulWidget {
   final Room data;
+  final String hotelName;
+  final String imageUrl;
 
   const CardAvailbility({
     super.key,
     required this.data,
+    required this.hotelName,
+    required this.imageUrl,
   });
 
   @override
@@ -36,6 +40,8 @@ class CardAvailbilityState extends State<CardAvailbility> {
           MaterialPageRoute(
             builder: (context) => RoomDetailsScreen(
               dataDetailRoom: widget.data,
+              hotelName: widget.hotelName,
+              imageUrl: widget.imageUrl,
             ),
           ),
         );

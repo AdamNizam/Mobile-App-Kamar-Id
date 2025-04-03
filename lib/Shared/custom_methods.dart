@@ -8,7 +8,7 @@ IconData getIcon(String iconName) {
     case 'icofont-wifi-alt':
       return Icons.wifi;
     case 'icofont-recycle-alt':
-      return Icons.clean_hands;
+      return Icons.dry_cleaning;
     case 'icofont-imac':
       return Icons.desktop_mac_outlined;
     case 'icofont-wall-clock':
@@ -22,4 +22,10 @@ IconData getIcon(String iconName) {
     default:
       return Icons.close;
   }
+}
+
+int extractNumber(String text) {
+  String cleaned = text.replaceAll(RegExp(r'[^\d.]'), '');
+  cleaned = cleaned.replaceAll('.', '');
+  return int.tryParse(cleaned) ?? 0;
 }
