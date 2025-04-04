@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart'
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -19,7 +20,7 @@ class RoomDetailsScreen extends StatefulWidget {
   final int room;
   final int adult;
   final int child;
-  final String? priceRoom;
+  final int? priceRoom;
 
   const RoomDetailsScreen({
     super.key,
@@ -57,7 +58,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     List<Map<String, String>> listRoomAndPrice = List.generate(number, (index) {
       return {
         'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
-        'price': 'Rp${price * (index + 1)}/night',
+        'price':
+            'Rp${price * (index + 1)}${countNights(widget.checkInDate, widget.checkOutDate)}',
       };
     });
 
@@ -224,20 +226,21 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
           Row(
             children: [
               Text(
-                'Rp${price.toString()}',
+                'Rp${formatToRp(price)}',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   color: AppColors.buttonColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const Text(
-                '/night',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.cadetGray,
+              Text1(
+                text1: countNights(
+                  widget.checkInDate,
+                  widget.checkOutDate,
                 ),
-              ),
+                size: 14,
+                fontWeight: FontWeight.w400,
+              )
             ],
           ),
           TextFormField(
@@ -313,9 +316,9 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           hotelName: widget.hotelName,
                           location: widget.location,
                           chekIn: widget.checkInDate,
-                          chekOut: widget.checkInDate,
+                          chekOut: widget.checkOutDate,
                           roomType: widget.dataDetailRoom.title ?? 'no-data',
-                          pricePerNight: widget.priceRoom ?? 'no-data',
+                          pricePerNight: widget.priceRoom ?? 0,
                           guest: '',
                           totalAmount: _selectedPrice,
                         ),

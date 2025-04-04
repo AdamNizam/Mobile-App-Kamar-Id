@@ -17,7 +17,7 @@ class ConfirmBookingScreen extends StatefulWidget {
   final DateTime chekOut;
   final String roomType;
   final String guest;
-  final String pricePerNight;
+  final int pricePerNight;
   final String totalAmount;
 
   const ConfirmBookingScreen({
@@ -80,7 +80,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     width: 2,
@@ -161,9 +161,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           const Text2(text2: 'Check-In'),
                           Text1(
                             text1: DateFormat('MMMM dd, yyyy | hh:mm a').format(
-                              DateFormat('MMMM dd, yyyy | hh:mm a').parse(
-                                widget.chekIn.toString(),
-                              ),
+                              widget.chekIn,
                             ),
                           ),
                         ],
@@ -177,9 +175,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           const Text2(text2: 'Check-Out'),
                           Text1(
                             text1: DateFormat('MMMM dd, yyyy | hh:mm a').format(
-                              DateFormat('MMMM dd, yyyy | hh:mm a').parse(
-                                widget.chekOut.toString(),
-                              ),
+                              widget.chekOut,
                             ),
                           ),
                         ],
@@ -191,7 +187,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text2(text2: 'Room Type'),
-                          Text1(text1: widget.roomType), // Room type
+                          Text1(text1: widget.roomType),
                         ],
                       ),
                     ),
@@ -211,7 +207,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text2(text2: 'Price per Night'),
-                          Text1(text1: widget.pricePerNight),
+                          Text1(text1: widget.pricePerNight.toString()),
                         ],
                       ),
                     ),
@@ -230,7 +226,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text2(text2: 'cleanliness'),
+                          Text2(text2: 'Cleanliness'),
                           Text1(text1: 'Rp20.000'),
                         ],
                       ),
@@ -261,8 +257,11 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
         child: CustomButton(
           text: 'Pay Now',
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const BookingSuccessFully()));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const BookingSuccessFully(),
+              ),
+            );
           },
         ),
       ),

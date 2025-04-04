@@ -36,8 +36,24 @@ String formatToRp(int number) {
   return formatter.format(number).replaceAll(',', '.');
 }
 
-String formatToUsd(int number, {double exchangeRate = 16.560}) {
+String formatToUsd(double number) {
+  final formatter = NumberFormat('#,###.00', 'en_US');
+  return '\$${formatter.format(number)}';
+}
+
+String idrToUsd(int number, {double exchangeRate = 16560}) {
   double usdValue = number / exchangeRate;
   final formatter = NumberFormat('#,###.##', 'en_US');
   return '\$${formatter.format(usdValue)}';
+}
+
+String usdToIdr(double usd, {double exchangeRate = 16560}) {
+  double idrValue = usd * exchangeRate;
+  final formatter = NumberFormat('#,###', 'id_ID');
+  return 'Rp${formatter.format(idrValue)}';
+}
+
+String countNights(DateTime checkIn, DateTime checkOut) {
+  final nights = checkOut.difference(checkIn).inDays;
+  return "/$nights night${nights > 1 ? 's' : ''}";
 }

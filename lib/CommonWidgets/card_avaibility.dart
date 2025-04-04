@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Screens/DetailRoom/room_details_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class CardAvailbility extends StatefulWidget {
   final Room data;
@@ -134,12 +135,13 @@ class CardAvailbilityState extends State<CardAvailbility> {
                               color: AppColors.buttonColor,
                             ),
                           ),
-                          Text(
-                            "/mlm",
-                            style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                          Text1(
+                            text1: countNights(
+                              widget.checkInDate,
+                              widget.checkOutDate,
                             ),
+                            size: 14,
+                            fontWeight: FontWeight.w400,
                           )
                         ],
                       ),
