@@ -13,11 +13,26 @@ class RoomDetailsScreen extends StatefulWidget {
   final Room dataDetailRoom;
   final String hotelName;
   final String imageUrl;
+  final String location;
+  final DateTime checkInDate;
+  final DateTime checkOutDate;
+  final int room;
+  final int adult;
+  final int child;
+  final String? priceRoom;
+
   const RoomDetailsScreen({
     super.key,
     required this.dataDetailRoom,
     required this.hotelName,
     required this.imageUrl,
+    required this.checkInDate,
+    required this.checkOutDate,
+    required this.room,
+    required this.adult,
+    required this.child,
+    required this.location,
+    this.priceRoom,
   });
 
   @override
@@ -296,12 +311,12 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         builder: (context) => ConfirmBookingScreen(
                           imageUrl: widget.imageUrl,
                           hotelName: widget.hotelName,
-                          location: 'Default location',
-                          chekIn: DateTime.now(),
-                          chekOut: DateTime.now(),
+                          location: widget.location,
+                          chekIn: widget.checkInDate,
+                          chekOut: widget.checkInDate,
                           roomType: widget.dataDetailRoom.title ?? 'no-data',
-                          guest: 'guest',
-                          pricePerNight: _selectedPrice,
+                          pricePerNight: widget.priceRoom ?? 'no-data',
+                          guest: '',
                           totalAmount: _selectedPrice,
                         ),
                       ),

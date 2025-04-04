@@ -16,11 +16,13 @@ class CheckAvailabilityScreen extends StatefulWidget {
   final int? hotelId;
   final String? hotelName;
   final String? imageUrl;
+  final String? location;
   const CheckAvailabilityScreen({
     super.key,
     required this.hotelId,
     required this.hotelName,
     required this.imageUrl,
+    required this.location,
   });
 
   @override
@@ -33,7 +35,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   List<dynamic> availableRooms = [];
   DateTime? checkInDate;
   DateTime? checkOutDate;
-  int room = 1;
+  int room = 0;
   int adult = 0;
   int child = 0;
 
@@ -246,6 +248,12 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                               imageUrl: widget.imageUrl ??
                                   'https://picsum.photos/400/300',
                               hotelName: widget.hotelName ?? 'No-data',
+                              location: widget.location ?? 'No-data',
+                              checkInDate: checkInDate!,
+                              checkOutDate: checkOutDate!,
+                              room: room,
+                              adult: adult,
+                              child: child,
                             ),
                           );
                         }).toList(),

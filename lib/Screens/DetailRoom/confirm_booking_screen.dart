@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Screens/Booking/booking_successfully.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
+import 'package:intl/intl.dart';
 
 import '../../../Widgets/custombtn.dart';
 
@@ -116,7 +117,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 2, top: 4),
-                          child: Text2(text2: widget.roomType), // Room type
+                          child: Text2(text2: widget.roomType),
                         ),
                         const SizedBox(height: 4),
                         Row(
@@ -142,7 +143,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     width: 2,
@@ -152,27 +153,35 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 6),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text2(text2: 'Check-In'),
+                          const Text2(text2: 'Check-In'),
                           Text1(
-                              text1:
-                                  'August 24, 2024 | 3:00 PM'), // Check-in date and time
+                            text1: DateFormat('MMMM dd, yyyy | hh:mm a').format(
+                              DateFormat('MMMM dd, yyyy | hh:mm a').parse(
+                                widget.chekIn.toString(),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 6),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text2(text2: 'Check-Out'),
+                          const Text2(text2: 'Check-Out'),
                           Text1(
-                              text1:
-                                  'August 27, 2024 | 12:00 PM'), // Check-out date and time
+                            text1: DateFormat('MMMM dd, yyyy | hh:mm a').format(
+                              DateFormat('MMMM dd, yyyy | hh:mm a').parse(
+                                widget.chekOut.toString(),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

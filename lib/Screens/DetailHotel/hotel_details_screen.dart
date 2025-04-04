@@ -605,6 +605,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   hotelId: state.data.row!.id,
                                   hotelName: state.data.row!.title,
                                   imageUrl: state.data.row!.imageId,
+                                  location: state.data.row!.location!.name,
                                 ),
                               ));
                             },

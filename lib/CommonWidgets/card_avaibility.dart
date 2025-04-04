@@ -11,12 +11,24 @@ class CardAvailbility extends StatefulWidget {
   final Room data;
   final String hotelName;
   final String imageUrl;
+  final String location;
+  final DateTime checkInDate;
+  final DateTime checkOutDate;
+  final int room;
+  final int adult;
+  final int child;
 
   const CardAvailbility({
     super.key,
     required this.data,
     required this.hotelName,
     required this.imageUrl,
+    required this.checkInDate,
+    required this.checkOutDate,
+    required this.room,
+    required this.adult,
+    required this.child,
+    required this.location,
   });
 
   @override
@@ -43,6 +55,13 @@ class CardAvailbilityState extends State<CardAvailbility> {
               dataDetailRoom: widget.data,
               hotelName: widget.hotelName,
               imageUrl: widget.imageUrl,
+              location: widget.location,
+              checkInDate: widget.checkInDate,
+              checkOutDate: widget.checkOutDate,
+              priceRoom: widget.data.price,
+              room: widget.room,
+              adult: widget.adult,
+              child: widget.child,
             ),
           ),
         );
