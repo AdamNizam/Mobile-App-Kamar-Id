@@ -207,7 +207,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text2(text2: 'Price per Night'),
-                          Text1(text1: widget.pricePerNight.toString()),
+                          Text1(text1: formatToRp(widget.pricePerNight)),
                         ],
                       ),
                     ),

@@ -117,7 +117,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: (checkInDate == null ||
-                                          checkOutDate == null)
+                                          checkOutDate == null ||
+                                          room == 0)
                                       ? AppColors.beauBlue
                                       : AppColors.amberColor,
                                   foregroundColor: AppColors.white,

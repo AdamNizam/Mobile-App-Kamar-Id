@@ -58,8 +58,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     List<Map<String, String>> listRoomAndPrice = List.generate(number, (index) {
       return {
         'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
-        'price':
-            'Rp${price * (index + 1)}${countNights(widget.checkInDate, widget.checkOutDate)}',
+        'price': '${price * (index + 1)}',
+        'nights': countNights(widget.checkInDate, widget.checkOutDate),
       };
     });
 
@@ -307,7 +307,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 ),
                 onPressed: () {
                   if (_selectedPrice.isEmpty) {
-                    showCustomSnackbar(context, 'Youre not seleceted room');
+                    showCustomSnackbar(context, "You're not seleceted room");
                   } else {
                     Navigator.of(context).push(
                       MaterialPageRoute(

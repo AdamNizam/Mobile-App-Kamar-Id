@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 void showPriceRoomModal({
   required BuildContext context,
@@ -20,7 +21,7 @@ void showPriceRoomModal({
       return StatefulBuilder(
         builder: (context, setState) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -55,7 +56,7 @@ void showPriceRoomModal({
                             selectedIndex = index;
                           });
                           controller.text =
-                              " ${priceRoom[index]['room']} - ${priceRoom[index]['price']}";
+                              "${priceRoom[index]['room']} - Rp${formatToRp(extractNumber(priceRoom[index]['price'].toString()))}";
                           onSelectPrice(priceRoom[index]['price']!);
                         },
                         child: Container(
@@ -82,32 +83,36 @@ void showPriceRoomModal({
                               ),
                               const SizedBox(width: 12),
                               Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      priceRoom[index]['room']!,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: isSelected
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
-                                        color: isSelected
-                                            ? AppColors.buttonColor
-                                            : Colors.black,
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        priceRoom[index]['room']!,
+                                        style: TextStyle(
+                                          fontSize: isSelected ? 16 : 15,
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                          color: isSelected
+                                              ? AppColors.buttonColor
+                                              : Colors.black,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      " - (${priceRoom[index]['price']!})",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: isSelected
-                                            ? AppColors.buttonColor
-                                            : AppColors.cadetGray,
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        " - (Rp ${formatToRp(extractNumber(priceRoom[index]['price'].toString()))}${priceRoom[index]['nights']})",
+                                        style: TextStyle(
+                                          fontSize: isSelected ? 16 : 15,
+                                          color: isSelected
+                                              ? AppColors.buttonColor
+                                              : AppColors.cadetGray,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               if (isSelected)
