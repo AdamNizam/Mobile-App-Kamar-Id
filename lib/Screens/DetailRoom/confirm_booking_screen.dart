@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/Booking/booking_successfully.dart';
+import 'package:hotelbookingapp/Screens/DetailRoom/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
@@ -259,7 +259,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const BookingSuccessFully(),
+                // builder: (context) => const BookingSuccessFully(),
+                builder: (context) => const MidtransPaymentPage(),
               ),
             );
           },

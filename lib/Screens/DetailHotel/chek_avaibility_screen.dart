@@ -342,7 +342,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
         ),
         title: Text(
           checkInDate != null && checkOutDate != null
-              ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - (${checkOutDate!.difference(checkInDate!).inDays} night)"
+              ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - ${checkOutDate!.difference(checkInDate!).inDays} night"
               : "Check In - Check Out",
           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
         ),
