@@ -3,7 +3,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:http/http.dart' as http;
@@ -119,26 +118,26 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            _buildBankTile('bni', 'BNI', 'images/BNI-logo.svg'),
-            _buildBankTile('bri', 'BRI', 'images/BRI-logo.svg'),
-            _buildBankTile('bsi', 'BSI', 'images/BSI-logo.svg'),
-            const SizedBox(height: 20),
+            _buildBankTile('bni', 'BNI', 'images/Logo-BNI.png'),
+            _buildBankTile('bca', 'BCA', 'images/Logo-BCA.png'),
+            _buildBankTile('bri', 'BRI', 'images/Logo-BRI.png'),
+            _buildBankTile('mandiri', 'Mandiri', 'images/Logo-Mandiri.png'),
+            const SizedBox(height: 12),
             const Text(
               "E-Wallet",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            _buildEwalletTile('dana', 'DANA', 'images/DANA-logo.svg'),
-            _buildEwalletTile('gopay', 'GoPay', 'images/GoPay-logo.svg'),
-            _buildEwalletTile(
-                'shoppepay', 'ShoppePay', 'images/ShoppePay-logo.svg'),
-            const SizedBox(height: 20),
-            const Text("QRIS",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            _buildEwalletTile('gopay', 'Gopay', 'images/Logo-GoPay.png'),
+            _buildEwalletTile('dana', 'DANA', 'images/Logo-DANA.png'),
+            const SizedBox(height: 12),
+            const Text(
+              "QRIS",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
-            _buildEwalletTile(
-                'qris', 'QR Code (QRIS)', 'images/Qris-pay-logo.svg'),
-            const SizedBox(height: 20),
+            _buildEwalletTile('qris', 'QR Code (QRIS)', 'images/Logo-Qris.png'),
+            const SizedBox(height: 12),
             buildResult(),
           ],
         ),
@@ -236,11 +235,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         },
         title: Row(
           children: [
-            SvgPicture.asset(
-              imageUrl,
-              height: 24,
-              fit: BoxFit.contain,
-            ),
+            Image.asset(imageUrl, height: 24),
             const SizedBox(width: 10),
             Text(bankName),
           ],
@@ -273,11 +268,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         },
         title: Row(
           children: [
-            SvgPicture.asset(
-              imageUrl,
-              height: 24,
-              fit: BoxFit.contain,
-            ),
+            Image.asset(imageUrl, height: 24),
             const SizedBox(width: 10),
             Text(name),
           ],
