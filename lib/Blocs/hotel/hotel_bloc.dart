@@ -52,7 +52,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(CheckAvaibilitySuccess(data));
           } catch (error) {
-            print('check availability error: $error');
+            // print('check availability error: $error');
             emit(const ChekAvaibilityFailed('Terjadi Kesalahan'));
           }
         }

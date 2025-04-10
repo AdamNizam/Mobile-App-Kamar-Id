@@ -1,11 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
-import 'package:http/http.dart' as http;
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class MidtransPaymentPage extends StatefulWidget {
   const MidtransPaymentPage({super.key});
@@ -17,173 +17,114 @@ class MidtransPaymentPage extends StatefulWidget {
 class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
   String? selectedType;
   String? selectedBank;
-  bool isLoading = false;
-  Map<String, dynamic>? result;
-
   final int totalPrice = 50000;
-  final serverKey = 'SB-Mid-server-04Ukt2P7mZjxUFy-NQYZV5XH';
-
-  Future<void> payNow() async {
-    if (selectedType == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Pilih metode pembayaran terlebih dahulu")),
-      );
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-      result = null;
-    });
-
-    final orderId = "ORDER-${DateTime.now().millisecondsSinceEpoch}";
-    final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
-
-    Map<String, dynamic> body = {
-      "transaction_details": {
-        "order_id": orderId,
-        "gross_amount": totalPrice,
-      },
-      "payment_type": selectedType,
-    };
-
-    if (selectedType == 'bank_transfer') {
-      body["bank_transfer"] = {"bank": selectedBank};
-    }
-
-    final response = await http.post(
-      Uri.parse('https://api.sandbox.midtrans.com/v2/charge'),
-      headers: {
-        'Authorization': basicAuth,
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(body),
-    );
-
-    setState(() => isLoading = false);
-
-    if (response.statusCode == 201) {
-      setState(() {
-        result = jsonDecode(response.body);
-      });
-    } else {
-      print('Gagal: ${response.body}');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Gagal membuat transaksi")),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: AppColors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: AppColors.tabColor,
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-                const Expanded(
-                  child: Center(
-                    child: Text(
-                      'Pembayaran',
+    return BlocProvider(
+      create: (_) => MidtransPaymentBloc(),
+      child: Scaffold(
+        body: BlocConsumer<MidtransPaymentBloc, MidtransPaymentState>(
+          listener: (context, state) {
+            if (state is MidtransPaymentFailed) {
+              print('error payment : ${state.error}');
+              showCustomSnackbar(context, state.error);
+            }
+            if (state is MidtransPaymentSucsess) {
+              showCustomSnackbar(context, 'Payment Success');
+            }
+          },
+          builder: (context, state) {
+            final result =
+                state is MidtransPaymentSucsess ? state.result : null;
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 50),
+                  const Text("Bank Transfer",
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 40),
-              ],
-            ),
-            const SizedBox(height: 23),
-            const Text(
-              "Bank Transfer",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            _buildBankTile('bni', 'BNI', 'images/Logo-BNI.png'),
-            _buildBankTile('bca', 'BCA', 'images/Logo-BCA.png'),
-            _buildBankTile('bri', 'BRI', 'images/Logo-BRI.png'),
-            _buildBankTile('mandiri', 'Mandiri', 'images/Logo-Mandiri.png'),
-            const SizedBox(height: 12),
-            const Text(
-              "E-Wallet",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            _buildEwalletTile('gopay', 'Gopay', 'images/Logo-GoPay.png'),
-            _buildEwalletTile('dana', 'DANA', 'images/Logo-DANA.png'),
-            const SizedBox(height: 12),
-            const Text(
-              "QRIS",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            _buildEwalletTile('qris', 'QR Code (QRIS)', 'images/Logo-Qris.png'),
-            const SizedBox(height: 12),
-            buildResult(),
-          ],
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  _buildBankTile('bni', 'BNI', 'images/Logo-BNI.png'),
+                  _buildBankTile('bca', 'BCA', 'images/Logo-BCA.png'),
+                  _buildBankTile(
+                      'mandiri', 'Mandiri', 'images/Logo-Mandiri.png'),
+                  const SizedBox(height: 10),
+                  const Text("E-Wallet",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  _buildEwalletTile('gopay', 'Gopay', 'images/Logo-GoPay.png'),
+                  _buildEwalletTile('dana', 'DANA', 'images/Logo-DANA.png'),
+                  const Text("QRIS",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  _buildEwalletTile('qris', 'QR Code', 'images/Logo-Qris.png'),
+                  const SizedBox(height: 10),
+                  if (state is MidtransPaymentLoading)
+                    const Center(child: CircularProgressIndicator()),
+                  if (result != null) buildResult(result),
+                ],
+              ),
+            );
+          },
         ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Total Payment",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                Text(
-                  "Rp ${totalPrice.toString()}/IDR",
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            CustomButton(
-              text: isLoading ? 'Memproses...' : 'Pay Now',
-              onTap: () {},
-            ),
-          ],
+        bottomNavigationBar: Builder(
+          builder: (ctx) => _buildBottomBar(ctx),
         ),
       ),
     );
   }
 
-  Widget buildResult() {
-    if (result == null) return const SizedBox.shrink();
+  Widget _buildBottomBar(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Total Payment",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text("Rp $totalPrice",
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
+            ],
+          ),
+          const SizedBox(height: 10),
+          CustomButton(
+            text: 'Pay Now',
+            onTap: () {
+              if (selectedType == null ||
+                  (selectedType == 'bank_transfer' && selectedBank == null)) {
+                showCustomSnackbar(context, 'select your payment method');
+                return;
+              }
 
+              context.read<MidtransPaymentBloc>().add(
+                    PayNowPressed(
+                      selectedType: selectedType!,
+                      selectedBank: selectedBank ?? '',
+                      totalPrice: totalPrice,
+                    ),
+                  );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildResult(Map<String, dynamic> result) {
     if (selectedType == 'qris') {
-      final qrUrl = result?['actions']
+      final qrUrl = result['actions']
           ?.firstWhere((a) => a['name'] == 'generate-qr-code')['url'];
       return Column(
         children: [
@@ -195,37 +136,50 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     }
 
     if (['gopay', 'shopeepay', 'dana'].contains(selectedType)) {
-      final deeplink = result?['actions']
+      final deeplink = result['actions']
           ?.firstWhere((a) => a['name'] == 'deeplink-redirect')['url'];
       return SelectableText("Bayar via eWallet:\n$deeplink");
     }
 
     if (selectedType == 'bank_transfer') {
-      final va = result?['va_numbers']?[0]?['va_number'];
-      final bank = result?['va_numbers']?[0]?['bank'];
-      return SelectableText("VA $bank:\n$va");
+      final va = result['va_numbers']?[0]?['va_number'];
+      final bank = result['va_numbers']?[0]?['bank'];
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          const Text("Virtual Account",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text("Bank: ${bank?.toUpperCase() ?? '-'}"),
+          Row(
+            children: [
+              Expanded(child: SelectableText("No. VA: $va")),
+              IconButton(
+                icon: const Icon(Icons.copy),
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: va));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Nomor VA disalin')),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      );
     }
-
-    return const SelectableText("Transaksi berhasil dibuat");
+    return const Text("Transaksi berhasil");
   }
 
   Widget _buildBankTile(String bankKey, String bankName, String imageUrl) {
     bool isSelected =
         selectedType == 'bank_transfer' && selectedBank == bankKey;
-
     return Card(
       color: AppColors.white,
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(
-          color: AppColors.beauBlue,
-          width: 1.5,
-        ),
-      ),
       child: RadioListTile<String>(
         value: bankKey,
-        activeColor: AppColors.tabColor,
+        activeColor: AppColors.buttonColor,
         groupValue: selectedBank,
         onChanged: (value) {
           setState(() {
@@ -237,7 +191,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           children: [
             Image.asset(imageUrl, height: 24),
             const SizedBox(width: 10),
-            Text(bankName),
+            Text1(
+                text1: '- Bank $bankName',
+                size: 16,
+                color: AppColors.cadetGray),
           ],
         ),
         selected: isSelected,
@@ -249,16 +206,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     return Card(
       color: AppColors.white,
       elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(
-          color: AppColors.beauBlue,
-          width: 1.5,
-        ),
-      ),
       child: RadioListTile<String>(
         value: type,
-        activeColor: AppColors.tabColor,
+        activeColor: AppColors.buttonColor,
         groupValue: selectedType,
         onChanged: (value) {
           setState(() {
@@ -270,10 +220,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           children: [
             Image.asset(imageUrl, height: 24),
             const SizedBox(width: 10),
-            Text(name),
+            Text1(text1: name, size: 16, color: AppColors.cadetGray),
           ],
         ),
-        selected: selectedType == type,
       ),
     );
   }

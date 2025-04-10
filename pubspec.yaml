@@ -57,6 +57,7 @@ dependencies:
   flutter_svg: ^2.0.10
   icofont_flutter: ^1.4.0
   smooth_page_indicator: ^1.1.0
+  qr_flutter: ^4.1.0
   loading_animation_widget:
 
 dev_dependencies:
