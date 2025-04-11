@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/hotel/hotel_all_model.dart';
-import 'package:hotelbookingapp/Models/hotel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../Models/hotel/result_check_avaibility_model.dart';
+import '../Models/ResponseResult/result_check_avaibility.dart';
 
 class HotelService {
   Future<List<HotelAllModel>> gethAllHotels() async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Models/hotel/result_check_avaibility_model.dart';
+import 'package:hotelbookingapp/Models/ResponseResult/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 class CustomIcon2Avaibility extends StatelessWidget {

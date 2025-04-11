@@ -12,12 +12,12 @@ final class MidtransPaymentInitial extends MidtransPaymentState {}
 class MidtransPaymentLoading extends MidtransPaymentState {}
 
 class MidtransPaymentSucsess extends MidtransPaymentState {
-  final Map<String, dynamic> result;
+  final Map<String, dynamic> data;
 
-  const MidtransPaymentSucsess(this.result);
+  const MidtransPaymentSucsess(this.data);
 
   @override
-  List<Object> get props => [result];
+  List<Object> get props => [data];
 }
 
 class MidtransPaymentFailed extends MidtransPaymentState {

@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MidtransPaymentPage extends StatefulWidget {
   const MidtransPaymentPage({super.key});
@@ -26,6 +27,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
       child: Scaffold(
         body: BlocConsumer<MidtransPaymentBloc, MidtransPaymentState>(
           listener: (context, state) {
+            if (state is MidtransPaymentSucsess) {
+              showCustomSnackbar(
+                  context, 'berhasil membuat pembayaran ${state.data}');
+            }
             if (state is MidtransPaymentFailed) {
               print('error payment : ${state.error}');
               showCustomSnackbar(context, state.error);
@@ -35,42 +40,46 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             }
           },
           builder: (context, state) {
-            final result =
-                state is MidtransPaymentSucsess ? state.result : null;
+            if (state is MidtransPaymentLoading) {
+              return Center(
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: AppColors.tabColor,
+                  size: 30,
+                ),
+              );
+            }
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 50),
-                  const Text("Bank Transfer",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  _buildBankTile('bni', 'BNI', 'images/Logo-BNI.png'),
-                  _buildBankTile('bca', 'BCA', 'images/Logo-BCA.png'),
-                  _buildBankTile(
-                      'mandiri', 'Mandiri', 'images/Logo-Mandiri.png'),
+                  const Text(
+                    "Bank Transfer",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  _buildBank('bni', 'BNI', 'images/Logo-BNI.png'),
+                  _buildBank('bca', 'BCA', 'images/Logo-BCA.png'),
                   const SizedBox(height: 10),
-                  const Text("E-Wallet",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  _buildEwalletTile('gopay', 'Gopay', 'images/Logo-GoPay.png'),
-                  _buildEwalletTile('dana', 'DANA', 'images/Logo-DANA.png'),
-                  const Text("QRIS",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  _buildEwalletTile('qris', 'QR Code', 'images/Logo-Qris.png'),
+                  const Text(
+                    "E-Wallet",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  _buildEwallet('gopay', 'Gopay', 'images/Logo-GoPay.png'),
+                  _buildEwallet('dana', 'DANA', 'images/Logo-DANA.png'),
+                  const Text(
+                    "QRIS",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  _buildEwallet('qris', 'QR Code', 'images/Logo-Qris.png'),
                   const SizedBox(height: 10),
-                  if (state is MidtransPaymentLoading)
-                    const Center(child: CircularProgressIndicator()),
-                  if (result != null) buildResult(result),
                 ],
               ),
             );
           },
         ),
         bottomNavigationBar: Builder(
-          builder: (ctx) => _buildBottomBar(ctx),
+          builder: (context) => _buildBottomBar(context),
         ),
       ),
     );
@@ -82,7 +91,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -91,32 +102,41 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Total Payment",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-              Text("Rp $totalPrice",
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold)),
+              const Text1(
+                text1: "Total Payment",
+                size: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              Text1(
+                text1: "Rp $totalPrice",
+                size: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ],
           ),
           const SizedBox(height: 10),
-          CustomButton(
-            text: 'Pay Now',
-            onTap: () {
-              if (selectedType == null ||
-                  (selectedType == 'bank_transfer' && selectedBank == null)) {
-                showCustomSnackbar(context, 'select your payment method');
-                return;
-              }
-
-              context.read<MidtransPaymentBloc>().add(
-                    PayNowPressed(
-                      selectedType: selectedType!,
-                      selectedBank: selectedBank ?? '',
-                      totalPrice: totalPrice,
-                    ),
-                  );
-            },
-          ),
+          (selectedType == null ||
+                  (selectedType == 'bank_transfer' && selectedBank == null))
+              ? CustomButton(
+                  text: 'Pay Now',
+                  onTap: () {
+                    context.read<MidtransPaymentBloc>().add(
+                          PayNowPressed(
+                            selectedType: selectedType!,
+                            selectedBank: selectedBank ?? '',
+                            totalPrice: totalPrice,
+                          ),
+                        );
+                  },
+                )
+              : CustomButton(
+                  text: 'Pay Now',
+                  color: AppColors.cadetGray,
+                  onTap: () {
+                    return showCustomSnackbar(
+                        context, 'select your payment method');
+                  },
+                ),
         ],
       ),
     );
@@ -135,7 +155,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
       );
     }
 
-    if (['gopay', 'shopeepay', 'dana'].contains(selectedType)) {
+    if (['gopay', 'dana'].contains(selectedType)) {
       final deeplink = result['actions']
           ?.firstWhere((a) => a['name'] == 'deeplink-redirect')['url'];
       return SelectableText("Bayar via eWallet:\n$deeplink");
@@ -171,7 +191,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     return const Text("Transaksi berhasil");
   }
 
-  Widget _buildBankTile(String bankKey, String bankName, String imageUrl) {
+  Widget _buildBank(String bankKey, String bankName, String imageUrl) {
     bool isSelected =
         selectedType == 'bank_transfer' && selectedBank == bankKey;
     return Card(
@@ -192,9 +212,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             Image.asset(imageUrl, height: 24),
             const SizedBox(width: 10),
             Text1(
-                text1: '- Bank $bankName',
-                size: 16,
-                color: AppColors.cadetGray),
+              text1: '- Bank $bankName',
+              size: 16,
+              color: AppColors.cadetGray,
+            ),
           ],
         ),
         selected: isSelected,
@@ -202,7 +223,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     );
   }
 
-  Widget _buildEwalletTile(String type, String name, String imageUrl) {
+  Widget _buildEwallet(String type, String name, String imageUrl) {
     return Card(
       color: AppColors.white,
       elevation: 0,

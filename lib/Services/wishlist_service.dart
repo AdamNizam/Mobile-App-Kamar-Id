@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/wishlist/wishlist_model.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/services/auth_service.dart';
 import 'package:hotelbookingapp/shared/shared_url.dart';
 import 'package:http/http.dart' as http;

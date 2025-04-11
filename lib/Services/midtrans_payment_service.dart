@@ -7,6 +7,7 @@ class PaymentService {
   Future<Map<String, dynamic>> payNow({
     required int totalPrice,
     required String selectedType,
+    String? customerEmail = 'adamnzam122@gmail.com',
     String? selectedBank,
   }) async {
     final orderId = "ORDER-${DateTime.now().millisecondsSinceEpoch}";
@@ -18,27 +19,44 @@ class PaymentService {
         "gross_amount": totalPrice,
       },
       "payment_type": selectedType,
+      "customer_details": {
+        "email": customerEmail,
+      }
     };
 
     if (selectedType == 'bank_transfer') {
       body["bank_transfer"] = {"bank": selectedBank};
     }
 
-    final response = await http.post(
-      Uri.parse(midtransUrl),
-      headers: {
-        'Authorization': basicAuth,
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(body),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(midtransUrl),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(body),
+      );
 
-    final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body);
 
-    if (response.statusCode == 201 && data['status_code'] == '201') {
-      return data;
-    } else {
-      throw Exception("Payment failed: ${data['status_message']}");
+      // Log untuk debugging
+      print("Midtrans response: ${response.body}");
+
+      final statusCode = response.statusCode;
+      final midtransStatusCode = data['status_code'];
+      final statusMessage = data['status_message'] ?? 'No status message';
+
+      if (statusCode == 201 && midtransStatusCode == '201') {
+        return data;
+      } else if (statusMessage.toLowerCase().contains('success')) {
+        // Tangani kasus ambigu: sukses tapi status code tidak 201
+        return data;
+      } else {
+        throw Exception("Payment failed: $statusMessage");
+      }
+    } catch (e) {
+      throw Exception("Payment exception: $e");
     }
   }
 }

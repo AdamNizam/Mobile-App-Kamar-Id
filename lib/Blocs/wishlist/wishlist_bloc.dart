@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Models/wishlist/wishlist_model.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Services/wishlist_service.dart';
 
 part 'wishlist_event.dart';
