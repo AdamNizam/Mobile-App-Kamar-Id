@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/eventscard.dart';
 import 'package:hotelbookingapp/CommonWidgets/hotelscard.dart';
-import 'package:hotelbookingapp/Screens/DetailRoom/midtrans_payment_page.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             // const BookingNotifications(),
-                                            const MidtransPaymentPage()),
+                                            const ScanQrisPage()),
                                   );
                                 },
                                 child: Container(

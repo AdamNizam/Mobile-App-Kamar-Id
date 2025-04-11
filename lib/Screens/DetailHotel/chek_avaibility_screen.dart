@@ -96,7 +96,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                   children: [
                     Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [

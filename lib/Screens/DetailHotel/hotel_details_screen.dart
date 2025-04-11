@@ -125,10 +125,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       Expanded(
                           child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
-                          ),
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

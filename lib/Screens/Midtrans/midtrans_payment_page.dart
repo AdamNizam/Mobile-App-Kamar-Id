@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -49,27 +50,32 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               );
             }
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 50),
-                  const Text(
-                    "Bank Transfer",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  const Text1(
+                    text1: "Bank Transfer",
+                    size: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                   _buildBank('bni', 'BNI', 'images/Logo-BNI.png'),
                   _buildBank('bca', 'BCA', 'images/Logo-BCA.png'),
+                  _buildBank('bri', 'BRI', 'images/Logo-BRI.png'),
                   const SizedBox(height: 10),
-                  const Text(
-                    "E-Wallet",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  const Text1(
+                    text1: "E-Wallet",
+                    size: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                   _buildEwallet('gopay', 'Gopay', 'images/Logo-GoPay.png'),
                   _buildEwallet('dana', 'DANA', 'images/Logo-DANA.png'),
-                  const Text(
-                    "QRIS",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 10),
+                  const Text1(
+                    text1: "QRIS",
+                    size: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                   _buildEwallet('qris', 'QR Code', 'images/Logo-Qris.png'),
                   const SizedBox(height: 10),
@@ -119,6 +125,23 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   (selectedType == 'bank_transfer' && selectedBank == null))
               ? CustomButton(
                   text: 'Pay Now',
+                  color: AppColors.beauBlue,
+                  onTap: () {
+                    // return showCustomSnackbar(
+                    //   context,
+                    //   'select your payment method',
+                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              // const BookingNotifications(),
+                              const ScanQrisPage()),
+                    );
+                  },
+                )
+              : CustomButton(
+                  text: 'Pay Now',
                   onTap: () {
                     context.read<MidtransPaymentBloc>().add(
                           PayNowPressed(
@@ -127,14 +150,6 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                             totalPrice: totalPrice,
                           ),
                         );
-                  },
-                )
-              : CustomButton(
-                  text: 'Pay Now',
-                  color: AppColors.cadetGray,
-                  onTap: () {
-                    return showCustomSnackbar(
-                        context, 'select your payment method');
                   },
                 ),
         ],
@@ -241,7 +256,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           children: [
             Image.asset(imageUrl, height: 24),
             const SizedBox(width: 10),
-            Text1(text1: name, size: 16, color: AppColors.cadetGray),
+            Text1(text1: '- $name', size: 16, color: AppColors.cadetGray),
           ],
         ),
       ),
