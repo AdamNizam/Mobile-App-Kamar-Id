@@ -3,6 +3,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+typedef CountdownCallback = void Function(Duration remainingTime);
+
+class CountdownTimerUtil {
+  static Timer startCountdown({
+    required DateTime expiryTime,
+    required CountdownCallback onTick,
+    required VoidCallback onExpired,
+  }) {
+    return Timer.periodic(const Duration(seconds: 1), (_) {
+      final now = DateTime.now();
+      final diff = expiryTime.difference(now);
+
+      if (diff.isNegative) {
+        onExpired();
+      } else {
+        onTick(diff);
+      }
+    });
+  }
+}
+
 IconData getIcon(String iconName) {
   switch (iconName) {
     // IcoFont icons
@@ -58,25 +79,4 @@ String usdToIdr(double usd, {double exchangeRate = 16560}) {
 String countNights(DateTime checkIn, DateTime checkOut) {
   final nights = checkOut.difference(checkIn).inDays;
   return "/$nights night${nights > 1 ? 's' : ''}";
-}
-
-typedef CountdownCallback = void Function(Duration remainingTime);
-
-class CountdownTimerUtil {
-  static Timer startCountdown({
-    required DateTime expiryTime,
-    required CountdownCallback onTick,
-    required VoidCallback onExpired,
-  }) {
-    return Timer.periodic(const Duration(seconds: 1), (_) {
-      final now = DateTime.now();
-      final diff = expiryTime.difference(now);
-
-      if (diff.isNegative) {
-        onExpired();
-      } else {
-        onTick(diff);
-      }
-    });
-  }
 }

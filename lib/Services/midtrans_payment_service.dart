@@ -13,7 +13,7 @@ class PaymentService {
     final orderId = "ORDER-${DateTime.now().millisecondsSinceEpoch}";
     final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
 
-    final body = {
+    final Map<String, dynamic> body = {
       "transaction_details": {
         "order_id": orderId,
         "gross_amount": totalPrice,
@@ -21,13 +21,11 @@ class PaymentService {
       "payment_type": selectedType,
       "customer_details": {
         "email": customerEmail,
-      }
+      },
     };
-
-    if (selectedType == 'bank_transfer') {
+    if (selectedType == 'bank_transfer' && selectedBank != null) {
       body["bank_transfer"] = {"bank": selectedBank};
     }
-
     try {
       final response = await http.post(
         Uri.parse(midtransUrl),
@@ -40,17 +38,14 @@ class PaymentService {
 
       final data = jsonDecode(response.body);
 
-      // Log untuk debugging
       print("Midtrans response: ${response.body}");
 
       final statusCode = response.statusCode;
-      final midtransStatusCode = data['status_code'];
+      final midtransStatusCode = data['status_code']?.toString() ?? '';
       final statusMessage = data['status_message'] ?? 'No status message';
 
-      if (statusCode == 201 && midtransStatusCode == '201') {
-        return data;
-      } else if (statusMessage.toLowerCase().contains('success')) {
-        // Tangani kasus ambigu: sukses tapi status code tidak 201
+      if ((statusCode >= 200 && statusCode < 300) ||
+          midtransStatusCode.startsWith('2')) {
         return data;
       } else {
         throw Exception("Payment failed: $statusMessage");

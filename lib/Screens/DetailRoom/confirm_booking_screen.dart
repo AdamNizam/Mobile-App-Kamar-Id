@@ -259,8 +259,9 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                // builder: (context) => const BookingSuccessFully(),
-                builder: (context) => const MidtransPaymentPage(),
+                builder: (context) => MidtransPaymentPage(
+                  totalPrice: int.parse(widget.totalAmount),
+                ),
               ),
             );
           },

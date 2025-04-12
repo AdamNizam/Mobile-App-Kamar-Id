@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart'; // Import utilitas baru
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class VirtualNumberPage extends StatefulWidget {
   final String vaNumber;
@@ -34,7 +34,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
   @override
   void initState() {
     super.initState();
-    expiryTime = DateTime.now().add(const Duration(minutes: 10));
+    expiryTime = DateTime.now().add(const Duration(minutes: 15));
     startCountdown();
 
     _animationController = AnimationController(
@@ -63,6 +63,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
         setState(() {
           remainingTime = Duration.zero;
         });
+        showExpiredDialog(context, 'Expired VA Number', '');
       },
     );
   }
@@ -74,7 +75,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
     });
     _animationController.forward().then((_) {
       _animationController.reverse();
-      showCustomSnackbar(context, 'Number is copyed!');
+      showCustomSnackbar(context, 'Number is copied!');
     });
   }
 
@@ -198,6 +199,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                 ),
               ),
               const SizedBox(height: 24),
+
               Center(
                 child: Text(
                   remainingTime.inSeconds > 0

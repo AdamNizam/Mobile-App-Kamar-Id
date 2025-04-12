@@ -1,13 +1,56 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
-class ScanQrisPage extends StatelessWidget {
+class ScanQrisPage extends StatefulWidget {
   final String qrisUrl;
+
   const ScanQrisPage({
     super.key,
     required this.qrisUrl,
   });
+
+  @override
+  State<ScanQrisPage> createState() => _ScanQrisPageState();
+}
+
+class _ScanQrisPageState extends State<ScanQrisPage> {
+  Timer? _timer;
+  Duration _remainingTime = const Duration(minutes: 15);
+
+  @override
+  void initState() {
+    super.initState();
+    final expiryTime = DateTime.now().add(const Duration(minutes: 15));
+    _timer = CountdownTimerUtil.startCountdown(
+      expiryTime: expiryTime,
+      onTick: (remaining) {
+        setState(() {
+          _remainingTime = remaining;
+        });
+      },
+      onExpired: () {
+        _timer?.cancel();
+        showExpiredDialog(context, 'Qris Code Expired!', '');
+      },
+    );
+  }
+
+  String _formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +91,19 @@ class ScanQrisPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-              // QR Code Scanner Box
+              // Countdown timer
+              Center(
+                child: Text(
+                  'Expiresd in: ${_formatDuration(_remainingTime)}',
+                  style: const TextStyle(
+                    color: AppColors.redAwesome,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              // QR Code
               Center(
                 child: Container(
                   padding: const EdgeInsets.all(24),
@@ -68,7 +123,7 @@ class ScanQrisPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           image: DecorationImage(
-                            image: NetworkImage(qrisUrl),
+                            image: NetworkImage(widget.qrisUrl),
                             fit: BoxFit.cover,
                           ),
                         ),

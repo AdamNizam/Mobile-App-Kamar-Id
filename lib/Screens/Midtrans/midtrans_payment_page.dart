@@ -10,7 +10,11 @@ import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MidtransPaymentPage extends StatefulWidget {
-  const MidtransPaymentPage({super.key});
+  final int totalPrice;
+  const MidtransPaymentPage({
+    super.key,
+    required this.totalPrice,
+  });
 
   @override
   State<MidtransPaymentPage> createState() => _MidtransPaymentPageState();
@@ -19,7 +23,6 @@ class MidtransPaymentPage extends StatefulWidget {
 class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
   String? selectedType;
   String? selectedBank;
-  final int totalPrice = 50000;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               showCustomSnackbar(context, state.error);
             }
             if (state is MidtransPaymentSucsess) {
+              print("State success terpanggil: ${state.data}");
+
               if (selectedType == 'qris') {
                 final qrUrl = state.data['actions']
                     ?.firstWhere((a) => a['name'] == 'generate-qr-code')['url'];
@@ -97,7 +102,6 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     fontWeight: FontWeight.bold,
                   ),
                   _buildEwallet('gopay', 'Gopay', 'images/Logo-GoPay.png'),
-                  _buildEwallet('dana', 'DANA', 'images/Logo-DANA.png'),
                   const SizedBox(height: 10),
                   const Text1(
                     text1: "QRIS",
@@ -141,7 +145,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 fontWeight: FontWeight.bold,
               ),
               Text1(
-                text1: "Rp $totalPrice",
+                text1: "Rp ${widget.totalPrice}",
                 size: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -154,7 +158,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   text: 'Pay Now',
                   color: AppColors.beauBlue,
                   onTap: () {
-                    return showCustomSnackbar(
+                    showCustomSnackbar(
                       context,
                       'select your payment method',
                     );
@@ -167,7 +171,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                           PayNowPressed(
                             selectedType: selectedType!,
                             selectedBank: selectedBank ?? '',
-                            totalPrice: totalPrice,
+                            totalPrice: widget.totalPrice,
                           ),
                         );
                   },
