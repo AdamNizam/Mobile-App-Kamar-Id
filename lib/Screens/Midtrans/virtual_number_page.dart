@@ -28,8 +28,8 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
   bool isCopied = false;
 
   late DateTime expiryTime;
-  Duration remainingTime = Duration.zero;
-  Timer? countdownTimer;
+  Timer? _timer;
+  Duration _remainingTime = const Duration(minutes: 15);
 
   @override
   void initState() {
@@ -51,19 +51,22 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
   }
 
   void startCountdown() {
-    countdownTimer = CountdownTimerUtil.startCountdown(
+    super.initState();
+    final expiryTime = DateTime.now().add(const Duration(minutes: 15));
+    _timer = CountdownTimerUtil.startCountdown(
       expiryTime: expiryTime,
-      onTick: (Duration diff) {
+      onTick: (remaining) {
         setState(() {
-          remainingTime = diff;
+          _remainingTime = remaining;
         });
       },
       onExpired: () {
-        countdownTimer?.cancel();
-        setState(() {
-          remainingTime = Duration.zero;
-        });
-        showExpiredDialog(context, 'Expired VA Number', '');
+        _timer?.cancel();
+        showExpiredDialog(
+          context,
+          'Qris Code Expired!',
+          'Your QR code has expired, please make another payment.',
+        );
       },
     );
   }
@@ -82,7 +85,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
   @override
   void dispose() {
     _animationController.dispose();
-    countdownTimer?.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -131,8 +134,6 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                 ),
               ),
               const SizedBox(height: 28),
-
-              // Virtual Number Container
               Container(
                 decoration: BoxDecoration(
                   color: AppColors.white.withOpacity(0.7),
@@ -187,31 +188,23 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                   ],
                 ),
               ),
-
               const SizedBox(height: 24),
               Center(
-                child: Text(
-                  'Copy and paste it into your payment app.',
-                  style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    color: AppColors.cadetGray,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              Center(
-                child: Text(
-                  remainingTime.inSeconds > 0
-                      ? 'Expires in: ${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(remainingTime.inSeconds.remainder(60)).toString().padLeft(2, '0')}'
-                      : 'Payment expired',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: remainingTime.inSeconds > 0
-                        ? AppColors.redAwesome
-                        : AppColors.cadetGray,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: Row(
+                  children: [
+                    const Text1(
+                      text1: 'Expired In',
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.cadetGray,
+                    ),
+                    const SizedBox(width: 5),
+                    Text1(
+                      text1: '(${formatDuration(_remainingTime)})',
+                      size: 16,
+                      color: AppColors.buttonColor,
+                    ),
+                  ],
                 ),
               ),
             ],

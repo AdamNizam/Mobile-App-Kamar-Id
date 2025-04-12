@@ -35,15 +35,13 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
       },
       onExpired: () {
         _timer?.cancel();
-        showExpiredDialog(context, 'Qris Code Expired!', '');
+        showExpiredDialog(
+          context,
+          'VA Is Expired!',
+          'Your VA number has expired, please make another payment',
+        );
       },
     );
-  }
-
-  String _formatDuration(Duration duration) {
-    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
-    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
   }
 
   @override
@@ -91,15 +89,22 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                 ),
               ),
               const SizedBox(height: 15),
-              // Countdown timer
               Center(
-                child: Text(
-                  'Expiresd in: ${_formatDuration(_remainingTime)}',
-                  style: const TextStyle(
-                    color: AppColors.redAwesome,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Row(
+                  children: [
+                    const Text1(
+                      text1: 'Expired In',
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.cadetGray,
+                    ),
+                    const SizedBox(width: 5),
+                    Text1(
+                      text1: '(${formatDuration(_remainingTime)})',
+                      size: 16,
+                      color: AppColors.buttonColor,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 15),

@@ -80,3 +80,9 @@ String countNights(DateTime checkIn, DateTime checkOut) {
   final nights = checkOut.difference(checkIn).inDays;
   return "/$nights night${nights > 1 ? 's' : ''}";
 }
+
+String formatDuration(Duration duration) {
+  final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+  final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+  return '$minutes:$seconds';
+}

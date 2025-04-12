@@ -7,7 +7,7 @@ class PaymentService {
   Future<Map<String, dynamic>> payNow({
     required int totalPrice,
     required String selectedType,
-    String? customerEmail = 'adamnzam122@gmail.com',
+    required String customerEmail,
     String? selectedBank,
   }) async {
     final orderId = "ORDER-${DateTime.now().millisecondsSinceEpoch}";

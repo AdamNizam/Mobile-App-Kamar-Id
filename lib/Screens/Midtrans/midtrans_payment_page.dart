@@ -32,12 +32,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         body: BlocConsumer<MidtransPaymentBloc, MidtransPaymentState>(
           listener: (context, state) {
             if (state is MidtransPaymentFailed) {
-              print('error payment : ${state.error}');
               showCustomSnackbar(context, state.error);
             }
             if (state is MidtransPaymentSucsess) {
-              print("State success terpanggil: ${state.data}");
-
               if (selectedType == 'qris') {
                 final qrUrl = state.data['actions']
                     ?.firstWhere((a) => a['name'] == 'generate-qr-code')['url'];
@@ -92,23 +89,43 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     size: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                  _buildBank('bni', 'BNI', 'images/Logo-BNI.png'),
-                  _buildBank('bca', 'BCA', 'images/Logo-BCA.png'),
-                  _buildBank('bri', 'BRI', 'images/Logo-BRI.png'),
+                  _buildBank(
+                    'bni',
+                    'BNI',
+                    'images/Logo-BNI.png',
+                  ),
+                  _buildBank(
+                    'bca',
+                    'BCA',
+                    'images/Logo-BCA.png',
+                  ),
+                  _buildBank(
+                    'bri',
+                    'BRI',
+                    'images/Logo-BRI.png',
+                  ),
                   const SizedBox(height: 10),
                   const Text1(
                     text1: "E-Wallet",
                     size: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                  _buildEwallet('gopay', 'Gopay', 'images/Logo-GoPay.png'),
+                  _buildEwallet(
+                    'gopay',
+                    'Gopay',
+                    'images/Logo-GoPay.png',
+                  ),
                   const SizedBox(height: 10),
                   const Text1(
                     text1: "QRIS",
                     size: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                  _buildEwallet('qris', 'QR Code', 'images/Logo-Qris.png'),
+                  _buildEwallet(
+                    'qris',
+                    'QR Code',
+                    'images/Logo-Qris.png',
+                  ),
                   const SizedBox(height: 10),
                 ],
               ),
@@ -160,7 +177,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   onTap: () {
                     showCustomSnackbar(
                       context,
-                      'select your payment method',
+                      'Select your payment method',
                     );
                   },
                 )
@@ -213,7 +230,11 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     );
   }
 
-  Widget _buildEwallet(String type, String name, String imageUrl) {
+  Widget _buildEwallet(
+    String type,
+    String name,
+    String imageUrl,
+  ) {
     return Card(
       color: AppColors.white,
       elevation: 0,

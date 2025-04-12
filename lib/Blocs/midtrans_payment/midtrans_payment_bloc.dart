@@ -9,17 +9,20 @@ class MidtransPaymentBloc
     extends Bloc<MidtransPaymentEvent, MidtransPaymentState> {
   MidtransPaymentBloc() : super(MidtransPaymentInitial()) {
     on<PayNowPressed>((event, emit) async {
-      emit(MidtransPaymentLoading());
-
       try {
+        emit(MidtransPaymentLoading());
+
         final result = await PaymentService().payNow(
           totalPrice: event.totalPrice,
           selectedType: event.selectedType,
           selectedBank: event.selectedBank,
+          customerEmail: "@harusEmailPenguna@gmail.com",
         );
+
         emit(MidtransPaymentSucsess(result));
       } catch (error) {
-        emit(MidtransPaymentFailed(error.toString()));
+        print('Error: $error');
+        emit(const MidtransPaymentFailed('Payment Invalid!'));
       }
     });
   }
