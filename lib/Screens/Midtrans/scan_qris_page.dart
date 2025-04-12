@@ -3,7 +3,11 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class ScanQrisPage extends StatelessWidget {
-  const ScanQrisPage({super.key});
+  final String qrisUrl;
+  const ScanQrisPage({
+    super.key,
+    required this.qrisUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +67,8 @@ class ScanQrisPage extends StatelessWidget {
                         height: 270,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                              'images/scan_me_qr_code.jpg',
-                            ),
+                          image: DecorationImage(
+                            image: NetworkImage(qrisUrl),
                             fit: BoxFit.cover,
                           ),
                         ),

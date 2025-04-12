@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -28,24 +28,51 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
       child: Scaffold(
         body: BlocConsumer<MidtransPaymentBloc, MidtransPaymentState>(
           listener: (context, state) {
-            if (state is MidtransPaymentSucsess) {
-              showCustomSnackbar(
-                  context, 'berhasil membuat pembayaran ${state.data}');
-            }
             if (state is MidtransPaymentFailed) {
               print('error payment : ${state.error}');
               showCustomSnackbar(context, state.error);
             }
             if (state is MidtransPaymentSucsess) {
-              showCustomSnackbar(context, 'Payment Success');
+              if (selectedType == 'qris') {
+                final qrUrl = state.data['actions']
+                    ?.firstWhere((a) => a['name'] == 'generate-qr-code')['url'];
+                if (qrUrl != null) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScanQrisPage(qrisUrl: qrUrl),
+                      ),
+                    );
+                  });
+                }
+              }
+              if (selectedType == 'bank_transfer') {
+                final va = state.data['va_numbers']?[0]?['va_number'];
+                final bank = state.data['va_numbers']?[0]?['bank'];
+
+                if (va != null && bank != null) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VirtualNumberPage(
+                          vaNumber: va,
+                          vaBankName: bank,
+                        ),
+                      ),
+                    );
+                  });
+                }
+              }
             }
           },
           builder: (context, state) {
             if (state is MidtransPaymentLoading) {
               return Center(
-                child: LoadingAnimationWidget.staggeredDotsWave(
+                child: LoadingAnimationWidget.hexagonDots(
                   color: AppColors.tabColor,
-                  size: 30,
+                  size: 50,
                 ),
               );
             }
@@ -127,16 +154,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   text: 'Pay Now',
                   color: AppColors.beauBlue,
                   onTap: () {
-                    // return showCustomSnackbar(
-                    //   context,
-                    //   'select your payment method',
-                    // );
-                    Navigator.push(
+                    return showCustomSnackbar(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              // const BookingNotifications(),
-                              const ScanQrisPage()),
+                      'select your payment method',
                     );
                   },
                 )
@@ -155,55 +175,6 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         ],
       ),
     );
-  }
-
-  Widget buildResult(Map<String, dynamic> result) {
-    if (selectedType == 'qris') {
-      final qrUrl = result['actions']
-          ?.firstWhere((a) => a['name'] == 'generate-qr-code')['url'];
-      return Column(
-        children: [
-          const Text("Scan QR Berikut:"),
-          const SizedBox(height: 10),
-          Image.network(qrUrl, height: 200),
-        ],
-      );
-    }
-
-    if (['gopay', 'dana'].contains(selectedType)) {
-      final deeplink = result['actions']
-          ?.firstWhere((a) => a['name'] == 'deeplink-redirect')['url'];
-      return SelectableText("Bayar via eWallet:\n$deeplink");
-    }
-
-    if (selectedType == 'bank_transfer') {
-      final va = result['va_numbers']?[0]?['va_number'];
-      final bank = result['va_numbers']?[0]?['bank'];
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          const Text("Virtual Account",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          Text("Bank: ${bank?.toUpperCase() ?? '-'}"),
-          Row(
-            children: [
-              Expanded(child: SelectableText("No. VA: $va")),
-              IconButton(
-                icon: const Icon(Icons.copy),
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: va));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Nomor VA disalin')),
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
-      );
-    }
-    return const Text("Transaksi berhasil");
   }
 
   Widget _buildBank(String bankKey, String bankName, String imageUrl) {

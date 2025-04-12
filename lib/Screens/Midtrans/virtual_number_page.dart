@@ -1,12 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart'; // Import utilitas baru
 
 class VirtualNumberPage extends StatefulWidget {
-  const VirtualNumberPage({super.key});
+  final String vaNumber;
+  final String vaBankName;
+  const VirtualNumberPage({
+    super.key,
+    required this.vaNumber,
+    required this.vaBankName,
+  });
 
   @override
   State<VirtualNumberPage> createState() => _VirtualNumberPageState();
@@ -14,14 +23,20 @@ class VirtualNumberPage extends StatefulWidget {
 
 class _VirtualNumberPageState extends State<VirtualNumberPage>
     with SingleTickerProviderStateMixin {
-  final String vaNumber = '182392000990001';
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   bool isCopied = false;
 
+  late DateTime expiryTime;
+  Duration remainingTime = Duration.zero;
+  Timer? countdownTimer;
+
   @override
   void initState() {
     super.initState();
+    expiryTime = DateTime.now().add(const Duration(minutes: 10));
+    startCountdown();
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -35,8 +50,25 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
     );
   }
 
+  void startCountdown() {
+    countdownTimer = CountdownTimerUtil.startCountdown(
+      expiryTime: expiryTime,
+      onTick: (Duration diff) {
+        setState(() {
+          remainingTime = diff;
+        });
+      },
+      onExpired: () {
+        countdownTimer?.cancel();
+        setState(() {
+          remainingTime = Duration.zero;
+        });
+      },
+    );
+  }
+
   void copyToClipboard() async {
-    await Clipboard.setData(ClipboardData(text: vaNumber));
+    await Clipboard.setData(ClipboardData(text: widget.vaNumber));
     setState(() {
       isCopied = true;
     });
@@ -49,6 +81,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
   @override
   void dispose() {
     _animationController.dispose();
+    countdownTimer?.cancel();
     super.dispose();
   }
 
@@ -83,7 +116,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
               ),
               const Center(
                 child: Text1(
-                  text1: 'Bank BNI',
+                  text1: 'Virtual Account',
                   size: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -124,9 +157,9 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                   children: [
                     Expanded(
                       child: SelectableText(
-                        vaNumber,
+                        widget.vaNumber,
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
                         ),
@@ -163,7 +196,22 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                     color: AppColors.cadetGray,
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 24),
+              Center(
+                child: Text(
+                  remainingTime.inSeconds > 0
+                      ? 'Expires in: ${remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(remainingTime.inSeconds.remainder(60)).toString().padLeft(2, '0')}'
+                      : 'Payment expired',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    color: remainingTime.inSeconds > 0
+                        ? AppColors.redAwesome
+                        : AppColors.cadetGray,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
