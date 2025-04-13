@@ -133,9 +133,8 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                       size: 14,
                       color: AppColors.buttonColor,
                     ),
-                    StatusPayment(
-                      status: widget.data.transactionStatus,
-                    ),
+                    const SizedBox(height: 10),
+                    StatusPayment(status: widget.data.transactionStatus)
                   ],
                 ),
               ),
@@ -201,14 +200,6 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                       ),
                     ),
                   ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Please copy this number, and paste it into your payment BANK.',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: AppColors.cadetGray,
                 ),
               ),
             ],

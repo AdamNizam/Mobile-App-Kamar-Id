@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CommonWidgets/status_payment.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -94,8 +95,9 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                   color: AppColors.buttonColor,
                 ),
               ),
+              const SizedBox(height: 10),
+              StatusPayment(status: widget.data.transactionStatus),
               const SizedBox(height: 15),
-              // QR Code
               Center(
                 child: Container(
                   padding: const EdgeInsets.all(24),

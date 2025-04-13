@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dar
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
+import 'package:hotelbookingapp/Shared/DataExampleMidtrans/data.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -88,20 +89,14 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     size: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                  _buildBank(
-                    'bni',
-                    'BNI',
-                    'images/Logo-BNI.png',
-                  ),
-                  _buildBank(
-                    'bca',
-                    'BCA',
-                    'images/Logo-BCA.png',
-                  ),
-                  _buildBank(
-                    'bri',
-                    'BRI',
-                    'images/Logo-BRI.png',
+                  Column(
+                    children: bankData.map((bank) {
+                      return _buildBank(
+                        bank['code']!,
+                        bank['name']!,
+                        bank['logo']!,
+                      );
+                    }).toList(),
                   ),
                   const SizedBox(height: 10),
                   const Text1(
