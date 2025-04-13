@@ -12,7 +12,7 @@ final class MidtransPaymentInitial extends MidtransPaymentState {}
 class MidtransPaymentLoading extends MidtransPaymentState {}
 
 class MidtransPaymentSucsess extends MidtransPaymentState {
-  final Map<String, dynamic> data;
+  final MidtransResponseResult data;
 
   const MidtransPaymentSucsess(this.data);
 

@@ -35,7 +35,4 @@ class AppTextStyles {
   static const TextStyle redAuburnTextStyle = TextStyle(
     color: AppColors.redAuburn,
   );
-  static const TextStyle yellowAurelionTextStyle = TextStyle(
-    color: AppColors.yellowAurelion,
-  );
 }

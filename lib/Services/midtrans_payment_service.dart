@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
-class PaymentService {
-  Future<Map<String, dynamic>> payNow({
+class PaymentMidtransService {
+  Future<MidtransResponseResult> payWithMidtrans({
     required int totalPrice,
     required String selectedType,
     required String customerEmail,
@@ -13,21 +15,22 @@ class PaymentService {
     final orderId = "ORDER-${DateTime.now().millisecondsSinceEpoch}";
     final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
 
-    final Map<String, dynamic> body = {
-      "transaction_details": {
-        "order_id": orderId,
-        "gross_amount": totalPrice,
-      },
-      "payment_type": selectedType,
-      "customer_details": {
-        "email": customerEmail,
-      },
-    };
-    if (selectedType == 'bank_transfer' && selectedBank != null) {
-      body["bank_transfer"] = {"bank": selectedBank};
-    }
+    final body = MidtransModel(
+      transactionDetails: TransactionDetails(
+        orderId: orderId,
+        grossAmount: totalPrice,
+      ),
+      paymentType: selectedType,
+      customerDetails: CustomerDetails(
+        email: customerEmail,
+      ),
+      bankTransfer: selectedType == 'bank_transfer' && selectedBank != null
+          ? BankTransfer(bank: selectedBank)
+          : null,
+    ).toJson();
+
     try {
-      final response = await http.post(
+      final res = await http.post(
         Uri.parse(midtransUrl),
         headers: {
           'Authorization': basicAuth,
@@ -36,22 +39,22 @@ class PaymentService {
         body: jsonEncode(body),
       );
 
-      final data = jsonDecode(response.body);
+      print("Midtrans response: ${res.body}");
 
-      print("Midtrans response: ${response.body}");
+      final statusCode = res.statusCode;
+      final data = jsonDecode(res.body);
 
-      final statusCode = response.statusCode;
       final midtransStatusCode = data['status_code']?.toString() ?? '';
       final statusMessage = data['status_message'] ?? 'No status message';
 
       if ((statusCode >= 200 && statusCode < 300) ||
           midtransStatusCode.startsWith('2')) {
-        return data;
+        return MidtransResponseResult.fromJson(data);
       } else {
         throw Exception("Payment failed: $statusMessage");
       }
-    } catch (e) {
-      throw Exception("Payment exception: $e");
+    } catch (error) {
+      throw Exception("Payment exception: $error");
     }
   }
 }

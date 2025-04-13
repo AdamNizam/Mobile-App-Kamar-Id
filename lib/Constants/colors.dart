@@ -20,7 +20,8 @@ class AppColors {
   static const Color black = Color(0xff000000);
   static const Color redAwesome = Color(0xffff2052);
   static const Color redAuburn = Color(0xffa52a2a);
-  static const Color yellowAurelion = Color(0xfffdee00);
+  static const Color green = Color(0xff558B2F);
+  static const Color orange = Color(0xffEF6C00);
   static const Color brightMaroon = Color(0xffc32148);
   static const Color amberColor = Color(0xffffbf00);
   static const Color doggerBlue = Color(0xff1e90ff);

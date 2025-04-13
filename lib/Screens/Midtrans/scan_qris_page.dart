@@ -2,17 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class ScanQrisPage extends StatefulWidget {
-  final String qrisUrl;
+  final MidtransResponseResult data;
 
-  const ScanQrisPage({
-    super.key,
-    required this.qrisUrl,
-  });
+  const ScanQrisPage({super.key, required this.data});
 
   @override
   State<ScanQrisPage> createState() => _ScanQrisPageState();
@@ -83,28 +81,17 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
               const Center(
                 child: Text1(
                   text1: 'Scan Your QR Code',
-                  size: 20,
+                  size: 18,
                   fontWeight: FontWeight.bold,
                   color: AppColors.cadetGray,
                 ),
               ),
               const SizedBox(height: 15),
               Center(
-                child: Row(
-                  children: [
-                    const Text1(
-                      text1: 'Expired In',
-                      size: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.cadetGray,
-                    ),
-                    const SizedBox(width: 5),
-                    Text1(
-                      text1: '(${formatDuration(_remainingTime)})',
-                      size: 16,
-                      color: AppColors.buttonColor,
-                    ),
-                  ],
+                child: Text1(
+                  text1: 'Expired in: (${formatDuration(_remainingTime)})',
+                  size: 14,
+                  color: AppColors.buttonColor,
                 ),
               ),
               const SizedBox(height: 15),
@@ -128,7 +115,7 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           image: DecorationImage(
-                            image: NetworkImage(widget.qrisUrl),
+                            image: NetworkImage(widget.data.actions![0].url),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -152,7 +139,7 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                     ),
                   ),
                   child: const Text(
-                    'Please, align QR Code within\nthe frame to make scanning\neasily detectable.',
+                    'Please, align QR Code with\nthe  to make scanning\neasily detectable.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.cadetGray,

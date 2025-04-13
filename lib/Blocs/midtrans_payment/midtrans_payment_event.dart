@@ -8,16 +8,23 @@ sealed class MidtransPaymentEvent extends Equatable {
 }
 
 class PayNowPressed extends MidtransPaymentEvent {
-  final String selectedType;
-  final String selectedBank;
   final int totalPrice;
+  final String selectedType;
+  final String customerEmail;
+  final String? selectedBank;
 
   const PayNowPressed({
-    required this.selectedType,
     required this.totalPrice,
-    required this.selectedBank,
+    required this.selectedType,
+    required this.customerEmail,
+    this.selectedBank,
   });
 
   @override
-  List<Object> get props => [selectedType, selectedBank, totalPrice];
+  List<Object> get props => [
+        totalPrice,
+        selectedType,
+        customerEmail,
+        selectedBank ?? '',
+      ];
 }

@@ -35,33 +35,32 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               showCustomSnackbar(context, state.error);
             }
             if (state is MidtransPaymentSucsess) {
-              if (selectedType == 'qris') {
-                final qrUrl = state.data['actions']
-                    ?.firstWhere((a) => a['name'] == 'generate-qr-code')['url'];
+              if (selectedType == 'qris' || selectedType == 'gopay') {
+                final qrUrl = state.data.actions
+                    ?.firstWhere((qr) => qr.name == 'generate-qr-code')
+                    .url;
                 if (qrUrl != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ScanQrisPage(qrisUrl: qrUrl),
+                        builder: (context) => ScanQrisPage(data: state.data),
                       ),
                     );
                   });
                 }
               }
               if (selectedType == 'bank_transfer') {
-                final va = state.data['va_numbers']?[0]?['va_number'];
-                final bank = state.data['va_numbers']?[0]?['bank'];
+                final va = state.data.vaNumbers?.first.vaNumber;
+                final bank = state.data.vaNumbers?.first.bank;
 
                 if (va != null && bank != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => VirtualNumberPage(
-                          vaNumber: va,
-                          vaBankName: bank,
-                        ),
+                        builder: (context) =>
+                            VirtualNumberPage(data: state.data),
                       ),
                     );
                   });
@@ -189,6 +188,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                             selectedType: selectedType!,
                             selectedBank: selectedBank ?? '',
                             totalPrice: widget.totalPrice,
+                            customerEmail: '',
                           ),
                         );
                   },

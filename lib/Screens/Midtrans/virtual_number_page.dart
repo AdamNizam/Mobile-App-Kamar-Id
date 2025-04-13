@@ -3,18 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CommonWidgets/status_payment.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class VirtualNumberPage extends StatefulWidget {
-  final String vaNumber;
-  final String vaBankName;
+  final MidtransResponseResult data;
   const VirtualNumberPage({
     super.key,
-    required this.vaNumber,
-    required this.vaBankName,
+    required this.data,
   });
 
   @override
@@ -51,8 +51,6 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
   }
 
   void startCountdown() {
-    super.initState();
-    final expiryTime = DateTime.now().add(const Duration(minutes: 15));
     _timer = CountdownTimerUtil.startCountdown(
       expiryTime: expiryTime,
       onTick: (remaining) {
@@ -61,24 +59,27 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
         });
       },
       onExpired: () {
+        if (widget.data.transactionStatus.toLowerCase() == 'pending') {
+          showExpiredDialog(
+            context,
+            'Qris Code Expired!',
+            'Your QR code has expired, please make another payment.',
+          );
+        }
         _timer?.cancel();
-        showExpiredDialog(
-          context,
-          'Qris Code Expired!',
-          'Your QR code has expired, please make another payment.',
-        );
       },
     );
   }
 
   void copyToClipboard() async {
-    await Clipboard.setData(ClipboardData(text: widget.vaNumber));
+    await Clipboard.setData(
+        ClipboardData(text: widget.data.vaNumbers!.first.vaNumber));
     setState(() {
       isCopied = true;
     });
     _animationController.forward().then((_) {
       _animationController.reverse();
-      showCustomSnackbar(context, 'Number is copied!');
+      showCustomSnackbar(context, 'Number is copyed!');
     });
   }
 
@@ -118,27 +119,41 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                   ),
                 ],
               ),
-              const Center(
-                child: Text1(
-                  text1: 'Virtual Account',
-                  size: 20,
-                  fontWeight: FontWeight.bold,
+              Center(
+                child: Column(
+                  children: [
+                    const Text1(
+                      text1: 'Virtual Account',
+                      size: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    const SizedBox(height: 10),
+                    Text1(
+                      text1: 'Expired in: (${formatDuration(_remainingTime)})',
+                      size: 14,
+                      color: AppColors.buttonColor,
+                    ),
+                    StatusPayment(
+                      status: widget.data.transactionStatus,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Text(
-                'Use the following VA number to make payment.',
+                'Please copy this number, and paste it into your payment BANK.',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   color: AppColors.cadetGray,
                 ),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 10),
               Container(
                 decoration: BoxDecoration(
                   color: AppColors.white.withOpacity(0.7),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
+                    width: 2,
                     color: isCopied
                         ? AppColors.beauBlue
                         : Colors.grey.withOpacity(0.15),
@@ -159,7 +174,7 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                   children: [
                     Expanded(
                       child: SelectableText(
-                        widget.vaNumber,
+                        widget.data.vaNumbers!.first.vaNumber,
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -188,23 +203,12 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
-              Center(
-                child: Row(
-                  children: [
-                    const Text1(
-                      text1: 'Expired In',
-                      size: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.cadetGray,
-                    ),
-                    const SizedBox(width: 5),
-                    Text1(
-                      text1: '(${formatDuration(_remainingTime)})',
-                      size: 16,
-                      color: AppColors.buttonColor,
-                    ),
-                  ],
+              const SizedBox(height: 20),
+              Text(
+                'Please copy this number, and paste it into your payment BANK.',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: AppColors.cadetGray,
                 ),
               ),
             ],
