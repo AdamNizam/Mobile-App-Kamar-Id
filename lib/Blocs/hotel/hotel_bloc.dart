@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
-import 'package:hotelbookingapp/Models/ResponseResult/result_check_avaibility.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Services/hotel_service.dart';
 
 part 'hotel_event.dart';

@@ -7,7 +7,7 @@ import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../Models/ResponseResult/result_check_avaibility.dart';
+import '../Models/ResponseResultModel/result_check_avaibility.dart';
 
 class HotelService {
   Future<List<HotelAllModel>> gethAllHotels() async {

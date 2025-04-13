@@ -4,9 +4,16 @@ class MidtransResult {
   final String transactionStatus;
   final String statusCode;
   final String grossAmount;
+  final String? orderId;
+  final String? merchantId;
+  final String? currency;
+  final String? transactionTime;
+  final String? fraudStatus;
+  final String? expiryTime;
+  final String? qrString;
+  final String? acquirer;
   final List<VaNumber>? vaNumbers;
   final List<ActionUrl>? actions;
-  final String? qrString;
 
   MidtransResult({
     required this.transactionId,
@@ -14,9 +21,16 @@ class MidtransResult {
     required this.transactionStatus,
     required this.statusCode,
     required this.grossAmount,
+    this.orderId,
+    this.merchantId,
+    this.currency,
+    this.transactionTime,
+    this.fraudStatus,
+    this.expiryTime,
+    this.qrString,
+    this.acquirer,
     this.vaNumbers,
     this.actions,
-    this.qrString,
   });
 
   factory MidtransResult.fromJson(Map<String, dynamic> json) {
@@ -26,6 +40,14 @@ class MidtransResult {
       transactionStatus: json['transaction_status'] ?? '',
       statusCode: json['status_code'] ?? '',
       grossAmount: json['gross_amount'] ?? '',
+      orderId: json['order_id'],
+      merchantId: json['merchant_id'],
+      currency: json['currency'],
+      transactionTime: json['transaction_time'],
+      fraudStatus: json['fraud_status'],
+      expiryTime: json['expiry_time'],
+      qrString: json['qr_string'],
+      acquirer: json['acquirer'],
       vaNumbers: json['va_numbers'] != null
           ? (json['va_numbers'] as List)
               .map((e) => VaNumber.fromJson(e))
@@ -34,7 +56,6 @@ class MidtransResult {
       actions: json['actions'] != null
           ? (json['actions'] as List).map((e) => ActionUrl.fromJson(e)).toList()
           : null,
-      qrString: json['qr_string'],
     );
   }
 }
@@ -55,13 +76,19 @@ class VaNumber {
 
 class ActionUrl {
   final String name;
+  final String method;
   final String url;
 
-  ActionUrl({required this.name, required this.url});
+  ActionUrl({
+    required this.name,
+    required this.method,
+    required this.url,
+  });
 
   factory ActionUrl.fromJson(Map<String, dynamic> json) {
     return ActionUrl(
       name: json['name'] ?? '',
+      method: json['method'] ?? '',
       url: json['url'] ?? '',
     );
   }

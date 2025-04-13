@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/ResponseResult/result_register.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_register.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -24,14 +24,14 @@ class MessageRegisterSuccess extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(''),
               Center(
                 child: Column(
                   children: [
                     const CircleAvatar(
                       radius: 55,
                       backgroundColor: AppColors.buttonColor,
-                      child: Icon(Icons.check, color: Colors.white, size: 70),
+                      child:
+                          Icon(Icons.check, color: AppColors.white, size: 70),
                     ),
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Models/ResponseResult/result_login.dart';
-import 'package:hotelbookingapp/Models/ResponseResult/result_register.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_login.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_register.dart';
 import 'package:hotelbookingapp/Models/UserModel/sign_in_form_model.dart';
 import 'package:hotelbookingapp/Models/UserModel/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
@@ -20,8 +20,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             final userLog = await AuthService().login(event.data);
 
             emit(AuthSuccess(userLog));
-          } catch (e) {
-            emit(AuthFailed(e.toString()));
+          } catch (error) {
+            // print('errorrror login : $error');
+            emit(const AuthFailed('Login Failed'));
           }
         }
 
@@ -32,9 +33,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             final userReg = await AuthService().register(event.data);
 
             emit(AuthRegSuccess(userReg));
-          } catch (e) {
+          } catch (error) {
+            // print('error register : ${error}');
             emit(const AuthFailed('register failed'));
-            // print('error register : ${e}');
           }
         }
 
@@ -50,8 +51,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             final LoginResponseResult user = await AuthService().login(data);
 
             emit(AuthSuccess(user));
-          } catch (e) {
-            emit(AuthFailed(e.toString()));
+          } catch (error) {
+            // print('error get current user : $error');
+            emit(const AuthFailed('Failed'));
           }
         }
 
@@ -62,8 +64,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await AuthService().logout();
 
             emit(AuthInitial());
-          } catch (e) {
-            emit(AuthFailed(e.toString()));
+          } catch (error) {
+            // print('error logout : $error');
+            emit(const AuthFailed('Logout Failed'));
           }
         }
       },
