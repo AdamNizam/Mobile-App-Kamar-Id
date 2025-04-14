@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/Search/search_result.dart';
 
 import '../../Widgets/customapp_bar.dart';
 import '../../Widgets/custombtn.dart';
@@ -48,12 +47,7 @@ class SearchTyping extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
         child: CustomButton(
           text: 'Search',
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SearchResult()),
-            );
-          },
+          onTap: () {},
         ),
       ),
     );
@@ -63,7 +57,9 @@ class SearchTyping extends StatelessWidget {
 class SearchRow extends StatelessWidget {
   final String text1, text2;
   const SearchRow({
-    super.key, required this.text1, required this.text2,
+    super.key,
+    required this.text1,
+    required this.text2,
   });
 
   @override

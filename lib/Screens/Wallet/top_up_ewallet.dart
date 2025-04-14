@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/Wallet/top_upwallet_successfully.dart';
+
 import '../../../../Constants/colors.dart';
 import '../../../../Widgets/detailstext1.dart';
 import '../../../../Widgets/detailstext2.dart';
@@ -147,13 +147,7 @@ class TopUpEWalletState extends State<TopUpEWallet> {
               const Spacer(),
               CustomButton(
                 text: 'Next',
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const TopUpWalletSuccessfully(),
-                    ),
-                  );
-                },
+                onTap: () {},
               ),
             ],
           ),

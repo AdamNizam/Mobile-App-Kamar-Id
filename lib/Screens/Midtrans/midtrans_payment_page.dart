@@ -95,6 +95,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                         bank['code']!,
                         bank['name']!,
                         bank['logo']!,
+                        bank['size']!.toDouble(),
                       );
                     }).toList(),
                   ),
@@ -104,10 +105,19 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     size: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                  _buildEwallet(
-                    'gopay',
-                    'Gopay',
-                    'images/Logo-GoPay.png',
+                  Column(
+                      children: ewalletData.map((ewalet) {
+                    return _buildEwallet(
+                      ewalet['code']!,
+                      ewalet['name']!,
+                      ewalet['logo']!,
+                    );
+                  }).toList()),
+                  const SizedBox(height: 10),
+                  const Text1(
+                    text1: "CS Store",
+                    size: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 10),
                   const Text1(
@@ -193,7 +203,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     );
   }
 
-  Widget _buildBank(String bankKey, String bankName, String imageUrl) {
+  Widget _buildBank(
+      String bankKey, String bankName, String imageUrl, double size) {
     bool isSelected =
         selectedType == 'bank_transfer' && selectedBank == bankKey;
     return Card(
@@ -211,10 +222,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         },
         title: Row(
           children: [
-            Image.asset(imageUrl, height: 24),
-            const SizedBox(width: 10),
+            Image.asset(imageUrl, height: size),
+            const SizedBox(width: 5),
             Text1(
-              text1: '- Bank $bankName',
+              text1: '- $bankName',
               size: 16,
               color: AppColors.cadetGray,
             ),

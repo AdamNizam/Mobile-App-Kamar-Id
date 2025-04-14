@@ -1,33 +1,33 @@
-final List<Map<String, String>> bankData = [
+final List<Map<String, dynamic>> bankData = [
   {
     'code': 'bni',
     'name': 'BNI',
     'logo': 'images/Logo-BNI.png',
+    'size': 24,
   },
   {
     'code': 'bca',
     'name': 'BCA',
     'logo': 'images/Logo-BCA.png',
+    'size': 24,
   },
   {
     'code': 'bri',
     'name': 'BRI',
     'logo': 'images/Logo-BRI.png',
+    'size': 30,
   },
   {
     'code': 'mandiri',
     'name': 'Mandiri',
     'logo': 'images/Logo-Mandiri.png',
-  },
-  {
-    'code': 'permata',
-    'name': 'Permata Bank',
-    'logo': 'images/Logo-BANK-Permata.png',
+    'size': 24,
   },
   {
     'code': 'cimbniaga',
     'name': 'CIMB Niaga',
     'logo': 'images/Logo-CIMB-Niaga.png',
+    'size': 15,
   },
 ];
 
@@ -38,23 +38,13 @@ final List<Map<String, String>> ewalletData = [
     'logo': 'images/Logo-GoPay.png',
   },
   {
-    'code': 'ovo',
-    'name': 'OVO',
-    'logo': 'images/Logo-OVO.png',
+    'code': 'shopeepay',
+    'name': 'ShopeePay',
+    'logo': 'images/Logo-DANA.png',
   },
   {
     'code': 'dana',
     'name': 'Dana',
-    'logo': 'images/Logo-DANA.png',
-  },
-  {
-    'code': 'linkaja',
-    'name': 'LinkAja',
-    'logo': 'images/Logo-LinkAja.png',
-  },
-  {
-    'code': 'shopeepay',
-    'name': 'ShopeePay',
-    'logo': 'images/Logo-ShopeePay.png',
+    'logo': 'images/Logo-ShoppePay.png',
   },
 ];
