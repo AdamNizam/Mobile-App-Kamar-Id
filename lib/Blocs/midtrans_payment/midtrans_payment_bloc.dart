@@ -21,7 +21,7 @@ class MidtransPaymentBloc
         );
         emit(MidtransPaymentSucsess(data));
       } catch (error) {
-        print('Error Payment Midtrans: $error');
+        // print('Error Payment Midtrans: $error');
         emit(const MidtransPaymentFailed('Payment Failed!'));
       }
     });

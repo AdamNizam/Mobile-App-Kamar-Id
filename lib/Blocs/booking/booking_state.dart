@@ -9,15 +9,22 @@ sealed class BookingState extends Equatable {
 
 final class BookingInitial extends BookingState {}
 
-final class BookingHistoryLoading extends BookingState {}
+final class BookingLoading extends BookingState {}
 
-final class BookingHistoryFailed extends BookingState {
+final class BookingSuccess extends BookingState {
+  final ResponseResultAddToChart data;
+
+  const BookingSuccess(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+final class BookingFailed extends BookingState {
   final String error;
 
-  const BookingHistoryFailed(this.error);
+  const BookingFailed(this.error);
 
   @override
   List<Object> get props => [error];
 }
-
-final class BookingHistorySuccess extends BookingState {}

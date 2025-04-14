@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../Constants/colors.dart'; // Import bloc yang sesuai
 
@@ -46,45 +42,28 @@ class FavoriteHotelsState extends State<FavoriteHotels>
             children: [
               const SizedBox(height: 8),
               Expanded(
-                child: BlocBuilder<BookingBloc, BookingState>(
-                  builder: (context, state) {
-                    if (state is BookingHistoryLoading) {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: AppColors.tabColor,
-                          size: 30,
-                        ),
-                      );
-                    }
-                    if (state is BookingHistoryFailed) {
-                      showCustomSnackbar(context, state.error);
-                    }
-                    if (state is BookingHistorySuccess) {}
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'images/no-data.svg',
-                            semanticsLabel: 'Acme Logo',
-                            width: 350,
-                            height: 300,
-                            fit: BoxFit.contain,
-                          ),
-                          Text(
-                            'Oopss.. Data is not available',
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.cadetGray,
-                            ),
-                          ),
-                        ],
+                  child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'images/no-data.svg',
+                      semanticsLabel: 'Acme Logo',
+                      width: 350,
+                      height: 300,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(
+                      'Oopss.. Data is not available',
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.cadetGray,
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
-              ),
+              )),
             ],
           ),
         ),

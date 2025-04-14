@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
@@ -362,15 +361,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
         ),
         child: CustomButton(
           text: 'Pay Now',
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => MidtransPaymentPage(
-                  totalPrice: int.parse(widget.totalAmount),
-                ),
-              ),
-            );
-          },
+          onTap: () {},
         ),
       ),
     );

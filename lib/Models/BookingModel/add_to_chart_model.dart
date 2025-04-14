@@ -32,7 +32,7 @@ class AddToCartModel {
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
         extraPrice: List<ExtraPrice>.from(
-            json["extra_price"].map((x) => ExtraPrice.fromJson(x))),
+            json["extra_price"].map((ep) => ExtraPrice.fromJson(ep))),
         adults: json["adults"],
         children: json["children"],
         rooms: List<Room>.from(json["rooms"].map((x) => Room.fromJson(x))),
