@@ -7,22 +7,17 @@ import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custom_nav_title.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CheckAvailabilityScreen extends StatefulWidget {
-  final int? hotelId;
-  final String? hotelName;
-  final String? imageUrl;
-  final String? location;
+  final RowData dataHotel;
   const CheckAvailabilityScreen({
     super.key,
-    required this.hotelId,
-    required this.hotelName,
-    required this.imageUrl,
-    required this.location,
+    required this.dataHotel,
   });
 
   @override
@@ -102,8 +97,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           children: [
                             const SizedBox(height: 8),
                             CustomNavTitle(
-                              title:
-                                  widget.hotelName ?? 'Check Availability Room',
+                              title: widget.dataHotel.title!,
                               color: AppColors.white,
                             ),
                             const SizedBox(height: 20),
@@ -146,7 +140,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                             });
                                             context.read<HotelBloc>().add(
                                                   PostCheckAvailability(
-                                                    hotelId: widget.hotelId!,
+                                                    hotelId:
+                                                        widget.dataHotel.id!,
                                                     startDate: checkInDate!,
                                                     endDate: checkOutDate!,
                                                     adults: adult,
@@ -240,16 +235,13 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     }
                     return Expanded(
                       child: ListView(
-                        children: state.data.rooms!.map((data) {
+                        children: state.data.rooms!.map((dataRoom) {
                           return Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 12.0),
                             child: CardAvailbility(
-                              data: data,
-                              hotelId: widget.hotelId!,
-                              imageUrl: widget.imageUrl!,
-                              hotelName: widget.hotelName ?? '',
-                              location: widget.location ?? '',
+                              dataRoom: dataRoom,
+                              dataHotel: widget.dataHotel,
                               checkInDate: checkInDate!,
                               checkOutDate: checkOutDate!,
                               room: room,
@@ -299,9 +291,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                           height: 10,
                         ),
                         const Text(
-                          'Search your rooms',
+                          'Search your room',
                           style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: Colors.grey),
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/room_details_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -9,11 +10,8 @@ import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class CardAvailbility extends StatefulWidget {
-  final Room data;
-  final int hotelId;
-  final String hotelName;
-  final String imageUrl;
-  final String location;
+  final Room dataRoom;
+  final RowData dataHotel;
   final DateTime checkInDate;
   final DateTime checkOutDate;
   final int room;
@@ -22,16 +20,13 @@ class CardAvailbility extends StatefulWidget {
 
   const CardAvailbility({
     super.key,
-    required this.data,
-    required this.hotelId,
-    required this.hotelName,
-    required this.imageUrl,
+    required this.dataRoom,
+    required this.dataHotel,
     required this.checkInDate,
     required this.checkOutDate,
     required this.room,
     required this.adult,
     required this.child,
-    required this.location,
   });
 
   @override
@@ -55,13 +50,10 @@ class CardAvailbilityState extends State<CardAvailbility> {
           context,
           MaterialPageRoute(
             builder: (context) => RoomDetailsScreen(
-              dataDetailRoom: widget.data,
-              hotelName: widget.hotelName,
-              imageUrl: widget.imageUrl,
-              location: widget.location,
-              checkInDate: widget.checkInDate,
-              checkOutDate: widget.checkOutDate,
-              priceRoom: widget.data.price,
+              dataRoom: widget.dataRoom,
+              dataHotel: widget.dataHotel,
+              checkIn: widget.checkInDate,
+              checkOut: widget.checkOutDate,
               room: widget.room,
               adult: widget.adult,
               child: widget.child,
@@ -88,23 +80,23 @@ class CardAvailbilityState extends State<CardAvailbility> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(9),
-                child:
-                    (widget.data.image != false && widget.data.image.isNotEmpty)
-                        ? Image.network(
-                            widget.data.image,
-                            width: 105,
-                            height: 140,
-                            fit: BoxFit.cover,
-                          )
-                        : const SizedBox(
-                            width: 105,
-                            height: 140,
-                            child: Icon(
-                              Icons.image_rounded,
-                              size: 105,
-                              color: AppColors.beauBlue,
-                            ),
-                          ),
+                child: (widget.dataRoom.image != false &&
+                        widget.dataRoom.image.isNotEmpty)
+                    ? Image.network(
+                        widget.dataRoom.image,
+                        width: 105,
+                        height: 140,
+                        fit: BoxFit.cover,
+                      )
+                    : const SizedBox(
+                        width: 105,
+                        height: 140,
+                        child: Icon(
+                          Icons.image_rounded,
+                          size: 105,
+                          color: AppColors.beauBlue,
+                        ),
+                      ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -117,7 +109,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
                       child: Column(
                         children: [
                           Text(
-                            widget.data.title ?? "No-Data",
+                            widget.dataRoom.title ?? "No-Data",
                             style: GoogleFonts.poppins(
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
@@ -130,7 +122,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
                       child: Row(
                         children: [
                           Text(
-                            'Rp${formatToRp(widget.data.price)}',
+                            'Rp${formatToRp(widget.dataRoom.price)}',
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -173,7 +165,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: widget.data.termFeatures!.map(
+                        children: widget.dataRoom.termFeatures!.map(
                           (data) {
                             return CustomIcon2Avaibility(data: data);
                           },

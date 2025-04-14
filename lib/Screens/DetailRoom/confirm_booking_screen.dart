@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -13,9 +14,7 @@ import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:intl/intl.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
-  final String imageUrl;
-  final String hotelName;
-  final String location;
+  final RowData dataHotel;
   final DateTime chekIn;
   final DateTime chekOut;
   final String roomType;
@@ -25,9 +24,7 @@ class ConfirmBookingScreen extends StatefulWidget {
 
   const ConfirmBookingScreen({
     super.key,
-    required this.imageUrl,
-    required this.hotelName,
-    required this.location,
+    required this.dataHotel,
     required this.chekIn,
     required this.chekOut,
     required this.roomType,
@@ -99,7 +96,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
-                            widget.imageUrl,
+                            widget.dataHotel.imageId!,
                             width: 75,
                             height: 75,
                             fit: BoxFit.cover,
@@ -113,7 +110,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 2),
                             child: Text(
-                              widget.hotelName,
+                              widget.dataHotel.title!,
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                               ),
@@ -133,7 +130,9 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 color: AppColors.buttonColor,
                               ),
                               const SizedBox(width: 3),
-                              Text2(text2: widget.location),
+                              Text2(
+                                text2: widget.dataHotel.address!,
+                              ),
                             ],
                           ),
                         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -11,12 +12,10 @@ import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
-  final Room dataDetailRoom;
-  final String hotelName;
-  final String imageUrl;
-  final String location;
-  final DateTime checkInDate;
-  final DateTime checkOutDate;
+  final Room dataRoom;
+  final RowData dataHotel;
+  final DateTime checkIn;
+  final DateTime checkOut;
   final int room;
   final int adult;
   final int child;
@@ -24,15 +23,13 @@ class RoomDetailsScreen extends StatefulWidget {
 
   const RoomDetailsScreen({
     super.key,
-    required this.dataDetailRoom,
-    required this.hotelName,
-    required this.imageUrl,
-    required this.checkInDate,
-    required this.checkOutDate,
+    required this.dataRoom,
+    required this.dataHotel,
+    required this.checkIn,
+    required this.checkOut,
     required this.room,
     required this.adult,
     required this.child,
-    required this.location,
     this.priceRoom,
   });
 
@@ -52,14 +49,14 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   }
 
   void _showList() {
-    int number = widget.dataDetailRoom.number ?? 0;
-    int price = widget.dataDetailRoom.price ?? 0;
+    int number = widget.dataRoom.number ?? 0;
+    int price = widget.dataRoom.price ?? 0;
 
     List<Map<String, String>> listRoomAndPrice = List.generate(number, (index) {
       return {
         'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
         'price': '${price * (index + 1)}',
-        'nights': countNights(widget.checkInDate, widget.checkOutDate),
+        'nights': countNights(widget.checkIn, widget.checkOut),
       };
     });
 
@@ -146,7 +143,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.dataDetailRoom.title!,
+                            widget.dataRoom.title!,
                             style: GoogleFonts.poppins(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
@@ -165,7 +162,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           Wrap(
                             spacing: 12,
                             runSpacing: 12,
-                            children: widget.dataDetailRoom.terms!.the8.child
+                            children: widget.dataRoom.terms!.the8.child
                                 .map((facilitiesRoom) => FacilityIconItem(
                                       icon: facilitiesRoom.icon,
                                       color: AppColors.buttonColor,
@@ -173,12 +170,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                     ))
                                 .toList(),
                           ),
-                          // const SizedBox(height: 16),
-                          // Text(
-                          //   'Hotel Service',
-                          //   style: GoogleFonts.poppins(
-                          //       fontSize: 18, fontWeight: FontWeight.bold),
-                          // ),
                         ],
                       ),
                     ),
@@ -186,7 +177,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 ),
               ),
             ),
-            _bottomBarPrice(context, widget.dataDetailRoom.price),
+            _bottomBarPrice(context, widget.dataRoom.price),
           ],
         ),
       ),
@@ -235,8 +226,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
               ),
               Text1(
                 text1: countNights(
-                  widget.checkInDate,
-                  widget.checkOutDate,
+                  widget.checkIn,
+                  widget.checkOut,
                 ),
                 size: 14,
                 fontWeight: FontWeight.w400,
@@ -312,16 +303,13 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ConfirmBookingScreen(
-                          imageUrl: widget.imageUrl,
-                          hotelName: widget.hotelName,
-                          location: widget.location,
-                          chekIn: widget.checkInDate,
-                          chekOut: widget.checkOutDate,
-                          roomType: widget.dataDetailRoom.title ?? 'no-data',
-                          pricePerNight: widget.priceRoom ?? 0,
-                          guest: '',
-                          totalAmount: _selectedPrice,
-                        ),
+                            dataHotel: widget.dataHotel,
+                            chekIn: widget.checkIn,
+                            chekOut: widget.checkOut,
+                            roomType: widget.dataRoom.title ?? 'no-data',
+                            guest: '${widget.adult + widget.child}',
+                            pricePerNight: widget.dataRoom.price,
+                            totalAmount: _selectedPrice),
                       ),
                     );
                   }

@@ -603,14 +603,19 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           child: CustomButton(
                             text: 'Select Room',
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CheckAvailabilityScreen(
-                                  hotelId: state.data.rowData!.id,
-                                  hotelName: state.data.rowData!.title,
-                                  imageUrl: state.data.rowData!.imageId,
-                                  location: state.data.rowData!.location!.name,
-                                ),
-                              ));
+                              if (state.data.rowData == null) {
+                                showCustomSnackbar(
+                                    context, 'Hotel not available');
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CheckAvailabilityScreen(
+                                      dataHotel: state.data.rowData!,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                           ),
                         ),
