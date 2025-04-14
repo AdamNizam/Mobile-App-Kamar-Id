@@ -5,7 +5,7 @@ class AddToCartModel {
   final String? serviceType;
   final DateTime? startDate;
   final DateTime? endDate;
-  final List<ExtraPrice>? extraPrice;
+  final List<ExtraPriceBooking>? extraPrice;
   final String? adults;
   final String? children;
   final List<Room>? rooms;
@@ -31,11 +31,14 @@ class AddToCartModel {
         serviceType: json["service_type"],
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
-        extraPrice: List<ExtraPrice>.from(
-            json["extra_price"].map((ep) => ExtraPrice.fromJson(ep))),
+        extraPrice: List<ExtraPriceBooking>.from(
+          json["extra_price"].map((ep) => ExtraPriceBooking.fromJson(ep)),
+        ),
         adults: json["adults"],
         children: json["children"],
-        rooms: List<Room>.from(json["rooms"].map((x) => Room.fromJson(x))),
+        rooms: List<Room>.from(
+          json["rooms"].map((r) => Room.fromJson(r)),
+        ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,7 +55,7 @@ class AddToCartModel {
       };
 }
 
-class ExtraPrice {
+class ExtraPriceBooking {
   final String name;
   final dynamic nameEn;
   final String price;
@@ -62,7 +65,7 @@ class ExtraPrice {
   final String priceHtml;
   final dynamic priceType;
 
-  ExtraPrice({
+  ExtraPriceBooking({
     required this.name,
     required this.nameEn,
     required this.price,
@@ -73,12 +76,13 @@ class ExtraPrice {
     required this.priceType,
   });
 
-  factory ExtraPrice.fromRawJson(String str) =>
-      ExtraPrice.fromJson(json.decode(str));
+  factory ExtraPriceBooking.fromRawJson(String str) =>
+      ExtraPriceBooking.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ExtraPrice.fromJson(Map<String, dynamic> json) => ExtraPrice(
+  factory ExtraPriceBooking.fromJson(Map<String, dynamic> json) =>
+      ExtraPriceBooking(
         name: json["name"],
         nameEn: json["name_en"],
         price: json["price"],

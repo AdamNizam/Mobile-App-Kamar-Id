@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class HotelDetailModel {
-  final Row? row;
+  final RowData? rowData;
   final Author? author;
   final List<ListGallery>? gallery;
   final List<LocationCategory>? locationCategory;
 
   HotelDetailModel({
-    this.row,
+    this.rowData,
     this.author,
     this.gallery,
     this.locationCategory,
@@ -15,7 +15,7 @@ class HotelDetailModel {
 
   factory HotelDetailModel.fromJson(Map<String, dynamic> json) =>
       HotelDetailModel(
-        row: Row.fromJson(json["row"]),
+        rowData: RowData.fromJson(json["row"]),
         author: Author.fromJson(json["author"]),
         gallery: List<ListGallery>.from(
           json["gallery"].map((g) => ListGallery.fromJson(g)),
@@ -26,7 +26,7 @@ class HotelDetailModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "row": row!.toJson(),
+        "row": rowData!.toJson(),
         "author": author!.toJson(),
         "gallery": List<dynamic>.from(gallery!.map((g) => g.toJson())),
         "location_category":
@@ -35,7 +35,7 @@ class HotelDetailModel {
 }
 
 // start Row
-class Row {
+class RowData {
   final int? id;
   final String? title;
   final String? slug;
@@ -59,7 +59,7 @@ class Row {
   final Location? location;
   final List<Offer>? offer;
 
-  Row({
+  RowData({
     this.id,
     this.title,
     this.slug,
@@ -84,8 +84,8 @@ class Row {
     this.location,
   });
 
-  factory Row.fromJson(Map<String, dynamic> json) {
-    return Row(
+  factory RowData.fromJson(Map<String, dynamic> json) {
+    return RowData(
       id: json['id'],
       title: json['title'],
       slug: json['slug'],

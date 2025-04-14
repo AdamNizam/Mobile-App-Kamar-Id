@@ -387,7 +387,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                   startDate: formatDateToYMD(widget.chekIn),
                   endDate: formatDateToYMD(widget.chekOut),
                   extraPrice: [
-                    ExtraPrice(
+                    ExtraPriceBooking(
                       name: 'Service VIP',
                       nameEn: null,
                       price: '200',
@@ -397,7 +397,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       priceHtml: 'Rp200',
                       priceType: null,
                     ),
-                    ExtraPrice(
+                    ExtraPriceBooking(
                       name: 'Breakfasts',
                       nameEn: null,
                       price: '100',
