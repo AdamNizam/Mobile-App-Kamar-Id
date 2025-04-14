@@ -6,37 +6,18 @@ import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class PaymentMidtransService {
-  Future<MidtransResponseResult> payWithMidtrans({
-    required int totalPrice,
-    required String selectedType,
-    required String customerEmail,
-    String? selectedBank,
-  }) async {
-    final orderId = "ORDER-${DateTime.now().millisecondsSinceEpoch}";
-    final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
-
-    final body = MidtransModel(
-      transactionDetails: TransactionDetails(
-        orderId: orderId,
-        grossAmount: totalPrice,
-      ),
-      paymentType: selectedType,
-      customerDetails: CustomerDetails(
-        email: customerEmail,
-      ),
-      bankTransfer: selectedType == 'bank_transfer' && selectedBank != null
-          ? BankTransfer(bank: selectedBank)
-          : null,
-    ).toJson();
-
+  Future<MidtransResponseResult> payWithMidtrans(
+      MidtransModel midtransModel) async {
     try {
+      final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
+
       final res = await http.post(
         Uri.parse(midtransUrl),
         headers: {
           'Authorization': basicAuth,
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(body),
+        body: jsonEncode(midtransModel.toJson()),
       );
 
       print("Midtrans response: ${res.body}");

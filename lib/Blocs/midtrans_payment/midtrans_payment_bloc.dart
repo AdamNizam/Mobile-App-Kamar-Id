@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Services/midtrans_payment_service.dart';
 
@@ -14,10 +15,7 @@ class MidtransPaymentBloc
         emit(MidtransPaymentLoading());
 
         final data = await PaymentMidtransService().payWithMidtrans(
-          totalPrice: event.totalPrice,
-          selectedType: event.selectedType,
-          customerEmail: event.customerEmail,
-          selectedBank: event.selectedBank,
+          event.midtransModel,
         );
         emit(MidtransPaymentSucsess(data));
       } catch (error) {

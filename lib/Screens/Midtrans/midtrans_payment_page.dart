@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataExampleMidtrans/data.dart';
@@ -188,13 +189,21 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
+                    final midtransData = MidtransModel(
+                      transactionDetails: TransactionDetails(
+                        orderId: 'INV-20250414-001',
+                        grossAmount: widget.totalPrice,
+                      ),
+                      paymentType: selectedType!,
+                      customerDetails: CustomerDetails(
+                        email: 'customer@email.com',
+                      ),
+                      bankTransfer: BankTransfer(
+                        bank: selectedBank!,
+                      ),
+                    );
                     context.read<MidtransPaymentBloc>().add(
-                          PayNowPressed(
-                            selectedType: selectedType!,
-                            selectedBank: selectedBank ?? '',
-                            totalPrice: widget.totalPrice,
-                            customerEmail: '',
-                          ),
+                          PayNowPressed(midtransData),
                         );
                   },
                 ),

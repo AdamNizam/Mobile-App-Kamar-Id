@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:intl/intl.dart';
-
-import '../../../Widgets/custombtn.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
   final String imageUrl;
@@ -359,9 +363,67 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           horizontal: 16,
           vertical: 10,
         ),
-        child: CustomButton(
-          text: 'Pay Now',
-          onTap: () {},
+        child: BlocProvider(
+          create: (context) => BookingBloc(), // Inisialisasi BookingBloc
+          child: BlocConsumer<BookingBloc, BookingState>(
+              listener: (context, state) {
+            if (state is BookingSuccess) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => MidtransPaymentPage(
+                    totalPrice: int.parse(widget.totalAmount),
+                  ),
+                ),
+              );
+            }
+            if (state is BookingFailed) {
+              showCustomSnackbar(context, state.error);
+            }
+          }, builder: (context, state) {
+            return CustomButton(
+              text: 'Book Now',
+              onTap: () {
+                final cartModel = AddToCartModel(
+                  serviceId: '11',
+                  serviceType: 'hotel',
+                  startDate: DateTime.parse('2025-04-14'),
+                  endDate: DateTime.parse('2025-04-15'),
+                  extraPrice: [
+                    ExtraPrice(
+                      name: 'Service VIP',
+                      nameEn: null,
+                      price: '200',
+                      type: 'one_time',
+                      number: '0',
+                      enable: '1',
+                      priceHtml: 'Rp200',
+                      priceType: null,
+                    ),
+                    ExtraPrice(
+                      name: 'Breakfasts',
+                      nameEn: null,
+                      price: '100',
+                      type: 'one_time',
+                      number: '0',
+                      enable: '1',
+                      priceHtml: 'Rp100',
+                      priceType: null,
+                    ),
+                  ],
+                  adults: '1',
+                  children: '0',
+                  rooms: [
+                    Room(id: '41', numberSelected: '1'),
+                    Room(id: '42', numberSelected: '1'),
+                    Room(id: '43', numberSelected: '0'),
+                    Room(id: '44', numberSelected: '0'),
+                  ],
+                );
+                context.read<BookingBloc>().add(AddToCartEvent(cartModel));
+              },
+            );
+          }),
         ),
       ),
     );

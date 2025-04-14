@@ -2,13 +2,13 @@ class MidtransModel {
   final TransactionDetails transactionDetails;
   final String paymentType;
   final CustomerDetails customerDetails;
-  final BankTransfer? bankTransfer;
+  final BankTransfer bankTransfer;
 
   MidtransModel({
     required this.transactionDetails,
     required this.paymentType,
     required this.customerDetails,
-    this.bankTransfer,
+    required this.bankTransfer,
   });
 
   Map<String, dynamic> toJson() {
@@ -16,12 +16,8 @@ class MidtransModel {
       "transaction_details": transactionDetails.toJson(),
       "payment_type": paymentType,
       "customer_details": customerDetails.toJson(),
+      "bank_transfer": bankTransfer.toJson(),
     };
-
-    if (bankTransfer != null) {
-      json["bank_transfer"] = bankTransfer!.toJson();
-    }
-
     return json;
   }
 }
