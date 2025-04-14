@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataExampleMidtrans/data.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -13,9 +14,11 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MidtransPaymentPage extends StatefulWidget {
   final int totalPrice;
+  final String orderId;
   const MidtransPaymentPage({
     super.key,
     required this.totalPrice,
+    required this.orderId,
   });
 
   @override
@@ -167,8 +170,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 fontWeight: FontWeight.bold,
               ),
               Text1(
-                text1: "Rp ${widget.totalPrice}",
+                text1: "Rp${formatToRp(widget.totalPrice)}",
                 size: 16,
+                color: AppColors.buttonColor,
                 fontWeight: FontWeight.bold,
               ),
             ],
@@ -191,7 +195,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   onTap: () {
                     final midtransData = MidtransModel(
                       transactionDetails: TransactionDetails(
-                        orderId: 'INV-20250414-001',
+                        orderId: widget.orderId,
                         grossAmount: widget.totalPrice,
                       ),
                       paymentType: selectedType!,
@@ -199,7 +203,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                         email: 'customer@email.com',
                       ),
                       bankTransfer: BankTransfer(
-                        bank: selectedBank!,
+                        bank: selectedBank ?? '',
                       ),
                     );
                     context.read<MidtransPaymentBloc>().add(

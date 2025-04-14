@@ -40,7 +40,7 @@ final List<Map<String, String>> ewalletData = [
   {
     'code': 'shopeepay',
     'name': 'ShopeePay',
-    'logo': 'images/Logo-shoppepay.png',
+    'logo': 'images/Logo-ShopeePay.png',
   },
   {
     'code': 'dana',

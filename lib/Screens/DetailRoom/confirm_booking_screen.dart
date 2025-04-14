@@ -164,10 +164,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           children: [
                             const Text2(text2: 'Check-In'),
                             Text1(
-                              text1:
-                                  DateFormat('MMMM dd, yyyy | hh:mm a').format(
-                                widget.chekIn,
-                              ),
+                              text1: DateFormat('MMMM dd, yyyy')
+                                  .format(widget.chekIn),
                             ),
                           ],
                         ),
@@ -179,10 +177,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           children: [
                             const Text2(text2: 'Check-Out'),
                             Text1(
-                              text1:
-                                  DateFormat('MMMM dd, yyyy | hh:mm a').format(
-                                widget.chekOut,
-                              ),
+                              text1: DateFormat('MMMM dd, yyyy')
+                                  .format(widget.chekOut),
                             ),
                           ],
                         ),
@@ -373,6 +369,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 MaterialPageRoute(
                   builder: (_) => MidtransPaymentPage(
                     totalPrice: int.parse(widget.totalAmount),
+                    orderId: state.data.bookingCode,
                   ),
                 ),
               );
@@ -387,8 +384,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 final cartModel = AddToCartModel(
                   serviceId: '11',
                   serviceType: 'hotel',
-                  startDate: DateTime.parse('2025-04-14'),
-                  endDate: DateTime.parse('2025-04-15'),
+                  startDate: formatDateToYMD(widget.chekIn),
+                  endDate: formatDateToYMD(widget.chekOut),
                   extraPrice: [
                     ExtraPrice(
                       name: 'Service VIP',

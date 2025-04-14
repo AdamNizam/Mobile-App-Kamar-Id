@@ -86,3 +86,8 @@ String formatDuration(Duration duration) {
   final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
   return '$minutes:$seconds';
 }
+
+DateTime formatDateToYMD(DateTime date) {
+  String formatted = DateFormat('yyyy-MM-dd').format(date);
+  return DateFormat('yyyy-MM-dd').parse(formatted);
+}

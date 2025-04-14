@@ -246,10 +246,10 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                 const EdgeInsets.symmetric(horizontal: 12.0),
                             child: CardAvailbility(
                               data: data,
-                              imageUrl: widget.imageUrl ??
-                                  'https://picsum.photos/400/300',
-                              hotelName: widget.hotelName ?? 'No-data',
-                              location: widget.location ?? 'No-data',
+                              hotelId: widget.hotelId!,
+                              imageUrl: widget.imageUrl!,
+                              hotelName: widget.hotelName ?? '',
+                              location: widget.location ?? '',
                               checkInDate: checkInDate!,
                               checkOutDate: checkOutDate!,
                               room: room,

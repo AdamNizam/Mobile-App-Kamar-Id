@@ -10,6 +10,7 @@ import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class CardAvailbility extends StatefulWidget {
   final Room data;
+  final int hotelId;
   final String hotelName;
   final String imageUrl;
   final String location;
@@ -22,6 +23,7 @@ class CardAvailbility extends StatefulWidget {
   const CardAvailbility({
     super.key,
     required this.data,
+    required this.hotelId,
     required this.hotelName,
     required this.imageUrl,
     required this.checkInDate,
