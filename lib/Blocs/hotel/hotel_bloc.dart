@@ -29,12 +29,12 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
           try {
             emit(HotelDetailLoading());
 
-            final data = await HotelService().getAllDetailHotel(event.slug);
+            final data = await HotelService().getDetailHotel(event.slug);
 
             emit(GetAllHotelDetailSuccess(data));
           } catch (error) {
             // print('pesan error: $error');
-            emit(const HotelFailed('Terjadi Kesalahan'));
+            emit(const HotelFailed('Hotel not found'));
           }
         }
 
@@ -53,7 +53,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
             emit(CheckAvaibilitySuccess(data));
           } catch (error) {
             // print('check availability error: $error');
-            emit(const ChekAvaibilityFailed('Terjadi Kesalahan'));
+            emit(const ChekAvaibilityFailed('failed check availability'));
           }
         }
       },

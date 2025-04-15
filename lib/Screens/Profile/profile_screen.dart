@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
@@ -61,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                       );
                     }
                     if (state is UserFailed) {
-                      return Center(child: Text(': ${state.error}'));
+                      showCustomSnackbar(context, state.error);
                     }
                     if (state is UserSuccess) {
                       return Column(
@@ -72,17 +73,23 @@ class ProfileScreen extends StatelessWidget {
                                 ? state.data.userName.toString()
                                 : state.data.firstName,
                             style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             state.data.email,
-                            style: const TextStyle(fontSize: 16),
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
                         ],
                       );
                     }
-                    return const Center(child: Text("Tidak ada data pengguna"));
+                    return const Center(
+                      child: Text1(text1: "No data available"),
+                    );
                   },
                 ),
                 const SizedBox(height: 10),
@@ -114,8 +121,10 @@ class ProfileScreen extends StatelessWidget {
                   leadingIcon: Icons.help,
                   title: 'Help Center',
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HelpCenterScreen()));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const HelpCenterScreen()),
+                    );
                   },
                 ),
                 ProfileRow(

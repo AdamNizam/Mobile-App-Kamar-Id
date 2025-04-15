@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
@@ -9,6 +12,7 @@ import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
@@ -19,7 +23,7 @@ class RoomDetailsScreen extends StatefulWidget {
   final int room;
   final int adult;
   final int child;
-  final int? priceRoom;
+  final int priceRoom;
 
   const RoomDetailsScreen({
     super.key,
@@ -30,7 +34,7 @@ class RoomDetailsScreen extends StatefulWidget {
     required this.room,
     required this.adult,
     required this.child,
-    this.priceRoom,
+    required this.priceRoom,
   });
 
   @override
@@ -149,7 +153,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
+                            ' ${widget.dataRoom.id} -- ${widget.dataRoom.numberSelected} -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
                             style: GoogleFonts.poppins(fontSize: 14),
                           ),
                           const SizedBox(height: 16),
@@ -277,46 +281,115 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   ),
                 ],
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _selectedPrice.isEmpty
-                      ? AppColors.beauBlue
-                      : AppColors.buttonColor,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                ),
-                child: Text(
-                  'Confirm',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.white,
-                  ),
-                ),
-                onPressed: () {
-                  if (_selectedPrice.isEmpty) {
-                    showCustomSnackbar(context, "You're not seleceted room");
-                  } else {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ConfirmBookingScreen(
-                          dataRoom: widget.dataRoom,
-                          dataHotel: widget.dataHotel,
-                          chekIn: widget.checkIn,
-                          chekOut: widget.checkOut,
-                          roomType: widget.dataRoom.title ?? 'no-data',
-                          child: widget.child,
-                          adult: widget.adult,
-                          pricePerNight: widget.dataRoom.price,
-                          totalAmount: _selectedPrice,
+              BlocProvider(
+                create: (context) => BookingBloc(),
+                child: BlocConsumer<BookingBloc, BookingState>(
+                  listener: (context, state) {
+                    if (state is BookingSuccess) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ConfirmBookingScreen(
+                            dataHotel: widget.dataHotel,
+                            checkIn: widget.checkIn,
+                            checkOut: widget.checkOut,
+                            roomType: widget.dataRoom.title!,
+                            room: widget.room,
+                            adult: widget.adult,
+                            child: widget.child,
+                            pricePerNight: widget.priceRoom,
+                            totalAmount: _selectedPrice,
+                            orderId: state.data.bookingCode,
+                          ),
+                        ),
+                      );
+                    }
+                    if (state is BookingFailed) {
+                      showCustomSnackbar(context, state.error);
+                    }
+                    if (state is BookingLoading) {
+                      Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.tabColor,
+                          size: 30,
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _selectedPrice.isEmpty
+                            ? AppColors.beauBlue
+                            : AppColors.buttonColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
+                      child: Text(
+                        'Confirm',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white,
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_selectedPrice.isEmpty) {
+                          showCustomSnackbar(
+                              context, 'Please select a room first!');
+                        } else {
+                          final cartModel = AddToCartModel(
+                            serviceId: widget.dataHotel.id.toString(),
+                            serviceType: 'hotel',
+                            startDate: formatDateToYMD(widget.checkIn),
+                            endDate: formatDateToYMD(widget.checkOut),
+                            extraPrice: [
+                              ExtraPriceBooking(
+                                name: "Service VIP",
+                                nameEn: null,
+                                price: "200",
+                                type: "one_time",
+                                number: "0",
+                                enable: "1",
+                                priceHtml: "Rp200",
+                                priceType: null,
+                              ),
+                              ExtraPriceBooking(
+                                name: "Breakfasts",
+                                nameEn: null,
+                                price: "100",
+                                type: "one_time",
+                                number: "0",
+                                enable: "1",
+                                priceHtml: "Rp100",
+                                priceType: null,
+                              ),
+                            ],
+                            adults: widget.adult.toString(),
+                            children: widget.child.toString(),
+                            rooms: [
+                              Room(
+                                id: widget.dataRoom.id.toString(),
+                                numberSelected:
+                                    (widget.dataRoom.numberSelected == null ||
+                                            widget.dataRoom.numberSelected == 0)
+                                        ? "1"
+                                        : widget.dataRoom.numberSelected
+                                            .toString(),
+                              ),
+                            ],
+                          );
+                          context.read<BookingBloc>().add(
+                                AddToCartEvent(cartModel),
+                              );
+                        }
+                      },
                     );
-                  }
-                },
+                  },
+                ),
               ),
             ],
           ),

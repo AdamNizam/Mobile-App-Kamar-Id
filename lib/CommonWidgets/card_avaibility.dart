@@ -57,6 +57,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
               room: widget.room,
               adult: widget.adult,
               child: widget.child,
+              priceRoom: widget.dataRoom.price,
             ),
           ),
         );

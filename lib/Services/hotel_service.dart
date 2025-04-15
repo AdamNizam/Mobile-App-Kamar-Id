@@ -35,29 +35,7 @@ class HotelService {
     }
   }
 
-  Future<RowData> getDetailHotel(String slug) async {
-    try {
-      final token = await AuthService().getToken();
-
-      final res = await http.get(
-        Uri.parse('$baseUrl/hotel/$slug'),
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json',
-        },
-      );
-      if (res.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(res.body);
-        return RowData.fromJson(data['row']);
-      }
-
-      throw jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan';
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<HotelDetailModel> getAllDetailHotel(String slug) async {
+  Future<HotelDetailModel> getDetailHotel(String slug) async {
     try {
       final token = await AuthService().getToken();
 
