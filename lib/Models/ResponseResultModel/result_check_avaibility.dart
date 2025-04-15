@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 class ResultCheckAvaibility {
-  final List<Room>? rooms;
+  final List<RoomChekAvaibility>? rooms;
 
   ResultCheckAvaibility({this.rooms});
 
-  ResultCheckAvaibility copyWith({List<Room>? rooms}) =>
+  ResultCheckAvaibility copyWith({List<RoomChekAvaibility>? rooms}) =>
       ResultCheckAvaibility(rooms: rooms ?? this.rooms);
 
   factory ResultCheckAvaibility.fromRawJson(String str) =>
@@ -16,7 +16,8 @@ class ResultCheckAvaibility {
   factory ResultCheckAvaibility.fromJson(Map<String, dynamic> json) =>
       ResultCheckAvaibility(
         rooms: json["rooms"] != null
-            ? List<Room>.from(json["rooms"].map((x) => Room.fromJson(x)))
+            ? List<RoomChekAvaibility>.from(
+                json["rooms"].map((x) => RoomChekAvaibility.fromJson(x)))
             : [],
       );
   Map<String, dynamic> toJson() => {
@@ -26,7 +27,7 @@ class ResultCheckAvaibility {
       };
 }
 
-class Room {
+class RoomChekAvaibility {
   final int? id;
   final String? title;
   final dynamic price;
@@ -45,7 +46,7 @@ class Room {
   final Terms? terms;
   final List<TermFeature>? termFeatures;
 
-  Room({
+  RoomChekAvaibility({
     this.id,
     this.title,
     this.price,
@@ -65,12 +66,13 @@ class Room {
     this.termFeatures,
   });
 
-  factory Room.fromRawJson(String str) => Room.fromJson(json.decode(str));
+  factory RoomChekAvaibility.fromRawJson(String str) =>
+      RoomChekAvaibility.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Room.fromJson(Map<String, dynamic> json) {
-    return Room(
+  factory RoomChekAvaibility.fromJson(Map<String, dynamic> json) {
+    return RoomChekAvaibility(
       id: json["id"],
       title: json["title"],
       price: json["price"] != null

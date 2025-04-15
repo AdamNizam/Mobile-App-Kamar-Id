@@ -12,7 +12,7 @@ import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
-  final Room dataRoom;
+  final RoomChekAvaibility dataRoom;
   final RowData dataHotel;
   final DateTime checkIn;
   final DateTime checkOut;
@@ -303,13 +303,16 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ConfirmBookingScreen(
-                            dataHotel: widget.dataHotel,
-                            chekIn: widget.checkIn,
-                            chekOut: widget.checkOut,
-                            roomType: widget.dataRoom.title ?? 'no-data',
-                            guest: '${widget.adult + widget.child}',
-                            pricePerNight: widget.dataRoom.price,
-                            totalAmount: _selectedPrice),
+                          dataRoom: widget.dataRoom,
+                          dataHotel: widget.dataHotel,
+                          chekIn: widget.checkIn,
+                          chekOut: widget.checkOut,
+                          roomType: widget.dataRoom.title ?? 'no-data',
+                          child: widget.child,
+                          adult: widget.adult,
+                          pricePerNight: widget.dataRoom.price,
+                          totalAmount: _selectedPrice,
+                        ),
                       ),
                     );
                   }

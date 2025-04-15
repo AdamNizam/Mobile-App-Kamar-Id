@@ -10,7 +10,7 @@ import 'package:hotelbookingapp/Widgets/custom_icon2_avaibility.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class CardAvailbility extends StatefulWidget {
-  final Room dataRoom;
+  final RoomChekAvaibility dataRoom;
   final RowData dataHotel;
   final DateTime checkInDate;
   final DateTime checkOutDate;

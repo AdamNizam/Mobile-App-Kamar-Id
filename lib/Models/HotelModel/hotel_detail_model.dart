@@ -151,30 +151,34 @@ class RowData {
 
 class ExtraPrice {
   final String name;
+  final dynamic nameEn;
   final String price;
   final String type;
+  final String perPerson;
 
   ExtraPrice({
     required this.name,
+    required this.nameEn,
     required this.price,
     required this.type,
+    required this.perPerson,
   });
 
-  factory ExtraPrice.fromJson(Map<String, dynamic> json) {
-    return ExtraPrice(
-      name: json['name'],
-      price: json['price'],
-      type: json['type'],
-    );
-  }
+  factory ExtraPrice.fromJson(Map<String, dynamic> json) => ExtraPrice(
+        name: json["name"],
+        nameEn: json["name_en"],
+        price: json["price"],
+        type: json["type"],
+        perPerson: json["per_person"],
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'price': price,
-      'type': type,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "name_en": nameEn,
+        "price": price,
+        "type": type,
+        "per_person": perPerson,
+      };
 }
 
 class Location {

@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -14,21 +15,25 @@ import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:intl/intl.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
+  final RoomChekAvaibility dataRoom;
   final RowData dataHotel;
   final DateTime chekIn;
   final DateTime chekOut;
   final String roomType;
-  final String guest;
+  final int adult;
+  final int child;
   final int pricePerNight;
   final String totalAmount;
 
   const ConfirmBookingScreen({
     super.key,
+    required this.dataRoom,
     required this.dataHotel,
     required this.chekIn,
     required this.chekOut,
     required this.roomType,
-    required this.guest,
+    required this.adult,
+    required this.child,
     required this.pricePerNight,
     required this.totalAmount,
   });
@@ -198,7 +203,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text2(text2: 'Guests'),
-                            Text1(text1: widget.guest),
+                            Text1(text1: '${widget.adult + widget.child}'),
                           ],
                         ),
                       ),
@@ -208,17 +213,20 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text2(text2: 'Price per Night'),
-                            Text1(text1: formatToRp(widget.pricePerNight)),
+                            Text1(
+                                text1: 'Rp${formatToRp(widget.pricePerNight)}'),
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text2(text2: 'Servie Fee'),
-                            Text1(text1: '20%'),
+                            const Text2(text2: 'Servie Fee'),
+                            Text(
+                              'Rp${widget.dataHotel.serviceFee?.isNotEmpty == true ? widget.dataHotel.serviceFee!.first.price : '0'}',
+                            )
                           ],
                         ),
                       ),
@@ -381,39 +389,29 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               text: 'Book Now',
               onTap: () {
                 final cartModel = AddToCartModel(
-                  serviceId: '11',
+                  serviceId: widget.dataHotel.id.toString(),
                   serviceType: 'hotel',
                   startDate: formatDateToYMD(widget.chekIn),
                   endDate: formatDateToYMD(widget.chekOut),
-                  extraPrice: [
-                    ExtraPriceBooking(
-                      name: 'Service VIP',
-                      nameEn: null,
-                      price: '200',
-                      type: 'one_time',
-                      number: '0',
-                      enable: '1',
-                      priceHtml: 'Rp200',
-                      priceType: null,
-                    ),
-                    ExtraPriceBooking(
-                      name: 'Breakfasts',
-                      nameEn: null,
-                      price: '100',
-                      type: 'one_time',
-                      number: '0',
-                      enable: '1',
-                      priceHtml: 'Rp100',
-                      priceType: null,
-                    ),
-                  ],
-                  adults: '1',
-                  children: '0',
+                  extraPrice: widget.dataHotel.extraPrice
+                      ?.map((extra) => ExtraPriceBooking(
+                            name: extra.name,
+                            nameEn: extra.nameEn,
+                            price: extra.price,
+                            type: "one_time",
+                            number: '0',
+                            enable: '1',
+                            priceHtml: '',
+                            priceType: extra.perPerson,
+                          ))
+                      .toList(),
+                  adults: widget.adult.toString(),
+                  children: widget.child.toString(),
                   rooms: [
-                    Room(id: '41', numberSelected: '1'),
-                    Room(id: '42', numberSelected: '1'),
-                    Room(id: '43', numberSelected: '0'),
-                    Room(id: '44', numberSelected: '0'),
+                    Room(
+                      id: widget.dataRoom.id.toString(),
+                      numberSelected: widget.dataRoom.numberSelected.toString(),
+                    ),
                   ],
                 );
                 context.read<BookingBloc>().add(AddToCartEvent(cartModel));
