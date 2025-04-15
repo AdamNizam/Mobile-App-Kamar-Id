@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_add_to_cart.dart';
+import 'package:hotelbookingapp/Models/ResponseResultModel/result_chekout.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class BookingService {
-  Future<ResultAddToCart> addToChart(AddToCartModel cartModel) async {
+  Future<ResultChekout> doToChekout(AddToCartModel cartModel) async {
     try {
       final token = await AuthService().getToken();
 
@@ -21,7 +21,7 @@ class BookingService {
       );
 
       if (res.statusCode == 200) {
-        return ResultAddToCart.fromJson(jsonDecode(res.body));
+        return ResultChekout.fromJson(jsonDecode(res.body));
       } else {
         throw jsonDecode(res.body)['message'] ?? 'Booking failed!';
       }

@@ -1,25 +1,25 @@
 import 'dart:convert';
 
-class ResponseResultAddToChart {
+class ResultAddToCart {
   final String url;
   final String bookingCode;
   final int status;
   final String message;
 
-  ResponseResultAddToChart({
+  ResultAddToCart({
     required this.url,
     required this.bookingCode,
     required this.status,
     required this.message,
   });
 
-  factory ResponseResultAddToChart.fromRawJson(String str) =>
-      ResponseResultAddToChart.fromJson(json.decode(str));
+  factory ResultAddToCart.fromRawJson(String str) =>
+      ResultAddToCart.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ResponseResultAddToChart.fromJson(Map<String, dynamic> json) =>
-      ResponseResultAddToChart(
+  factory ResultAddToCart.fromJson(Map<String, dynamic> json) =>
+      ResultAddToCart(
         url: json["url"],
         bookingCode: json["booking_code"],
         status: json["status"],

@@ -12,7 +12,7 @@ final class BookingInitial extends BookingState {}
 final class BookingLoading extends BookingState {}
 
 final class BookingSuccess extends BookingState {
-  final ResponseResultAddToChart data;
+  final ResultAddToCart data;
 
   const BookingSuccess(this.data);
 
