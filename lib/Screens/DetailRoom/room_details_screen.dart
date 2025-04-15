@@ -341,7 +341,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           showCustomSnackbar(
                               context, 'Please select a room first!');
                         } else {
-                          final cartModel = AddToCartModel(
+                          final dataCart = AddToCartModel(
                             serviceId: widget.dataHotel.id.toString(),
                             serviceType: 'hotel',
                             startDate: formatDateToYMD(widget.checkIn),
@@ -383,7 +383,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             ],
                           );
                           context.read<BookingBloc>().add(
-                                AddToCartEvent(cartModel),
+                                AddToCartEvent(dataCart),
                               );
                         }
                       },

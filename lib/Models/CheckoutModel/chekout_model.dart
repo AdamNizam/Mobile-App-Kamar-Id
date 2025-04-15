@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class ChekoutModel {
+class CheckoutModel {
   final String code;
   final String firstName;
   final String lastName;
@@ -17,7 +17,7 @@ class ChekoutModel {
   final String termConditions;
   final dynamic couponCode;
 
-  ChekoutModel({
+  CheckoutModel({
     required this.code,
     required this.firstName,
     required this.lastName,
@@ -35,12 +35,12 @@ class ChekoutModel {
     required this.couponCode,
   });
 
-  factory ChekoutModel.fromRawJson(String str) =>
-      ChekoutModel.fromJson(json.decode(str));
+  factory CheckoutModel.fromRawJson(String str) =>
+      CheckoutModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ChekoutModel.fromJson(Map<String, dynamic> json) => ChekoutModel(
+  factory CheckoutModel.fromJson(Map<String, dynamic> json) => CheckoutModel(
         code: json["code"],
         firstName: json["first_name"],
         lastName: json["last_name"],

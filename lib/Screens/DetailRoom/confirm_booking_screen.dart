@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
-import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
   final RowData dataHotel;
@@ -393,19 +397,63 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           horizontal: 16,
           vertical: 10,
         ),
-        child: CustomButton(
-          text: 'Book Now',
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => MidtransPaymentPage(
-                  totalPrice: int.parse(widget.totalAmount),
-                  orderId: 'Harus disiapkan dari server',
-                ),
-              ),
-            );
-          },
+        child: BlocProvider(
+          create: (context) => CheckoutBloc(),
+          child: BlocConsumer<CheckoutBloc, CheckoutState>(
+            listener: (context, state) {
+              if (state is CheckoutFailed) {
+                showCustomSnackbar(context, state.error);
+              }
+              if (state is CheckoutSuccess) {
+                showCustomSnackbar(context, 'Booking Success');
+                //  Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (_) => MidtransPaymentPage(
+                //       totalPrice: int.parse(widget.totalAmount),
+                //       orderId: 'Harus disiapkan dari server',
+                //     ),
+                //   ),
+                // );
+              }
+              if (state is CheckoutLoading) {
+                Center(
+                  child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: AppColors.tabColor,
+                    size: 30,
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              return CustomButton(
+                text: 'Book Now',
+                onTap: () {
+                  final dataChekout = CheckoutModel(
+                    code: widget.orderId,
+                    firstName: 'andre',
+                    lastName: 'lucmana',
+                    email: 'andresetya1124@gmail.com',
+                    phone: '293829798234',
+                    addressLine1: 'dasd',
+                    addressLine2: 'asdas',
+                    city: 'Praya',
+                    state: 'Indonesia',
+                    zipCode: '22323',
+                    country: 'ID',
+                    customerNotes: 'sadasdadasdasdas',
+                    paymentGateway: 'midtrans',
+                    termConditions: 'on',
+                    couponCode: null,
+                  );
+
+                  context.read<CheckoutBloc>().add(
+                        CheckoutSubmitEvent(dataChekout),
+                      );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

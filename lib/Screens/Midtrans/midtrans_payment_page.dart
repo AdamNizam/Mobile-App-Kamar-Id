@@ -196,7 +196,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   text: 'Pay Now',
                   onTap: () {
                     context.read<MidtransPaymentBloc>().add(
-                          PayNowPressed(
+                          PayWithMidtrans(
                             MidtransModel(
                               transactionDetails: TransactionDetails(
                                 orderId: widget.orderId,

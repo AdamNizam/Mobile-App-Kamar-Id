@@ -7,10 +7,10 @@ sealed class MidtransPaymentEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PayNowPressed extends MidtransPaymentEvent {
+class PayWithMidtrans extends MidtransPaymentEvent {
   final MidtransModel midtransModel;
 
-  const PayNowPressed(this.midtransModel);
+  const PayWithMidtrans(this.midtransModel);
 
   @override
   List<Object> get props => [midtransModel];

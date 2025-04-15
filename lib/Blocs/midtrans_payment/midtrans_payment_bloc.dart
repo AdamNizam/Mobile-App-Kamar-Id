@@ -10,7 +10,7 @@ part 'midtrans_payment_state.dart';
 class MidtransPaymentBloc
     extends Bloc<MidtransPaymentEvent, MidtransPaymentState> {
   MidtransPaymentBloc() : super(MidtransPaymentInitial()) {
-    on<PayNowPressed>((event, emit) async {
+    on<PayWithMidtrans>((event, emit) async {
       try {
         emit(MidtransPaymentLoading());
 

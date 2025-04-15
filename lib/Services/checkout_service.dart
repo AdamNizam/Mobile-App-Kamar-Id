@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
+import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_chekout.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
-class BookingService {
-  Future<ResultChekout> doToChekout(AddToCartModel cartModel) async {
+class ChekoutService {
+  Future<ResultChekout> doToChekout(CheckoutModel cartModel) async {
     try {
       final token = await AuthService().getToken();
 
       final res = await http.post(
-        Uri.parse('$baseUrl/booking/addToCart'),
+        Uri.parse('$baseUrl/booking/doCheckout'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ class BookingService {
       if (res.statusCode == 200) {
         return ResultChekout.fromJson(jsonDecode(res.body));
       } else {
-        throw jsonDecode(res.body)['message'] ?? 'Booking failed!';
+        throw jsonDecode(res.body)['error'] ?? 'Checkout failed!';
       }
     } catch (error) {
       rethrow;
