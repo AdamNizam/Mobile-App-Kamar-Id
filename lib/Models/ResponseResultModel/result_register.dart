@@ -1,11 +1,11 @@
-class RegisterResponseResult {
+class RegisterResponse {
   final int status;
   final Map<String, List<String>> message;
 
-  RegisterResponseResult({required this.status, required this.message});
+  RegisterResponse({required this.status, required this.message});
 
-  factory RegisterResponseResult.fromJson(Map<String, dynamic> json) {
-    return RegisterResponseResult(
+  factory RegisterResponse.fromJson(Map<String, dynamic> json) {
+    return RegisterResponse(
       status: json['status'],
       message: Map<String, List<String>>.from(
         json['message'].map(

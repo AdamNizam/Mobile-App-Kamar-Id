@@ -26,13 +26,12 @@ class PaymentMidtransService {
       final data = jsonDecode(res.body);
 
       final midtransStatusCode = data['status_code']?.toString() ?? '';
-      final statusMessage = data['status_message'] ?? 'No status message';
 
       if ((statusCode >= 200 && statusCode < 300) ||
           midtransStatusCode.startsWith('2')) {
         return MidtransResponseResult.fromJson(data);
       } else {
-        throw Exception("Payment failed: $statusMessage");
+        throw jsonDecode(data)['message'] ?? 'Payment failed: $statusCode';
       }
     } catch (error) {
       throw Exception("Payment exception: $error");

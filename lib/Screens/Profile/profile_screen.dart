@@ -68,15 +68,15 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 10),
                           Text(
-                            state.userProfile.userName != null
-                                ? state.userProfile.userName.toString()
-                                : state.userProfile.firstName,
+                            state.data.userName != null
+                                ? state.data.userName.toString()
+                                : state.data.firstName,
                             style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            state.userProfile.email,
+                            state.data.email,
                             style: const TextStyle(fontSize: 16),
                           ),
                         ],

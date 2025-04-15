@@ -12,7 +12,7 @@ class MessageRegisterSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arguments =
-        ModalRoute.of(context)!.settings.arguments as RegisterResponseResult?;
+        ModalRoute.of(context)!.settings.arguments as RegisterResponse?;
     final String message = (arguments?.message['email'] as List?)?.first ??
         "Registration Successful!";
 

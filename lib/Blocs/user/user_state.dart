@@ -21,10 +21,10 @@ final class UserFailed extends UserState {
 }
 
 final class UserSuccess extends UserState {
-  final DataProfile userProfile;
+  final DataProfile data;
 
-  const UserSuccess(this.userProfile);
+  const UserSuccess(this.data);
 
   @override
-  List<Object> get props => [userProfile];
+  List<Object> get props => [data];
 }

@@ -1,9 +1,9 @@
-class LoginResponseResult {
+class LoginResponse {
   String? token;
 
-  LoginResponseResult({this.token});
+  LoginResponse({this.token});
 
-  factory LoginResponseResult.fromJson(Map<String, dynamic> json) {
-    return LoginResponseResult(token: json['access_token']);
+  factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    return LoginResponse(token: json['access_token']);
   }
 }

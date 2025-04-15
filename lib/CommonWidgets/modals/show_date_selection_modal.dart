@@ -67,7 +67,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                                   child: Theme(
                                     data: ThemeData(
                                       colorScheme: const ColorScheme.light(
-                                        primary: AppColors.button2Color,
+                                        primary: AppColors.buttonColor,
                                       ),
                                     ),
                                     child: CalendarDatePicker(
@@ -99,7 +99,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                                   child: Theme(
                                     data: ThemeData(
                                       colorScheme: const ColorScheme.light(
-                                        primary: AppColors.button2Color,
+                                        primary: AppColors.buttonColor,
                                       ),
                                     ),
                                     child: CalendarDatePicker(

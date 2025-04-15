@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 class AuthService {
   static const FlutterSecureStorage storage = FlutterSecureStorage();
 
-  Future<LoginResponseResult> login(SignInFormModel data) async {
+  Future<LoginResponse> login(SignInFormModel data) async {
     try {
       final res = await http.post(
         Uri.parse('$baseUrl/auth/login'),
@@ -20,7 +20,7 @@ class AuthService {
       );
 
       if (res.statusCode == 200) {
-        LoginResponseResult userResultLog = LoginResponseResult.fromJson(
+        LoginResponse userResultLog = LoginResponse.fromJson(
           jsonDecode(res.body),
         );
 
@@ -37,7 +37,7 @@ class AuthService {
     }
   }
 
-  Future<void> saveToken(LoginResponseResult userLog) async {
+  Future<void> saveToken(LoginResponse userLog) async {
     if (userLog.token != null && userLog.token!.isNotEmpty) {
       await storage.write(key: 'token', value: userLog.token);
     } else {
@@ -95,7 +95,7 @@ class AuthService {
     await storage.deleteAll();
   }
 
-  Future<RegisterResponseResult> register(SignUpFormModel data) async {
+  Future<RegisterResponse> register(SignUpFormModel data) async {
     try {
       final res = await http.post(
         Uri.parse('$baseUrl/auth/register'),
@@ -104,7 +104,7 @@ class AuthService {
       );
 
       if (res.statusCode == 200) {
-        return RegisterResponseResult.fromJson(jsonDecode(res.body));
+        return RegisterResponse.fromJson(jsonDecode(res.body));
       } else {
         throw Exception(jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan');
       }

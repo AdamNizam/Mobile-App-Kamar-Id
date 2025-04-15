@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
@@ -136,7 +137,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                               ),
                               const SizedBox(width: 3),
                               Text2(
-                                text2: widget.dataHotel.address!,
+                                text2: widget.dataHotel.address ??
+                                    'Address not available',
                               ),
                             ],
                           ),
@@ -269,91 +271,117 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       color: AppColors.beauBlue,
                     ),
                   ),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Text2(
-                          text2: 'Edit Data',
-                          color: AppColors.buttonColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: (context, state) {
+                      if (state is UserLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      if (state is UserFailed) {
+                        showCustomSnackbar(context, state.error);
+                      }
+
+                      if (state is UserSuccess) {
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text2(text2: 'Full Name'),
-                            Text1(text1: 'Adam Nizam'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text2(text2: 'Fist Name'),
-                            Text1(text1: 'Adam'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text2(text2: 'Last Name'),
-                            Text1(text1: 'Nizam'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text2(text2: 'Email'),
-                            Text1(text1: 'adam@example.com'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text2(text2: 'Phone Number'),
-                            Text1(text1: '+62 812-3456-7890'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text2(text2: 'Address'),
-                            Flexible(
-                              child:
-                                  Text1(text1: 'Jl. Merdeka No. 123, Jakarta'),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 6),
+                              child: Text2(
+                                text2: 'Edit Data',
+                                color: AppColors.buttonColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Full Name'),
+                                  Text1(text1: state.data.name),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Fist Name'),
+                                  Text1(text1: state.data.firstName),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Last Name'),
+                                  Text1(text1: state.data.lastName),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Email'),
+                                  Text1(text1: state.data.email),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Phone Number'),
+                                  Text1(text1: state.data.phone),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Address'),
+                                  Flexible(
+                                    child: Text1(
+                                      text1: state.data.address ?? '',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text2(text2: 'Post Code'),
+                                  Text1(text1: state.data.zipCode ?? ''),
+                                ],
+                              ),
                             ),
                           ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text2(text2: 'Postal Code'),
-                            Text1(text1: '12345'),
-                          ],
-                        ),
-                      ),
-                    ],
+                        );
+                      }
+
+                      return Container();
+                    },
                   ),
                 )
               ],
@@ -367,7 +395,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           vertical: 10,
         ),
         child: BlocProvider(
-          create: (context) => BookingBloc(), // Inisialisasi BookingBloc
+          create: (context) => BookingBloc(),
           child: BlocConsumer<BookingBloc, BookingState>(
               listener: (context, state) {
             if (state is BookingSuccess) {
@@ -389,29 +417,39 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               text: 'Book Now',
               onTap: () {
                 final cartModel = AddToCartModel(
-                  serviceId: widget.dataHotel.id.toString(),
+                  serviceId: '11',
                   serviceType: 'hotel',
                   startDate: formatDateToYMD(widget.chekIn),
                   endDate: formatDateToYMD(widget.chekOut),
-                  extraPrice: widget.dataHotel.extraPrice
-                      ?.map((extra) => ExtraPriceBooking(
-                            name: extra.name,
-                            nameEn: extra.nameEn,
-                            price: extra.price,
-                            type: "one_time",
-                            number: '0',
-                            enable: '1',
-                            priceHtml: '',
-                            priceType: extra.perPerson,
-                          ))
-                      .toList(),
+                  extraPrice: [
+                    ExtraPriceBooking(
+                      name: "Service VIP",
+                      nameEn: null,
+                      price: "200",
+                      type: "one_time",
+                      number: "0",
+                      enable: "1",
+                      priceHtml: "Rp200",
+                      priceType: null,
+                    ),
+                    ExtraPriceBooking(
+                      name: "Breakfasts",
+                      nameEn: null,
+                      price: "100",
+                      type: "one_time",
+                      number: "0",
+                      enable: "1",
+                      priceHtml: "Rp100",
+                      priceType: null,
+                    ),
+                  ],
                   adults: widget.adult.toString(),
                   children: widget.child.toString(),
                   rooms: [
-                    Room(
-                      id: widget.dataRoom.id.toString(),
-                      numberSelected: widget.dataRoom.numberSelected.toString(),
-                    ),
+                    Room(id: '41', numberSelected: '1'),
+                    Room(id: '42', numberSelected: '1'),
+                    Room(id: '43', numberSelected: '1'),
+                    Room(id: '44', numberSelected: '1'),
                   ],
                 );
                 context.read<BookingBloc>().add(AddToCartEvent(cartModel));

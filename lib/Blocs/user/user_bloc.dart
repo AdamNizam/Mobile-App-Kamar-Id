@@ -13,12 +13,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         try {
           emit(UserLoading());
 
-          final userProfile = await UserService().getUserProfile();
+          final data = await UserService().getUserProfile();
 
-          emit(UserSuccess(userProfile));
-        } catch (e) {
-          emit(const UserFailed('Terjadi Kesalahan'));
-          print('pesan kesalahan: $e');
+          emit(UserSuccess(data));
+        } catch (error) {
+          // print('pesan kesalahan: $error');
+          emit(const UserFailed('Data not found'));
         }
       }
     });

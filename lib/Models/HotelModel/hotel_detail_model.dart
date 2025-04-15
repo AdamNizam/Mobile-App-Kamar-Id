@@ -154,7 +154,7 @@ class ExtraPrice {
   final dynamic nameEn;
   final String price;
   final String type;
-  final String perPerson;
+  final dynamic perPerson;
 
   ExtraPrice({
     required this.name,

@@ -40,7 +40,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               showCustomSnackbar(context, state.error);
             }
             if (state is MidtransPaymentSucsess) {
-              if (selectedType == 'qris' || selectedType == 'gopay') {
+              if (selectedType == 'qris' ||
+                  selectedType == 'gopay' ||
+                  selectedType == 'dana') {
                 final qrUrl = state.data.actions
                     ?.firstWhere((qr) => qr.name == 'generate-qr-code')
                     .url;
@@ -193,21 +195,21 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
-                    final midtransData = MidtransModel(
-                      transactionDetails: TransactionDetails(
-                        orderId: widget.orderId,
-                        grossAmount: widget.totalPrice,
-                      ),
-                      paymentType: selectedType!,
-                      customerDetails: CustomerDetails(
-                        email: 'customer@email.com',
-                      ),
-                      bankTransfer: BankTransfer(
-                        bank: selectedBank ?? '',
-                      ),
-                    );
                     context.read<MidtransPaymentBloc>().add(
-                          PayNowPressed(midtransData),
+                          PayNowPressed(
+                            MidtransModel(
+                              transactionDetails: TransactionDetails(
+                                orderId: widget.orderId,
+                                grossAmount: widget.totalPrice,
+                              ),
+                              paymentType: selectedType!,
+                              customerDetails: CustomerDetails(
+                                email: 'customer@email.com',
+                              ),
+                              bankTransfer:
+                                  BankTransfer(bank: selectedBank ?? ''),
+                            ),
+                          ),
                         );
                   },
                 ),

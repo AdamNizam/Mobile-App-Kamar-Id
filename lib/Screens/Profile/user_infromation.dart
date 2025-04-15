@@ -43,18 +43,18 @@ class _UserInformationState extends State<UserInformation> {
     super.initState();
     final userState = context.read<UserBloc>().state;
     if (userState is UserSuccess) {
-      username = userState.userProfile.userName.toString();
-      email = userState.userProfile.email.toString();
+      username = userState.data.userName.toString();
+      email = userState.data.email.toString();
 
-      userNameController.text = userState.userProfile.userName.toString();
-      firstNameController.text = userState.userProfile.firstName.toString();
-      lastNameController.text = userState.userProfile.lastName.toString();
-      emailController.text = userState.userProfile.email.toString();
-      phoneController.text = userState.userProfile.phone.toString();
-      streetAddressController.text = userState.userProfile.address.toString();
-      cityController.text = userState.userProfile.city.toString();
-      stateController.text = userState.userProfile.state.toString();
-      zipCodeController.text = userState.userProfile.zipCode.toString();
+      userNameController.text = userState.data.userName.toString();
+      firstNameController.text = userState.data.firstName.toString();
+      lastNameController.text = userState.data.lastName.toString();
+      emailController.text = userState.data.email.toString();
+      phoneController.text = userState.data.phone.toString();
+      streetAddressController.text = userState.data.address.toString();
+      cityController.text = userState.data.city.toString();
+      stateController.text = userState.data.state.toString();
+      zipCodeController.text = userState.data.zipCode.toString();
     }
   }
 

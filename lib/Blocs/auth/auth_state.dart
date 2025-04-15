@@ -12,7 +12,7 @@ final class AuthInitial extends AuthState {}
 final class AuthLoading extends AuthState {}
 
 final class AuthSuccess extends AuthState {
-  final LoginResponseResult data;
+  final LoginResponse data;
 
   const AuthSuccess(this.data);
 
@@ -21,7 +21,7 @@ final class AuthSuccess extends AuthState {
 }
 
 final class AuthRegSuccess extends AuthState {
-  final RegisterResponseResult data;
+  final RegisterResponse data;
 
   const AuthRegSuccess(this.data);
   @override

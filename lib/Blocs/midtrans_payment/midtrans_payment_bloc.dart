@@ -14,9 +14,9 @@ class MidtransPaymentBloc
       try {
         emit(MidtransPaymentLoading());
 
-        final data = await PaymentMidtransService().payWithMidtrans(
-          event.midtransModel,
-        );
+        final data =
+            await PaymentMidtransService().payWithMidtrans(event.midtransModel);
+
         emit(MidtransPaymentSucsess(data));
       } catch (error) {
         // print('Error Payment Midtrans: $error');
