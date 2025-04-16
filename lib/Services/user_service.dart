@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  Future<DataProfile> getUserProfile() async {
+  Future<UserModel> getUserProfile() async {
     try {
       final token = await AuthService().getToken();
 
@@ -19,7 +19,7 @@ class UserService {
       );
       // print('Response status User Data Profiel: ${res.body}');
       if (res.statusCode == 200) {
-        return DataProfile.fromJson(jsonDecode(res.body)['data']);
+        return UserModel.fromJson(jsonDecode(res.body)['data']);
       } else {
         throw jsonDecode(res.body)['message'];
       }

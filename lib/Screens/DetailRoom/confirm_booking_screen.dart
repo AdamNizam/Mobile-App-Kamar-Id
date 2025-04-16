@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -47,6 +48,8 @@ class ConfirmBookingScreen extends StatefulWidget {
 class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
   @override
   Widget build(BuildContext context) {
+    final test = context.read<UserModel>();
+    print('usermodel ${test.toJson()}');
     return Scaffold(
       body: SafeArea(
         child: Padding(

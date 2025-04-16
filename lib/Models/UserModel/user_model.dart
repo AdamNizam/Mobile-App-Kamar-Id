@@ -1,6 +1,4 @@
-// Respone Login
-
-class DataProfile {
+class UserModel {
   final int id;
   final String name;
   final String firstName;
@@ -37,7 +35,7 @@ class DataProfile {
   final DateTime? otpExpiresAt;
   final String avatar;
 
-  DataProfile({
+  UserModel({
     required this.id,
     required this.name,
     required this.firstName,
@@ -75,7 +73,7 @@ class DataProfile {
     required this.avatar,
   });
 
-  factory DataProfile.fromJson(Map<String, dynamic> json) => DataProfile(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
         name: json["name"] ?? "",
         firstName: json["first_name"] ?? "",

@@ -21,7 +21,7 @@ final class UserFailed extends UserState {
 }
 
 final class UserSuccess extends UserState {
-  final DataProfile data;
+  final UserModel data;
 
   const UserSuccess(this.data);
 
