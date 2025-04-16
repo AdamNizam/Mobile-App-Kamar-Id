@@ -19,6 +19,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             final userLog = await AuthService().login(event.data);
 
+            print('userLog: $userLog');
+
             emit(AuthSuccess(userLog));
           } catch (error) {
             // print('errorrror login : $error');

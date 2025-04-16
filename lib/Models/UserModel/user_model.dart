@@ -16,7 +16,7 @@ class DataProfile {
   final String? city;
   final String? state;
   final String? country;
-  final String? zipCode;
+  final dynamic zipCode;
   final String? lastLoginAt;
   final String? avatarId;
   final String? bio;
@@ -33,7 +33,7 @@ class DataProfile {
   final String? stripeCustomerId;
   final String? totalBeforeFees;
   final String? userName;
-  final String? otpCode;
+  final dynamic otpCode;
   final DateTime? otpExpiresAt;
   final String avatar;
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
-
-import '../../../Widgets/detailstext1.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 class HomeWidgte extends StatelessWidget {
   const HomeWidgte({
@@ -28,23 +29,36 @@ class HomeWidgte extends StatelessWidget {
                   ),
                 );
               }),
-              Text1(
-                text1: state.data.userName != null
-                    ? 'Hi, ${state.data.userName}'
-                    : 'Hi, ${state.data.firstName}',
-                size: 16,
-                color: Colors.white,
+              Text(
+                state.data.userName != null
+                    ? 'Hi, ${state.data.lastName}'
+                    : 'Hi, you',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.white,
+                  letterSpacing: 1.2,
+                ),
               ),
               ClipOval(
-                child: Image.network(
-                  "https://randomuser.me/api/portraits/men/1.jpg",
-                  width: 40,
-                  height: 40,
+                child: Image.asset(
+                  'images/user_default_profile.png',
+                  width: 30,
+                  height: 30,
                   fit: BoxFit.cover,
                 ),
-              )
+                // child: Image.network(
+                //   "https://randomuser.me/api/portraits/men/1.jpg",
+                //   width: 40,
+                //   height: 40,
+                //   fit: BoxFit.cover,
+                // ),
+              ),
             ],
           );
+        }
+        if (state is UserFailed) {
+          showCustomSnackbar(context, state.error);
         }
         return Container();
       },

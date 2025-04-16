@@ -17,7 +17,7 @@ class UserService {
           'Content-Type': 'application/json',
         },
       );
-
+      // print('Response status User Data Profiel: ${res.body}');
       if (res.statusCode == 200) {
         return DataProfile.fromJson(jsonDecode(res.body)['data']);
       } else {

@@ -346,28 +346,33 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             serviceType: 'hotel',
                             startDate: formatDateToYMD(widget.checkIn),
                             endDate: formatDateToYMD(widget.checkOut),
-                            extraPrice: [
-                              ExtraPriceBooking(
-                                name: "Service VIP",
-                                nameEn: null,
-                                price: "200",
-                                type: "one_time",
-                                number: "0",
-                                enable: "1",
-                                priceHtml: "Rp200",
-                                priceType: null,
-                              ),
-                              ExtraPriceBooking(
-                                name: "Breakfasts",
-                                nameEn: null,
-                                price: "100",
-                                type: "one_time",
-                                number: "0",
-                                enable: "1",
-                                priceHtml: "Rp100",
-                                priceType: null,
-                              ),
-                            ],
+                            extraPrice: (widget.dataHotel.enableExtraPrice
+                                    is List
+                                ? (widget.dataHotel.enableExtraPrice as List)
+                                    .map((item) {
+                                    return ExtraPriceBooking(
+                                      name: item.name,
+                                      nameEn: item.nameEn,
+                                      price: item.price,
+                                      type: item.type,
+                                      number: "0",
+                                      enable: "1",
+                                      priceHtml: "Rp${item.price}",
+                                      priceType: null,
+                                    );
+                                  }).toList()
+                                : [
+                                    ExtraPriceBooking(
+                                      name: '',
+                                      nameEn: null,
+                                      price: '',
+                                      type: '',
+                                      number: '',
+                                      enable: '',
+                                      priceHtml: '',
+                                      priceType: null,
+                                    )
+                                  ]),
                             adults: widget.adult.toString(),
                             children: widget.child.toString(),
                             rooms: [
@@ -376,7 +381,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 numberSelected:
                                     (widget.dataRoom.numberSelected == null ||
                                             widget.dataRoom.numberSelected == 0)
-                                        ? "1"
+                                        ? ''
                                         : widget.dataRoom.numberSelected
                                             .toString(),
                               ),

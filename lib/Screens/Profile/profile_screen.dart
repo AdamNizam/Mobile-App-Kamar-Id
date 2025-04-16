@@ -45,13 +45,18 @@ class ProfileScreen extends StatelessWidget {
                 const Center(
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundImage: NetworkImage(
-                      "https://randomuser.me/api/portraits/men/1.jpg",
+                    backgroundImage: AssetImage(
+                      'images/user_default_profile.png',
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                BlocBuilder<UserBloc, UserState>(
+                BlocConsumer<UserBloc, UserState>(
+                  listener: (context, state) {
+                    if (state is UserFailed) {
+                      showCustomSnackbar(context, state.error);
+                    }
+                  },
                   builder: (context, state) {
                     if (state is UserLoading) {
                       return Center(
@@ -60,9 +65,6 @@ class ProfileScreen extends StatelessWidget {
                           size: 30,
                         ),
                       );
-                    }
-                    if (state is UserFailed) {
-                      showCustomSnackbar(context, state.error);
                     }
                     if (state is UserSuccess) {
                       return Column(

@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
@@ -116,7 +117,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 2),
                             child: Text(
-                              widget.dataHotel.title!,
+                              widget.dataHotel.location!.name,
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                               ),
@@ -205,7 +206,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text2(text2: 'Count of Room'),
-                            Text1(text1: '${widget.room}'),
+                            Text1(text1: '${widget.room} room'),
                           ],
                         ),
                       ),
@@ -215,7 +216,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text2(text2: 'Guests'),
-                            Text1(text1: '${widget.adult + widget.child}'),
+                            Text1(
+                                text1: '${widget.adult + widget.child} people'),
                           ],
                         ),
                       ),
@@ -227,18 +229,6 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             const Text2(text2: 'Price per Night'),
                             Text1(
                                 text1: 'Rp${formatToRp(widget.pricePerNight)}'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text2(text2: 'Servie Fee'),
-                            Text(
-                              'Rp${widget.dataHotel.serviceFee?.isNotEmpty == true ? widget.dataHotel.serviceFee!.first.price : '0'}',
-                            )
                           ],
                         ),
                       ),
@@ -259,134 +249,6 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Container(
-                //   width: double.infinity,
-                //   padding:
-                //       const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                //   decoration: BoxDecoration(
-                //     color: AppColors.white,
-                //     borderRadius: BorderRadius.circular(8),
-                //     border: Border.all(
-                //       width: 2,
-                //       color: AppColors.beauBlue,
-                //     ),
-                //   ),
-                //   child: BlocBuilder<UserBloc, UserState>(
-                //     builder: (context, state) {
-                //       if (state is UserLoading) {
-                //         return Center(
-                //           child: LoadingAnimationWidget.staggeredDotsWave(
-                //             color: AppColors.tabColor,
-                //             size: 30,
-                //           ),
-                //         );
-                //       }
-                //       if (state is UserFailed) {
-                //         showCustomSnackbar(context, state.error);
-                //       }
-
-                //       if (state is UserSuccess) {
-                //         return Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             const Padding(
-                //               padding: EdgeInsets.symmetric(vertical: 6),
-                //               child: Text2(
-                //                 text2: 'Edit Data',
-                //                 color: AppColors.buttonColor,
-                //                 fontWeight: FontWeight.bold,
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Full Name'),
-                //                   Text1(text1: state.data.name),
-                //                 ],
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Fist Name'),
-                //                   Text1(text1: state.data.firstName),
-                //                 ],
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Last Name'),
-                //                   Text1(text1: state.data.lastName),
-                //                 ],
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Email'),
-                //                   Text1(text1: state.data.email),
-                //                 ],
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Phone Number'),
-                //                   Text1(text1: state.data.phone),
-                //                 ],
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Address'),
-                //                   Flexible(
-                //                     child: Text1(
-                //                       text1: state.data.address ?? '-',
-                //                     ),
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 6),
-                //               child: Row(
-                //                 mainAxisAlignment:
-                //                     MainAxisAlignment.spaceBetween,
-                //                 children: [
-                //                   const Text2(text2: 'Post Code'),
-                //                   Text1(text1: state.data.zipCode ?? '-'),
-                //                 ],
-                //               ),
-                //             ),
-                //           ],
-                //         );
-                //       }
-                //       return const Center(
-                //         child: Text1(text1: "No data available"),
-                //       );
-                //     },
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -405,16 +267,15 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 showCustomSnackbar(context, state.error);
               }
               if (state is CheckoutSuccess) {
-                showCustomSnackbar(context, 'Booking Success');
-                //  Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (_) => MidtransPaymentPage(
-                //       totalPrice: int.parse(widget.totalAmount),
-                //       orderId: 'Harus disiapkan dari server',
-                //     ),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MidtransPaymentPage(
+                      totalPrice: int.parse(widget.totalAmount),
+                      orderId: widget.orderId,
+                    ),
+                  ),
+                );
               }
               if (state is CheckoutLoading) {
                 Center(
@@ -426,31 +287,43 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               }
             },
             builder: (context, state) {
-              return CustomButton(
-                text: 'Book Now',
-                onTap: () {
-                  final dataChekout = CheckoutModel(
-                    code: widget.orderId,
-                    firstName: 'andre',
-                    lastName: 'lucmana',
-                    email: 'andresetya1124@gmail.com',
-                    phone: '293829798234',
-                    addressLine1: 'dasd',
-                    addressLine2: 'asdas',
-                    city: 'Praya',
-                    state: 'Indonesia',
-                    zipCode: '22323',
-                    country: 'ID',
-                    customerNotes: 'sadasdadasdasdas',
-                    paymentGateway: 'midtrans',
-                    termConditions: 'on',
-                    couponCode: null,
-                  );
-
-                  context.read<CheckoutBloc>().add(
-                        CheckoutSubmitEvent(dataChekout),
+              return Column(
+                children: [
+                  const LinearProgressIndicator(
+                    value: 0.7,
+                    backgroundColor: AppColors.white,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColors.amberColor,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  CustomButton(
+                    text: 'Book Now',
+                    onTap: () {
+                      final dataChekout = CheckoutModel(
+                        code: widget.orderId,
+                        firstName: 'andre',
+                        lastName: 'lucmana',
+                        email: 'andresetya1124@gmail.com',
+                        phone: '293829798234',
+                        addressLine1: 'dasd',
+                        addressLine2: 'asdas',
+                        city: 'Praya',
+                        state: 'Indonesia',
+                        zipCode: '22323',
+                        country: 'ID',
+                        customerNotes: 'sadasdadasdasdas',
+                        paymentGateway: 'midtrans',
+                        termConditions: 'on',
+                        couponCode: null,
                       );
-                },
+
+                      context.read<CheckoutBloc>().add(
+                            CheckoutSubmitEvent(dataChekout),
+                          );
+                    },
+                  ),
+                ],
               );
             },
           ),
