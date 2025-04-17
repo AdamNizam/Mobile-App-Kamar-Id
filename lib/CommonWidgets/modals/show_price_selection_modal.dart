@@ -6,7 +6,7 @@ void showPriceRoomModal({
   required BuildContext context,
   required TextEditingController controller,
   required List<Map<String, String>> priceRoom,
-  required Function(String) onSelectPrice,
+  required Function(String, String) onSelectPrice,
 }) {
   int? selectedIndex;
 
@@ -57,7 +57,10 @@ void showPriceRoomModal({
                           });
                           controller.text =
                               "${priceRoom[index]['room']} - Rp${formatToRp(extractNumber(priceRoom[index]['price'].toString()))}";
-                          onSelectPrice(priceRoom[index]['price']!);
+                          onSelectPrice(
+                            priceRoom[index]['price']!,
+                            priceRoom[index]['number']!,
+                          );
                         },
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 8),

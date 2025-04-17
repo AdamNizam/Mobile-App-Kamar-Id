@@ -21,63 +21,52 @@ class TaskCardService extends StatefulWidget {
 }
 
 class TaskCardServiceState extends State<TaskCardService> {
-  bool _isSelected = false;
-
-  void _onCardTap() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _onCardTap,
-      child: Card(
-        color: widget.backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide(
-            color: _isSelected ? AppColors.buttonColor : AppColors.strokColor,
-            width: 2,
-          ),
+    return Card(
+      color: widget.backgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: const BorderSide(
+          color: AppColors.beauBlue,
+          width: 2,
         ),
-        elevation: 0,
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
+      ),
+      elevation: 0,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                   ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      _buildStatusIndicator(widget.statusColor),
-                      _buildStatusIndicator(Colors.grey.shade300),
-                      _buildStatusIndicator(Colors.grey.shade300),
-                    ],
-                  ),
-                ],
-              ),
-              Text(
-                widget.clientName,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
                 ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    _buildStatusIndicator(widget.statusColor),
+                    _buildStatusIndicator(Colors.grey.shade300),
+                    _buildStatusIndicator(Colors.grey.shade300),
+                  ],
+                ),
+              ],
+            ),
+            Text(
+              widget.clientName,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

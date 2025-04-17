@@ -44,11 +44,13 @@ class RoomDetailsScreen extends StatefulWidget {
 class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   final PageController _pageController = PageController();
   final TextEditingController _controller = TextEditingController();
-  String _selectedPrice = "";
+  String selectedPrice = '';
+  String numberSelected = '';
 
-  void _updateSelectedPrice(String price) {
+  void _updateSelectedPrice(String price, String number) {
     setState(() {
-      _selectedPrice = price;
+      selectedPrice = price;
+      numberSelected = number;
     });
   }
 
@@ -59,6 +61,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     List<Map<String, String>> listRoomAndPrice = List.generate(number, (index) {
       return {
         'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
+        'number': '${index + 1}',
         'price': '${price * (index + 1)}',
         'nights': countNights(widget.checkIn, widget.checkOut),
       };
@@ -271,8 +274,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     ),
                   ),
                   Text(
-                    _selectedPrice.isNotEmpty
-                        ? 'Rp${formatToRp(extractNumber(_selectedPrice))}'
+                    selectedPrice.isNotEmpty
+                        ? 'Rp${formatToRp(extractNumber(selectedPrice))}'
                         : 'Rp0',
                     style: const TextStyle(
                       fontSize: 18,
@@ -298,7 +301,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             adult: widget.adult,
                             child: widget.child,
                             pricePerNight: widget.priceRoom,
-                            totalAmount: _selectedPrice,
+                            totalAmount: selectedPrice,
                             orderId: state.data.bookingCode,
                           ),
                         ),
@@ -319,7 +322,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                   builder: (context, state) {
                     return ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _selectedPrice.isEmpty
+                        backgroundColor: selectedPrice.isEmpty
                             ? AppColors.beauBlue
                             : AppColors.buttonColor,
                         padding: const EdgeInsets.symmetric(
@@ -337,7 +340,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         ),
                       ),
                       onPressed: () {
-                        if (_selectedPrice.isEmpty) {
+                        if (selectedPrice.isEmpty) {
                           showCustomSnackbar(
                               context, 'Please select a room first!');
                         } else {
@@ -346,33 +349,19 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             serviceType: 'hotel',
                             startDate: formatDateToYMD(widget.checkIn),
                             endDate: formatDateToYMD(widget.checkOut),
-                            extraPrice: (widget.dataHotel.enableExtraPrice
-                                    is List
-                                ? (widget.dataHotel.enableExtraPrice as List)
-                                    .map((item) {
-                                    return ExtraPriceBooking(
-                                      name: item.name,
-                                      nameEn: item.nameEn,
-                                      price: item.price,
-                                      type: item.type,
-                                      number: "0",
-                                      enable: "1",
-                                      priceHtml: "Rp${item.price}",
-                                      priceType: null,
-                                    );
-                                  }).toList()
-                                : [
-                                    ExtraPriceBooking(
-                                      name: '',
-                                      nameEn: null,
-                                      price: '',
-                                      type: '',
-                                      number: '',
-                                      enable: '',
-                                      priceHtml: '',
-                                      priceType: null,
-                                    )
-                                  ]),
+                            extraPrice:
+                                (widget.dataHotel.extraPrice as List).map((ep) {
+                              return ExtraPriceBooking(
+                                name: ep.name,
+                                nameEn: ep.nameEn,
+                                price: ep.price,
+                                type: ep.type,
+                                number: "0",
+                                enable: "1",
+                                priceHtml: "Rp${ep.price}",
+                                priceType: null,
+                              );
+                            }).toList(),
                             adults: widget.adult.toString(),
                             children: widget.child.toString(),
                             rooms: [
@@ -381,12 +370,19 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 numberSelected:
                                     (widget.dataRoom.numberSelected == null ||
                                             widget.dataRoom.numberSelected == 0)
-                                        ? ''
+                                        ? '1'
                                         : widget.dataRoom.numberSelected
                                             .toString(),
                               ),
                             ],
                           );
+                          // if (widget.dataHotel.extraPrice != null) {
+                          //   for (var item in widget.dataHotel.extraPrice!) {
+                          //     print(
+                          //         'Extra price: ${item.name}, Price: ${item.price}');
+                          //   }
+                          // }
+                          // print('data car send : ${dataCart.toJson()}');
                           context.read<BookingBloc>().add(
                                 AddToCartEvent(dataCart),
                               );

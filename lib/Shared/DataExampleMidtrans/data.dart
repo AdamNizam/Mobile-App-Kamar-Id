@@ -48,3 +48,18 @@ final List<Map<String, String>> ewalletData = [
     'logo': 'images/Logo-DANA.png',
   },
 ];
+
+final List<Map<String, dynamic>> csStoreData = [
+  {
+    'code': 'alfamart',
+    'name': 'Alfamart',
+    'logo': 'images/Logo-Alfamart.png',
+    'size': 20,
+  },
+  {
+    'code': 'indomaret',
+    'name': 'Indomaret',
+    'logo': 'images/Logo-Indomaret.png',
+    'size': 50,
+  },
+];

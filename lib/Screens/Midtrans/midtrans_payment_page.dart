@@ -15,10 +15,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class MidtransPaymentPage extends StatefulWidget {
   final int totalPrice;
   final String orderId;
+  final String emailUser;
   const MidtransPaymentPage({
     super.key,
     required this.totalPrice,
     required this.orderId,
+    required this.emailUser,
   });
 
   @override
@@ -58,10 +60,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 }
               }
               if (selectedType == 'bank_transfer') {
-                final va = state.data.vaNumbers?.first.vaNumber;
-                final bank = state.data.vaNumbers?.first.bank;
-
-                if (va != null && bank != null) {
+                if (state.data.vaNumbers?.first.vaNumber != null &&
+                    state.data.vaNumbers?.first.bank != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.push(
                       context,
@@ -124,6 +124,16 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     text1: "CS Store",
                     size: 16,
                     fontWeight: FontWeight.bold,
+                  ),
+                  Column(
+                    children: csStoreData.map((store) {
+                      return _buildCsStore(
+                        store['code']!,
+                        store['name']!,
+                        store['logo']!,
+                        store['size'].toDouble(),
+                      );
+                    }).toList(),
                   ),
                   const SizedBox(height: 10),
                   const Text1(
@@ -204,7 +214,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                               ),
                               paymentType: selectedType!,
                               customerDetails: CustomerDetails(
-                                email: 'customer@email.com',
+                                email: widget.emailUser,
                               ),
                               bankTransfer:
                                   BankTransfer(bank: selectedBank ?? ''),
@@ -272,6 +282,36 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         title: Row(
           children: [
             Image.asset(imageUrl, height: 24),
+            const SizedBox(width: 10),
+            Text1(text1: '- $name', size: 16, color: AppColors.cadetGray),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCsStore(
+    String type,
+    String name,
+    String imageUrl,
+    double size,
+  ) {
+    return Card(
+      color: AppColors.white,
+      elevation: 0,
+      child: RadioListTile<String>(
+        value: type,
+        activeColor: AppColors.buttonColor,
+        groupValue: selectedType,
+        onChanged: (value) {
+          setState(() {
+            selectedType = value;
+            selectedBank = null;
+          });
+        },
+        title: Row(
+          children: [
+            Image.asset(imageUrl, height: size),
             const SizedBox(width: 10),
             Text1(text1: '- $name', size: 16, color: AppColors.cadetGray),
           ],
