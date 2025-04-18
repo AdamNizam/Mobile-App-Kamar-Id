@@ -12,6 +12,8 @@ class MidtransResponseResult {
   final String? expiryTime;
   final String? qrString;
   final String? acquirer;
+  final String? paymentCode;
+  final String? store;
   final List<VaNumber>? vaNumbers;
   final List<ActionUrl>? actions;
 
@@ -29,6 +31,8 @@ class MidtransResponseResult {
     this.expiryTime,
     this.qrString,
     this.acquirer,
+    this.paymentCode,
+    this.store,
     this.vaNumbers,
     this.actions,
   });
@@ -48,6 +52,8 @@ class MidtransResponseResult {
       expiryTime: json['expiry_time'],
       qrString: json['qr_string'],
       acquirer: json['acquirer'],
+      paymentCode: json['payment_code'],
+      store: json['store'],
       vaNumbers: json['va_numbers'] != null
           ? (json['va_numbers'] as List)
               .map((e) => VaNumber.fromJson(e))

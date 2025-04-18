@@ -164,7 +164,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           builder: (_) => MidtransPaymentPage(
                             totalPrice: int.parse(widget.totalAmount),
                             orderId: widget.orderId,
-                            emailUser: userState.data.email,
+                            dataUser: userState.data,
                           ),
                         ),
                       );

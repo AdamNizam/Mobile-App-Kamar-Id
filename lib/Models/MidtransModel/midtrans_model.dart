@@ -2,13 +2,17 @@ class MidtransModel {
   final TransactionDetails transactionDetails;
   final String paymentType;
   final CustomerDetails customerDetails;
-  final BankTransfer bankTransfer;
+  final CStore? cstore;
+  final BankTransfer? bankTransfer;
+  final List<ItemDetails>? itemDetails;
 
   MidtransModel({
     required this.transactionDetails,
     required this.paymentType,
     required this.customerDetails,
-    required this.bankTransfer,
+    this.cstore,
+    this.bankTransfer,
+    this.itemDetails,
   });
 
   Map<String, dynamic> toJson() {
@@ -16,8 +20,18 @@ class MidtransModel {
       "transaction_details": transactionDetails.toJson(),
       "payment_type": paymentType,
       "customer_details": customerDetails.toJson(),
-      "bank_transfer": bankTransfer.toJson(),
     };
+
+    if (paymentType == "bank_transfer" && bankTransfer != null) {
+      json["bank_transfer"] = bankTransfer!.toJson();
+    } else if (paymentType == "cstore" && cstore != null) {
+      json["cstore"] = cstore!.toJson();
+    }
+
+    if (itemDetails != null) {
+      json["item_details"] = itemDetails!.map((e) => e.toJson()).toList();
+    }
+
     return json;
   }
 }
@@ -38,14 +52,23 @@ class TransactionDetails {
 }
 
 class CustomerDetails {
+  final String? firstName;
+  final String? lastName;
   final String email;
+  final String? phone;
 
   CustomerDetails({
+    this.firstName,
+    this.lastName,
     required this.email,
+    this.phone,
   });
 
   Map<String, dynamic> toJson() => {
+        "first_name": firstName,
+        "last_name": lastName,
         "email": email,
+        "phone": phone,
       };
 }
 
@@ -56,5 +79,44 @@ class BankTransfer {
 
   Map<String, dynamic> toJson() => {
         "bank": bank,
+      };
+}
+
+class CStore {
+  final String store;
+  final String? message;
+
+  CStore({
+    required this.store,
+    this.message,
+  });
+
+  Map<String, dynamic> toJson() {
+    final json = {
+      "store": store,
+      "message": message,
+    };
+    return json;
+  }
+}
+
+class ItemDetails {
+  final String id;
+  final int price;
+  final int quantity;
+  final String name;
+
+  ItemDetails({
+    required this.id,
+    required this.price,
+    required this.quantity,
+    required this.name,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "price": price,
+        "quantity": quantity,
+        "name": name,
       };
 }

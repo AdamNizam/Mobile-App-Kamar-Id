@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
+import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataExampleMidtrans/data.dart';
@@ -17,12 +18,12 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class MidtransPaymentPage extends StatefulWidget {
   final int totalPrice;
   final String orderId;
-  final String emailUser;
+  final UserModel dataUser;
   const MidtransPaymentPage({
     super.key,
     required this.totalPrice,
     required this.orderId,
-    required this.emailUser,
+    required this.dataUser,
   });
 
   @override
@@ -32,6 +33,7 @@ class MidtransPaymentPage extends StatefulWidget {
 class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
   String? selectedType;
   String? selectedBank;
+  String? selectedStore;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +47,13 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             }
             if (state is MidtransPaymentSucsess) {
               if (selectedType == 'qris' ||
-                  selectedType == 'gopay' ||
                   selectedType == 'dana' ||
-                  selectedType == 'shopeepay') {
-                final qrUrl = state.data.actions
-                    ?.firstWhere((qr) => qr.name == 'generate-qr-code')
-                    .url;
+                  selectedType == 'gopay') {
+                final qrAction = state.data.actions?.firstWhere(
+                  (qr) => qr.name == 'generate-qr-code',
+                );
+                final qrUrl = qrAction?.url;
+
                 if (qrUrl != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.push(
@@ -61,10 +64,19 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     );
                   });
                 }
-              }
-              if (selectedType == 'bank_transfer') {
-                if (state.data.vaNumbers?.first.vaNumber != null &&
-                    state.data.vaNumbers?.first.bank != null) {
+              } else if (selectedType == 'shopeepay') {
+                final deeplinkAction = state.data.actions?.firstWhere(
+                  (action) => action.name == 'deeplink-redirect',
+                );
+                final deeplink = deeplinkAction?.url;
+
+                if (deeplink != null) {
+                  // launchUrl(Uri.parse(deeplink));
+                  showCustomSnackbar(context, 'sucess $deeplink');
+                }
+              } else if (selectedType == 'bank_transfer') {
+                final va = state.data.vaNumbers?.first;
+                if (va?.vaNumber != null && va?.bank != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.push(
                       context,
@@ -75,6 +87,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     );
                   });
                 }
+              } else if (selectedType == 'Alfamart' ||
+                  selectedType == 'Indomaret') {
+                showCustomSnackbar(
+                    context, 'create type of ${state.data.paymentType}');
               }
             }
           },
@@ -208,6 +224,20 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
+                    // final dataPayment = MidtransModel(
+                    //   transactionDetails: TransactionDetails(
+                    //     orderId: widget.orderId,
+                    //     grossAmount: widget.totalPrice,
+                    //   ),
+                    //   paymentType: selectedType!,
+                    //   customerDetails: CustomerDetails(
+                    //     email: widget.dataUser.email,
+                    //     firstName: widget.dataUser.firstName,
+                    //     lastName: widget.dataUser.lastName,
+                    //     phone: widget.dataUser.phone,
+                    //   ),
+                    //   bankTransfer: BankTransfer(bank: selectedBank ?? ''),
+                    // );
                     final dataPayment = MidtransModel(
                       transactionDetails: TransactionDetails(
                         orderId: widget.orderId,
@@ -215,9 +245,22 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                       ),
                       paymentType: selectedType!,
                       customerDetails: CustomerDetails(
-                        email: widget.emailUser,
+                        email: widget.dataUser.email,
+                        firstName: widget.dataUser.firstName,
+                        lastName: widget.dataUser.lastName,
+                        phone: widget.dataUser.phone,
                       ),
-                      bankTransfer: BankTransfer(bank: selectedBank ?? ''),
+                      bankTransfer: selectedType! == 'bank_transfer'
+                          ? BankTransfer(bank: selectedBank ?? '')
+                          : null,
+                      cstore: selectedType == 'cstore'
+                          ? CStore(
+                              store: selectedStore!,
+                            )
+                          : null,
+                      // itemDetails: selectedType == 'cstore'
+                      //     ? ItemDetails(id: id, price: price, quantity: quantity, name: name)
+                      //     : null,
                     );
 
                     print('DATA PAYMENT :${jsonEncode(dataPayment.toJson())}');
@@ -304,12 +347,13 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
       color: AppColors.white,
       elevation: 0,
       child: RadioListTile<String>(
-        value: type,
+        value: name,
         activeColor: AppColors.buttonColor,
         groupValue: selectedType,
         onChanged: (value) {
           setState(() {
             selectedType = value;
+            selectedStore = name;
             selectedBank = null;
           });
         },
@@ -317,7 +361,11 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           children: [
             Image.asset(imageUrl, height: size),
             const SizedBox(width: 10),
-            Text1(text1: '- $name', size: 16, color: AppColors.cadetGray),
+            Text1(
+              text1: '- $name',
+              size: 16,
+              color: AppColors.cadetGray,
+            ),
           ],
         ),
       ),

@@ -18,13 +18,13 @@ final List<Map<String, dynamic>> bankData = [
     'size': 30,
   },
   {
-    'code': 'mandiri',
+    'code': 'echannel',
     'name': 'Mandiri',
     'logo': 'images/Logo-Mandiri.png',
     'size': 24,
   },
   {
-    'code': 'cimbniaga',
+    'code': 'cimb',
     'name': 'CIMB Niaga',
     'logo': 'images/Logo-CIMB-Niaga.png',
     'size': 15,
@@ -51,13 +51,13 @@ final List<Map<String, String>> ewalletData = [
 
 final List<Map<String, dynamic>> csStoreData = [
   {
-    'code': 'alfamart',
+    'code': 'cstore',
     'name': 'Alfamart',
     'logo': 'images/Logo-Alfamart.png',
     'size': 20,
   },
   {
-    'code': 'indomaret',
+    'code': 'cstore',
     'name': 'Indomaret',
     'logo': 'images/Logo-Indomaret.png',
     'size': 50,
