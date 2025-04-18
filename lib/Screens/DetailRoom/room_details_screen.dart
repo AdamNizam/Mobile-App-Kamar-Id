@@ -156,7 +156,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            ' ${widget.dataRoom.id} -- ${widget.dataRoom.numberSelected} -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
+                            ' ${widget.dataRoom.id} -- $numberSelected -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
                             style: GoogleFonts.poppins(fontSize: 14),
                           ),
                           const SizedBox(height: 16),
@@ -367,22 +367,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             rooms: [
                               Room(
                                 id: widget.dataRoom.id.toString(),
-                                numberSelected:
-                                    (widget.dataRoom.numberSelected == null ||
-                                            widget.dataRoom.numberSelected == 0)
-                                        ? '1'
-                                        : widget.dataRoom.numberSelected
-                                            .toString(),
+                                numberSelected: numberSelected,
                               ),
                             ],
                           );
-                          // if (widget.dataHotel.extraPrice != null) {
-                          //   for (var item in widget.dataHotel.extraPrice!) {
-                          //     print(
-                          //         'Extra price: ${item.name}, Price: ${item.price}');
-                          //   }
-                          // }
-                          // print('data car send : ${dataCart.toJson()}');
                           context.read<BookingBloc>().add(
                                 AddToCartEvent(dataCart),
                               );
