@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
@@ -44,7 +46,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             if (state is MidtransPaymentSucsess) {
               if (selectedType == 'qris' ||
                   selectedType == 'gopay' ||
-                  selectedType == 'dana') {
+                  selectedType == 'dana' ||
+                  selectedType == 'shopeepay') {
                 final qrUrl = state.data.actions
                     ?.firstWhere((qr) => qr.name == 'generate-qr-code')
                     .url;
@@ -205,21 +208,22 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
+                    final dataPayment = MidtransModel(
+                      transactionDetails: TransactionDetails(
+                        orderId: widget.orderId,
+                        grossAmount: widget.totalPrice,
+                      ),
+                      paymentType: selectedType!,
+                      customerDetails: CustomerDetails(
+                        email: widget.emailUser,
+                      ),
+                      bankTransfer: BankTransfer(bank: selectedBank ?? ''),
+                    );
+
+                    print('DATA PAYMENT :${jsonEncode(dataPayment.toJson())}');
+
                     context.read<MidtransPaymentBloc>().add(
-                          PayWithMidtrans(
-                            MidtransModel(
-                              transactionDetails: TransactionDetails(
-                                orderId: widget.orderId,
-                                grossAmount: widget.totalPrice,
-                              ),
-                              paymentType: selectedType!,
-                              customerDetails: CustomerDetails(
-                                email: widget.emailUser,
-                              ),
-                              bankTransfer:
-                                  BankTransfer(bank: selectedBank ?? ''),
-                            ),
-                          ),
+                          PayWithMidtrans(dataPayment),
                         );
                   },
                 ),

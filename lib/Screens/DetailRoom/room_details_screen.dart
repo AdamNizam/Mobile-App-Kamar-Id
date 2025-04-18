@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -371,6 +373,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                               ),
                             ],
                           );
+                          print('dataCart: ${jsonEncode(dataCart)}');
+
                           context
                               .read<BookingBloc>()
                               .add(AddToCartEvent(dataCart));

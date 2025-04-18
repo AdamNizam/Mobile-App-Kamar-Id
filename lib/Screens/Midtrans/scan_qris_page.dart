@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CommonWidgets/status_payment.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -96,7 +95,6 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                 ),
               ),
               const SizedBox(height: 10),
-              StatusPayment(status: widget.data.transactionStatus),
               const SizedBox(height: 15),
               Center(
                 child: Container(
