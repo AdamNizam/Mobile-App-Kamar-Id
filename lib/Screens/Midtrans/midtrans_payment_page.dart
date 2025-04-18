@@ -7,6 +7,7 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
 import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/store_code_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataExampleMidtrans/data.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -46,24 +47,15 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               showCustomSnackbar(context, state.error);
             }
             if (state is MidtransPaymentSucsess) {
-              if (selectedType == 'qris' ||
-                  selectedType == 'dana' ||
-                  selectedType == 'gopay') {
-                final qrAction = state.data.actions?.firstWhere(
-                  (qr) => qr.name == 'generate-qr-code',
-                );
-                final qrUrl = qrAction?.url;
-
-                if (qrUrl != null) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScanQrisPage(data: state.data),
-                      ),
-                    );
-                  });
-                }
+              if (['qris', 'dana', 'gopay'].contains(selectedType)) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScanQrisPage(data: state.data),
+                    ),
+                  );
+                });
               } else if (selectedType == 'shopeepay') {
                 final deeplinkAction = state.data.actions?.firstWhere(
                   (action) => action.name == 'deeplink-redirect',
@@ -89,8 +81,14 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 }
               } else if (selectedType == 'Alfamart' ||
                   selectedType == 'Indomaret') {
-                showCustomSnackbar(
-                    context, 'create type of ${state.data.paymentType}');
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StoreCodePage(data: state.data),
+                    ),
+                  );
+                });
               }
             }
           },
@@ -224,26 +222,13 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
-                    // final dataPayment = MidtransModel(
-                    //   transactionDetails: TransactionDetails(
-                    //     orderId: widget.orderId,
-                    //     grossAmount: widget.totalPrice,
-                    //   ),
-                    //   paymentType: selectedType!,
-                    //   customerDetails: CustomerDetails(
-                    //     email: widget.dataUser.email,
-                    //     firstName: widget.dataUser.firstName,
-                    //     lastName: widget.dataUser.lastName,
-                    //     phone: widget.dataUser.phone,
-                    //   ),
-                    //   bankTransfer: BankTransfer(bank: selectedBank ?? ''),
-                    // );
                     final dataPayment = MidtransModel(
                       transactionDetails: TransactionDetails(
                         orderId: widget.orderId,
                         grossAmount: widget.totalPrice,
                       ),
-                      paymentType: selectedType!,
+                      paymentType:
+                          selectedStore == 'cstore' ? 'cstore' : selectedType!,
                       customerDetails: CustomerDetails(
                         email: widget.dataUser.email,
                         firstName: widget.dataUser.firstName,
@@ -253,9 +238,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                       bankTransfer: selectedType! == 'bank_transfer'
                           ? BankTransfer(bank: selectedBank ?? '')
                           : null,
-                      cstore: selectedType == 'cstore'
+                      cstore: selectedStore == 'cstore'
                           ? CStore(
-                              store: selectedStore!,
+                              store: selectedType!,
                             )
                           : null,
                       // itemDetails: selectedType == 'cstore'
@@ -290,6 +275,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           setState(() {
             selectedType = 'bank_transfer';
             selectedBank = value;
+            selectedStore = null;
           });
         },
         title: Row(
@@ -324,6 +310,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
           setState(() {
             selectedType = value;
             selectedBank = null;
+            selectedStore = null;
           });
         },
         title: Row(
@@ -353,7 +340,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
         onChanged: (value) {
           setState(() {
             selectedType = value;
-            selectedStore = name;
+            selectedStore = type;
             selectedBank = null;
           });
         },

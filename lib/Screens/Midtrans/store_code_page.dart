@@ -8,7 +8,6 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class StoreCodePage extends StatefulWidget {
   final MidtransResponseResult data;
@@ -99,83 +98,98 @@ class _VirtualNumberPageState extends State<StoreCodePage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Back Button
               Row(
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundColor: AppColors.white,
-                    child: Center(
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: AppColors.tabColor,
-                          size: 20,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back,
+                          color: AppColors.tabColor, size: 20),
+                      onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
+
+              // Title & Logos
               Center(
                 child: Column(
                   children: [
-                    const Text1(
-                      text1: 'Virtual Account',
-                      size: 18,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      'Bayar di Alfamart / Indomaret',
+                      style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Text1(
-                      text1: 'Expired in: (${formatDuration(_remainingTime)})',
-                      size: 14,
-                      color: AppColors.buttonColor,
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('images/Logo-Alfamart.png', height: 32),
+                        const SizedBox(width: 12),
+                        Image.asset('images/Logo-Indomaret.png', height: 32),
+                      ],
                     ),
+                    const SizedBox(height: 12),
+                    StatusPayment(status: widget.data.transactionStatus),
                     const SizedBox(height: 10),
-                    StatusPayment(status: widget.data.transactionStatus)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        'Berlaku hingga: ${formatDuration(_remainingTime)}',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: AppColors.redAwesome,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 24),
+
+              // Instruction
               Text(
-                'Please copy this number, and paste it into your payment BANK.',
+                'Tunjukkan kode pembayaran ini ke kasir Alfamart / Indomaret:',
                 style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: AppColors.cadetGray,
-                ),
+                    fontSize: 14, color: AppColors.cadetGray),
               ),
               const SizedBox(height: 10),
+
+              // Payment Code Box
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.white.withOpacity(0.7),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    width: 2,
-                    color: isCopied
-                        ? AppColors.beauBlue
-                        : Colors.grey.withOpacity(0.15),
-                  ),
                   boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.15),
-                      spreadRadius: 2,
-                      blurRadius: 10,
+                    const BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 18.0,
-                  horizontal: 16.0,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                 child: Row(
                   children: [
                     Expanded(
                       child: SelectableText(
-                        widget.data.paymentCode!,
+                        widget.data.paymentCode ?? '',
                         style: GoogleFonts.poppins(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
                         ),
@@ -201,6 +215,39 @@ class _VirtualNumberPageState extends State<StoreCodePage>
                     ),
                   ],
                 ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Langkah-Langkah
+              Text(
+                'Cara Pembayaran:',
+                style: GoogleFonts.poppins(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ...[
+                '1. Kunjungi Alfamart / Indomaret terdekat.',
+                '2. Tunjukkan kode pembayaran ini ke kasir.',
+                '3. Sebutkan bahwa kamu ingin membayar melalui Midtrans.',
+                '4. Selesaikan pembayaran dan simpan struk sebagai bukti.',
+              ].map((step) => Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Text(
+                      step,
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, color: Colors.grey[700]),
+                    ),
+                  )),
+
+              const Spacer(),
+
+              // Info tambahan
+              Text(
+                '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
+                style: GoogleFonts.poppins(
+                    fontSize: 12, color: Colors.grey.shade500),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

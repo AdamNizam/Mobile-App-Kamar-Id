@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -212,21 +214,23 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 onTap: () {
                                   final dataChekout = CheckoutModel(
                                     code: widget.orderId,
-                                    firstName: 'andre',
-                                    lastName: 'lucmana',
-                                    email: 'andresetya1124@gmail.com',
-                                    phone: '293829798234',
+                                    firstName: userState.data.firstName,
+                                    lastName: userState.data.lastName,
+                                    email: userState.data.email,
+                                    phone: userState.data.phone,
                                     addressLine1: 'dasd',
                                     addressLine2: 'asdas',
-                                    city: 'Praya',
-                                    state: 'Indonesia',
-                                    zipCode: '22323',
-                                    country: 'ID',
-                                    customerNotes: 'sadasdadasdasdas',
+                                    city: userState.data.city!,
+                                    state: userState.data.state!,
+                                    zipCode: userState.data.zipCode.toString(),
+                                    country: userState.data.country!,
+                                    customerNotes: '',
                                     paymentGateway: 'midtrans',
                                     termConditions: 'on',
                                     couponCode: null,
                                   );
+                                  print(
+                                      'data chekout ${jsonEncode(dataChekout.toJson())}');
                                   context
                                       .read<CheckoutBloc>()
                                       .add(CheckoutSubmitEvent(dataChekout));

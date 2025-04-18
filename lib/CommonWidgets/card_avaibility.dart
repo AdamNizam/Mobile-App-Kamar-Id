@@ -67,8 +67,8 @@ class CardAvailbilityState extends State<CardAvailbility> {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: isSelected ? AppColors.beauBlue : AppColors.strokColor,
+          side: const BorderSide(
+            color: AppColors.beauBlue,
             width: 2,
           ),
         ),
