@@ -4,7 +4,8 @@ import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/eventscard.dart';
 import 'package:hotelbookingapp/CommonWidgets/hotelscard.dart';
 import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../CommonWidgets/address_widget.dart';
 import '../../../../CommonWidgets/categories_widget.dart';
@@ -116,7 +117,12 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 9),
                 const CategoriesWidget(),
                 const SizedBox(height: 16),
-                BlocBuilder<HotelBloc, HotelState>(
+                BlocConsumer<HotelBloc, HotelState>(
+                  listener: (context, state) {
+                    if (state is HotelFailed) {
+                      showCustomSnackbar(context, state.error);
+                    }
+                  },
                   builder: (context, state) {
                     if (state is HotelSuccess) {
                       return Column(
@@ -150,18 +156,62 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    // Loading widget (fallback)
-                    return Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: AppColors.tabColor,
-                        size: 30,
-                      ),
+                    // State selain success: tampilkan shimmer/loading
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text1(text1: 'Recomended For You', size: 18),
+                        const SizedBox(height: 10),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(3, (_) => shimmerCard()),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text1(text1: 'All The Hotels', size: 18),
+                        const SizedBox(height: 10),
+                        Column(
+                          children: List.generate(4, (_) => shimmerListTile()),
+                        ),
+                      ],
                     );
                   },
-                ),
+                )
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget shimmerCard({double width = 150, double height = 100}) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[400]!,
+      highlightColor: Colors.grey[200]!,
+      child: Container(
+        width: width,
+        height: height,
+        margin: const EdgeInsets.only(right: 10),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget shimmerListTile() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[400]!,
+      highlightColor: Colors.grey[200]!,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        height: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );

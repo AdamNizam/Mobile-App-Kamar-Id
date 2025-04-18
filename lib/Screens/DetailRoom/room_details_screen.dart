@@ -371,9 +371,9 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                               ),
                             ],
                           );
-                          context.read<BookingBloc>().add(
-                                AddToCartEvent(dataCart),
-                              );
+                          context
+                              .read<BookingBloc>()
+                              .add(AddToCartEvent(dataCart));
                         }
                       },
                     );
