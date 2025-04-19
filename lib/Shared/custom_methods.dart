@@ -91,3 +91,14 @@ DateTime formatDateToYMD(DateTime date) {
   String formatted = DateFormat('yyyy-MM-dd').format(date);
   return DateFormat('yyyy-MM-dd').parse(formatted);
 }
+
+String formatMidtransGrossAmount(String amountString) {
+  final formatter = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  );
+
+  double amount = double.tryParse(amountString) ?? 0;
+  return formatter.format(amount.toInt());
+}

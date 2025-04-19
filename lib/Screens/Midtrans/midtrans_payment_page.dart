@@ -15,6 +15,7 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MidtransPaymentPage extends StatefulWidget {
   final int totalPrice;
@@ -63,8 +64,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 final deeplink = deeplinkAction?.url;
 
                 if (deeplink != null) {
-                  // launchUrl(Uri.parse(deeplink));
-                  showCustomSnackbar(context, 'sucess $deeplink');
+                  launchUrl(Uri.parse(deeplink));
                 }
               } else if (selectedType == 'bank_transfer') {
                 final va = state.data.vaNumbers?.first;
@@ -79,7 +79,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     );
                   });
                 }
-              } else if (selectedType == 'Alfamart' ||
+              } else if (selectedType == 'alfamart' ||
                   selectedType == 'Indomaret') {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.push(

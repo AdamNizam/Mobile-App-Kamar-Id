@@ -34,7 +34,7 @@ class PaymentMidtransService {
         throw jsonDecode(data)['message'] ?? 'Payment failed: $statusCode';
       }
     } catch (error) {
-      throw Exception("Payment exception: $error");
+      rethrow;
     }
   }
 }

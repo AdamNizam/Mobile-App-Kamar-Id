@@ -57,23 +57,23 @@ class AddToCartModel {
 
 class ExtraPriceBooking {
   final String name;
-  final dynamic nameEn;
+  final String? nameEn;
   final String price;
   final String type;
   final String number;
   final String enable;
   final String priceHtml;
-  final dynamic priceType;
+  final String? priceType;
 
   ExtraPriceBooking({
     required this.name,
-    required this.nameEn,
+    this.nameEn,
     required this.price,
     required this.type,
     required this.number,
     required this.enable,
     required this.priceHtml,
-    required this.priceType,
+    this.priceType,
   });
 
   factory ExtraPriceBooking.fromRawJson(String str) =>

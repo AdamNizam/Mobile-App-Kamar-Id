@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/CommonWidgets/status_payment.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -71,8 +70,7 @@ class _VirtualNumberPageState extends State<StoreCodePage>
   }
 
   void copyToClipboard() async {
-    await Clipboard.setData(
-        ClipboardData(text: widget.data.vaNumbers!.first.vaNumber));
+    await Clipboard.setData(ClipboardData(text: widget.data.paymentCode!));
     setState(() {
       isCopied = true;
     });
@@ -103,40 +101,36 @@ class _VirtualNumberPageState extends State<StoreCodePage>
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.white,
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back,
-                          color: AppColors.tabColor, size: 20),
+                          color: AppColors.buttonColor, size: 20),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 20),
-
-              // Title & Logos
               Center(
                 child: Column(
                   children: [
                     Text(
-                      'Bayar di Alfamart / Indomaret',
+                      'Pay in : ${widget.data.transactionStatus}',
                       style: GoogleFonts.poppins(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('images/Logo-Alfamart.png', height: 32),
+                        Image.asset('images/Logo-Alfamart.png', height: 25),
                         const SizedBox(width: 12),
-                        Image.asset('images/Logo-Indomaret.png', height: 32),
+                        Image.asset('images/Logo-Indomaret.png', height: 60),
                       ],
                     ),
-                    const SizedBox(height: 12),
-                    StatusPayment(status: widget.data.transactionStatus),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -173,11 +167,11 @@ class _VirtualNumberPageState extends State<StoreCodePage>
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    const BoxShadow(
+                  boxShadow: const [
+                    BoxShadow(
                       color: Colors.black12,
                       blurRadius: 8,
-                      offset: const Offset(0, 4),
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
@@ -230,7 +224,7 @@ class _VirtualNumberPageState extends State<StoreCodePage>
                 '1. Kunjungi Alfamart / Indomaret terdekat.',
                 '2. Tunjukkan kode pembayaran ini ke kasir.',
                 '3. Sebutkan bahwa kamu ingin membayar melalui Midtrans.',
-                '4. Selesaikan pembayaran dan simpan struk sebagai bukti.',
+                '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)} dan simpan struk sebagai bukti.',
               ].map((step) => Padding(
                     padding: const EdgeInsets.only(bottom: 6),
                     child: Text(
