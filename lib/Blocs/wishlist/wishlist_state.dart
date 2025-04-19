@@ -20,11 +20,20 @@ final class WishlistFailed extends WishlistState {
   List<Object> get props => [error];
 }
 
-final class WishlistSuccess extends WishlistState {
-  final List<Datum> wishlist;
+final class PostWishlistSuccess extends WishlistState {
+  final ResultWishlist data;
 
-  const WishlistSuccess(this.wishlist);
+  const PostWishlistSuccess(this.data);
 
   @override
-  List<Object> get props => [wishlist];
+  List<Object> get props => [data];
+}
+
+final class GetWishlistSuccess extends WishlistState {
+  final GetWishlistModel data;
+
+  const GetWishlistSuccess(this.data);
+
+  @override
+  List<Object> get props => [data];
 }

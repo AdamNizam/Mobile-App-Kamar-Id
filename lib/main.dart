@@ -4,7 +4,6 @@ import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
@@ -41,9 +40,6 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => HotelBloc()..add(GetAllHotels()),
-          ),
-          BlocProvider(
-            create: (context) => WishlistBloc()..add(GetWishlist()),
           ),
           BlocProvider(
             create: (context) => UserBloc()..add(GetUserProfile()),

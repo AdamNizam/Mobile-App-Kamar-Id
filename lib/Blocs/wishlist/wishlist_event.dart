@@ -7,4 +7,13 @@ sealed class WishlistEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetWishlist extends WishlistEvent {}
+class GetWishlistEvent extends WishlistEvent {}
+
+class PostWishlistEvent extends WishlistEvent {
+  final RequestWishlistModel data;
+
+  const PostWishlistEvent(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
