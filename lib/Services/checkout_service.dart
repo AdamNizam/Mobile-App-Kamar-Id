@@ -20,6 +20,8 @@ class ChekoutService {
         body: jsonEncode(cartModel.toJson()),
       );
 
+      // print('Result ChekOut : ${res.body}');
+
       if (res.statusCode == 200) {
         return ResultChekout.fromJson(jsonDecode(res.body));
       } else {

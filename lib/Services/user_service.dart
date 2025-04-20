@@ -18,6 +18,7 @@ class UserService {
         },
       );
       // print('Response status User Data Profiel: ${res.body}');
+
       if (res.statusCode == 200) {
         return UserModel.fromJson(jsonDecode(res.body)['data']);
       } else {

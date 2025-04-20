@@ -78,7 +78,12 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                     ],
                   );
                 }
-                return shimmerListTile();
+                return Column(
+                  children: List.generate(
+                    4,
+                    (_) => shimmerListTile(),
+                  ),
+                );
               },
             ),
           ),

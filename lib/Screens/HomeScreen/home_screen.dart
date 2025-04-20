@@ -156,7 +156,6 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    // State selain success: tampilkan shimmer/loading
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -20,7 +20,7 @@ class PaymentMidtransService {
         body: jsonEncode(midtransModel.toJson()),
       );
 
-      print("Midtrans response: ${res.body}");
+      // print("Midtrans response: ${res.body}");
 
       final statusCode = res.statusCode;
       final data = jsonDecode(res.body);

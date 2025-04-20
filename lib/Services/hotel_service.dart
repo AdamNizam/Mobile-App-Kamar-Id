@@ -85,7 +85,7 @@ class HotelService {
         }),
       );
 
-      print('RESPONSE CHEK AVAIBILITY ${res.body}');
+      // print('RESPONSE CHEK AVAIBILITY ${res.body}');
 
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);

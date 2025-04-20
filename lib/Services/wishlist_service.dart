@@ -20,7 +20,7 @@ class WishlistService {
         },
         body: jsonEncode(dataWishlist.toJson()),
       );
-      print('RESPONSE post WISHLIST ${res.body}');
+      // print('RESPONSE post WISHLIST ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultWishlist.fromJson(jsonDecode(res.body));
@@ -42,7 +42,7 @@ class WishlistService {
           'Content-Type': 'application/json',
         },
       );
-      print('RESPONSE GET WISHLIST ${res.body}');
+      // print('RESPONSE GET WISHLIST ${res.body}');
 
       if (res.statusCode == 200) {
         return GetWishlistModel.fromJson(jsonDecode(res.body));
