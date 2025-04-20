@@ -184,7 +184,7 @@ class _HotelsCardState extends State<HotelsCard2> {
                                 builder: (context, stateWishlist) {
                                   if (stateWishlist is WishlistLoading) {
                                     return LoadingAnimationWidget.beat(
-                                      color: AppColors.buttonColor,
+                                      color: AppColors.redAwesome,
                                       size: 27,
                                     );
                                   }

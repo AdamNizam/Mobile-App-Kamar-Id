@@ -40,18 +40,18 @@ class MyBookingsScreen extends StatelessWidget {
     return Container(
       height: 45,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-      ),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.beauBlue)),
       child: TabBar(
         indicator: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
         ),
-        labelColor: AppColors.tabColor,
+        labelColor: AppColors.buttonColor,
         labelStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: AppColors.tabColor,
+          color: AppColors.buttonColor,
         ), // Ukuran teks aktif
         unselectedLabelStyle:
             const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),

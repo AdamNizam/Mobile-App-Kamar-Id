@@ -151,7 +151,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                             builder: (context, stateWishlist) {
                               if (stateWishlist is WishlistLoading) {
                                 return LoadingAnimationWidget.beat(
-                                  color: AppColors.buttonColor,
+                                  color: AppColors.redAwesome,
                                   size: 27,
                                 );
                               }
@@ -190,7 +190,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                           const Icon(
                             Icons.location_pin,
                             size: 23.0,
-                            color: AppColors.tabColor,
+                            color: AppColors.buttonColor,
                           ),
                           const SizedBox(width: 4.0),
                           Expanded(
@@ -210,7 +210,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                                     ? "Rp${widget.hotel.price}"
                                     : '0',
                                 size: 16,
-                                color: AppColors.tabColor,
+                                color: AppColors.buttonColor,
                               ),
                               const Text2(
                                 text2: '/night',

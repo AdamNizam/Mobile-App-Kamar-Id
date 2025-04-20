@@ -9,7 +9,7 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/confirm_booking_screen.dart';
+import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
