@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../Constants/colors.dart'; // Import bloc yang sesuai
+import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_cards.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FavoriteHotels extends StatefulWidget {
   const FavoriteHotels({super.key});
@@ -33,56 +36,72 @@ class FavoriteHotelsState extends State<FavoriteHotels>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              Expanded(
-                  child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'images/no-data.svg',
-                      semanticsLabel: 'Acme Logo',
-                      width: 350,
-                      height: 300,
-                      fit: BoxFit.contain,
-                    ),
-                    Text(
-                      'Oopss.. Data is not available',
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.cadetGray,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-            ],
+    return BlocProvider(
+      create: (context) => WishlistBloc()..add(GetWishlistEvent()),
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
+            child: BlocConsumer<WishlistBloc, WishlistState>(
+              listener: (context, state) {
+                if (state is WishlistFailed) {
+                  showCustomSnackbar(context, state.error);
+                }
+              },
+              builder: (context, state) {
+                if (state is GetWishlistSuccess) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 8),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: state.data.dataWishlist.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    "Tidak ada wishlist saat ini",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.cadetGray,
+                                    ),
+                                  ),
+                                )
+                              : Column(
+                                  children:
+                                      state.data.dataWishlist.map((wishlist) {
+                                    return FavoriteCard(data: wishlist.service);
+                                  }).toList(),
+                                ),
+                        ),
+                      )
+                    ],
+                  );
+                }
+                return shimmerListTile();
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCategoryChip(String category) {
-    final bool isSelected = selectedCategory == category;
-    return ChoiceChip(
-      label: Text(category),
-      labelStyle: TextStyle(color: isSelected ? Colors.white : Colors.black),
-      selectedColor: AppColors.tabColor,
-      selected: isSelected,
-      onSelected: (bool selected) {
-        setState(() {
-          selectedCategory = category;
-        });
-      },
+  Widget shimmerListTile() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[400]!,
+        highlightColor: Colors.grey[200]!,
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 12),
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
     );
   }
 }

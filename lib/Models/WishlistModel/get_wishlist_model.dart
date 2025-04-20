@@ -1,16 +1,10 @@
 import 'dart:convert';
 
 class GetWishlistModel {
-  final List<Datum> data;
-  final int total;
-  final int totalPages;
-  final int status;
+  final List<Datum> dataWishlist;
 
   GetWishlistModel({
-    required this.data,
-    required this.total,
-    required this.totalPages,
-    required this.status,
+    required this.dataWishlist,
   });
 
   factory GetWishlistModel.fromRawJson(String str) =>
@@ -20,17 +14,12 @@ class GetWishlistModel {
 
   factory GetWishlistModel.fromJson(Map<String, dynamic> json) =>
       GetWishlistModel(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        total: json["total"],
-        totalPages: json["total_pages"],
-        status: json["status"],
+        dataWishlist:
+            List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "total": total,
-        "total_pages": totalPages,
-        "status": status,
+        "data": List<dynamic>.from(dataWishlist.map((x) => x.toJson())),
       };
 }
 
@@ -39,38 +28,22 @@ class Datum {
   final int objectId;
   final String objectModel;
   final int userId;
-  final int createUser;
-  final dynamic updateUser;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final Service service;
+  final ServiceWishlist service;
 
   Datum({
     required this.id,
     required this.objectId,
     required this.objectModel,
     required this.userId,
-    required this.createUser,
-    required this.updateUser,
-    required this.createdAt,
-    required this.updatedAt,
     required this.service,
   });
-
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         objectId: json["object_id"],
         objectModel: json["object_model"],
         userId: json["user_id"],
-        createUser: json["create_user"],
-        updateUser: json["update_user"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        service: Service.fromJson(json["service"]),
+        service: ServiceWishlist.fromJson(json["service"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -78,29 +51,25 @@ class Datum {
         "object_id": objectId,
         "object_model": objectModel,
         "user_id": userId,
-        "create_user": createUser,
-        "update_user": updateUser,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
         "service": service.toJson(),
       };
 }
 
-class Service {
+class ServiceWishlist {
   final int id;
   final String title;
   final String price;
-  final dynamic salePrice;
-  final dynamic discountPercent;
+  final String? salePrice;
+  final String? discountPercent;
   final bool image;
-  final String content;
-  final dynamic location;
-  final dynamic isFeatured;
+  final String? content;
+  final Location? location;
+  final int isFeatured;
   final String serviceIcon;
   final ReviewScore reviewScore;
   final String serviceType;
 
-  Service({
+  ServiceWishlist({
     required this.id,
     required this.title,
     required this.price,
@@ -115,22 +84,24 @@ class Service {
     required this.serviceType,
   });
 
-  factory Service.fromRawJson(String str) => Service.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Service.fromJson(Map<String, dynamic> json) => Service(
+  factory ServiceWishlist.fromJson(Map<String, dynamic> json) =>
+      ServiceWishlist(
         id: json["id"],
         title: json["title"],
         price: json["price"],
-        salePrice: json["sale_price"],
-        discountPercent: json["discount_percent"],
-        image: json["image"],
+        salePrice: json["sale_price"]?.toString(),
+        discountPercent: json["discount_percent"]?.toString(),
+        image: json["image"] ?? false,
         content: json["content"],
-        location: json["location"],
-        isFeatured: json["is_featured"],
+        location: json["location"] != null
+            ? Location.fromJson(json["location"])
+            : null,
+        isFeatured: json["is_featured"] ?? 0,
         serviceIcon: json["service_icon"],
-        reviewScore: ReviewScore.fromJson(json["review_score"]),
+        reviewScore: json["review_score"] != null
+            ? ReviewScore.fromJson(json["review_score"])
+            : ReviewScore(
+                scoreTotal: 0, totalReview: 0, reviewText: "Not rated"),
         serviceType: json["service_type"],
       );
 
@@ -142,11 +113,31 @@ class Service {
         "discount_percent": discountPercent,
         "image": image,
         "content": content,
-        "location": location,
+        "location": location?.toJson(),
         "is_featured": isFeatured,
         "service_icon": serviceIcon,
         "review_score": reviewScore.toJson(),
         "service_type": serviceType,
+      };
+}
+
+class Location {
+  final int id;
+  final String name;
+
+  Location({
+    required this.id,
+    required this.name,
+  });
+
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
       };
 }
 
@@ -161,15 +152,10 @@ class ReviewScore {
     required this.reviewText,
   });
 
-  factory ReviewScore.fromRawJson(String str) =>
-      ReviewScore.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory ReviewScore.fromJson(Map<String, dynamic> json) => ReviewScore(
-        scoreTotal: json["score_total"],
-        totalReview: json["total_review"],
-        reviewText: json["review_text"],
+        scoreTotal: json["score_total"] ?? 0,
+        totalReview: json["total_review"] ?? 0,
+        reviewText: json["review_text"] ?? "Not rated",
       );
 
   Map<String, dynamic> toJson() => {

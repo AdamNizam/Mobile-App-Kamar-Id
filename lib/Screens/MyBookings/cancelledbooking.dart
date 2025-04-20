@@ -23,42 +23,6 @@ class _CancelledBookingState extends State<CancelledBooking> {
         date: '4.5'),
 
     HotelModel(
-        imagePath: 'images/AirportHotels.jpg',
-        name: 'AirportHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/All-InclusiveHotels.jpg',
-        name: 'InclusiveHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/BoutiqueHotels.jpg',
-        name: 'BoutiqueHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/WaterfrontHotels.jpg',
-        name: 'WaterfrontHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/BudgetHotels.jpg',
-        name: 'BudgetHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/BusinessHotels.jpg',
-        name: 'BusinessHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/CapsuleHotels.jpg',
-        name: 'CapsuleHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/Eco-FriendlyHotels.jpg',
-        name: 'FriendlyHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/HeritageHotels.jpg',
-        name: 'HeritageHotels',
-        date: '4.5'),
-    HotelModel(
         imagePath: 'images/Historic Hotels.jpg',
         name: 'Historic Hotels',
         date: '4.5'),

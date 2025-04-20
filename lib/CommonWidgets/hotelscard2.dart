@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist_model.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
@@ -170,13 +173,46 @@ class _HotelsCardState extends State<HotelsCard2> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text1(text1: widget.hotel.title.toString()),
+                              Text1(
+                                text1: widget.hotel.title.toString(),
+                                size: 14,
+                              ),
                               const Spacer(),
-                              const Icon(
-                                Icons.favorite_border,
-                                color: AppColors.redAwesome,
-                                size: 20,
+                              BlocBuilder<WishlistBloc, WishlistState>(
+                                builder: (context, stateWishlist) {
+                                  if (stateWishlist is WishlistLoading) {
+                                    return LoadingAnimationWidget.beat(
+                                      color: AppColors.buttonColor,
+                                      size: 27,
+                                    );
+                                  }
+                                  if (stateWishlist is PostWishlistSuccess) {
+                                    return const Icon(
+                                      Icons.favorite,
+                                      color: AppColors.redAwesome,
+                                      size: 22,
+                                    );
+                                  }
+
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.read<WishlistBloc>().add(
+                                            PostWishlistEvent(
+                                              RequestWishlistModel(
+                                                objectId: widget.hotel.id!,
+                                              ),
+                                            ),
+                                          );
+                                    },
+                                    child: const Icon(
+                                      Icons.favorite_outline,
+                                      color: AppColors.redAwesome,
+                                      size: 22,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

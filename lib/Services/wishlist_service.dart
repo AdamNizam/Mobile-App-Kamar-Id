@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:hotelbookingapp/Models/ResponseResultModel/result_wishlist.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/get_wishlist_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist_model.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/services/auth_service.dart';
 import 'package:hotelbookingapp/shared/shared_url.dart';
 import 'package:http/http.dart' as http;
@@ -35,7 +35,7 @@ class WishlistService {
     try {
       final token = await AuthService().getToken();
 
-      final res = await http.post(
+      final res = await http.get(
         Uri.parse('$baseUrl/user/wishlist'),
         headers: {
           'Authorization': 'Bearer $token',

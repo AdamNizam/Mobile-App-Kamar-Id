@@ -142,6 +142,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text1(
                             text1: widget.hotel.title ?? 'No Title',
@@ -159,7 +160,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                                 return const Icon(
                                   Icons.favorite,
                                   color: AppColors.redAwesome,
-                                  size: 30,
+                                  size: 22,
                                 );
                               }
 
@@ -176,7 +177,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                                 child: const Icon(
                                   Icons.favorite_outline,
                                   color: AppColors.redAwesome,
-                                  size: 30,
+                                  size: 22,
                                 ),
                               );
                             },
@@ -185,6 +186,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                       ),
                       const SizedBox(height: 5.0),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Icon(
                             Icons.location_pin,
@@ -192,13 +194,11 @@ class _HotelCard1 extends State<HotelsCard1> {
                             color: AppColors.tabColor,
                           ),
                           const SizedBox(width: 4.0),
-                          widget.hotel.address != null
-                              ? Expanded(
-                                  child: Text2(
-                                    text2: widget.hotel.address!,
-                                  ),
-                                )
-                              : const Text2(text2: 'No-data'),
+                          Expanded(
+                            child: Text2(
+                              text2: widget.hotel.address ?? 'No-data',
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 5.0),
