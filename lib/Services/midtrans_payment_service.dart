@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans_model.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans_model.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class PaymentMidtransService {
   Future<ResultMidtransModel> payWithMidtrans(
-      MidtransModel midtransModel) async {
+      RequestMidtrans midtransModel) async {
     try {
       final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
 

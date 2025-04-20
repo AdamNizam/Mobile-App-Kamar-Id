@@ -8,7 +8,7 @@ sealed class MidtransPaymentEvent extends Equatable {
 }
 
 class PayWithMidtrans extends MidtransPaymentEvent {
-  final MidtransModel dataRequest;
+  final RequestMidtrans dataRequest;
 
   const PayWithMidtrans(this.dataRequest);
 

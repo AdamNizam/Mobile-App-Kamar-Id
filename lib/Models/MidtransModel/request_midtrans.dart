@@ -1,4 +1,4 @@
-class MidtransModel {
+class RequestMidtrans {
   final TransactionDetails transactionDetails;
   final String paymentType;
   final CustomerDetails customerDetails;
@@ -6,7 +6,7 @@ class MidtransModel {
   final BankTransfer? bankTransfer;
   final List<ItemDetails>? itemDetails;
 
-  MidtransModel({
+  RequestMidtrans({
     required this.transactionDetails,
     required this.paymentType,
     required this.customerDetails,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans_model.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
 import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_page.dart';
@@ -222,7 +222,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
-                    final dataPayment = MidtransModel(
+                    final dataPayment = RequestMidtrans(
                       transactionDetails: TransactionDetails(
                         orderId: widget.orderId,
                         grossAmount: widget.totalPrice,
