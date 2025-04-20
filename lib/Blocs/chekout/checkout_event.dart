@@ -8,10 +8,10 @@ sealed class CheckoutEvent extends Equatable {
 }
 
 final class CheckoutSubmitEvent extends CheckoutEvent {
-  final CheckoutModel checkoutModel;
+  final RequestChekout dataRequest;
 
-  const CheckoutSubmitEvent(this.checkoutModel);
+  const CheckoutSubmitEvent(this.dataRequest);
 
   @override
-  List<Object> get props => [checkoutModel];
+  List<Object> get props => [dataRequest];
 }

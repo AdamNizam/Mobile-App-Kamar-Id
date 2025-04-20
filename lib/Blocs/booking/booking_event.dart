@@ -10,10 +10,10 @@ sealed class BookingEvent extends Equatable {
 class GetBookingHistory extends BookingEvent {}
 
 class AddToCartEvent extends BookingEvent {
-  final AddToCartModel cartModel;
+  final RequestAddToChart dataRequest;
 
-  const AddToCartEvent(this.cartModel);
+  const AddToCartEvent(this.dataRequest);
 
   @override
-  List<Object> get props => [cartModel];
+  List<Object> get props => [dataRequest];
 }

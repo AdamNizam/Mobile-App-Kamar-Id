@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/get_wishlist_model.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:hotelbookingapp/Widgets/text11.dart';

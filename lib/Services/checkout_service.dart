@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
+import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/result_chekout.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class ChekoutService {
-  Future<ResultChekout> doToChekout(CheckoutModel cartModel) async {
+  Future<ResultChekout> doToChekout(RequestChekout data) async {
     try {
       final token = await AuthService().getToken();
 
@@ -17,7 +17,7 @@ class ChekoutService {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(cartModel.toJson()),
+        body: jsonEncode(data.toJson()),
       );
 
       // print('Result ChekOut : ${res.body}');

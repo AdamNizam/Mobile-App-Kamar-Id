@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class AddToCartModel {
+class RequestAddToChart {
   final String? serviceId;
   final String? serviceType;
   final DateTime? startDate;
@@ -10,7 +10,7 @@ class AddToCartModel {
   final String? children;
   final List<Room>? rooms;
 
-  AddToCartModel({
+  RequestAddToChart({
     this.serviceId,
     this.serviceType,
     this.startDate,
@@ -21,12 +21,13 @@ class AddToCartModel {
     this.rooms,
   });
 
-  factory AddToCartModel.fromRawJson(String str) =>
-      AddToCartModel.fromJson(json.decode(str));
+  factory RequestAddToChart.fromRawJson(String str) =>
+      RequestAddToChart.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory AddToCartModel.fromJson(Map<String, dynamic> json) => AddToCartModel(
+  factory RequestAddToChart.fromJson(Map<String, dynamic> json) =>
+      RequestAddToChart(
         serviceId: json["service_id"],
         serviceType: json["service_type"],
         startDate: DateTime.parse(json["start_date"]),

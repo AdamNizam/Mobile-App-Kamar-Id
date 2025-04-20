@@ -1,4 +1,4 @@
-class MidtransResponseResult {
+class ResultMidtransModel {
   final String transactionId;
   final String paymentType;
   final String transactionStatus;
@@ -17,7 +17,7 @@ class MidtransResponseResult {
   final List<VaNumber>? vaNumbers;
   final List<ActionUrl>? actions;
 
-  MidtransResponseResult({
+  ResultMidtransModel({
     required this.transactionId,
     required this.paymentType,
     required this.transactionStatus,
@@ -37,8 +37,8 @@ class MidtransResponseResult {
     this.actions,
   });
 
-  factory MidtransResponseResult.fromJson(Map<String, dynamic> json) {
-    return MidtransResponseResult(
+  factory ResultMidtransModel.fromJson(Map<String, dynamic> json) {
+    return ResultMidtransModel(
       transactionId: json['transaction_id'] ?? '',
       paymentType: json['payment_type'] ?? '',
       transactionStatus: json['transaction_status'] ?? '',

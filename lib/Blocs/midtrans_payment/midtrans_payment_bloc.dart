@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/midtrans_model.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans_model.dart';
+import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans_model.dart';
 import 'package:hotelbookingapp/Services/midtrans_payment_service.dart';
 
 part 'midtrans_payment_event.dart';
@@ -15,7 +15,7 @@ class MidtransPaymentBloc
         emit(MidtransPaymentLoading());
 
         final data =
-            await PaymentMidtransService().payWithMidtrans(event.midtransModel);
+            await PaymentMidtransService().payWithMidtrans(event.dataRequest);
 
         emit(MidtransPaymentSucsess(data));
       } catch (error) {

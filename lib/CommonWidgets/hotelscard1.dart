@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist_model.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Constants/colors.dart';

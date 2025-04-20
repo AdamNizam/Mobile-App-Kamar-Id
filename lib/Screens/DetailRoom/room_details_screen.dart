@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
+import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
@@ -346,7 +346,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           showCustomSnackbar(
                               context, 'Please select a room first!');
                         } else {
-                          final dataCart = AddToCartModel(
+                          final dataCart = RequestAddToChart(
                             serviceId: widget.dataHotel.id.toString(),
                             serviceType: 'hotel',
                             startDate: formatDateToYMD(widget.checkIn),

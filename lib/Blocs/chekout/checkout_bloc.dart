@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
+import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/result_chekout.dart';
 import 'package:hotelbookingapp/Services/checkout_service.dart';
 
@@ -14,7 +14,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
         try {
           emit(CheckoutLoading());
 
-          final data = await ChekoutService().doToChekout(event.checkoutModel);
+          final data = await ChekoutService().doToChekout(event.dataRequest);
 
           emit(CheckoutSuccess(data));
         } catch (error) {

@@ -10,10 +10,10 @@ sealed class WishlistEvent extends Equatable {
 class GetWishlistEvent extends WishlistEvent {}
 
 class PostWishlistEvent extends WishlistEvent {
-  final RequestWishlistModel data;
+  final RequestWishlistModel dataRequest;
 
-  const PostWishlistEvent(this.data);
+  const PostWishlistEvent(this.dataRequest);
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [dataRequest];
 }

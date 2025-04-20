@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
+import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/BookingModel/result_add_to_chart.dart';
 import 'package:hotelbookingapp/Services/booking_service.dart';
 
@@ -15,7 +15,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
         try {
           emit(BookingLoading());
 
-          final data = await BookingService().addToChart(event.cartModel);
+          final data = await BookingService().addToChart(event.dataRequest);
 
           emit(BookingSuccess(data));
         } catch (error) {
