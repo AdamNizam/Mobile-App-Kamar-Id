@@ -64,7 +64,7 @@ class ServiceWishlist {
   final bool image;
   final String? content;
   final Location? location;
-  final int isFeatured;
+  final dynamic isFeatured;
   final String serviceIcon;
   final ReviewScore reviewScore;
   final String serviceType;

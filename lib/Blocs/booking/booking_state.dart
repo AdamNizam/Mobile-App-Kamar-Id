@@ -20,19 +20,19 @@ final class BookingFailed extends BookingState {
   List<Object> get props => [error];
 }
 
-final class HistoryBookingSuccess extends BookingState {
-  final HistoryBookingModel data;
+final class BookingSuccess extends BookingState {
+  final ResultAddToCart data;
 
-  const HistoryBookingSuccess(this.data);
+  const BookingSuccess(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
-final class BookingSuccess extends BookingState {
-  final ResultAddToCart data;
+final class HistoryBookingSuccess extends BookingState {
+  final HistoryBookingModel data;
 
-  const BookingSuccess(this.data);
+  const HistoryBookingSuccess(this.data);
 
   @override
   List<Object> get props => [data];

@@ -7,11 +7,11 @@ import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../Constants/colors.dart';
-import '../Screens/DetailHotel/hotel_details_screen.dart';
-import '../Widgets/detailstext1.dart';
-import '../Widgets/detailstext2.dart';
-import '../Widgets/text11.dart';
+import '../../Constants/colors.dart';
+import '../../Widgets/detailstext1.dart';
+import '../../Widgets/detailstext2.dart';
+import '../../Widgets/text11.dart';
+import '../DetailHotel/hotel_details_screen.dart';
 
 class HotelsCard1 extends StatefulWidget {
   final HotelAllModel hotel;
@@ -35,7 +35,6 @@ class _HotelCard1 extends State<HotelsCard1> {
     super.initState();
     _pageController = PageController(initialPage: 0);
 
-    // Pastikan widget sudah terpasang sebelum menjalankan timer
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
@@ -80,16 +79,16 @@ class _HotelCard1 extends State<HotelsCard1> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.all(5),
+        margin: const EdgeInsets.all(8),
         width: 190,
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withOpacity(0.2),
               spreadRadius: 2,
-              blurRadius: 5,
+              blurRadius: 8,
               offset: const Offset(0, 3),
             ),
           ],
@@ -100,7 +99,7 @@ class _HotelCard1 extends State<HotelsCard1> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   child: SizedBox(
                     width: 190,
                     height: 130,

@@ -19,8 +19,20 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
 
           emit(BookingSuccess(data));
         } catch (error) {
-          print('Error add tp cart: $error');
+          // print('Error add tp cart: $error');
           emit(const BookingFailed('Failed to add to cart'));
+        }
+      }
+      if (event is GetBookingHistoryEvent) {
+        try {
+          emit(BookingLoading());
+
+          final data = await BookingService().getHistoryBooking();
+
+          emit(HistoryBookingSuccess(data));
+        } catch (error) {
+          print('Get Booking History Error $error');
+          emit(const BookingFailed('Failed get Booking History'));
         }
       }
     });

@@ -102,7 +102,7 @@ class FavoriteHotelsState extends State<FavoriteHotels>
           margin: const EdgeInsets.only(bottom: 12),
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(12),
           ),
         ),

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 class HistoryBookingModel {
-  final List<Datum> data;
+  final List<DataHistory> dataHistory;
 
   HistoryBookingModel({
-    required this.data,
+    required this.dataHistory,
   });
 
   factory HistoryBookingModel.fromRawJson(String str) =>
@@ -14,15 +14,19 @@ class HistoryBookingModel {
 
   factory HistoryBookingModel.fromJson(Map<String, dynamic> json) =>
       HistoryBookingModel(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        dataHistory: (json["data"] as List?)
+                ?.map((x) => DataHistory.fromJson(x))
+                .whereType<DataHistory>()
+                .toList() ??
+            [],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(dataHistory.map((x) => x.toJson())),
       };
 }
 
-class Datum {
+class DataHistory {
   final int id;
   final String code;
   final int vendorId;
@@ -59,10 +63,9 @@ class Datum {
   final String totalBeforeDiscount;
   final String couponAmount;
   final Service service;
-  final BookingMeta bookingMeta;
   final String serviceIcon;
 
-  Datum({
+  DataHistory({
     required this.id,
     required this.code,
     required this.vendorId,
@@ -99,54 +102,58 @@ class Datum {
     required this.totalBeforeDiscount,
     required this.couponAmount,
     required this.service,
-    required this.bookingMeta,
     required this.serviceIcon,
   });
 
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        code: json["code"],
-        vendorId: json["vendor_id"],
-        customerId: json["customer_id"],
-        paymentId: json["payment_id"],
-        gateway: json["gateway"],
-        objectId: json["object_id"],
-        objectModel: json["object_model"],
-        startDate: DateTime.parse(json["start_date"]),
-        endDate: DateTime.parse(json["end_date"]),
-        total: json["total"],
-        totalGuests: json["total_guests"],
-        status: json["status"],
-        commission: json["commission"],
-        commissionType: CommissionType.fromJson(json["commission_type"]),
-        email: json["email"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        phone: json["phone"],
-        address: json["address"],
-        address2: json["address2"],
-        city: json["city"],
-        state: json["state"],
-        zipCode: json["zip_code"],
-        country: json["country"],
-        createUser: json["create_user"],
-        updateUser: json["update_user"],
-        buyerFees: List<BuyerFee>.from(
-            json["buyer_fees"].map((x) => BuyerFee.fromJson(x))),
-        totalBeforeFees: json["total_before_fees"],
-        payNow: json["pay_now"],
-        walletCreditUsed: json["wallet_credit_used"],
-        walletTotalUsed: json["wallet_total_used"],
-        vendorServiceFeeAmount: json["vendor_service_fee_amount"],
-        totalBeforeDiscount: json["total_before_discount"],
-        couponAmount: json["coupon_amount"],
-        service: Service.fromJson(json["service"]),
-        bookingMeta: BookingMeta.fromJson(json["booking_meta"]),
-        serviceIcon: json["service_icon"],
+  factory DataHistory.fromJson(Map<String, dynamic> json) => DataHistory(
+        id: json["id"] ?? 0,
+        code: json["code"] ?? "",
+        vendorId: json["vendor_id"] ?? 0,
+        customerId: json["customer_id"] ?? 0,
+        paymentId: json["payment_id"] ?? 0,
+        gateway: json["gateway"] ?? "",
+        objectId: json["object_id"] ?? 0,
+        objectModel: json["object_model"] ?? "",
+        startDate:
+            DateTime.tryParse(json["start_date"] ?? "") ?? DateTime.now(),
+        endDate: DateTime.tryParse(json["end_date"] ?? "") ?? DateTime.now(),
+        total: json["total"] ?? "0",
+        totalGuests: json["total_guests"] ?? 0,
+        status: json["status"] ?? "",
+        commission: json["commission"] ?? 0,
+        commissionType: CommissionType.fromJson(json["commission_type"] ?? {}),
+        email: json["email"] ?? "",
+        firstName: json["first_name"] ?? "",
+        lastName: json["last_name"] ?? "",
+        phone: json["phone"] ?? "",
+        address: json["address"] ?? "",
+        address2: json["address2"] ?? "",
+        city: json["city"] ?? "",
+        state: json["state"] ?? "",
+        zipCode: json["zip_code"] ?? "",
+        country: json["country"] ?? "",
+        createUser: json["create_user"] ?? 0,
+        updateUser: json["update_user"] ?? 0,
+        buyerFees: (json["buyer_fees"] as List?)
+                ?.map((x) {
+                  try {
+                    return BuyerFee.fromJson(x);
+                  } catch (_) {
+                    return null;
+                  }
+                })
+                .whereType<BuyerFee>()
+                .toList() ??
+            [],
+        totalBeforeFees: json["total_before_fees"] ?? "0",
+        payNow: json["pay_now"] ?? "0",
+        walletCreditUsed: json["wallet_credit_used"] ?? 0,
+        walletTotalUsed: json["wallet_total_used"] ?? 0,
+        vendorServiceFeeAmount: json["vendor_service_fee_amount"] ?? "0",
+        totalBeforeDiscount: json["total_before_discount"] ?? "0",
+        couponAmount: json["coupon_amount"] ?? "0",
+        service: Service.fromJson(json["service"] ?? {}),
+        serviceIcon: json["service_icon"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -177,7 +184,7 @@ class Datum {
         "country": country,
         "create_user": createUser,
         "update_user": updateUser,
-        "buyer_fees": List<dynamic>.from(buyerFees.map((x) => x.toJson())),
+        "buyer_fees": buyerFees.map((x) => x.toJson()).toList(),
         "total_before_fees": totalBeforeFees,
         "pay_now": payNow,
         "wallet_credit_used": walletCreditUsed,
@@ -186,99 +193,7 @@ class Datum {
         "total_before_discount": totalBeforeDiscount,
         "coupon_amount": couponAmount,
         "service": service.toJson(),
-        "booking_meta": bookingMeta.toJson(),
         "service_icon": serviceIcon,
-      };
-}
-
-class BookingMeta {
-  final dynamic duration;
-  final int basePrice;
-  final dynamic salePrice;
-  final int guests;
-  final int adults;
-  final String children;
-  final List<ExtraPrice> extraPrice;
-  final String locale;
-  final String howToPay;
-
-  BookingMeta({
-    required this.duration,
-    required this.basePrice,
-    required this.salePrice,
-    required this.guests,
-    required this.adults,
-    required this.children,
-    required this.extraPrice,
-    required this.locale,
-    required this.howToPay,
-  });
-
-  factory BookingMeta.fromRawJson(String str) =>
-      BookingMeta.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory BookingMeta.fromJson(Map<String, dynamic> json) => BookingMeta(
-        duration: json["duration"],
-        basePrice: json["base_price"],
-        salePrice: json["sale_price"],
-        guests: json["guests"],
-        adults: json["adults"],
-        children: json["children"],
-        extraPrice: List<ExtraPrice>.from(
-            json["extra_price"].map((x) => ExtraPrice.fromJson(x))),
-        locale: json["locale"],
-        howToPay: json["how_to_pay"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "duration": duration,
-        "base_price": basePrice,
-        "sale_price": salePrice,
-        "guests": guests,
-        "adults": adults,
-        "children": children,
-        "extra_price": List<dynamic>.from(extraPrice.map((x) => x.toJson())),
-        "locale": locale,
-        "how_to_pay": howToPay,
-      };
-}
-
-class ExtraPrice {
-  final String name;
-  final dynamic nameEn;
-  final String price;
-  final String type;
-  final String total;
-
-  ExtraPrice({
-    required this.name,
-    required this.nameEn,
-    required this.price,
-    required this.type,
-    required this.total,
-  });
-
-  factory ExtraPrice.fromRawJson(String str) =>
-      ExtraPrice.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory ExtraPrice.fromJson(Map<String, dynamic> json) => ExtraPrice(
-        name: json["name"],
-        nameEn: json["name_en"],
-        price: json["price"],
-        type: json["type"],
-        total: json["total"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "name_en": nameEn,
-        "price": price,
-        "type": type,
-        "total": total,
       };
 }
 

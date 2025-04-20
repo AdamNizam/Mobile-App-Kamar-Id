@@ -7,7 +7,7 @@ sealed class BookingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetBookingHistory extends BookingEvent {}
+class GetBookingHistoryEvent extends BookingEvent {}
 
 class AddToCartEvent extends BookingEvent {
   final RequestAddToChart dataRequest;
