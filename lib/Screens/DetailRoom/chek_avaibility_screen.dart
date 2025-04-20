@@ -57,28 +57,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
     }
   }
 
-  void _checkAvailability() {
-    if (checkInDate == null || checkOutDate == null || room == 0) {
-      showCustomSnackbar(
-          context, 'Please select Check In - Check Out & select Room');
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    context.read<HotelBloc>().add(
-          PostCheckAvailability(
-            hotelId: widget.dataHotel.id!,
-            startDate: checkInDate!,
-            endDate: checkOutDate!,
-            adults: adult,
-            children: child,
-          ),
-        );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,8 +126,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                   ),
-                                  onPressed:
-                                      isLoading ? null : _checkAvailability,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -178,6 +154,31 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                             ),
                                     ],
                                   ),
+                                  onPressed: () {
+                                    if (checkInDate == null ||
+                                        checkOutDate == null ||
+                                        room == 0) {
+                                      showCustomSnackbar(
+                                        context,
+                                        'Please select Check In - Check Out & select Room',
+                                      );
+                                      return;
+                                    }
+
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+
+                                    context.read<HotelBloc>().add(
+                                          PostCheckAvailability(
+                                            hotelId: widget.dataHotel.id!,
+                                            startDate: checkInDate!,
+                                            endDate: checkOutDate!,
+                                            adults: adult,
+                                            children: child,
+                                          ),
+                                        );
+                                  },
                                 ),
                               ),
                             ],

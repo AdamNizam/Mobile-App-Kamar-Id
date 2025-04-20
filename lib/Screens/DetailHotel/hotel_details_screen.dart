@@ -5,8 +5,10 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
+import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist_model.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/chek_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
@@ -155,7 +157,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           state.data.rowData!.isFeatured == 1
                               ? Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 4),
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: AppColors.redAwesome,
                                     borderRadius: BorderRadius.circular(6),
@@ -178,8 +182,41 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 text1: state.data.rowData!.title.toString(),
                                 size: 17,
                               ),
-                              const Icon(Icons.favorite_border,
-                                  color: AppColors.redAwesome, size: 30),
+                              BlocBuilder<WishlistBloc, WishlistState>(
+                                builder: (context, stateWishlist) {
+                                  if (stateWishlist is WishlistLoading) {
+                                    return LoadingAnimationWidget.beat(
+                                      color: AppColors.buttonColor,
+                                      size: 27,
+                                    );
+                                  }
+                                  if (stateWishlist is PostWishlistSuccess) {
+                                    return const Icon(
+                                      Icons.favorite,
+                                      color: AppColors.redAwesome,
+                                      size: 30,
+                                    );
+                                  }
+
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.read<WishlistBloc>().add(
+                                            PostWishlistEvent(
+                                              RequestWishlistModel(
+                                                objectId:
+                                                    state.data.rowData!.id!,
+                                              ),
+                                            ),
+                                          );
+                                    },
+                                    child: const Icon(
+                                      Icons.favorite_outline,
+                                      color: AppColors.redAwesome,
+                                      size: 30,
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                           ),
                           Row(
@@ -195,8 +232,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             ],
                           ),
                           const SizedBox(height: 10),
-
-                          // Rating dan Harga
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [

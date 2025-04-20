@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/CommonWidgets/eventscard.dart';
-import 'package:hotelbookingapp/CommonWidgets/hotelscard.dart';
+import 'package:hotelbookingapp/CommonWidgets/hotelscard1.dart';
+import 'package:hotelbookingapp/CommonWidgets/hotelscard2.dart';
 import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: state.data.map((hotel) {
-                                return EventsCard(hotel: hotel);
+                                return HotelsCard1(hotel: hotel);
                               }).toList(),
                             ),
                           ),
@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 10.0),
                           Column(
                             children: state.data.map((hotel) {
-                              return HotelsCard(hotel: hotel);
+                              return HotelsCard2(hotel: hotel);
                             }).toList(),
                           ),
                         ],

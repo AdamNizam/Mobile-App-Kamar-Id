@@ -6,7 +6,7 @@ class RequestWishlistModel {
 
   RequestWishlistModel({
     required this.objectId,
-    required this.objectModel,
+    this.objectModel = 'hotel',
   });
 
   factory RequestWishlistModel.fromRawJson(String str) =>

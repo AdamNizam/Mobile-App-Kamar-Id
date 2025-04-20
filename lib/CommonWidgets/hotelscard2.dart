@@ -9,16 +9,16 @@ import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:hotelbookingapp/Widgets/text11.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class HotelsCard extends StatefulWidget {
+class HotelsCard2 extends StatefulWidget {
   final HotelAllModel hotel;
 
-  const HotelsCard({super.key, required this.hotel});
+  const HotelsCard2({super.key, required this.hotel});
 
   @override
-  State<HotelsCard> createState() => _HotelsCardState();
+  State<HotelsCard2> createState() => _HotelsCardState();
 }
 
-class _HotelsCardState extends State<HotelsCard> {
+class _HotelsCardState extends State<HotelsCard2> {
   late PageController _pageController;
   int _currentPage = 0;
   Timer? _timer;
