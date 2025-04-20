@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
+import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
-import 'package:hotelbookingapp/Models/AuthModel/sign_in_form_model.dart';
-import 'package:hotelbookingapp/Models/AuthModel/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 
 part 'auth_event.dart';
@@ -43,7 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         if (event is AuthGetCurrentUser) {
           try {
-            final SignInFormModel? data =
+            final FormLoginModel? data =
                 await AuthService().getCredentialFromLocal();
 
             if (data == null) return;

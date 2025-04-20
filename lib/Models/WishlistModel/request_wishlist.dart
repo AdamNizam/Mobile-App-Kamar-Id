@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class RequestWishlistModel {
+class RequestWishlist {
   final int objectId;
   final String objectModel;
 
-  RequestWishlistModel({
+  RequestWishlist({
     required this.objectId,
     this.objectModel = 'hotel',
   });
 
-  factory RequestWishlistModel.fromRawJson(String str) =>
-      RequestWishlistModel.fromJson(json.decode(str));
+  factory RequestWishlist.fromRawJson(String str) =>
+      RequestWishlist.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory RequestWishlistModel.fromJson(Map<String, dynamic> json) =>
-      RequestWishlistModel(
+  factory RequestWishlist.fromJson(Map<String, dynamic> json) =>
+      RequestWishlist(
         objectId: json["object_id"],
         objectModel: json["object_model"],
       );

@@ -10,7 +10,7 @@ sealed class AuthEvent extends Equatable {
 class AuthLogout extends AuthEvent {}
 
 class AuthLogin extends AuthEvent {
-  final SignInFormModel data;
+  final FormLoginModel data;
 
   const AuthLogin(this.data);
 
@@ -21,7 +21,7 @@ class AuthLogin extends AuthEvent {
 class AuthGetCurrentUser extends AuthEvent {}
 
 class AuthRegister extends AuthEvent {
-  final SignUpFormModel data;
+  final FormRegisterModel data;
 
   const AuthRegister(this.data);
 

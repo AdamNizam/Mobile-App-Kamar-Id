@@ -1,8 +1,8 @@
-class SignInFormModel {
+class FormLoginModel {
   final String? email;
   final String? password;
 
-  SignInFormModel({
+  FormLoginModel({
     this.email,
     this.password,
   });

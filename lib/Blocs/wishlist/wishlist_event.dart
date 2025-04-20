@@ -10,7 +10,7 @@ sealed class WishlistEvent extends Equatable {
 class GetWishlistEvent extends WishlistEvent {}
 
 class PostWishlistEvent extends WishlistEvent {
-  final RequestWishlistModel dataRequest;
+  final RequestWishlist dataRequest;
 
   const PostWishlistEvent(this.dataRequest);
 

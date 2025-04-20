@@ -202,7 +202,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     onTap: () {
                                       context.read<WishlistBloc>().add(
                                             PostWishlistEvent(
-                                              RequestWishlistModel(
+                                              RequestWishlist(
                                                 objectId:
                                                     state.data.rowData!.id!,
                                               ),

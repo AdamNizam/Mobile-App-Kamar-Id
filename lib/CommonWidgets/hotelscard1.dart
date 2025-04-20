@@ -168,7 +168,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                                 onTap: () {
                                   context.read<WishlistBloc>().add(
                                         PostWishlistEvent(
-                                          RequestWishlistModel(
+                                          RequestWishlist(
                                             objectId: widget.hotel.id!,
                                           ),
                                         ),

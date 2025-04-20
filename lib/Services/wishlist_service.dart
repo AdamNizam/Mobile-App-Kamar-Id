@@ -8,7 +8,7 @@ import 'package:hotelbookingapp/shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class WishlistService {
-  Future<ResultWishlist> postWishList(RequestWishlistModel dataWishlist) async {
+  Future<ResultWishlist> postWishList(RequestWishlist data) async {
     try {
       final token = await AuthService().getToken();
 
@@ -18,7 +18,7 @@ class WishlistService {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(dataWishlist.toJson()),
+        body: jsonEncode(data.toJson()),
       );
       // print('RESPONSE post WISHLIST ${res.body}');
 

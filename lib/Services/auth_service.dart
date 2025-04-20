@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
+import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
-import 'package:hotelbookingapp/Models/AuthModel/sign_in_form_model.dart';
-import 'package:hotelbookingapp/Models/AuthModel/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
   static const FlutterSecureStorage storage = FlutterSecureStorage();
 
-  Future<LoginResponse> login(SignInFormModel data) async {
+  Future<LoginResponse> login(FormLoginModel data) async {
     try {
       final res = await http.post(
         Uri.parse('$baseUrl/auth/login'),
@@ -50,14 +50,14 @@ class AuthService {
     await storage.write(key: 'password', value: password);
   }
 
-  Future<SignInFormModel?> getCredentialFromLocal() async {
+  Future<FormLoginModel?> getCredentialFromLocal() async {
     try {
       Map<String, String> values = await storage.readAll();
 
       if (values['email'] == null || values['password'] == null) {
         return null;
       } else {
-        return SignInFormModel(
+        return FormLoginModel(
           email: values['email']!,
           password: values['password']!,
         );
@@ -95,7 +95,7 @@ class AuthService {
     await storage.deleteAll();
   }
 
-  Future<RegisterResponse> register(SignUpFormModel data) async {
+  Future<RegisterResponse> register(FormRegisterModel data) async {
     try {
       final res = await http.post(
         Uri.parse('$baseUrl/auth/register'),
