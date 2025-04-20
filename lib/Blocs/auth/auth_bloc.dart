@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_login.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_register.dart';
-import 'package:hotelbookingapp/Models/UserModel/sign_in_form_model.dart';
-import 'package:hotelbookingapp/Models/UserModel/sign_up_form_model.dart';
+import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
+import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
+import 'package:hotelbookingapp/Models/AuthModel/sign_in_form_model.dart';
+import 'package:hotelbookingapp/Models/AuthModel/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 
 part 'auth_event.dart';

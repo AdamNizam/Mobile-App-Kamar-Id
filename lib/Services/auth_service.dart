@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_login.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_register.dart';
-import 'package:hotelbookingapp/Models/UserModel/sign_in_form_model.dart';
-import 'package:hotelbookingapp/Models/UserModel/sign_up_form_model.dart';
+import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
+import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
+import 'package:hotelbookingapp/Models/AuthModel/sign_in_form_model.dart';
+import 'package:hotelbookingapp/Models/AuthModel/sign_up_form_model.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 

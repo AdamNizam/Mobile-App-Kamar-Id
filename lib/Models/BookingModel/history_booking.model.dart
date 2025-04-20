@@ -2,15 +2,9 @@ import 'dart:convert';
 
 class HistoryBookingModel {
   final List<Datum> data;
-  final int total;
-  final int maxPages;
-  final int status;
 
   HistoryBookingModel({
     required this.data,
-    required this.total,
-    required this.maxPages,
-    required this.status,
   });
 
   factory HistoryBookingModel.fromRawJson(String str) =>
@@ -21,16 +15,10 @@ class HistoryBookingModel {
   factory HistoryBookingModel.fromJson(Map<String, dynamic> json) =>
       HistoryBookingModel(
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        total: json["total"],
-        maxPages: json["max_pages"],
-        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "total": total,
-        "max_pages": maxPages,
-        "status": status,
       };
 }
 
@@ -47,10 +35,7 @@ class Datum {
   final DateTime endDate;
   final String total;
   final int totalGuests;
-  final dynamic currency;
   final String status;
-  final dynamic deposit;
-  final dynamic depositType;
   final int commission;
   final CommissionType commissionType;
   final String email;
@@ -63,26 +48,14 @@ class Datum {
   final String state;
   final String zipCode;
   final String country;
-  final dynamic customerNotes;
   final int createUser;
   final int updateUser;
-  final dynamic deletedAt;
-  final DateTime createdAt;
-  final DateTime updatedAt;
   final List<BuyerFee> buyerFees;
   final String totalBeforeFees;
-  final dynamic paidVendor;
-  final dynamic objectChildId;
-  final dynamic number;
-  final dynamic paid;
   final String payNow;
   final int walletCreditUsed;
   final int walletTotalUsed;
-  final dynamic walletTransactionId;
-  final dynamic isRefundWallet;
   final String vendorServiceFeeAmount;
-  final String vendorServiceFee;
-  final dynamic isPaid;
   final String totalBeforeDiscount;
   final String couponAmount;
   final Service service;
@@ -102,10 +75,7 @@ class Datum {
     required this.endDate,
     required this.total,
     required this.totalGuests,
-    required this.currency,
     required this.status,
-    required this.deposit,
-    required this.depositType,
     required this.commission,
     required this.commissionType,
     required this.email,
@@ -118,26 +88,14 @@ class Datum {
     required this.state,
     required this.zipCode,
     required this.country,
-    required this.customerNotes,
     required this.createUser,
     required this.updateUser,
-    required this.deletedAt,
-    required this.createdAt,
-    required this.updatedAt,
     required this.buyerFees,
     required this.totalBeforeFees,
-    required this.paidVendor,
-    required this.objectChildId,
-    required this.number,
-    required this.paid,
     required this.payNow,
     required this.walletCreditUsed,
     required this.walletTotalUsed,
-    required this.walletTransactionId,
-    required this.isRefundWallet,
     required this.vendorServiceFeeAmount,
-    required this.vendorServiceFee,
-    required this.isPaid,
     required this.totalBeforeDiscount,
     required this.couponAmount,
     required this.service,
@@ -162,10 +120,7 @@ class Datum {
         endDate: DateTime.parse(json["end_date"]),
         total: json["total"],
         totalGuests: json["total_guests"],
-        currency: json["currency"],
         status: json["status"],
-        deposit: json["deposit"],
-        depositType: json["deposit_type"],
         commission: json["commission"],
         commissionType: CommissionType.fromJson(json["commission_type"]),
         email: json["email"],
@@ -178,27 +133,15 @@ class Datum {
         state: json["state"],
         zipCode: json["zip_code"],
         country: json["country"],
-        customerNotes: json["customer_notes"],
         createUser: json["create_user"],
         updateUser: json["update_user"],
-        deletedAt: json["deleted_at"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
         buyerFees: List<BuyerFee>.from(
             json["buyer_fees"].map((x) => BuyerFee.fromJson(x))),
         totalBeforeFees: json["total_before_fees"],
-        paidVendor: json["paid_vendor"],
-        objectChildId: json["object_child_id"],
-        number: json["number"],
-        paid: json["paid"],
         payNow: json["pay_now"],
         walletCreditUsed: json["wallet_credit_used"],
         walletTotalUsed: json["wallet_total_used"],
-        walletTransactionId: json["wallet_transaction_id"],
-        isRefundWallet: json["is_refund_wallet"],
         vendorServiceFeeAmount: json["vendor_service_fee_amount"],
-        vendorServiceFee: json["vendor_service_fee"],
-        isPaid: json["is_paid"],
         totalBeforeDiscount: json["total_before_discount"],
         couponAmount: json["coupon_amount"],
         service: Service.fromJson(json["service"]),
@@ -219,10 +162,7 @@ class Datum {
         "end_date": endDate.toIso8601String(),
         "total": total,
         "total_guests": totalGuests,
-        "currency": currency,
         "status": status,
-        "deposit": deposit,
-        "deposit_type": depositType,
         "commission": commission,
         "commission_type": commissionType.toJson(),
         "email": email,
@@ -235,26 +175,14 @@ class Datum {
         "state": state,
         "zip_code": zipCode,
         "country": country,
-        "customer_notes": customerNotes,
         "create_user": createUser,
         "update_user": updateUser,
-        "deleted_at": deletedAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
         "buyer_fees": List<dynamic>.from(buyerFees.map((x) => x.toJson())),
         "total_before_fees": totalBeforeFees,
-        "paid_vendor": paidVendor,
-        "object_child_id": objectChildId,
-        "number": number,
-        "paid": paid,
         "pay_now": payNow,
         "wallet_credit_used": walletCreditUsed,
         "wallet_total_used": walletTotalUsed,
-        "wallet_transaction_id": walletTransactionId,
-        "is_refund_wallet": isRefundWallet,
         "vendor_service_fee_amount": vendorServiceFeeAmount,
-        "vendor_service_fee": vendorServiceFee,
-        "is_paid": isPaid,
         "total_before_discount": totalBeforeDiscount,
         "coupon_amount": couponAmount,
         "service": service.toJson(),
@@ -269,7 +197,7 @@ class BookingMeta {
   final dynamic salePrice;
   final int guests;
   final int adults;
-  final dynamic children;
+  final String children;
   final List<ExtraPrice> extraPrice;
   final String locale;
   final String howToPay;
@@ -318,10 +246,10 @@ class BookingMeta {
 }
 
 class ExtraPrice {
-  final Name name;
+  final String name;
   final dynamic nameEn;
   final String price;
-  final Type type;
+  final String type;
   final String total;
 
   ExtraPrice({
@@ -338,53 +266,36 @@ class ExtraPrice {
   String toRawJson() => json.encode(toJson());
 
   factory ExtraPrice.fromJson(Map<String, dynamic> json) => ExtraPrice(
-        name: nameValues.map[json["name"]]!,
+        name: json["name"],
         nameEn: json["name_en"],
         price: json["price"],
-        type: typeValues.map[json["type"]]!,
+        type: json["type"],
         total: json["total"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": nameValues.reverse[name],
+        "name": name,
         "name_en": nameEn,
         "price": price,
-        "type": typeValues.reverse[type],
+        "type": type,
         "total": total,
       };
 }
-
-enum Name { BREAKFASTS, SERVICE_VIP }
-
-final nameValues = EnumValues(
-    {"Breakfasts": Name.BREAKFASTS, "Service VIP": Name.SERVICE_VIP});
-
-enum Type { ONE_TIME }
-
-final typeValues = EnumValues({"one_time": Type.ONE_TIME});
 
 class BuyerFee {
   final String name;
   final String desc;
   final String nameEn;
   final String descEn;
-  final dynamic nameJa;
-  final dynamic descJa;
-  final dynamic nameEgy;
-  final dynamic descEgy;
   final String price;
   final String unit;
-  final Type type;
+  final String type;
 
   BuyerFee({
     required this.name,
     required this.desc,
     required this.nameEn,
     required this.descEn,
-    required this.nameJa,
-    required this.descJa,
-    required this.nameEgy,
-    required this.descEgy,
     required this.price,
     required this.unit,
     required this.type,
@@ -400,13 +311,9 @@ class BuyerFee {
         desc: json["desc"],
         nameEn: json["name_en"],
         descEn: json["desc_en"],
-        nameJa: json["name_ja"],
-        descJa: json["desc_ja"],
-        nameEgy: json["name_egy"],
-        descEgy: json["desc_egy"],
         price: json["price"],
         unit: json["unit"],
-        type: typeValues.map[json["type"]]!,
+        type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -414,13 +321,9 @@ class BuyerFee {
         "desc": desc,
         "name_en": nameEn,
         "desc_en": descEn,
-        "name_ja": nameJa,
-        "desc_ja": descJa,
-        "name_egy": nameEgy,
-        "desc_egy": descEgy,
         "price": price,
         "unit": unit,
-        "type": typeValues.reverse[type],
+        "type": type,
       };
 }
 
@@ -467,16 +370,4 @@ class Service {
   Map<String, dynamic> toJson() => {
         "title": title,
       };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

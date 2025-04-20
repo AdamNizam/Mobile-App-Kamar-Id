@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_register.dart';
+import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';

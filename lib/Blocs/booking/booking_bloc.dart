@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Models/BookingModel/add_to_chart_model.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_add_to_chart.dart';
+import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
+import 'package:hotelbookingapp/Models/BookingModel/result_add_to_chart.dart';
 import 'package:hotelbookingapp/Services/booking_service.dart';
 
 part 'booking_event.dart';

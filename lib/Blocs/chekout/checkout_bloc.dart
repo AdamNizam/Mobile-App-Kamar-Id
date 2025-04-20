@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/chekout_model.dart';
-import 'package:hotelbookingapp/Models/ResponseResultModel/result_chekout.dart';
+import 'package:hotelbookingapp/Models/CheckoutModel/result_chekout.dart';
 import 'package:hotelbookingapp/Services/checkout_service.dart';
 
 part 'checkout_event.dart';
