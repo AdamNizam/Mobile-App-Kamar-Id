@@ -4,8 +4,16 @@ import '../../Widgets/custombtn.dart';
 import '../../Widgets/customtextfield.dart';
 import '../../Widgets/detailstext1.dart';
 
-class ChangePassword extends StatelessWidget {
+class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
+
+  @override
+  State<ChangePassword> createState() => _ChangePasswordState();
+}
+
+class _ChangePasswordState extends State<ChangePassword> {
+  final currentPassword = TextEditingController();
+  final newPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

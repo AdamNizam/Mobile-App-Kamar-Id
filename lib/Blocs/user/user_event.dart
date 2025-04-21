@@ -17,3 +17,12 @@ class PostUserUpdateEvent extends UserEvent {
   @override
   List<Object> get props => [dataRequest];
 }
+
+class PostUpdatePasswordEvent extends UserEvent {
+  final FormUpdatePassword dataRequest;
+
+  const PostUpdatePasswordEvent(this.dataRequest);
+
+  @override
+  List<Object> get props => [dataRequest];
+}

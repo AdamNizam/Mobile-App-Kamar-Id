@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Models/UserModel/result_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/result_user_update.dart';
 import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
@@ -27,7 +29,7 @@ class UserService {
       } else {
         throw jsonDecode(res.body)['message'];
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
   }
@@ -52,7 +54,32 @@ class UserService {
       } else {
         throw jsonDecode(res.body)['message'];
       }
-    } catch (e) {
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<ResultUpdatePassword> updatePassword(FormUpdatePassword data) async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.post(
+        Uri.parse('$baseUrl/auth/change-password'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data.toJson()),
+      );
+
+      print('Result Update Password : ${res.body}');
+
+      if (res.statusCode == 200) {
+        return ResultUpdatePassword.fromJson(jsonDecode(res.body)['data']);
+      } else {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (error) {
       rethrow;
     }
   }

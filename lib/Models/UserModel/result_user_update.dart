@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ResultUserUpdate {
-  final String message;
+  final dynamic message; // bisa String atau Map
   final bool status;
 
   ResultUserUpdate({
@@ -17,7 +17,7 @@ class ResultUserUpdate {
   factory ResultUserUpdate.fromJson(Map<String, dynamic> json) =>
       ResultUserUpdate(
         message: json["message"],
-        status: json["status"],
+        status: json["status"] == true || json["status"] == 1,
       );
 
   Map<String, dynamic> toJson() => {

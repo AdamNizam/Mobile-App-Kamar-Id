@@ -8,11 +8,11 @@ class RequestChekout {
   final String phone;
   final String addressLine1;
   final String addressLine2;
-  final String city;
-  final String state;
-  final String zipCode;
+  final String? city;
+  final String? state;
+  final String? zipCode;
   final String country;
-  final String customerNotes;
+  final String? customerNotes;
   final String paymentGateway;
   final String termConditions;
   final dynamic couponCode;
@@ -25,11 +25,11 @@ class RequestChekout {
     required this.phone,
     required this.addressLine1,
     required this.addressLine2,
-    required this.city,
-    required this.state,
-    required this.zipCode,
+    this.city,
+    this.state,
+    this.zipCode,
     required this.country,
-    required this.customerNotes,
+    this.customerNotes,
     required this.paymentGateway,
     required this.termConditions,
     required this.couponCode,

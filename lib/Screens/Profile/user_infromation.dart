@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -17,76 +18,107 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
-  final userNameController = TextEditingController(text: '');
+  final fullNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final streetAddressController = TextEditingController();
+  final cityController = TextEditingController();
+  final stateController = TextEditingController();
+  final zipCodeController = TextEditingController();
 
-  final firstNameController = TextEditingController(text: '');
-
-  final lastNameController = TextEditingController(text: '');
-
-  final emailController = TextEditingController(text: '');
-
-  final phoneController = TextEditingController(text: '');
-
-  final streetAddressController = TextEditingController(text: '');
-
-  final cityController = TextEditingController(text: '');
-
-  final stateController = TextEditingController(text: '');
-
-  final zipCodeController = TextEditingController(text: '');
-
-  final countryController = TextEditingController(text: '');
-
-  late final String username;
-
-  late final String email;
+  String? fullname;
+  String? email;
+  String? selectedCountry;
 
   @override
   void initState() {
     super.initState();
     final userState = context.read<UserBloc>().state;
     if (userState is UserSuccess) {
-      username = userState.data.userName.toString();
-      email = userState.data.email.toString();
+      final data = userState.data;
 
-      userNameController.text = userState.data.userName.toString();
-      firstNameController.text = userState.data.firstName.toString();
-      lastNameController.text = userState.data.lastName.toString();
-      emailController.text = userState.data.email.toString();
-      phoneController.text = userState.data.phone.toString();
-      streetAddressController.text = userState.data.address.toString();
-      cityController.text = userState.data.city.toString();
-      stateController.text = userState.data.state.toString();
-      zipCodeController.text = userState.data.zipCode.toString();
+      fullname = data.name;
+      email = data.email;
+
+      fullNameController.text = data.name;
+      firstNameController.text = data.firstName;
+      lastNameController.text = data.lastName;
+      emailController.text = data.email;
+      phoneController.text = data.phone;
+      streetAddressController.text = data.address ?? '';
+      cityController.text = data.city ?? '';
+      stateController.text = data.state ?? '';
+      zipCodeController.text = data.zipCode?.toString() ?? '';
+      selectedCountry = data.country;
     }
   }
 
   final Map<String, String> countryList = {
     "AF": "Afghanistan",
-    "AX": "Aland Islands",
     "AL": "Albania",
     "DZ": "Algeria",
-    "AS": "American Samoa",
     "AD": "Andorra",
     "AO": "Angola",
-    "AI": "Anguilla",
-    "AQ": "Antarctica",
-    "AG": "Antigua And Barbuda",
     "AR": "Argentina",
-    "AM": "Armenia",
-    "AW": "Aruba",
     "AU": "Australia",
     "AT": "Austria",
-    "AZ": "Azerbaijan",
-    "BS": "Bahamas",
-    "BH": "Bahrain",
-    "BD": "Bangladesh",
-    "BB": "Barbados",
-    "BY": "Belarus",
     "BE": "Belgium",
+    "BD": "Bangladesh",
+    "BR": "Brazil",
+    "CA": "Canada",
+    "CN": "China",
+    "FR": "France",
+    "DE": "Germany",
+    "ID": "Indonesia",
+    "IT": "Italy",
+    "JP": "Japan",
+    "MY": "Malaysia",
+    "NL": "Netherlands",
+    "SG": "Singapore",
+    "ES": "Spain",
+    "SE": "Sweden",
+    "CH": "Switzerland",
+    "GB": "United Kingdom",
+    "US": "United States",
   };
 
-  String? selectedCountry;
+  void _saveChanges() {
+    if (fullNameController.text.isEmpty ||
+        firstNameController.text.isEmpty ||
+        lastNameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        cityController.text.isEmpty ||
+        stateController.text.isEmpty ||
+        zipCodeController.text.isEmpty ||
+        selectedCountry == null) {
+      showCustomSnackbar(context, 'Please complete all data before saving.');
+      return;
+    }
+
+    final dataRequest = RequestUserUpdate(
+      businessName: '',
+      userName: fullNameController.text,
+      email: emailController.text,
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      phone: phoneController.text,
+      birthday: '01/01/1970',
+      bio: '',
+      avatarId: '',
+      address: streetAddressController.text,
+      address2: '',
+      city: cityController.text,
+      state: stateController.text,
+      country: selectedCountry!,
+      zipCode: zipCodeController.text,
+    );
+
+    print('Data Update User ${jsonEncode(dataRequest.toJson())}');
+    context.read<UserBloc>().add(PostUserUpdateEvent(dataRequest));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,158 +126,140 @@ class _UserInformationState extends State<UserInformation> {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Center(
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                          "https://randomuser.me/api/portraits/men/1.jpg",
-                        ), // Example profile picture
-                      ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Center(
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                      "https://randomuser.me/api/portraits/men/1.jpg",
                     ),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: Text(
-                        username, // Example username
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.text1Color,
-                        ),
-                      ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Center(
+                  child: Text(
+                    fullname ?? '',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.text1Color,
                     ),
-                    Center(
-                      child: Text(
-                        email, // Example email
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: AppColors.text2Color,
-                        ),
-                      ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    email ?? '',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: AppColors.text2Color,
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    CustomTextField(
-                      icon: Icons.person_2_sharp,
-                      label: 'User Name',
-                      controller: userNameController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.person_outline,
-                      label: 'First Name',
-                      controller: firstNameController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.person_outline,
-                      label: 'Last Name',
-                      controller: lastNameController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email Address',
-                      controller: emailController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.phone,
-                      label: 'Phone Number',
-                      controller: phoneController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.home,
-                      label: 'Street Address',
-                      controller: streetAddressController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.location_city,
-                      label: 'City',
-                      controller: cityController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.location_on,
-                      label: 'State',
-                      controller: stateController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.markunread_mailbox,
-                      label: 'Zip Code',
-                      controller: zipCodeController,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 0.0),
-                      child: Container(
-                        height: 50, // Meningkatkan tinggi agar lebih seimbang
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: AppColors.textFormFieldBorderColor),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.public,
-                                color: Colors.black54), // Ikon negara
-                            const SizedBox(
-                                width: 10), // Jarak antara ikon dan dropdown
-                            Expanded(
-                              child: DropdownButtonFormField<String>(
-                                isDense:
-                                    true, // Bantu agar dropdown lebih ringkas
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.zero,
-                                ),
-                                value: selectedCountry,
-                                hint: const Align(
-                                  alignment: Alignment
-                                      .centerLeft, // Agar hint sejajar kiri
-                                  child: Text(
-                                    "Pilih Negara",
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                                items: countryList.entries.map((entry) {
-                                  return DropdownMenuItem<String>(
-                                    value: entry.key,
-                                    child: Text(
-                                      entry.value,
-                                      style: const TextStyle(
-                                          fontSize: 14, color: Colors.black54),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedCountry = value;
-                                  });
-                                },
-                                dropdownColor: Colors.white,
-                                icon: const Icon(Icons.arrow_drop_down,
-                                    color: Colors.black54),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                CustomTextField(
+                  icon: Icons.person,
+                  label: 'User Name',
+                  controller: fullNameController,
+                ),
+                CustomTextField(
+                  icon: Icons.person_outline,
+                  label: 'First Name',
+                  controller: firstNameController,
+                ),
+                CustomTextField(
+                  icon: Icons.person_outline,
+                  label: 'Last Name',
+                  controller: lastNameController,
+                ),
+                CustomTextField(
+                  icon: Icons.email,
+                  label: 'Email Address',
+                  controller: emailController,
+                ),
+                CustomTextField(
+                  icon: Icons.phone,
+                  label: 'Phone Number',
+                  controller: phoneController,
+                ),
+                CustomTextField(
+                  icon: Icons.home,
+                  label: 'Street Address',
+                  controller: streetAddressController,
+                ),
+                CustomTextField(
+                  icon: Icons.location_city,
+                  label: 'City',
+                  controller: cityController,
+                ),
+                CustomTextField(
+                  icon: Icons.location_on,
+                  label: 'State',
+                  controller: stateController,
+                ),
+                CustomTextField(
+                  icon: Icons.markunread_mailbox,
+                  label: 'Zip Code',
+                  controller: zipCodeController,
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  height: 50,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: AppColors.textFormFieldBorderColor),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.public, color: Colors.black54),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: DropdownButtonFormField<String>(
+                          isDense: true,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.zero,
+                          ),
+                          value: selectedCountry,
+                          hint: const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Pilih Negara",
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 16,
                               ),
                             ),
-                          ],
+                          ),
+                          items: countryList.entries.map((entry) {
+                            return DropdownMenuItem<String>(
+                              value: entry.key,
+                              child: Text(entry.value,
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.black54)),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedCountry = value;
+                            });
+                          },
+                          dropdownColor: Colors.white,
+                          icon: const Icon(Icons.arrow_drop_down,
+                              color: Colors.black54),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 15),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 25),
+              ],
+            ),
           ),
         ),
       ),
@@ -253,29 +267,7 @@ class _UserInformationState extends State<UserInformation> {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
         child: CustomButton(
           text: 'Save changes',
-          onTap: () {
-            final dataRequest = RequestUserUpdate(
-              businessName: '',
-              userName: userNameController.toString(),
-              email: emailController.toString(),
-              firstName: firstNameController.toString(),
-              lastName: lastNameController.toString(),
-              phone: phoneController.toString(),
-              birthday: '01/01/1970',
-              bio: '',
-              avatarId: '',
-              address: '',
-              address2: '',
-              city: cityController.toString(),
-              state: stateController.toString(),
-              country: 'ID',
-              zipCode: zipCodeController.toString(),
-            );
-
-            print('Data Update User ${jsonEncode(dataRequest.toJson())}');
-
-            context.read<UserBloc>().add(PostUserUpdateEvent(dataRequest));
-          },
+          onTap: _saveChanges,
         ),
       ),
     );
