@@ -31,7 +31,7 @@ class HomeWidgte extends StatelessWidget {
               }),
               Text(
                 state.data.userName != null
-                    ? 'Hi, ${state.data.lastName}'
+                    ? 'Hi, ${state.data.firstName}'
                     : 'Hi, you',
                 style: GoogleFonts.poppins(
                   fontSize: 16,

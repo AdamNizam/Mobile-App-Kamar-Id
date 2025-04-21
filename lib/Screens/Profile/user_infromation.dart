@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
+import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -249,10 +252,31 @@ class _UserInformationState extends State<UserInformation> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
         child: CustomButton(
-            text: 'Save changes',
-            onTap: () {
-              // Handle save information action
-            }),
+          text: 'Save changes',
+          onTap: () {
+            final dataRequest = RequestUserUpdate(
+              businessName: '',
+              userName: userNameController.toString(),
+              email: emailController.toString(),
+              firstName: firstNameController.toString(),
+              lastName: lastNameController.toString(),
+              phone: phoneController.toString(),
+              birthday: '01/01/1970',
+              bio: '',
+              avatarId: '',
+              address: '',
+              address2: '',
+              city: cityController.toString(),
+              state: stateController.toString(),
+              country: 'ID',
+              zipCode: zipCodeController.toString(),
+            );
+
+            print('Data Update User ${jsonEncode(dataRequest.toJson())}');
+
+            context.read<UserBloc>().add(PostUserUpdateEvent(dataRequest));
+          },
+        ),
       ),
     );
   }
