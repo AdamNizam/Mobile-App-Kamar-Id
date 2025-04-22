@@ -8,18 +8,18 @@ import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
-class StoreCodePage extends StatefulWidget {
+class StoreCodeIndomaretPage extends StatefulWidget {
   final ResultMidtransModel data;
-  const StoreCodePage({
+  const StoreCodeIndomaretPage({
     super.key,
     required this.data,
   });
 
   @override
-  State<StoreCodePage> createState() => _VirtualNumberPageState();
+  State<StoreCodeIndomaretPage> createState() => _VirtualNumberPageState();
 }
 
-class _VirtualNumberPageState extends State<StoreCodePage>
+class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
@@ -123,14 +123,7 @@ class _VirtualNumberPageState extends State<StoreCodePage>
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('images/Logo-Alfamart.png', height: 25),
-                        const SizedBox(width: 12),
-                        Image.asset('images/Logo-Indomaret.png', height: 60),
-                      ],
-                    ),
+                    Image.asset('images/Logo-Indomaret.png', height: 60),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -177,35 +170,39 @@ class _VirtualNumberPageState extends State<StoreCodePage>
                 ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                child: Row(
+                child: Column(
                   children: [
-                    Expanded(
-                      child: SelectableText(
-                        widget.data.paymentCode ?? '',
-                        style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
-                    ScaleTransition(
-                      scale: _scaleAnimation,
-                      child: GestureDetector(
-                        onTap: copyToClipboard,
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: const BoxDecoration(
-                            color: AppColors.buttonColor,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            isCopied ? Icons.check : Icons.copy,
-                            color: AppColors.white,
-                            size: 20,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SelectableText(
+                            widget.data.paymentCode ?? '',
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black87,
+                            ),
                           ),
                         ),
-                      ),
+                        ScaleTransition(
+                          scale: _scaleAnimation,
+                          child: GestureDetector(
+                            onTap: copyToClipboard,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: const BoxDecoration(
+                                color: AppColors.buttonColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                isCopied ? Icons.check : Icons.copy,
+                                color: AppColors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

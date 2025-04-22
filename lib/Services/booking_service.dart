@@ -20,6 +20,7 @@ class BookingService {
         },
         body: jsonEncode(data.toJson()),
       );
+      print('Response add to cart:  ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultAddToCart.fromJson(jsonDecode(res.body));
@@ -43,7 +44,7 @@ class BookingService {
         },
       );
 
-      print('RESPONSE GET History Booking ${res.body}');
+      // print('RESPONSE GET History Booking ${res.body}');
 
       if (res.statusCode == 200) {
         return HistoryBookingModel.fromJson(jsonDecode(res.body));

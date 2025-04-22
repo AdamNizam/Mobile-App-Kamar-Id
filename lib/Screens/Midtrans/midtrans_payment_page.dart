@@ -7,7 +7,8 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
 import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
-import 'package:hotelbookingapp/Screens/Midtrans/store_code_page.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/store_code_alfamart_page.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/store_code_indomaret_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataExampleMidtrans/data.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -57,7 +58,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     ),
                   );
                 });
-              } else if (selectedType == 'shopeepay') {
+              }
+
+              if (selectedType == 'shopeepay') {
                 final deeplinkAction = state.data.actions?.firstWhere(
                   (action) => action.name == 'deeplink-redirect',
                 );
@@ -66,7 +69,9 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 if (deeplink != null) {
                   launchUrl(Uri.parse(deeplink));
                 }
-              } else if (selectedType == 'bank_transfer') {
+              }
+
+              if (selectedType == 'bank_transfer') {
                 final va = state.data.vaNumbers?.first;
                 if (va?.vaNumber != null && va?.bank != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -79,13 +84,27 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                     );
                   });
                 }
-              } else if (selectedType == 'alfamart' ||
-                  selectedType == 'Indomaret') {
+              }
+
+              if (selectedType == 'alfamart') {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => StoreCodePage(data: state.data),
+                      builder: (context) =>
+                          StoreCodeAlfamartPage(data: state.data),
+                    ),
+                  );
+                });
+              }
+
+              if (selectedType == 'Indomaret') {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          StoreCodeIndomaretPage(data: state.data),
                     ),
                   );
                 });

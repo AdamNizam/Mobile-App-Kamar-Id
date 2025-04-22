@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
+import 'package:hotelbookingapp/Blocs/bloc/check_avaibility_hotel_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/modals/show_room_selection_modal.dart';
