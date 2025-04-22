@@ -228,13 +228,18 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     if (state.data.rooms == null || state.data.rooms!.isEmpty)
                       Center(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              'images/Sold_out_.png',
-                              width: 300,
+                            SvgPicture.asset(
+                              'images/soldout.svg',
                               height: 250,
-                              fit: BoxFit.contain,
+                            ),
+                            Text(
+                              "SOLDOUT ROOM",
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.cadetGray,
+                              ),
                             ),
                           ],
                         ),

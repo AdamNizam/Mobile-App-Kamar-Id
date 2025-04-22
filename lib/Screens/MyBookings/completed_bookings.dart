@@ -45,12 +45,12 @@ class _CompletedBookingState extends State<CompletedBooking> {
                               children: [
                                 SvgPicture.asset(
                                   'images/empty_history.svg',
-                                  height: 150,
+                                  height: 200,
                                 ),
                                 Text(
                                   "Tidak ada riwayat booking.",
                                   style: GoogleFonts.poppins(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.cadetGray,
                                   ),

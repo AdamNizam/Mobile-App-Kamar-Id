@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
@@ -58,13 +59,21 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                         child: SingleChildScrollView(
                           child: state.data.dataWishlist.isEmpty
                               ? Center(
-                                  child: Text(
-                                    "Tidak ada wishlist saat ini",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.cadetGray,
-                                    ),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'images/empty_wishlisht.svg',
+                                        height: 200,
+                                      ),
+                                      Text(
+                                        "Tidak ada favorit yang ditambahkan.",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.cadetGray,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 )
                               : Column(
