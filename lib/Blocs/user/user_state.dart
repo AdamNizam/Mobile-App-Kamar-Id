@@ -28,21 +28,3 @@ final class UserSuccess extends UserState {
   @override
   List<Object> get props => [data];
 }
-
-final class UpdateUserSuccess extends UserState {
-  final ResultUserUpdate data;
-
-  const UpdateUserSuccess(this.data);
-
-  @override
-  List<Object> get props => [data];
-}
-
-final class UpdatePasswordSuccess extends UserState {
-  final ResultUpdatePassword data;
-
-  const UpdatePasswordSuccess(this.data);
-
-  @override
-  List<Object> get props => [data];
-}

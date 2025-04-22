@@ -129,7 +129,7 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                                 children: [
                                   const SizedBox(width: 4),
                                   Text(
-                                    'Completed Booking',
+                                    'Status ${data?.status}',
                                     style: GoogleFonts.poppins(
                                       color: AppColors.green,
                                       fontSize: 15,

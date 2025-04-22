@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class ResultUpdatePassword {
-  final String message;
-  final bool status;
+  final dynamic message;
+  final int status; // ✅ ubah dari bool ke int
 
   ResultUpdatePassword({
     required this.message,

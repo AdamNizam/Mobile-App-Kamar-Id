@@ -50,7 +50,7 @@ class UserService {
       print('Result Update Profile : ${res.body}');
 
       if (res.statusCode == 200) {
-        return ResultUserUpdate.fromJson(jsonDecode(res.body)['data']);
+        return ResultUserUpdate.fromJson(jsonDecode(res.body));
       } else {
         throw jsonDecode(res.body)['message'];
       }
@@ -75,7 +75,7 @@ class UserService {
       print('Result Update Password : ${res.body}');
 
       if (res.statusCode == 200) {
-        return ResultUpdatePassword.fromJson(jsonDecode(res.body)['data']);
+        return ResultUpdatePassword.fromJson(jsonDecode(res.body));
       } else {
         throw jsonDecode(res.body)['message'];
       }

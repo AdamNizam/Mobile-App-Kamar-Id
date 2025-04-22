@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
@@ -85,19 +83,6 @@ class _UserInformationState extends State<UserInformation> {
   };
 
   void _saveChanges() {
-    if (fullNameController.text.isEmpty ||
-        firstNameController.text.isEmpty ||
-        lastNameController.text.isEmpty ||
-        emailController.text.isEmpty ||
-        phoneController.text.isEmpty ||
-        cityController.text.isEmpty ||
-        stateController.text.isEmpty ||
-        zipCodeController.text.isEmpty ||
-        selectedCountry == null) {
-      showCustomSnackbar(context, 'Please complete all data before saving.');
-      return;
-    }
-
     final dataRequest = RequestUserUpdate(
       businessName: '',
       userName: fullNameController.text,
@@ -116,8 +101,8 @@ class _UserInformationState extends State<UserInformation> {
       zipCode: zipCodeController.text,
     );
 
-    print('Data Update User ${jsonEncode(dataRequest.toJson())}');
-    context.read<UserBloc>().add(PostUserUpdateEvent(dataRequest));
+    // print('Data Update User ${jsonEncode(dataRequest.toJson())}');
+    context.read<UpdateUserBloc>().add(PostUserUpdateEvent(dataRequest));
   }
 
   @override
@@ -239,9 +224,11 @@ class _UserInformationState extends State<UserInformation> {
                           items: countryList.entries.map((entry) {
                             return DropdownMenuItem<String>(
                               value: entry.key,
-                              child: Text(entry.value,
-                                  style: const TextStyle(
-                                      fontSize: 14, color: Colors.black54)),
+                              child: Text(
+                                entry.value,
+                                style: const TextStyle(
+                                    fontSize: 14, color: Colors.black54),
+                              ),
                             );
                           }).toList(),
                           onChanged: (value) {
@@ -249,7 +236,7 @@ class _UserInformationState extends State<UserInformation> {
                               selectedCountry = value;
                             });
                           },
-                          dropdownColor: Colors.white,
+                          dropdownColor: AppColors.white,
                           icon: const Icon(Icons.arrow_drop_down,
                               color: Colors.black54),
                         ),
