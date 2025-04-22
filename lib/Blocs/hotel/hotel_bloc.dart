@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
-import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Services/hotel_service.dart';
 
 part 'hotel_event.dart';
@@ -20,8 +19,8 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(HotelSuccess(data));
           } catch (error) {
-            // emit(HotelFailed(error.toString()));
-            emit(const HotelFailed('Terjandi Kesalahan'));
+            // print('Get Data Hotel Error : $error');
+            emit(const HotelFailed('Get data failed!'));
           }
         }
 
@@ -33,27 +32,8 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(GetAllHotelDetailSuccess(data));
           } catch (error) {
-            // print('pesan error: $error');
+            // print('Get Data Detail Hotel: $error');
             emit(const HotelFailed('Hotel not found'));
-          }
-        }
-
-        if (event is PostCheckAvailability) {
-          try {
-            emit(ChekAvaibilityLoading());
-
-            final data = await HotelService().checkAvaibility(
-              hotelId: event.hotelId,
-              startDate: event.startDate,
-              endDate: event.endDate,
-              adults: event.adults,
-              children: event.children,
-            );
-
-            emit(CheckAvaibilitySuccess(data));
-          } catch (error) {
-            // print('check availability error: $error');
-            emit(const ChekAvaibilityFailed('failed check availability'));
           }
         }
       },

@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 import '../Models/HotelModel/result_check_avaibility.dart';
 
@@ -58,31 +58,19 @@ class HotelService {
     }
   }
 
-  Future<ResultCheckAvaibility> checkAvaibility({
-    required int hotelId,
-    required DateTime startDate,
-    required DateTime endDate,
-    required int adults,
-    bool firstLoad = false,
-    int? children,
-  }) async {
+  Future<ResultCheckAvaibility> checkAvaibilityHotel(
+    RequestCheckAvaibility data,
+  ) async {
     try {
       final token = await AuthService().getToken();
 
       final res = await http.post(
-        Uri.parse('$baseUrl/hotel/$hotelId/checkAvailability'),
+        Uri.parse('$baseUrl/hotel/${data.hotelId}/checkAvailability'),
         headers: {
           'Authorization': token,
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({
-          "hotel_id": hotelId,
-          "start_date": DateFormat('yyyy-MM-dd').format(startDate),
-          "end_date": DateFormat('yyyy-MM-dd').format(endDate),
-          "firstLoad": firstLoad,
-          "adults": adults,
-          "children": children ?? "",
-        }),
+        body: jsonEncode(data.toJson()),
       );
 
       // print('RESPONSE CHEK AVAIBILITY ${res.body}');

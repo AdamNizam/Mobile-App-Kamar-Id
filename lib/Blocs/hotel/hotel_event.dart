@@ -14,19 +14,3 @@ class GetDetailHotel extends HotelEvent {
 
   const GetDetailHotel(this.slug);
 }
-
-class PostCheckAvailability extends HotelEvent {
-  final int hotelId;
-  final DateTime startDate;
-  final DateTime endDate;
-  final int adults;
-  final int? children;
-
-  const PostCheckAvailability({
-    required this.hotelId,
-    required this.startDate,
-    required this.endDate,
-    required this.adults,
-    this.children,
-  });
-}
