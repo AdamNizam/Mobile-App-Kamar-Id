@@ -262,9 +262,6 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                               store: selectedType!,
                             )
                           : null,
-                      // itemDetails: selectedType == 'cstore'
-                      //     ? ItemDetails(id: id, price: price, quantity: quantity, name: name)
-                      //     : null,
                     );
 
                     print('DATA PAYMENT :${jsonEncode(dataPayment.toJson())}');

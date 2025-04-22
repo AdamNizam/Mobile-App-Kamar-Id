@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/card_booking_completed.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
@@ -36,11 +39,31 @@ class _CompletedBookingState extends State<CompletedBooking> {
                     }
                   });
                   if (state is HistoryBookingSuccess) {
-                    return ListView(
-                      children: state.data.dataHistory
-                          .map((history) => CardBookingCompleted(data: history))
-                          .toList(),
-                    );
+                    return state.data.dataHistory.isEmpty
+                        ? Center(
+                            child: Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'images/empty_history.svg',
+                                  height: 150,
+                                ),
+                                Text(
+                                  "Tidak ada riwayat booking.",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.cadetGray,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView(
+                            children: state.data.dataHistory
+                                .map((history) =>
+                                    CardBookingCompleted(data: history))
+                                .toList(),
+                          );
                   }
                   return Column(
                     children: List.generate(4, (_) => shimmerListTile()),

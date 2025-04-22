@@ -23,7 +23,8 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
-  bool isCopied = false;
+  bool isCopiedCode = false;
+  bool isCopiedID = false;
 
   late DateTime expiryTime;
   Timer? _timer;
@@ -69,14 +70,25 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
     );
   }
 
-  void copyToClipboard() async {
+  void copyToClipboardCode() async {
     await Clipboard.setData(ClipboardData(text: widget.data.paymentCode!));
     setState(() {
-      isCopied = true;
+      isCopiedCode = true;
     });
     _animationController.forward().then((_) {
       _animationController.reverse();
-      showCustomSnackbar(context, 'code is copyed!');
+      showCustomSnackbar(context, 'Code is copyed!');
+    });
+  }
+
+  void copyToClipboardID() async {
+    await Clipboard.setData(ClipboardData(text: widget.data.paymentCode!));
+    setState(() {
+      isCopiedID = true;
+    });
+    _animationController.forward().then((_) {
+      _animationController.reverse();
+      showCustomSnackbar(context, 'ID Merchant is copyed!');
     });
   }
 
@@ -96,7 +108,6 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Back Button
               Row(
                 children: [
                   CircleAvatar(
@@ -110,20 +121,17 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
               Center(
                 child: Column(
                   children: [
                     Text(
-                      'Pay in : ${widget.data.transactionStatus}',
+                      'Bayar Via Indomaret',
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Image.asset('images/Logo-Indomaret.png', height: 60),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -149,27 +157,28 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
 
               // Instruction
               Text(
-                'Tunjukkan kode pembayaran ini ke kasir Alfamart / Indomaret:',
+                'Tunjukkan kode pembayaran ini ke kasir Indomaret',
                 style: GoogleFonts.poppins(
                     fontSize: 14, color: AppColors.cadetGray),
               ),
               const SizedBox(height: 10),
-
-              // Payment Code Box
+              Text(
+                'Payment Code :',
+                style: GoogleFonts.poppins(
+                    fontSize: 14, color: AppColors.cadetGray),
+              ),
+              const SizedBox(height: 5),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 8,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
+                  border: Border.all(
+                    width: 2,
+                    color: isCopiedID ? AppColors.beauBlue : AppColors.white,
+                  ),
                 ),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 child: Column(
                   children: [
                     Row(
@@ -187,7 +196,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                         ScaleTransition(
                           scale: _scaleAnimation,
                           child: GestureDetector(
-                            onTap: copyToClipboard,
+                            onTap: copyToClipboardCode,
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: const BoxDecoration(
@@ -195,7 +204,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
-                                isCopied ? Icons.check : Icons.copy,
+                                isCopiedCode ? Icons.check : Icons.copy,
                                 color: AppColors.white,
                                 size: 20,
                               ),
@@ -207,9 +216,62 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                   ],
                 ),
               ),
-
+              const SizedBox(height: 16),
+              Text(
+                'Merchant ID :',
+                style: GoogleFonts.poppins(
+                    fontSize: 14, color: AppColors.cadetGray),
+              ),
+              const SizedBox(height: 5),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    width: 2,
+                    color: isCopiedID ? AppColors.beauBlue : AppColors.white,
+                  ),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SelectableText(
+                            widget.data.merchantId ?? '',
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                        ScaleTransition(
+                          scale: _scaleAnimation,
+                          child: GestureDetector(
+                            onTap: copyToClipboardID,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: const BoxDecoration(
+                                color: AppColors.buttonColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                isCopiedID ? Icons.check : Icons.copy,
+                                color: AppColors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 24),
-
               // Langkah-Langkah
               Text(
                 'Cara Pembayaran:',
@@ -218,7 +280,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
               ),
               const SizedBox(height: 10),
               ...[
-                '1. Kunjungi Alfamart / Indomaret terdekat.',
+                '1. Kunjungi Indomaret terdekat.',
                 '2. Tunjukkan kode pembayaran ini ke kasir.',
                 '3. Sebutkan bahwa kamu ingin membayar melalui Midtrans.',
                 '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)} dan simpan struk sebagai bukti.',

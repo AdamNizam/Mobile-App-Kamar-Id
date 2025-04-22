@@ -18,10 +18,10 @@ class HotelsCard2 extends StatefulWidget {
   const HotelsCard2({super.key, required this.hotel});
 
   @override
-  State<HotelsCard2> createState() => _HotelsCardState();
+  State<HotelsCard2> createState() => _HotelsCard2State();
 }
 
-class _HotelsCardState extends State<HotelsCard2> {
+class _HotelsCard2State extends State<HotelsCard2> {
   late PageController _pageController;
   int _currentPage = 0;
   Timer? _timer;

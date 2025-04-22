@@ -115,15 +115,13 @@ class _VirtualNumberPageState extends State<StoreCodeAlfamartPage>
                 child: Column(
                   children: [
                     Text(
-                      'Pay in : ${widget.data.transactionStatus}',
+                      'Bayar Via Alfamart',
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Image.asset('images/Logo-Alfamart.png', height: 25),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -149,13 +147,17 @@ class _VirtualNumberPageState extends State<StoreCodeAlfamartPage>
 
               // Instruction
               Text(
-                'Tunjukkan kode pembayaran ini ke kasir Alfamart / Indomaret:',
+                'Tunjukkan kode pembayaran ini ke kasir Alfamart',
                 style: GoogleFonts.poppins(
                     fontSize: 14, color: AppColors.cadetGray),
               ),
               const SizedBox(height: 10),
-
-              // Payment Code Box
+              Text(
+                'Payment Code :',
+                style: GoogleFonts.poppins(
+                    fontSize: 14, color: AppColors.cadetGray),
+              ),
+              const SizedBox(height: 5),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -214,7 +216,7 @@ class _VirtualNumberPageState extends State<StoreCodeAlfamartPage>
               ),
               const SizedBox(height: 10),
               ...[
-                '1. Kunjungi Alfamart / Indomaret terdekat.',
+                '1. Kunjungi Alfamart terdekat.',
                 '2. Tunjukkan kode pembayaran ini ke kasir.',
                 '3. Sebutkan bahwa kamu ingin membayar melalui Midtrans.',
                 '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)} dan simpan struk sebagai bukti.',
