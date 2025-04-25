@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dar
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
 import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/credit_card_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_alfamart_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_indomaret_page.dart';
@@ -127,6 +128,17 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                 children: [
                   const SizedBox(height: 50),
                   const Text1(
+                    text1: "Credit Card",
+                    size: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  _buildCreditCard(
+                    'credit-card',
+                    'Add to card',
+                    'images/debitcard.png',
+                    40,
+                  ),
+                  const Text1(
                     text1: "Bank Transfer",
                     size: 16,
                     fontWeight: FontWeight.bold,
@@ -241,37 +253,85 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
               : CustomButton(
                   text: 'Pay Now',
                   onTap: () {
-                    final dataPayment = RequestMidtrans(
-                      transactionDetails: TransactionDetails(
-                        orderId: widget.orderId,
-                        grossAmount: widget.totalPrice,
-                      ),
-                      paymentType:
-                          selectedStore == 'cstore' ? 'cstore' : selectedType!,
-                      customerDetails: CustomerDetails(
-                        email: widget.dataUser.email,
-                        firstName: widget.dataUser.firstName,
-                        lastName: widget.dataUser.lastName,
-                        phone: widget.dataUser.phone,
-                      ),
-                      bankTransfer: selectedType! == 'bank_transfer'
-                          ? BankTransfer(bank: selectedBank ?? '')
-                          : null,
-                      cstore: selectedStore == 'cstore'
-                          ? CStore(
-                              store: selectedType!,
-                            )
-                          : null,
-                    );
+                    if (selectedType == 'credit-card') {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const CardCreditPage()));
+                    } else {
+                      final dataPayment = RequestMidtrans(
+                        transactionDetails: TransactionDetails(
+                          orderId: widget.orderId,
+                          grossAmount: widget.totalPrice,
+                        ),
+                        paymentType: selectedStore == 'cstore'
+                            ? 'cstore'
+                            : selectedType!,
+                        customerDetails: CustomerDetails(
+                          email: widget.dataUser.email,
+                          firstName: widget.dataUser.firstName,
+                          lastName: widget.dataUser.lastName,
+                          phone: widget.dataUser.phone,
+                        ),
+                        bankTransfer: selectedType! == 'bank_transfer'
+                            ? BankTransfer(bank: selectedBank ?? '')
+                            : null,
+                        cstore: selectedStore == 'cstore'
+                            ? CStore(
+                                store: selectedType!,
+                              )
+                            : null,
+                      );
 
-                    print('DATA PAYMENT :${jsonEncode(dataPayment.toJson())}');
+                      print(
+                          'DATA PAYMENT :${jsonEncode(dataPayment.toJson())}');
 
-                    context.read<MidtransPaymentBloc>().add(
-                          PayWithMidtrans(dataPayment),
-                        );
+                      context.read<MidtransPaymentBloc>().add(
+                            PayWithMidtrans(dataPayment),
+                          );
+                    }
                   },
                 ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCreditCard(
+    String creditKey,
+    String creditName,
+    String imageUrl,
+    double size,
+  ) {
+    final bool isSelected =
+        selectedType == 'credit-card' && selectedBank == creditKey;
+
+    return Card(
+      color: AppColors.white,
+      elevation: 0,
+      child: RadioListTile<String>(
+        value: creditKey,
+        groupValue: selectedBank,
+        activeColor: AppColors.buttonColor,
+        selected: isSelected,
+        onChanged: (String? value) {
+          if (value != null) {
+            setState(() {
+              selectedType = 'credit-card';
+              selectedBank = value;
+              selectedStore = null;
+            });
+          }
+        },
+        title: Row(
+          children: [
+            Image.asset(imageUrl, height: size),
+            const SizedBox(width: 5),
+            Text1(
+              text1: '- $creditName',
+              size: 16,
+              color: AppColors.cadetGray,
+            ),
+          ],
+        ),
       ),
     );
   }

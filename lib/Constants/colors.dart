@@ -7,6 +7,7 @@ class AppColors {
   static const Color tab1Color = Color(0xff144C79);
   static const Color bgColor = Color(0xffECEFF1);
   static const Color buttonColor = Color(0xff144C79);
+  static const Color purple = Color(0xff9C27B0);
   // static const Color buttonColor = Color(0xff2980B9);
   // static const Color buttonColor = Color(0xffC0392B);
   static const Color button2Color = Color(0xff2980B9);

@@ -1,7 +1,8 @@
 String baseUrl = 'https://kamar.id/api';
 
-String midtransUrl = 'https://api.sandbox.midtrans.com/v2/charge';
+// URL Testing kamar.id
+// String baseUrl = 'https://tripordare.com';
 
-// String midtransUrl = 'https://app.midtrans.com/snap/v1/transactions';
+String midtransUrl = 'https://api.sandbox.midtrans.com/v2/charge';
 
 String serverKey = 'SB-Mid-server-04Ukt2P7mZjxUFy-NQYZV5XH';
