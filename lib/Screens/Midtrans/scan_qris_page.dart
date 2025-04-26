@@ -138,10 +138,10 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                         width: 1,
                       ),
                     ),
-                    child: Text(
-                      'Please, align QR Code with\nthe  to make scanning\neasily detectable.${widget.data.actions![0].url}',
+                    child: const Text(
+                      'Please, align QR Code with\nthe  to make scanning\neasily detectable',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.cadetGray,
                         fontSize: 16,
                       ),

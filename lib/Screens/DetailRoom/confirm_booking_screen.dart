@@ -177,35 +177,19 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         state is CheckoutLoading
-                            ? ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.amberColor,
-                                  foregroundColor: AppColors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
+                            ? Container(
+                                width: double.infinity,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: AppColors.amberColor,
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                onPressed: () {},
                                 child: Center(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                  child:
                                       LoadingAnimationWidget.fourRotatingDots(
-                                        color: AppColors.white,
-                                        size: 27,
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Text(
-                                        'Proses',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
+                                    color: AppColors.white,
+                                    size: 27,
                                   ),
                                 ),
                               )
@@ -218,8 +202,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     lastName: userState.data.lastName,
                                     email: userState.data.email,
                                     phone: userState.data.phone,
-                                    addressLine1: 'dasd',
-                                    addressLine2: 'asdas',
+                                    addressLine1: userState.data.address ?? '',
+                                    addressLine2: userState.data.address2 ?? '',
                                     city: userState.data.city ?? '',
                                     state: userState.data.state ?? '',
                                     zipCode: userState.data.zipCode.toString(),

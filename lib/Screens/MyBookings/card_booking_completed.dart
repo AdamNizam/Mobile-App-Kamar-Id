@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
-import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/send_review_screen.dart';
 import 'package:hotelbookingapp/Widgets/custom_outline_button.dart';
 import 'package:intl/intl.dart';
 
@@ -196,7 +196,8 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                         text: 'Beri Ulasan',
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const MaintenanceScreen(),
+                            builder: (context) =>
+                                SendReviewScreen(dataHistory: widget.data!),
                           ));
                         },
                       ),

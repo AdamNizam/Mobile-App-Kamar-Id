@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/customapp_bar.dart';
 import '../../Widgets/custombtn.dart';
 import '../../Widgets/detailstext1.dart';
 import '../../Widgets/detailstext2.dart';
@@ -13,7 +12,8 @@ class WriteReviews extends StatefulWidget {
   WriteReviewsState createState() => WriteReviewsState();
 }
 
-class WriteReviewsState extends State<WriteReviews> with SingleTickerProviderStateMixin {
+class WriteReviewsState extends State<WriteReviews>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -46,13 +46,14 @@ class WriteReviewsState extends State<WriteReviews> with SingleTickerProviderSta
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomAppBar(text: 'Write A Review', text1: ''),
                 const SizedBox(height: 20),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: AppColors.textFormFieldBorderColor),
+                    color: AppColors.white,
+                    border:
+                        Border.all(color: AppColors.textFormFieldBorderColor),
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
@@ -86,7 +87,8 @@ class WriteReviewsState extends State<WriteReviews> with SingleTickerProviderSta
                             Text1(text1: 'Hotel Experience'),
                             SizedBox(height: 8),
                             Text2(
-                              text2: 'Share your thoughts about your stay at the hotel.',
+                              text2:
+                                  'Share your thoughts about your stay at the hotel.',
                             ),
                           ],
                         ),
@@ -129,10 +131,11 @@ class WriteReviewsState extends State<WriteReviews> with SingleTickerProviderSta
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.cloud_upload,
-                            color: Colors.white, size: 30),
+                        Icon(Icons.cloud_upload, color: Colors.white, size: 30),
                         SizedBox(height: 10),
-                        Text2(text2: 'Click here to upload your photos or videos', color: Colors.white),
+                        Text2(
+                            text2: 'Click here to upload your photos or videos',
+                            color: Colors.white),
                       ],
                     ),
                   ),
@@ -151,7 +154,8 @@ class WriteReviewsState extends State<WriteReviews> with SingleTickerProviderSta
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: AppColors.textFormFieldBorderColor),
+                    border:
+                        Border.all(color: AppColors.textFormFieldBorderColor),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.2),

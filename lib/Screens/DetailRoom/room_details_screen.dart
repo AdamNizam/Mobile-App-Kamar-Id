@@ -373,7 +373,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                               ),
                             ],
                           );
-                          print('dataCart: ${jsonEncode(dataCart)}');
+                          print('data Cart: ${jsonEncode(dataCart)}');
 
                           context
                               .read<BookingBloc>()

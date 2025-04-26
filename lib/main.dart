@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
+import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
@@ -50,6 +52,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => UpdateUserBloc(),
+          ),
+          BlocProvider(
+            create: (context) => ReviewBloc(),
+          ),
+          BlocProvider(
+            create: (context) => NotificationBloc(),
           ),
         ],
         child: MaterialApp(
