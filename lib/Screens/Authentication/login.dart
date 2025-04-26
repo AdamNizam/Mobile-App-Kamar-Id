@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
@@ -13,14 +14,14 @@ import '../../Widgets/detailstext2.dart';
 import 'forgotpassword.dart';
 import 'getstarted.dart';
 
-class LogIn extends StatefulWidget {
-  const LogIn({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<LogIn> createState() => _LogInState();
+  State<Login> createState() => _LogInState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LogInState extends State<Login> {
   final emailController = TextEditingController(text: '');
   final passwordController = TextEditingController(text: '');
 
@@ -138,15 +139,20 @@ class _LogInState extends State<LogIn> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             SizedBox(
-                              width: 4,
+                              width: 8,
                             ),
                             Text(
                               'Forgot Password?',
                               style: TextStyle(
-                                  color: AppColors.buttonColor, fontSize: 13),
+                                color: AppColors.buttonColor,
+                                fontSize: 14,
+                              ),
                             )
                           ],
                         ),
+                      ),
+                      const SizedBox(
+                        height: 8,
                       ),
                       CustomButton(
                         text: 'Log In',
@@ -168,39 +174,21 @@ class _LogInState extends State<LogIn> {
                       ),
                       const Center(child: Text2(text2: 'Or')),
                       const SizedBox(
-                        height: 8,
+                        height: 10,
                       ),
-                      const CustomBottomWithImage(
-                        image: 'images/icons8-google-48.png',
-                        text: 'Continue With Google',
-                      ),
-                      const CustomBottomWithImage(
-                        image: 'images/icons8-facebook-48.png',
-                        text: 'Continue With Facebook',
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Do you want create new account? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const Register(),
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              'Register',
-                              style: TextStyle(
-                                color: AppColors.buttonColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                          CustomBottomWithImage(
+                            image: 'images/icons8-google-48.png',
+                            text: 'Continue With Google',
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          CustomBottomWithImage(
+                            image: 'images/icons8-facebook-48.png',
+                            text: 'Continue With Facebook',
                           ),
                         ],
                       ),
@@ -211,6 +199,32 @@ class _LogInState extends State<LogIn> {
             ),
           ));
         },
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text1(text1: "Do you want create new account? "),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const Register(),
+                  ),
+                );
+              },
+              child: const Text(
+                'Register',
+                style: TextStyle(
+                  color: AppColors.buttonColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -16,8 +16,8 @@ class MaintenanceScreen extends StatelessWidget {
             Text(
               'Maintenance',
               style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
                 color: AppColors.cadetGray,
               ),
             ),
@@ -29,10 +29,10 @@ class MaintenanceScreen extends StatelessWidget {
               fit: BoxFit.contain,
             ),
             Text(
-              'features under development',
+              'Feature dalam tahap pengembangan \nboleh team kami.',
               style: GoogleFonts.poppins(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
                 color: AppColors.cadetGray,
               ),
             ),

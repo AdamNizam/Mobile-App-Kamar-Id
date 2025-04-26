@@ -58,7 +58,7 @@ class GetStarted extends StatelessWidget {
                     text: 'Login',
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => const LogIn()));
+                          MaterialPageRoute(builder: (_) => const Login()));
                     }),
                 const Text2(text2: 'Or'),
                 CustomButton(
@@ -101,7 +101,7 @@ class CustomBottomWithImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      width: double.infinity,
+      width: 50,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -122,10 +122,10 @@ class CustomBottomWithImage extends StatelessWidget {
             image,
             width: 30,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5, left: 80),
-            child: Text2(text2: text),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 5, left: 80),
+          //   child: Text2(text2: text),
+          // )
         ],
       ),
     );

@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
 import '../../Widgets/custombtn.dart';
 import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext2.dart';
 import 'login.dart';
 
 class Register extends StatefulWidget {
@@ -80,15 +80,17 @@ class _RegisterState extends State<Register> {
                               children: [
                                 Image.asset(
                                   'images/Logo_Kamarid.png',
-                                  width: 36,
-                                  height: 36,
+                                  width: 50,
+                                  height: 50,
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 const Text(
                                   'Kamar.Id',
                                   style: TextStyle(
-                                    fontSize: 32,
-                                    color: AppColors.redDark,
+                                    fontSize: 27,
+                                    color: AppColors.buttonColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -96,7 +98,7 @@ class _RegisterState extends State<Register> {
                             ),
                             const SizedBox(height: 20),
                             const Text(
-                              'Create Your Account',
+                              'Create new Account',
                               style: TextStyle(
                                 fontSize: 16,
                               ),
@@ -155,9 +157,9 @@ class _RegisterState extends State<Register> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         CustomButton(
-                          text: 'Register Now',
+                          text: 'Register now',
                           onTap: () {
                             if (validate()) {
                               if (isChecked) {
@@ -182,29 +184,6 @@ class _RegisterState extends State<Register> {
                             }
                           },
                         ),
-                        const Center(child: Text2(text2: 'Or')),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text("Already have an account? "),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => const LogIn()),
-                                );
-                              },
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
-                                  color: AppColors.buttonColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -213,6 +192,30 @@ class _RegisterState extends State<Register> {
             ),
           );
         },
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text1(text1: "Already have an account? "),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Login()),
+                );
+              },
+              child: const Text(
+                'Login',
+                style: TextStyle(
+                  color: AppColors.buttonColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

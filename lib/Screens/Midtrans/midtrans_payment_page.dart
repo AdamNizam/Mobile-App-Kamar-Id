@@ -238,8 +238,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             ],
           ),
           const SizedBox(height: 10),
-          (selectedType == null ||
-                  (selectedType == 'bank_transfer' && selectedBank == null))
+          (selectedType == '')
               ? CustomButton(
                   text: 'Pay Now',
                   color: AppColors.beauBlue,
