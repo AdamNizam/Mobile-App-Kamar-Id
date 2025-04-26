@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthSuccess(userLog));
           } catch (error) {
-            // print('errorrror login : $error');
+            print('errorrror login : $error');
             emit(const AuthFailed('Login Failed'));
           }
         }
