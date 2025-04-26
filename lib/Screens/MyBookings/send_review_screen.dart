@@ -206,14 +206,19 @@ class SendReviewScreenState extends State<SendReviewScreen>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child:
             BlocConsumer<ReviewBloc, ReviewState>(listener: (context, state) {
-          if (state is ReviewFailed) {
-            showCustomSnackbar(context, state.error);
-          }
-          if (state is ReviewSuccess) {
-            showCustomSnackbar(context, 'Review successfully submitted');
-          }
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) {
+              if (state is ReviewFailed) {
+                showCustomSnackbar(context, state.error);
+              }
+              if (state is ReviewSuccess) {
+                showCustomSnackbar(context, 'Review successfully submitted');
+              }
+            },
+          );
         }, builder: (BuildContext context, ReviewState state) {
           return Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               State is ReviewLoading
                   ? Container(
@@ -233,27 +238,34 @@ class SendReviewScreenState extends State<SendReviewScreen>
                   : CustomButton(
                       text: 'Send Review',
                       onTap: () {
-                        final dataReview = FormReview(
-                          reviewTitle: 'Review Hotel',
-                          reviewContent: _commentController.toString(),
-                          reviewStats: ReviewStats(
-                            service: serviceRating.toString(),
-                            organization: organizationRating.toString(),
-                            friendliness: friendlinessRating.toString(),
-                            areaExpert: areaExpertRating.toString(),
-                            safety: safetyRating.toString(),
-                          ),
-                          reviewServiceId:
-                              widget.dataHistory.objectId.toString(),
-                          reviewServiceType: 'hotel',
-                          submit: 'Leave a review',
-                        );
+                        if (serviceRating != 0) {
+                          final dataReview = FormReview(
+                            reviewTitle: 'Review Hotel',
+                            reviewContent: _commentController.toString(),
+                            reviewStats: ReviewStats(
+                              service: serviceRating.toString(),
+                              organization: organizationRating.toString(),
+                              friendliness: friendlinessRating.toString(),
+                              areaExpert: areaExpertRating.toString(),
+                              safety: safetyRating.toString(),
+                            ),
+                            reviewServiceId:
+                                widget.dataHistory.objectId.toString(),
+                            reviewServiceType: 'hotel',
+                            submit: 'Leave a review',
+                          );
 
-                        print('Data Review :${jsonEncode(dataReview)}');
+                          print('Data Review :${jsonEncode(dataReview)}');
 
-                        context
-                            .read<ReviewBloc>()
-                            .add(SendReviewBooking(dataReview));
+                          context.read<ReviewBloc>().add(
+                                SendReviewBooking(dataReview),
+                              );
+                        } else {
+                          showCustomSnackbar(
+                            context,
+                            'all stars must be filled',
+                          );
+                        }
                       },
                     ),
             ],

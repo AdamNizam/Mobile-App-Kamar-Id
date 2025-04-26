@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../Constants/colors.dart';
 import '../../../Widgets/detailstext1.dart';
 import '../../../Widgets/detailstext2.dart';
@@ -18,95 +19,83 @@ class _BookingNotificationsState extends State<BookingNotifications> {
       'iconColor': Colors.green,
       'iconBackgroundColor': Colors.green.shade100,
       'title': 'Booking Confirmed',
-      'content': 'Your hotel booking at Grand Palace Hotel has been confirmed.'
+      'content': 'Your hotel booking at Grand Palace Hotel has been confirmed.',
+      'date': '2025-04-25',
+      'isRead': false,
     },
     {
       'icon': Icons.cleaning_services,
       'iconColor': Colors.blue,
       'iconBackgroundColor': Colors.blue.shade100,
       'title': 'Room Ready',
-      'content': 'Your room at Oceanview Resort is now ready for check-in.'
+      'content': 'Your room at Oceanview Resort is now ready for check-in.',
+      'date': '2025-04-24',
+      'isRead': true,
     },
     {
       'icon': Icons.hotel_outlined,
       'iconColor': Colors.orange,
       'iconBackgroundColor': Colors.orange.shade100,
       'title': 'Check-out Reminder',
-      'content': 'Your check-out from Sunshine Hotel is tomorrow at 12 PM.'
+      'content': 'Your check-out from Sunshine Hotel is tomorrow at 12 PM.',
+      'date': '2025-04-24',
+      'isRead': false,
     },
     {
       'icon': Icons.dining,
       'iconColor': Colors.purple,
       'iconBackgroundColor': Colors.purple.shade100,
       'title': 'Dinner Reservation',
-      'content': 'Your dinner reservation at Sky Lounge is confirmed for 7 PM.'
+      'content': 'Your dinner reservation at Sky Lounge is confirmed for 7 PM.',
+      'date': '2025-04-23',
+      'isRead': true,
     },
     {
       'icon': Icons.cancel,
       'iconColor': Colors.red,
       'iconBackgroundColor': Colors.red.shade100,
       'title': 'Booking Cancelled',
-      'content': 'Your booking at Riverside Hotel has been cancelled.'
-    },
-    {
-      'icon': Icons.payment,
-      'iconColor': Colors.teal,
-      'iconBackgroundColor': Colors.teal.shade100,
-      'title': 'Payment Received',
-      'content': 'We have received your payment for the upcoming stay.'
-    },
-    {
-      'icon': Icons.update,
-      'iconColor': Colors.yellow,
-      'iconBackgroundColor': Colors.yellow.shade100,
-      'title': 'Booking Updated',
-      'content': 'Your booking at City Suites has been updated with new check-in time.'
-    },
-    {
-      'icon': Icons.support_agent,
-      'iconColor': Colors.brown,
-      'iconBackgroundColor': Colors.brown.shade100,
-      'title': 'Customer Support',
-      'content': 'Customer support has responded to your inquiry about your booking.'
-    },
-    {
-      'icon': Icons.local_offer,
-      'iconColor': Colors.amber,
-      'iconBackgroundColor': Colors.amber.shade100,
-      'title': 'Special Offer',
-      'content': 'Enjoy 20% off on your next stay at Mountain View Hotel!'
-    },
-    {
-      'icon': Icons.error,
-      'iconColor': Colors.red,
-      'iconBackgroundColor': Colors.red.shade100,
-      'title': 'Payment Failed',
-      'content': 'Your payment for the stay at Beachfront Inn failed. Please try again.'
+      'content': 'Your booking at Riverside Hotel has been cancelled.',
+      'date': '2025-04-23',
+      'isRead': true,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> unreadNotifications =
+        _notifications.where((n) => n['isRead'] == false).toList();
+    List<Map<String, dynamic>> readNotifications =
+        _notifications.where((n) => n['isRead'] == true).toList();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(context),
-                const SizedBox(height: 5),
-                _buildNotificationsSection(),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(context, unreadNotifications.length),
+              const SizedBox(height: 16),
+              if (unreadNotifications.isNotEmpty) ...[
+                _buildSectionTitle('Unread'),
+                const SizedBox(height: 8),
+                ..._buildNotifications(unreadNotifications),
+                const SizedBox(height: 20),
               ],
-            ),
+              if (readNotifications.isNotEmpty) ...[
+                _buildSectionTitle('Earlier'),
+                const SizedBox(height: 8),
+                ..._buildNotifications(readNotifications),
+              ],
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, int unreadCount) {
     return Row(
       children: [
         Container(
@@ -114,12 +103,13 @@ class _BookingNotificationsState extends State<BookingNotifications> {
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.text3Color),
           ),
-          height: 30,
-          width: 30,
+          height: 32,
+          width: 32,
           child: IconButton(
+            padding: EdgeInsets.zero,
             icon: const Icon(
               Icons.arrow_back,
-              size: 17,
+              size: 18,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -129,69 +119,68 @@ class _BookingNotificationsState extends State<BookingNotifications> {
         const Spacer(),
         const Text1(text1: 'Notifications'),
         const Spacer(),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-          decoration: BoxDecoration(
-            color: AppColors.buttonColor,
-            borderRadius: BorderRadius.circular(20),
+        if (unreadCount > 0)
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+            decoration: BoxDecoration(
+              color: AppColors.buttonColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text11(text2: '$unreadCount New', color: Colors.white),
           ),
-          child: const Text11(text2: '2 New', color: Colors.white),
-        ),
       ],
     );
   }
 
-  Widget _buildNotificationsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text1(text1: 'Today'),
-              Text11(text2: 'Mark all as read', color: AppColors.buttonColor),
-            ],
-          ),
-        ),
-        ..._buildNotifications(),
-      ],
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black87,
+      ),
     );
   }
 
-  List<Widget> _buildNotifications() {
-    return List.generate(_notifications.length, (index) {
-      final notification = _notifications[index];
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+  List<Widget> _buildNotifications(List<Map<String, dynamic>> notifications) {
+    return List.generate(notifications.length, (index) {
+      final notification = notifications[index];
+      final bool isUnread = !notification['isRead'];
+
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          color: isUnread ? Color(0xFFF2F9FF) : Colors.white,
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
+              blurRadius: 8,
               spreadRadius: 2,
-              blurRadius: 5,
               offset: const Offset(0, 3),
             ),
           ],
         ),
-        margin: const EdgeInsets.only(bottom: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildNotificationIcon(notification),
-            const SizedBox(width: 10),
-            _buildNotificationText(notification),
-            const Padding(
-              padding: EdgeInsets.only(top: 22),
-              child: CircleAvatar(
-                radius: 5,
-                backgroundColor: Colors.deepOrange,
+            const SizedBox(width: 12),
+            Expanded(child: _buildNotificationText(notification)),
+            if (isUnread)
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
           ],
         ),
       );
@@ -200,11 +189,10 @@ class _BookingNotificationsState extends State<BookingNotifications> {
 
   Widget _buildNotificationIcon(Map<String, dynamic> notification) {
     return Container(
-      margin: const EdgeInsets.only(top: 5),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: notification['iconBackgroundColor'],
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Icon(
         notification['icon'],
@@ -215,14 +203,26 @@ class _BookingNotificationsState extends State<BookingNotifications> {
   }
 
   Widget _buildNotificationText(Map<String, dynamic> notification) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text1(text1: notification['title']),
-          Text2(text2: notification['content']),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text1(text1: notification['title']),
+        const SizedBox(height: 4),
+        Text2(text2: notification['content']),
+        const SizedBox(height: 6),
+        Text(
+          _formatDate(notification['date']),
+          style: TextStyle(
+            color: Colors.grey.shade600,
+            fontSize: 11,
+          ),
+        ),
+      ],
     );
+  }
+
+  String _formatDate(String dateStr) {
+    final date = DateTime.parse(dateStr);
+    return "${date.day}/${date.month}/${date.year}";
   }
 }

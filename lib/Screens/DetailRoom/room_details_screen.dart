@@ -290,6 +290,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                 create: (context) => BookingBloc(),
                 child: BlocConsumer<BookingBloc, BookingState>(
                   listener: (context, state) {
+                    if (state is BookingFailed) {
+                      showCustomSnackbar(context, state.error);
+                    }
+
                     if (state is BookingSuccess) {
                       Navigator.push(
                         context,
@@ -309,17 +313,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         ),
                       );
                     }
-                    if (state is BookingFailed) {
-                      showCustomSnackbar(context, state.error);
-                    }
-                    if (state is BookingLoading) {
-                      Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: AppColors.tabColor,
-                          size: 30,
-                        ),
-                      );
-                    }
                   },
                   builder: (context, state) {
                     return ElevatedButton(
@@ -328,23 +321,32 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             ? AppColors.beauBlue
                             : AppColors.buttonColor,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 12),
+                          horizontal: 30,
+                          vertical: 12,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: Text(
-                        'Confirm',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.white,
-                        ),
-                      ),
+                      child: State is BookingLoading
+                          ? LoadingAnimationWidget.fourRotatingDots(
+                              color: AppColors.white,
+                              size: 27,
+                            )
+                          : Text(
+                              'Confirm',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.white,
+                              ),
+                            ),
                       onPressed: () {
                         if (selectedPrice.isEmpty) {
                           showCustomSnackbar(
-                              context, 'Please select a room first!');
+                            context,
+                            'Please select a room first!',
+                          );
                         } else {
                           final dataCart = RequestAddToChart(
                             serviceId: widget.dataHotel.id.toString(),
