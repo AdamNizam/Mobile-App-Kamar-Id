@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
@@ -143,10 +144,21 @@ class _HotelCard1 extends State<HotelsCard1> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text1(
-                            text1: widget.hotel.title ?? 'No Title',
+                          Expanded(
+                            child: Text(
+                              widget.hotel.title ?? 'No Title',
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                  color: AppColors.text1Color,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                          const Spacer(),
+                          const SizedBox(width: 8), // beri jarak sedikit
                           BlocBuilder<WishlistBloc, WishlistState>(
                             builder: (context, stateWishlist) {
                               if (stateWishlist is WishlistLoading) {
@@ -189,13 +201,14 @@ class _HotelCard1 extends State<HotelsCard1> {
                         children: [
                           const Icon(
                             Icons.location_pin,
-                            size: 23.0,
+                            size: 20,
                             color: AppColors.buttonColor,
                           ),
                           const SizedBox(width: 4.0),
                           Expanded(
                             child: Text2(
                               text2: widget.hotel.address ?? 'No-data',
+                              size: 15,
                             ),
                           ),
                         ],

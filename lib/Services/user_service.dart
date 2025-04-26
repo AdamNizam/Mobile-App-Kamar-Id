@@ -22,7 +22,7 @@ class UserService {
         },
       );
 
-      // print('Result Data Profile User : ${res.body}');
+      print('Result Data Profile User : ${res.body}');
 
       if (res.statusCode == 200) {
         return UserModel.fromJson(jsonDecode(res.body)['data']);

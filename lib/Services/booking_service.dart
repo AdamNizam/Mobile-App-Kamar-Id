@@ -44,7 +44,7 @@ class BookingService {
         },
       );
 
-      // print('RESPONSE GET History Booking ${res.body}');
+      print('Response GET History Booking ${res.body}');
 
       if (res.statusCode == 200) {
         return HistoryBookingModel.fromJson(jsonDecode(res.body));

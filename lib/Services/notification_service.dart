@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationService {
-  Future<ResultNotification> notification(String type) async {
+  Future<ResultNotification> loadNotify(String type) async {
     try {
       final token = await AuthService().getToken();
 

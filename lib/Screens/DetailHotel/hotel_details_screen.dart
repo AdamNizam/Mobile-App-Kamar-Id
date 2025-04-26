@@ -462,24 +462,30 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
                           const SizedBox(height: 10),
                           // Google Maps
-                          const Center(
+                          Center(
                             child: Text1(
-                              text1: 'Maps',
-                              size: 17,
+                              text1: state.data.rowData!.location != null
+                                  ? 'Maps'
+                                  : 'Maps is not available',
+                              size: 16,
                             ),
                           ),
                           const SizedBox(height: 20),
-                          GoogleMapsHotel(
-                            initialPosition: LatLng(
-                              double.parse(
-                                  state.data.rowData!.location!.mapLat),
-                              double.parse(
-                                  state.data.rowData!.location!.mapLng),
+
+                          if (state.data.rowData!.location != null)
+                            GoogleMapsHotel(
+                              initialPosition: LatLng(
+                                double.parse(state
+                                    .data.rowData!.location!.mapLat
+                                    .toString()),
+                                double.parse(state
+                                    .data.rowData!.location!.mapLng
+                                    .toString()),
+                              ),
+                              title: state.data.rowData!.title.toString(),
+                              snippet:
+                                  state.data.rowData!.location!.name.toString(),
                             ),
-                            title: state.data.rowData!.title.toString(),
-                            snippet:
-                                state.data.rowData!.location!.name.toString(),
-                          ),
                           const SizedBox(height: 10),
 
                           const Column(

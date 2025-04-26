@@ -14,9 +14,8 @@ class UserModel {
   final String? city;
   final String? state;
   final String? country;
-  final dynamic zipCode;
+  final int? zipCode;
   final String? lastLoginAt;
-  final String? avatarId;
   final String? bio;
   final String status;
   final String? paymentGateway;
@@ -53,7 +52,6 @@ class UserModel {
     this.country,
     this.zipCode,
     this.lastLoginAt,
-    this.avatarId,
     this.bio,
     required this.status,
     this.paymentGateway,
@@ -93,9 +91,8 @@ class UserModel {
         city: json["city"],
         state: json["state"],
         country: json["country"],
-        zipCode: json["zip_code"],
+        zipCode: json["zip_code"] != null ? json["zip_code"] as int? : null,
         lastLoginAt: json["last_login_at"],
-        avatarId: json["avatar_id"],
         bio: json["bio"],
         status: json["status"] ?? "unknown",
         paymentGateway: json["payment_gateway"],
@@ -135,7 +132,6 @@ class UserModel {
         "country": country,
         "zip_code": zipCode,
         "last_login_at": lastLoginAt,
-        "avatar_id": avatarId,
         "bio": bio,
         "status": status,
         "payment_gateway": paymentGateway,

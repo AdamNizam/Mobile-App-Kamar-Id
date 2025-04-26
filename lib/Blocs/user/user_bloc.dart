@@ -17,7 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
           emit(UserSuccess(data));
         } catch (error) {
-          print('pesan kesalahan: $error');
+          print('erros user: $error');
           emit(const UserFailed('Data not found'));
         }
       }

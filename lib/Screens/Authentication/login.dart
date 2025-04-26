@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
@@ -187,7 +188,31 @@ class _LogInState extends State<Login> {
                         ],
                       ),
                       const SizedBox(
-                        height: 15,
+                        height: 200,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text1(
+                              text1: "Do you want create new account? "),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const Register(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Register',
+                              style: TextStyle(
+                                color: AppColors.buttonColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -196,29 +221,6 @@ class _LogInState extends State<Login> {
             ),
           ));
         },
-      ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Do you want create new account? "),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const Register(),
-                ),
-              );
-            },
-            child: const Text(
-              'Register',
-              style: TextStyle(
-                color: AppColors.buttonColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

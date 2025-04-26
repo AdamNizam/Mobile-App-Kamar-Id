@@ -56,7 +56,9 @@ class HomeWidgte extends StatelessWidget {
           );
         }
         if (state is UserFailed) {
-          showCustomSnackbar(context, state.error);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showCustomSnackbar(context, state.error);
+          });
         }
         return Container();
       },

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -175,11 +176,21 @@ class _HotelsCard2State extends State<HotelsCard2> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text1(
-                                text1: widget.hotel.title.toString(),
-                                size: 14,
+                              Expanded(
+                                child: Text(
+                                  widget.hotel.title ?? 'No Title',
+                                  style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      color: AppColors.text1Color,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              const Spacer(),
+                              const SizedBox(width: 8), // beri jarak sedikit
                               BlocBuilder<WishlistBloc, WishlistState>(
                                 builder: (context, stateWishlist) {
                                   if (stateWishlist is WishlistLoading) {
@@ -221,17 +232,16 @@ class _HotelsCard2State extends State<HotelsCard2> {
                             children: [
                               const Icon(
                                 Icons.location_pin,
-                                size: 23.0,
+                                size: 20,
                                 color: AppColors.tabColor,
                               ),
                               const SizedBox(width: 4.0),
-                              widget.hotel.address != null
-                                  ? Text2(
-                                      text2: widget.hotel.address.toString())
-                                  : const Text2(
-                                      text2: 'No-data',
-                                    ),
-                              const Spacer(),
+                              Expanded(
+                                child: Text2(
+                                  text2: widget.hotel.address ?? 'No-data',
+                                  size: 15,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 5.0),

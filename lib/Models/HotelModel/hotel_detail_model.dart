@@ -187,8 +187,8 @@ class Location {
   final dynamic content;
   final String slug;
   final int imageId;
-  final String mapLat;
-  final String mapLng;
+  final String? mapLat;
+  final String? mapLng;
   final int mapZoom;
 
   Location({
@@ -197,8 +197,8 @@ class Location {
     required this.content,
     required this.slug,
     required this.imageId,
-    required this.mapLat,
-    required this.mapLng,
+    this.mapLat,
+    this.mapLng,
     required this.mapZoom,
   });
 

@@ -20,7 +20,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           emit(PostWishlistSuccess(data));
         } catch (error) {
           print('Error Post wishlist : $error');
-          emit(const WishlistFailed('failed add to wishlist'));
+          emit(const WishlistFailed('Failed add to wishlist'));
         }
       }
 

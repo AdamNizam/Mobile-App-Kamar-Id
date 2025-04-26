@@ -184,6 +184,31 @@ class _RegisterState extends State<Register> {
                             }
                           },
                         ),
+                        const SizedBox(
+                          height: 70,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text1(text1: "Already have an account? "),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const Login()),
+                                );
+                              },
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                  color: AppColors.buttonColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -192,30 +217,6 @@ class _RegisterState extends State<Register> {
             ),
           );
         },
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text1(text1: "Already have an account? "),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const Login()),
-                );
-              },
-              child: const Text(
-                'Login',
-                style: TextStyle(
-                  color: AppColors.buttonColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
