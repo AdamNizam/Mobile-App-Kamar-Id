@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
 import 'notification_card.dart'; // Import NotificationCard
 
 class BookingNotifications extends StatefulWidget {
-  const BookingNotifications({super.key});
+  final RowsNotif unreadData;
+  const BookingNotifications({
+    super.key,
+    required this.unreadData,
+  });
 
   @override
   State<BookingNotifications> createState() => _BookingNotificationsState();
@@ -15,9 +22,8 @@ class _BookingNotificationsState extends State<BookingNotifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // Biar AppBar nyatu sama background
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
@@ -30,8 +36,8 @@ class _BookingNotificationsState extends State<BookingNotifications> {
           'Notifications',
           style: GoogleFonts.poppins(
             color: AppColors.cadetGray,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            fontSize: 18,
           ),
         ),
         actions: [
@@ -56,9 +62,9 @@ class _BookingNotificationsState extends State<BookingNotifications> {
                       color: AppColors.redAwesome,
                       shape: BoxShape.circle,
                     ),
-                    child: const Text(
-                      '3', // Ganti angka ini sesuai jumlah notifikasi
-                      style: TextStyle(
+                    child: Text(
+                      widget.unreadData.total.toString(),
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
@@ -79,89 +85,62 @@ class _BookingNotificationsState extends State<BookingNotifications> {
           color: AppColors.cadetGray,
         ),
       ),
-
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, kToolbarHeight + 32, 16, 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            NotificationCard(
-              icon: Icons.notifications_active,
-              iconColor: AppColors.green,
-              iconBackgroundColor: Colors.green.shade100,
-              title: 'Booking Confirmed',
-              content:
-                  'Your hotel booking at Grand Palace Hotel has been confirmed.',
-              date: '2025-04-25',
-              isRead: false,
+      body: widget.unreadData.dataNotif.isNotEmpty
+          ? SingleChildScrollView(
+              padding:
+                  const EdgeInsets.fromLTRB(16, kToolbarHeight + 32, 16, 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  Column(
+                    children: widget.unreadData.dataNotif
+                        .map(
+                          (dn) => NotificationCard(
+                            icon: Icons.notifications_active,
+                            iconColor: AppColors.green,
+                            iconBackgroundColor: Colors.green.shade100,
+                            title: 'Booking Confirmed',
+                            content: 'Your hotel booking at Grand ',
+                            date: '${formatDateToYMD(dn.createdAt)}',
+                            isRead: false,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  const NotificationCard(
+                    icon: Icons.notifications_off,
+                    iconColor: AppColors.cadetGray,
+                    iconBackgroundColor: AppColors.bgColor,
+                    title: 'Booking Completed',
+                    content: 'Your booking is now completed.',
+                    date: '2025-04-20',
+                    isRead: true,
+                  ),
+                ],
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(vertical: 200),
+              child: Center(
+                child: Column(
+                  children: [
+                    SvgPicture.asset(
+                      'images/empty_notifications.svg',
+                      height: 200,
+                    ),
+                    Text(
+                      "No notification received yet.",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.cadetGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            NotificationCard(
-              icon: Icons.notifications,
-              iconColor: AppColors.cadetGray,
-              iconBackgroundColor: Colors.blue.shade100,
-              title: 'Booking Completed',
-              content: 'Your booking is now completed.',
-              date: '2025-04-20',
-              isRead: true,
-            ),
-            NotificationCard(
-              icon: Icons.local_offer_outlined,
-              iconColor: AppColors.orange,
-              iconBackgroundColor: Colors.orange.shade100,
-              title: 'Special Offer!',
-              content: 'Get 20% off for your next booking. Don\'t miss out!',
-              date: '2025-04-18',
-              isRead: false,
-            ),
-            NotificationCard(
-              icon: Icons.local_offer_outlined,
-              iconColor: AppColors.orange,
-              iconBackgroundColor: Colors.orange.shade100,
-              title: 'Special Offer!',
-              content: 'Get 20% off for your next booking. Don\'t miss out!',
-              date: '2025-04-18',
-              isRead: false,
-            ),
-            NotificationCard(
-              icon: Icons.local_offer_outlined,
-              iconColor: AppColors.orange,
-              iconBackgroundColor: Colors.orange.shade100,
-              title: 'Special Offer!',
-              content: 'Get 20% off for your next booking. Don\'t miss out!',
-              date: '2025-04-18',
-              isRead: false,
-            ),
-            NotificationCard(
-              icon: Icons.local_offer_outlined,
-              iconColor: AppColors.orange,
-              iconBackgroundColor: Colors.orange.shade100,
-              title: 'Special Offer!',
-              content: 'Get 20% off for your next booking. Don\'t miss out!',
-              date: '2025-04-18',
-              isRead: false,
-            ),
-            NotificationCard(
-              icon: Icons.local_offer_outlined,
-              iconColor: AppColors.orange,
-              iconBackgroundColor: Colors.orange.shade100,
-              title: 'Special Offer!',
-              content: 'Get 20% off for your next booking. Don\'t miss out!',
-              date: '2025-04-18',
-              isRead: false,
-            ),
-            NotificationCard(
-              icon: Icons.local_offer_outlined,
-              iconColor: AppColors.orange,
-              iconBackgroundColor: Colors.orange.shade100,
-              title: 'Special Offer!',
-              content: 'Get 20% off for your next booking. Don\'t miss out!',
-              date: '2025-04-18',
-              isRead: true,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

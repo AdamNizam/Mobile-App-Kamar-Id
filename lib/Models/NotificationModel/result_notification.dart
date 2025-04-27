@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 class ResultNotification {
-  final Rows rows;
+  final RowsNotif rows;
   final String pageTitle;
   final String type;
-  final int status;
+  final int? status;
 
   ResultNotification({
     required this.rows,
     required this.pageTitle,
     required this.type,
-    required this.status,
+    this.status,
   });
 
   factory ResultNotification.fromRawJson(String str) =>
@@ -20,10 +20,10 @@ class ResultNotification {
 
   factory ResultNotification.fromJson(Map<String, dynamic> json) =>
       ResultNotification(
-        rows: Rows.fromJson(json["rows"]),
+        rows: RowsNotif.fromJson(json["rows"]),
         pageTitle: json["page_title"],
         type: json["type"],
-        status: json["status"],
+        status: json["status"] != null ? json["status"] as int : 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,39 +34,40 @@ class ResultNotification {
       };
 }
 
-class Rows {
+class RowsNotif {
   final int currentPage;
-  final List<Datum> data;
+  final List<Datum> dataNotif;
   final int from;
   final int lastPage;
   final int to;
   final int total;
 
-  Rows({
+  RowsNotif({
     required this.currentPage,
-    required this.data,
+    required this.dataNotif,
     required this.from,
     required this.lastPage,
     required this.to,
     required this.total,
   });
 
-  factory Rows.fromRawJson(String str) => Rows.fromJson(json.decode(str));
+  factory RowsNotif.fromRawJson(String str) =>
+      RowsNotif.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Rows.fromJson(Map<String, dynamic> json) => Rows(
+  factory RowsNotif.fromJson(Map<String, dynamic> json) => RowsNotif(
         currentPage: json["current_page"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-        from: json["from"],
-        lastPage: json["last_page"],
-        to: json["to"],
-        total: json["total"],
+        dataNotif: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        from: json["from"] ?? 0,
+        lastPage: json["last_page"] ?? 0,
+        to: json["to"] ?? 0,
+        total: json["total"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
         "current_page": currentPage,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": List<dynamic>.from(dataNotif.map((x) => x.toJson())),
         "from": from,
         "last_page": lastPage,
         "to": to,
@@ -78,7 +79,7 @@ class Datum {
   final int id;
   final int notifiableId;
   final String data;
-  final dynamic readAt;
+  final DateTime? readAt;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -86,7 +87,7 @@ class Datum {
     required this.id,
     required this.notifiableId,
     required this.data,
-    required this.readAt,
+    this.readAt,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -99,7 +100,8 @@ class Datum {
         id: json["id"],
         notifiableId: json["notifiable_id"],
         data: json["data"],
-        readAt: json["read_at"],
+        readAt:
+            json["read_at"] != null ? DateTime.parse(json["read_at"]) : null,
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -108,7 +110,7 @@ class Datum {
         "id": id,
         "notifiable_id": notifiableId,
         "data": data,
-        "read_at": readAt,
+        "read_at": readAt?.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

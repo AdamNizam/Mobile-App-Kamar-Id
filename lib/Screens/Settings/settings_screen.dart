@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
-
 import '../../Widgets/customapp_bar.dart';
-import '../Notifications/notifications.dart';
 import '../Profile/change_password.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -21,15 +19,9 @@ class SettingsScreen extends StatelessWidget {
               height: 20,
             ),
             ProfileRow(
-              leadingIcon: Icons.notification_important_rounded,
-              title: 'Notifications',
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const BookingNotifications()));
-              },
-            ),
-
-
+                leadingIcon: Icons.notification_important_rounded,
+                title: 'Notifications',
+                onTap: () {}),
             ProfileRow(
               leadingIcon: Icons.lock,
               title: 'Password Manager',
@@ -41,12 +33,8 @@ class SettingsScreen extends StatelessWidget {
             ProfileRow(
               leadingIcon: Icons.delete,
               title: 'Delete Account ',
-              onTap: () {
-
-              },
+              onTap: () {},
             ),
-
-
           ],
         ),
       ),

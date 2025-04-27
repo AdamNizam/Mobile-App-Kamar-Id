@@ -9,7 +9,6 @@ import 'package:hotelbookingapp/Screens/Search/search_hotels.dart';
 import '../Screens/AvailablityCalendar/avaialblity_calendar.dart';
 import '../Screens/HomeScreen/home_screen.dart';
 import '../Screens/MessagesFlow/direct_messages.dart';
-import '../Screens/Notifications/notifications.dart';
 import '../Screens/Profile/profile_screen.dart';
 import '../Screens/Reviews/reviews.dart';
 import '../Screens/Settings/settings_screen.dart';
@@ -97,9 +96,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           buildMenuItem(
             title: "Notifications",
             icon: Icons.notifications,
-            onTap: () {
-              navigateTo(const BookingNotifications());
-            },
+            onTap: () {},
           ),
           const SizedBox(height: 3),
           buildMenuItem(
@@ -158,7 +155,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             },
           ),
           const SizedBox(height: 3),
-
           const Divider(
             thickness: 1,
           ),

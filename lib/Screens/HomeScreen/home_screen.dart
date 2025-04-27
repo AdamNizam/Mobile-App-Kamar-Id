@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card1.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card2.dart';
 import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
@@ -25,6 +26,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _notificationCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,29 +66,76 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BookingNotifications(),
+                                BlocConsumer<NotificationBloc,
+                                    NotificationState>(
+                                  listener: (context, state) {
+                                    if (state is NotificationSuccess) {
+                                      setState(() {
+                                        _notificationCount =
+                                            state.data.rows.total;
+                                      });
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (state is NotificationSuccess) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookingNotifications(
+                                                unreadData: state.data.rows,
+                                              ),
+                                            ),
+                                          );
+                                        } else if (state
+                                            is NotificationFailed) {
+                                          showCustomSnackbar(
+                                              context, state.error);
+                                        }
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            const Icon(
+                                              Icons.notifications_active,
+                                              color: AppColors.buttonColor,
+                                              size:
+                                                  28, // Ukuran ikon disesuaikan
+                                            ),
+                                            Positioned(
+                                              right: -2,
+                                              top: -5,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                decoration: const BoxDecoration(
+                                                  color: AppColors.redAwesome,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Text(
+                                                  _notificationCount.toString(),
+                                                  style: const TextStyle(
+                                                    color: AppColors.white,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
-                                  child: Container(
-                                    height: 42,
-                                    width: 42,
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: const Icon(
-                                      Icons.notification_important_rounded,
-                                      color: AppColors.buttonColor,
-                                    ),
-                                  ),
                                 ),
                               ],
                             ),

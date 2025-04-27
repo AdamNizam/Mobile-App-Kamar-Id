@@ -19,7 +19,6 @@ import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/cancelledbooking.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/completed_bookings.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
-import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Screens/Search/search_typing.dart';
@@ -48,6 +47,10 @@ class MyApp extends StatelessWidget {
             create: (context) => UserBloc()..add(GetUserProfile()),
           ),
           BlocProvider(
+            create: (context) =>
+                NotificationBloc()..add(const PostNotication('unread')),
+          ),
+          BlocProvider(
             create: (context) => WishlistBloc(),
           ),
           BlocProvider(
@@ -55,9 +58,6 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ReviewBloc(),
-          ),
-          BlocProvider(
-            create: (context) => NotificationBloc(),
           ),
         ],
         child: MaterialApp(
@@ -78,7 +78,6 @@ class MyApp extends StatelessWidget {
             '/reviews': (context) => const Reviews(),
             '/categories': (context) => const AllCategoriesScreen(),
             '/settings': (context) => const SettingsScreen(),
-            '/notifications': (context) => const BookingNotifications(),
             '/search-typing': (context) => const SearchTyping(),
             '/my-booking': (context) => const MyBookingsScreen(),
             '/cancel-booking': (context) => const CancelledBooking(),
