@@ -23,7 +23,7 @@ class ResultNotification {
         rows: RowsNotif.fromJson(json["rows"]),
         pageTitle: json["page_title"],
         type: json["type"],
-        status: json["status"] != null ? json["status"] as int : 0,
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -77,14 +77,18 @@ class RowsNotif {
 
 class Datum {
   final int id;
+  final String type;
+  final String notifiableType;
   final int notifiableId;
-  final String data;
+  final DataNotif data;
   final DateTime? readAt;
   final DateTime createdAt;
   final DateTime updatedAt;
 
   Datum({
     required this.id,
+    required this.type,
+    required this.notifiableType,
     required this.notifiableId,
     required this.data,
     this.readAt,
@@ -98,8 +102,10 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
+        type: json["type"],
+        notifiableType: json["notifiable_type"],
         notifiableId: json["notifiable_id"],
-        data: json["data"],
+        data: DataNotif.fromJson(json["data"]),
         readAt:
             json["read_at"] != null ? DateTime.parse(json["read_at"]) : null,
         createdAt: DateTime.parse(json["created_at"]),
@@ -108,10 +114,91 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "type": type,
+        "notifiable_type": notifiableType,
         "notifiable_id": notifiableId,
-        "data": data,
+        "data": data.toJson(),
         "read_at": readAt?.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class DataNotif {
+  final String id;
+  final int forAdmin;
+  final NotificationDetail notification;
+
+  DataNotif({
+    required this.id,
+    required this.forAdmin,
+    required this.notification,
+  });
+
+  factory DataNotif.fromRawJson(String str) =>
+      DataNotif.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory DataNotif.fromJson(Map<String, dynamic> json) => DataNotif(
+        id: json["id"],
+        forAdmin: json["for_admin"],
+        notification: NotificationDetail.fromJson(json["notification"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "for_admin": forAdmin,
+        "notification": notification.toJson(),
+      };
+}
+
+class NotificationDetail {
+  final int id;
+  final String event;
+  final String to;
+  final String name;
+  final String avatar;
+  final String link;
+  final String type;
+  final String message;
+
+  NotificationDetail({
+    required this.id,
+    required this.event,
+    required this.to,
+    required this.name,
+    required this.avatar,
+    required this.link,
+    required this.type,
+    required this.message,
+  });
+
+  factory NotificationDetail.fromRawJson(String str) =>
+      NotificationDetail.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory NotificationDetail.fromJson(Map<String, dynamic> json) =>
+      NotificationDetail(
+        id: json["id"],
+        event: json["event"],
+        to: json["to"],
+        name: json["name"],
+        avatar: json["avatar"],
+        link: json["link"],
+        type: json["type"],
+        message: json["message"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "event": event,
+        "to": to,
+        "name": name,
+        "avatar": avatar,
+        "link": link,
+        "type": type,
+        "message": message,
       };
 }

@@ -209,7 +209,7 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
 
   Widget _buildBottomBar(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.only(

@@ -36,7 +36,7 @@ class _BookingNotificationsState extends State<BookingNotifications> {
           'Notifications',
           style: GoogleFonts.poppins(
             color: AppColors.cadetGray,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
             fontSize: 18,
           ),
         ),
@@ -65,8 +65,8 @@ class _BookingNotificationsState extends State<BookingNotifications> {
                     child: Text(
                       widget.unreadData.total.toString(),
                       style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                        color: AppColors.white,
+                        fontSize: 8,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -96,13 +96,13 @@ class _BookingNotificationsState extends State<BookingNotifications> {
                   Column(
                     children: widget.unreadData.dataNotif
                         .map(
-                          (dn) => NotificationCard(
+                          (dataNotif) => NotificationCard(
                             icon: Icons.notifications_active,
                             iconColor: AppColors.green,
                             iconBackgroundColor: Colors.green.shade100,
-                            title: 'Booking Confirmed',
-                            content: 'Your hotel booking at Grand ',
-                            date: '${formatDateToYMD(dn.createdAt)}',
+                            title: dataNotif.data.notification.name,
+                            content: dataNotif.data.notification.message,
+                            date: '${formatDateToYMD(dataNotif.createdAt)}',
                             isRead: false,
                           ),
                         )

@@ -25,7 +25,7 @@ class HomeWidgte extends StatelessWidget {
                   },
                   child: const Icon(
                     Icons.menu_outlined,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 );
               }),
@@ -41,8 +41,8 @@ class HomeWidgte extends StatelessWidget {
               ClipOval(
                 child: Image.asset(
                   'images/user_default_profile.png',
-                  width: 30,
-                  height: 30,
+                  width: 35,
+                  height: 35,
                   fit: BoxFit.cover,
                 ),
                 // child: Image.network(

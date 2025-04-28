@@ -150,7 +150,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   color: AppColors.text1Color,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 14,
                                 ),
                               ),

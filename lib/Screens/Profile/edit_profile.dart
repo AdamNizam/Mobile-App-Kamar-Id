@@ -5,7 +5,6 @@ import '../../Widgets/custombtn.dart';
 import '../../Widgets/customtextfield.dart';
 import '../../Widgets/detailstext1.dart';
 
-
 class EditProfile extends StatelessWidget {
   const EditProfile({super.key});
 
@@ -19,7 +18,8 @@ class EditProfile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -34,26 +34,27 @@ class EditProfile extends StatelessWidget {
                           border: Border.all(color: AppColors.text3Color),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.arrow_back, color: Colors.black54, size: 20),
+                        child: const Icon(Icons.arrow_back,
+                            color: Colors.black54, size: 20),
                       ),
                     ),
                     const Text1(
                       text1: 'Edit Profile',
                       size: 16,
                     ),
-                    const Text1(text1: ''), // Placeholder for any action button
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Center(
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage('images/c3.png'), // Example profile picture
+                        backgroundImage: AssetImage('images/c3.png'),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -70,7 +71,7 @@ class EditProfile extends StatelessWidget {
                     const SizedBox(height: 8),
                     const Center(
                       child: Text(
-                        'john.doe@example.com', // Example email
+                        'john.doe@example.com',
                         style: TextStyle(
                           fontSize: 16,
                           color: AppColors.text2Color,
@@ -94,8 +95,7 @@ class EditProfile extends StatelessWidget {
                         icon: Icons.location_on, label: 'State'),
                     const CustomTextField(
                         icon: Icons.markunread_mailbox, label: 'Zip Code'),
-                    const CustomTextField(
-                        icon: Icons.flag, label: 'Country'),
+                    const CustomTextField(icon: Icons.flag, label: 'Country'),
                     const SizedBox(height: 15),
                     CustomButton(
                         text: 'Save Information',

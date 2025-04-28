@@ -119,22 +119,23 @@ class _UserInformationState extends State<UserInformation> {
                 const Center(
                   child: CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage(
-                      "https://randomuser.me/api/portraits/men/1.jpg",
+                    backgroundImage: AssetImage(
+                      'images/user_default_profile.png',
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
                 Center(
                   child: Text(
                     fullname ?? '',
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.text1Color,
                     ),
                   ),
                 ),
+                const SizedBox(height: 8),
                 Center(
                   child: Text(
                     email ?? '',

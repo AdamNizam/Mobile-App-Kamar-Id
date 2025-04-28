@@ -48,7 +48,7 @@ class _CompletedBookingState extends State<CompletedBooking> {
                                   height: 200,
                                 ),
                                 Text(
-                                  "Tidak ada riwayat booking.",
+                                  "There is no booking history information.",
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -60,8 +60,10 @@ class _CompletedBookingState extends State<CompletedBooking> {
                           )
                         : ListView(
                             children: state.data.dataHistory
-                                .map((history) =>
-                                    CardBookingCompleted(data: history))
+                                .map(
+                                  (history) =>
+                                      CardBookingCompleted(data: history),
+                                )
                                 .toList(),
                           );
                   }

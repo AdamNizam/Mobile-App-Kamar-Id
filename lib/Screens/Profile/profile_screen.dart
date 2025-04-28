@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 BlocConsumer<UserBloc, UserState>(
                   listener: (context, state) {
                     if (state is UserFailed) {
@@ -73,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                           Text(
                             state.data.name,
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -82,6 +82,7 @@ class ProfileScreen extends StatelessWidget {
                             state.data.email,
                             style: const TextStyle(
                               fontSize: 16,
+                              color: AppColors.cadetGray,
                             ),
                           ),
                         ],

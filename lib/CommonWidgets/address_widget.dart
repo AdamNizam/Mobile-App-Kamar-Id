@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 
 import '../../../Widgets/detailstext1.dart';
 
@@ -14,7 +15,7 @@ class AddressWidget extends StatelessWidget {
       children: [
         Image.asset(
           'images/MapPin.png',
-          color: Colors.white,
+          color: AppColors.white,
         ),
         const SizedBox(
           width: 3,
@@ -22,7 +23,7 @@ class AddressWidget extends StatelessWidget {
         const Text1(
           text1: 'New York ,USA',
           size: 15,
-          color: Colors.white,
+          color: AppColors.white,
         ),
         const SizedBox(
           width: 4,
@@ -32,11 +33,9 @@ class AddressWidget extends StatelessWidget {
           child: Image.asset(
             'images/arrow.png',
             width: 12,
-            color: Colors.white,
+            color: AppColors.white,
           ),
         ),
-
-
       ],
     );
   }

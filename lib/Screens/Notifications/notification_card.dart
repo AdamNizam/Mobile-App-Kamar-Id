@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 
 class NotificationCard extends StatelessWidget {
@@ -39,6 +40,9 @@ class NotificationCard extends StatelessWidget {
             offset: const Offset(0, 3),
           ),
         ],
+        border: Border.all(
+          color: isRead ? AppColors.beauBlue : AppColors.white,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,15 +66,18 @@ class NotificationCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   content,
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
+                    color: AppColors.cadetGray,
+                    fontWeight: FontWeight.w400,
                     fontSize: 14,
                   ),
                 ),
@@ -80,13 +87,14 @@ class NotificationCard extends StatelessWidget {
                     Icon(
                       isRead ? Icons.done_all : Icons.check,
                       size: 16,
-                      color: isRead ? AppColors.green : AppColors.cadetGray,
+                      color:
+                          isRead ? AppColors.doggerBlue : AppColors.cadetGray,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       date,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
+                      style: const TextStyle(
+                        color: AppColors.cadetGray,
                         fontSize: 11,
                       ),
                     ),

@@ -59,9 +59,7 @@ class _HomePageState extends State<HomePage> {
                                 const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
+                                    SizedBox(height: 10),
                                     AddressWidget(),
                                   ],
                                 ),

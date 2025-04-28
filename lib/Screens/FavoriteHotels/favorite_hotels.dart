@@ -66,7 +66,7 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                                         height: 200,
                                       ),
                                       Text(
-                                        "Tidak ada favorit yang ditambahkan.",
+                                        "No favorites added.",
                                         style: GoogleFonts.poppins(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
