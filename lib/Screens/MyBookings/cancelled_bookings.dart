@@ -4,21 +4,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/card/card_booking_completed.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/card/card_booking_cancelled.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../Widgets/detailstext1.dart';
 import '../../../Widgets/detailstext2.dart';
 
-class CompletedBooking extends StatefulWidget {
-  const CompletedBooking({super.key});
+class CancelledBooking extends StatelessWidget {
+  const CancelledBooking({super.key});
 
-  @override
-  State<CompletedBooking> createState() => _CompletedBookingState();
-}
-
-class _CompletedBookingState extends State<CompletedBooking> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -48,10 +43,10 @@ class _CompletedBookingState extends State<CompletedBooking> {
                                   height: 200,
                                 ),
                                 Text(
-                                  "",
+                                  "There is no booking history information.",
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     color: AppColors.cadetGray,
                                   ),
                                 ),
@@ -62,7 +57,7 @@ class _CompletedBookingState extends State<CompletedBooking> {
                             children: state.data.dataHistory
                                 .map(
                                   (history) =>
-                                      CardBookingCompleted(data: history),
+                                      CardBookingCancelled(data: history),
                                 )
                                 .toList(),
                           );

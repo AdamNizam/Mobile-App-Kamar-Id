@@ -16,7 +16,7 @@ import 'package:hotelbookingapp/Screens/BookMark/book_marks_screen.dart';
 import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
 import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_hotels.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/cancelledbooking.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/cancelled_bookings.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/completed_bookings.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';

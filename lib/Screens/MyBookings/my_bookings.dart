@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/processing_bookings.dart';
 
-import 'cancelledbooking.dart';
+import 'cancelled_bookings.dart';
 import 'completed_bookings.dart';
 
 class MyBookingsScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class MyBookingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         body: SafeArea(
           child: Padding(
@@ -25,6 +26,7 @@ class MyBookingsScreen extends StatelessWidget {
                     children: [
                       CompletedBooking(),
                       CancelledBooking(),
+                      ProcessingBooking(),
                     ],
                   ),
                 ),
@@ -59,6 +61,7 @@ class MyBookingsScreen extends StatelessWidget {
         tabs: const [
           Tab(text: 'Completed'),
           Tab(text: 'Cancelled'),
+          Tab(text: 'Processing'),
         ],
       ),
     );

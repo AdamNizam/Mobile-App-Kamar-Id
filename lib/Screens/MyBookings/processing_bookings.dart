@@ -4,21 +4,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/card/card_booking_completed.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/card/card_booking_processing.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../Widgets/detailstext1.dart';
 import '../../../Widgets/detailstext2.dart';
 
-class CompletedBooking extends StatefulWidget {
-  const CompletedBooking({super.key});
+class ProcessingBooking extends StatefulWidget {
+  const ProcessingBooking({super.key});
 
   @override
-  State<CompletedBooking> createState() => _CompletedBookingState();
+  State<ProcessingBooking> createState() => _ProcessingBookingState();
 }
 
-class _CompletedBookingState extends State<CompletedBooking> {
+class _ProcessingBookingState extends State<ProcessingBooking> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -62,7 +62,7 @@ class _CompletedBookingState extends State<CompletedBooking> {
                             children: state.data.dataHistory
                                 .map(
                                   (history) =>
-                                      CardBookingCompleted(data: history),
+                                      CardBookingProcessing(data: history),
                                 )
                                 .toList(),
                           );

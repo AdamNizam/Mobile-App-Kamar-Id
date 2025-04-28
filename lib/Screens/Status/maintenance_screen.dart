@@ -29,7 +29,7 @@ class MaintenanceScreen extends StatelessWidget {
               fit: BoxFit.contain,
             ),
             Text(
-              'Feature dalam tahap pengembangan \nboleh team kami.',
+              'Feature dalam tahap pengembangan \noleh team kami.',
               style: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,

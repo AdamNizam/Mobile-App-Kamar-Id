@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/send_review_screen.dart';
-import 'package:hotelbookingapp/Widgets/custom_outline_button.dart';
+import 'package:hotelbookingapp/Screens/MyBookings/card/booking_detail_row.dart';
+import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
+import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:intl/intl.dart';
 
-class CardBookingCompleted extends StatefulWidget {
+class CardBookingProcessing extends StatefulWidget {
   final DataHistory? data;
 
-  const CardBookingCompleted({
+  const CardBookingProcessing({
     super.key,
     required this.data,
   });
 
   @override
-  State<CardBookingCompleted> createState() => _CardBookingCompletedState();
+  State<CardBookingProcessing> createState() => _CardBookingProcessingState();
 }
 
-class _CardBookingCompletedState extends State<CardBookingCompleted>
+class _CardBookingProcessingState extends State<CardBookingProcessing>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
@@ -104,7 +105,7 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                                 data?.service.title ?? 'Unknown Hotel',
                                 style: GoogleFonts.poppins(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -113,7 +114,7 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                                   const Icon(
                                     Icons.location_pin,
                                     size: 23.0,
-                                    color: AppColors.tabColor,
+                                    color: AppColors.buttonColor,
                                   ),
                                   Text(
                                     'No location info',
@@ -129,25 +130,22 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                                 children: [
                                   const SizedBox(width: 4),
                                   Text(
-                                    'Status ${data?.status}',
+                                    data?.status ?? '',
                                     style: GoogleFonts.poppins(
-                                      color: AppColors.green,
+                                      color: AppColors.amberColor,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 4,
-                                    ),
+                                    padding: const EdgeInsets.all(4),
                                     decoration: BoxDecoration(
                                       color: AppColors.white,
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: const Icon(
-                                      Icons.check_circle,
-                                      color: AppColors.green,
+                                      Icons.running_with_errors,
+                                      color: AppColors.amberColor,
                                       size: 20,
                                     ),
                                   ),
@@ -192,13 +190,14 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                     const SizedBox(height: 5),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: CustomOutlinedButton(
-                        text: 'Beri Ulasan',
+                      child: CustomButton(
+                        text: 'Pay now',
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                SendReviewScreen(dataHistory: widget.data!),
-                          ));
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const MaintenanceScreen(),
+                            ),
+                          );
                         },
                       ),
                     )
@@ -208,49 +207,6 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class BookingDetailRow extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const BookingDetailRow({
-    super.key,
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        children: [
-          Icon(icon, size: 16, color: Colors.grey[600]),
-          const SizedBox(width: 8),
-          Text(
-            '$label:',
-            style: GoogleFonts.poppins(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              value,
-              style: GoogleFonts.poppins(
-                fontSize: 13,
-                color: Colors.grey[800],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

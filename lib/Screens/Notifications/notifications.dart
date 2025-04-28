@@ -93,6 +93,15 @@ class _BookingNotificationsState extends State<BookingNotifications> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
+                  const NotificationCard(
+                    icon: Icons.notifications_off,
+                    iconColor: AppColors.cadetGray,
+                    iconBackgroundColor: AppColors.bgColor,
+                    title: 'Booking Completed',
+                    content: 'Your booking is now completed.',
+                    date: '2025-04-20',
+                    isRead: true,
+                  ),
                   Column(
                     children: widget.unreadData.dataNotif
                         .map(
@@ -107,15 +116,6 @@ class _BookingNotificationsState extends State<BookingNotifications> {
                           ),
                         )
                         .toList(),
-                  ),
-                  const NotificationCard(
-                    icon: Icons.notifications_off,
-                    iconColor: AppColors.cadetGray,
-                    iconBackgroundColor: AppColors.bgColor,
-                    title: 'Booking Completed',
-                    content: 'Your booking is now completed.',
-                    date: '2025-04-20',
-                    isRead: true,
                   ),
                 ],
               ),

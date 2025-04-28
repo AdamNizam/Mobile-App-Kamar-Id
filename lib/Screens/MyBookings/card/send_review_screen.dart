@@ -10,9 +10,9 @@ import 'package:hotelbookingapp/Models/ReviewModel/form_review.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../../Widgets/custombtn.dart';
+import '../../../Widgets/detailstext1.dart';
+import '../../../Widgets/detailstext2.dart';
 
 class SendReviewScreen extends StatefulWidget {
   final DataHistory dataHistory;
