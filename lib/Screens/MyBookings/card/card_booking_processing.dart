@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/card/booking_detail_row.dart';
+import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custom_outline_button.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
@@ -164,13 +165,14 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                     children: [
                       BookingDetailRow(
                         icon: Icons.date_range,
-                        label: 'Id transaction',
+                        label: 'Code booking',
                         value: data!.code,
                       ),
                       BookingDetailRow(
                         icon: Icons.date_range,
                         label: 'Total Payment',
-                        value: 'Rp${data.payNow}',
+                        value:
+                            'Rp${formatToRp(double.parse(data.payNow).toInt())}',
                       ),
                       BookingDetailRow(
                         icon: Icons.date_range,
@@ -200,30 +202,26 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                         CustomButton(
                           text: 'Pay now',
                           onTap: () {
-                            if (widget.data!.code.isNotEmpty) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MidtransPaymentPage(
-                                    totalPrice: int.parse(data.payNow),
-                                    orderId: data.code,
-                                    emailUser: data.email,
-                                    firstName: data.firstName,
-                                    lastName: data.lastName,
-                                    phone: data.phone,
-                                  ),
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MidtransPaymentPage(
+                                  totalPrice: double.parse(data.payNow).toInt(),
+                                  orderId: data.code,
+                                  emailUser: data.email,
+                                  firstName: data.firstName,
+                                  lastName: data.lastName,
+                                  phone: data.phone,
                                 ),
-                              );
-                            }
-                            {
-                              showCustomSnackbar(context, 'Failed booking!');
-                            }
+                              ),
+                            );
                           },
                         ),
                         CustomOutlinedButton(
-                          text: 'cancelled',
+                          text: 'Cancel booking',
                           onTap: () {
-                            showCustomSnackbar(context, 'Ftiur belum tersedia');
+                            showCustomSnackbar(
+                                context, 'Fitur is not available');
                           },
                         )
                       ],

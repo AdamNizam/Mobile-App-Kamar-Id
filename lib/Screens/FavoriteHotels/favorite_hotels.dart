@@ -18,7 +18,7 @@ class FavoriteHotels extends StatefulWidget {
 class FavoriteHotelsState extends State<FavoriteHotels>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  String selectedCategory = 'All';
+  int totalWishlist = 0;
 
   @override
   void initState() {
@@ -40,6 +40,60 @@ class FavoriteHotelsState extends State<FavoriteHotels>
     return BlocProvider(
       create: (context) => WishlistBloc()..add(GetWishlistEvent()),
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text(
+            'Data Wishlist',
+            style: GoogleFonts.poppins(
+              color: AppColors.cadetGray,
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showCustomSnackbar(context, 'Fitur is not available');
+              },
+              icon: Row(
+                children: [
+                  const Icon(
+                    Icons.favorite_border,
+                    color: AppColors.redAwesome,
+                    size: 24,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    totalWishlist.toString(),
+                    style: const TextStyle(
+                      color: AppColors.redAwesome,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              color: AppColors.white,
+            ),
+          ),
+          iconTheme: const IconThemeData(
+            color: AppColors.cadetGray,
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
@@ -51,6 +105,13 @@ class FavoriteHotelsState extends State<FavoriteHotels>
               },
               builder: (context, state) {
                 if (state is GetWishlistSuccess) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (mounted) {
+                      setState(() {
+                        totalWishlist = state.data.total;
+                      });
+                    }
+                  });
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -73,7 +73,7 @@ class _FavoriteCardState extends State<FavoriteCard>
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: AppColors.beauBlue,
@@ -137,16 +137,17 @@ class _FavoriteCardState extends State<FavoriteCard>
                                     Expanded(
                                       child: Text(
                                         data.title,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
+                                        style: GoogleFonts.poppins(
+                                          color: AppColors.text1Color,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
                                     const Icon(
                                       Icons.favorite,
-                                      color: Colors.red,
+                                      color: AppColors.redAwesome,
                                       size: 20,
                                     ),
                                   ],

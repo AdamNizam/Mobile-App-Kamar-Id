@@ -223,14 +223,6 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                     }
                   },
                   builder: (context, state) {
-                    if (state is CheckoutLoading) {
-                      return Center(
-                        child: LoadingAnimationWidget.hexagonDots(
-                          color: AppColors.buttonColor,
-                          size: 50,
-                        ),
-                      );
-                    }
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

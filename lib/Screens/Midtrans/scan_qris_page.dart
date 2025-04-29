@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -88,15 +89,25 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                Center(
-                  child: Text1(
-                    text1: 'Expired in: (${formatDuration(_remainingTime)})',
-                    size: 14,
-                    color: AppColors.buttonColor,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.beauBlue,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    'Expired time: ${formatDuration(_remainingTime)}',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: AppColors.buttonColor,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                const SizedBox(height: 15),
                 Center(
                   child: Container(
                     padding: const EdgeInsets.all(24),

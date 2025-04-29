@@ -193,7 +193,7 @@ class _CardBookingCancelledState extends State<CardBookingCancelled>
                       child: CustomOutlinedButton(
                         text: 'Re Booking',
                         onTap: () {
-                          showCustomSnackbar(context, 'Ftiur belum tersedia');
+                          showCustomSnackbar(context, 'Fitur is not available');
                         },
                       ),
                     )

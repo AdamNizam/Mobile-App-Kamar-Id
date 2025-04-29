@@ -26,7 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _notificationCount = 0;
+  int totalNotification = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +66,7 @@ class _HomePageState extends State<HomePage> {
                                 const Spacer(),
                                 BlocConsumer<NotificationBloc,
                                     NotificationState>(
-                                  listener: (context, state) {
-                                    if (state is NotificationSuccess) {
-                                      setState(() {
-                                        _notificationCount =
-                                            state.data.rows.total;
-                                      });
-                                    }
-                                  },
+                                  listener: (context, state) {},
                                   builder: (context, state) {
                                     return GestureDetector(
                                       onTap: () {
@@ -87,6 +80,15 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           );
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            setState(
+                                              () {
+                                                totalNotification =
+                                                    state.data.rows.total;
+                                              },
+                                            );
+                                          });
                                         } else if (state
                                             is NotificationFailed) {
                                           showCustomSnackbar(
@@ -120,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Text(
-                                                  _notificationCount.toString(),
+                                                  totalNotification.toString(),
                                                   style: const TextStyle(
                                                     color: AppColors.white,
                                                     fontSize: 8,

@@ -19,7 +19,7 @@ final List<Map<String, dynamic>> bankData = [
   },
   {
     'code': 'echannel',
-    'name': 'Mandiri',
+    'name': 'Bill Mandiri',
     'logo': 'images/Logo-Mandiri.png',
     'size': 24,
   },

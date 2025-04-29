@@ -114,8 +114,11 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                     radius: 20,
                     backgroundColor: AppColors.white,
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          color: AppColors.buttonColor, size: 20),
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: AppColors.buttonColor,
+                        size: 20,
+                      ),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
@@ -125,7 +128,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                 child: Column(
                   children: [
                     Text(
-                      'Bayar Via Indomaret',
+                      'Pay Via Indomaret',
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -135,16 +138,18 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.redAccent.withOpacity(0.1),
+                        color: AppColors.beauBlue,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        'Berlaku hingga: ${formatDuration(_remainingTime)}',
+                        'Expired time: ${formatDuration(_remainingTime)}',
                         style: GoogleFonts.poppins(
                           fontSize: 14,
-                          color: AppColors.redAwesome,
+                          color: AppColors.buttonColor,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

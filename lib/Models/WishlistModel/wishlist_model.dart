@@ -2,9 +2,15 @@ import 'dart:convert';
 
 class GetWishlistModel {
   final List<Datum> dataWishlist;
+  final int total;
+  final int totalPages;
+  final int status;
 
   GetWishlistModel({
     required this.dataWishlist,
+    required this.total,
+    required this.totalPages,
+    required this.status,
   });
 
   factory GetWishlistModel.fromRawJson(String str) =>
@@ -16,10 +22,16 @@ class GetWishlistModel {
       GetWishlistModel(
         dataWishlist:
             List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        total: json["total"],
+        totalPages: json["total_pages"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(dataWishlist.map((x) => x.toJson())),
+        "data": List<dynamic>.from(dataWishlist.map((dw) => dw.toJson())),
+        "total": total,
+        "total_pages": totalPages,
+        "status": status,
       };
 }
 

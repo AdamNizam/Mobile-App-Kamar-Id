@@ -128,10 +128,23 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                       fontWeight: FontWeight.bold,
                     ),
                     const SizedBox(height: 10),
-                    Text1(
-                      text1: 'Expired in: (${formatDuration(_remainingTime)})',
-                      size: 14,
-                      color: AppColors.buttonColor,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.beauBlue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        'Expired time: ${formatDuration(_remainingTime)}',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: AppColors.buttonColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     StatusPayment(status: widget.data.transactionStatus)

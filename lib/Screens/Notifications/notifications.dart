@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import 'notification_card.dart'; // Import NotificationCard
 
@@ -43,7 +44,7 @@ class _BookingNotificationsState extends State<BookingNotifications> {
         actions: [
           IconButton(
             onPressed: () {
-              debugPrint('Right icon clicked');
+              showCustomSnackbar(context, 'Fitur is not available');
             },
             icon: Stack(
               clipBehavior: Clip.none,

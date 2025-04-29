@@ -259,8 +259,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   text: 'Pay Now',
                   onTap: () {
                     if (selectedType == 'credit-card') {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CardCreditPage()));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const CardCreditPage()),
+                      );
                     } else {
                       final dataPayment = RequestMidtrans(
                         transactionDetails: TransactionDetails(
@@ -287,7 +289,8 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                       );
 
                       print(
-                          'DATA PAYMENT :${jsonEncode(dataPayment.toJson())}');
+                        'Data user Payment Midtrans: ${jsonEncode(dataPayment.toJson())}',
+                      );
 
                       context.read<MidtransPaymentBloc>().add(
                             PayWithMidtrans(dataPayment),
