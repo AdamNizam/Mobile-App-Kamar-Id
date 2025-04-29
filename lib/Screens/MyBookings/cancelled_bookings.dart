@@ -55,10 +55,8 @@ class CancelledBooking extends StatelessWidget {
                           )
                         : ListView(
                             children: state.data.dataHistory
-                                .map(
-                                  (history) =>
-                                      CardBookingCancelled(data: history),
-                                )
+                                .map((history) =>
+                                    CardBookingCancelled(data: history))
                                 .toList(),
                           );
                   }

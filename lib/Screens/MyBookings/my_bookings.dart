@@ -52,12 +52,14 @@ class MyBookingsScreen extends StatelessWidget {
         ),
         labelColor: AppColors.buttonColor,
         labelStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 15,
           fontWeight: FontWeight.w600,
           color: AppColors.buttonColor,
         ), // Ukuran teks aktif
-        unselectedLabelStyle:
-            const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
         tabs: const [
           Tab(text: 'Completed'),
           Tab(text: 'Cancelled'),

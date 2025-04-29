@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/Constants/colors.dart';
 
 class BookingDetailRow extends StatelessWidget {
   final IconData icon;
@@ -24,7 +25,7 @@ class BookingDetailRow extends StatelessWidget {
           Text(
             '$label:',
             style: GoogleFonts.poppins(
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -33,8 +34,9 @@ class BookingDetailRow extends StatelessWidget {
             child: Text(
               value,
               style: GoogleFonts.poppins(
-                fontSize: 13,
-                color: Colors.grey[800],
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppColors.cadetGray,
               ),
             ),
           ),

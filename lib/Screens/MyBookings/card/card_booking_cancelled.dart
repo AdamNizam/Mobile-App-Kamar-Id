@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/MyBookings/card/booking_detail_row.dart';
-import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
-import 'package:hotelbookingapp/Widgets/custombtn.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/custom_outline_button.dart';
 import 'package:intl/intl.dart';
 
 class CardBookingCancelled extends StatefulWidget {
@@ -190,14 +190,10 @@ class _CardBookingCancelledState extends State<CardBookingCancelled>
                     const SizedBox(height: 5),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: CustomButton(
-                        text: 'Re booking',
+                      child: CustomOutlinedButton(
+                        text: 'Re Booking',
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const MaintenanceScreen(),
-                            ),
-                          );
+                          showCustomSnackbar(context, 'Ftiur belum tersedia');
                         },
                       ),
                     )

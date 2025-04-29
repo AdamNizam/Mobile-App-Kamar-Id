@@ -54,13 +54,13 @@ class TransactionDetails {
 class CustomerDetails {
   final String? firstName;
   final String? lastName;
-  final String email;
+  final String? email;
   final String? phone;
 
   CustomerDetails({
     this.firstName,
     this.lastName,
-    required this.email,
+    this.email,
     this.phone,
   });
 

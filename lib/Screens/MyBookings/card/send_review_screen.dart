@@ -161,7 +161,7 @@ class SendReviewScreenState extends State<SendReviewScreen> {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     hintText: 'Enter a title...',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(color: AppColors.cadetGray),
                     border: InputBorder.none,
                   ),
                 ),
@@ -190,22 +190,37 @@ class SendReviewScreenState extends State<SendReviewScreen> {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     hintText: 'Tell us about your experience...',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: TextStyle(color: AppColors.cadetGray),
                     border: InputBorder.none,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              buildStarRating('Service', serviceRating,
-                  (rating) => setState(() => serviceRating = rating)),
-              buildStarRating('Organization', organizationRating,
-                  (rating) => setState(() => organizationRating = rating)),
-              buildStarRating('Friendliness', friendlinessRating,
-                  (rating) => setState(() => friendlinessRating = rating)),
-              buildStarRating('Area Expertise', areaExpertRating,
-                  (rating) => setState(() => areaExpertRating = rating)),
-              buildStarRating('Safety', safetyRating,
-                  (rating) => setState(() => safetyRating = rating)),
+              buildStarRating(
+                'Service',
+                serviceRating,
+                (rating) => setState(() => serviceRating = rating),
+              ),
+              buildStarRating(
+                'Organization',
+                organizationRating,
+                (rating) => setState(() => organizationRating = rating),
+              ),
+              buildStarRating(
+                'Friendliness',
+                friendlinessRating,
+                (rating) => setState(() => friendlinessRating = rating),
+              ),
+              buildStarRating(
+                'Area Expertise',
+                areaExpertRating,
+                (rating) => setState(() => areaExpertRating = rating),
+              ),
+              buildStarRating(
+                'Safety',
+                safetyRating,
+                (rating) => setState(() => safetyRating = rating),
+              ),
               const SizedBox(height: 50),
             ],
           ),
@@ -274,9 +289,9 @@ class SendReviewScreenState extends State<SendReviewScreen> {
 
                     print('Data Review :${jsonEncode(dataReview)}');
 
-                    context.read<ReviewBloc>().add(
-                          SendReviewBooking(dataReview),
-                        );
+                    context
+                        .read<ReviewBloc>()
+                        .add(SendReviewBooking(dataReview));
                   }
                 },
               );

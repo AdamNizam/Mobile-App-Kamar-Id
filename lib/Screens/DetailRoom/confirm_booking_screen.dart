@@ -123,19 +123,24 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 Text(
                                   widget.dataHotel.location?.name ?? 'No Name',
                                   style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text2(text2: widget.roomType),
                                 const SizedBox(height: 4),
                                 Row(
                                   children: [
-                                    const Icon(Icons.location_on,
-                                        size: 20, color: AppColors.buttonColor),
+                                    const Icon(
+                                      Icons.location_on,
+                                      size: 20,
+                                      color: AppColors.buttonColor,
+                                    ),
                                     const SizedBox(width: 3),
                                     Text2(
-                                        text2: widget.dataHotel.address ??
-                                            'No address'),
+                                      text2: widget.dataHotel.address ??
+                                          'No address',
+                                    ),
                                   ],
                                 ),
                               ],
@@ -144,7 +149,49 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      _buildBookingDetails(),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                              Border.all(width: 2, color: AppColors.beauBlue),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _detailRow(
+                              'Check-In',
+                              DateFormat('EEEE, MMMM dd, yyyy')
+                                  .format(widget.checkIn),
+                            ),
+                            _detailRow(
+                              'Check-Out',
+                              DateFormat('EEEE, MMMM dd, yyyy')
+                                  .format(widget.checkOut),
+                            ),
+                            _detailRow('Room Type', widget.roomType),
+                            _detailRow(
+                              'Count of Room',
+                              '${widget.room} room',
+                            ),
+                            _detailRow(
+                              'Guests',
+                              '${widget.adult + widget.child} people',
+                            ),
+                            _detailRow(
+                              'Price per Night',
+                              'Rp${formatToRp(widget.pricePerNight)}',
+                            ),
+                            _detailRow(
+                              'Total Amount',
+                              'Rp${formatToRp(
+                                extractNumber(widget.totalAmount),
+                              )}',
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -163,16 +210,27 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => MidtransPaymentPage(
+                          builder: (context) => MidtransPaymentPage(
                             totalPrice: int.parse(widget.totalAmount),
                             orderId: widget.orderId,
-                            dataUser: userState.data,
+                            emailUser: userState.data.email,
+                            firstName: userState.data.firstName,
+                            lastName: userState.data.lastName,
+                            phone: userState.data.phone,
                           ),
                         ),
                       );
                     }
                   },
                   builder: (context, state) {
+                    if (state is CheckoutLoading) {
+                      return Center(
+                        child: LoadingAnimationWidget.hexagonDots(
+                          color: AppColors.buttonColor,
+                          size: 50,
+                        ),
+                      );
+                    }
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -214,7 +272,9 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     couponCode: null,
                                   );
                                   print(
-                                      'data chekout ${jsonEncode(dataChekout.toJson())}');
+                                    'data chekout ${jsonEncode(dataChekout.toJson())}',
+                                  );
+
                                   context
                                       .read<CheckoutBloc>()
                                       .add(CheckoutSubmitEvent(dataChekout));
@@ -238,37 +298,6 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildBookingDetails() {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 2, color: AppColors.beauBlue),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _detailRow(
-            'Check-In',
-            DateFormat('EEEE, MMMM dd, yyyy').format(widget.checkIn),
-          ),
-          _detailRow(
-            'Check-Out',
-            DateFormat('EEEE, MMMM dd, yyyy').format(widget.checkOut),
-          ),
-          _detailRow('Room Type', widget.roomType),
-          _detailRow('Count of Room', '${widget.room} room'),
-          _detailRow('Guests', '${widget.adult + widget.child} people'),
-          _detailRow(
-              'Price per Night', 'Rp${formatToRp(widget.pricePerNight)}'),
-          _detailRow('Total Amount',
-              'Rp${formatToRp(extractNumber(widget.totalAmount))}'),
-        ],
-      ),
     );
   }
 

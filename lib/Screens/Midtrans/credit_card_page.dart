@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
+import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class CardCreditPage extends StatelessWidget {
   const CardCreditPage({super.key});
@@ -35,43 +37,51 @@ class CardCreditPage extends StatelessWidget {
                           children: [
                             Icon(Icons.account_balance, color: Colors.white),
                             SizedBox(width: 8),
-                            Text('BANK INDONESIA',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold)),
+                            Text1(
+                              text1: 'BANK INDONESIA',
+                              color: AppColors.white,
+                              size: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ],
                         ),
-                        Text('CREDIT',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
+                        Text1(
+                          text1: 'CREDIT',
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ],
                     ),
                     SizedBox(height: 24),
-                    Text('0000 2363 8364 8269',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2)),
+                    Text1(
+                      text1: '0000 2363 8364 8269',
+                      color: AppColors.white,
+                      size: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('VALID THRU\n5/23',
-                            style: TextStyle(color: Colors.white)),
-                        Text('633', style: TextStyle(color: Colors.white)),
+                        Text1(
+                          text1: 'VALID THRU\n5/23',
+                          color: AppColors.white,
+                        ),
+                        Text1(
+                          text1: '633',
+                          color: AppColors.white,
+                        ),
                       ],
                     ),
                     SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Andre Luckmana',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
+                        Text1(
+                          text1: 'Andre Luckmana',
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                         Image(
                           image: AssetImage('images/card.png'),
                           width: 40,
@@ -103,9 +113,14 @@ class CardCreditPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      _textField(label: "Card name", icon: 'images/card.png'),
+                      _textField(
+                        label: "Card name",
+                        icon: 'images/card.png',
+                      ),
                       const SizedBox(height: 16),
-                      _textField(label: "Card number"),
+                      _textField(
+                        label: "Card number",
+                      ),
                       const SizedBox(height: 16),
                       Row(
                         children: [
@@ -125,7 +140,16 @@ class CardCreditPage extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
-        child: CustomButton(text: 'Save', onTap: () {}),
+        child: CustomButton(
+          text: 'Save',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MaintenanceScreen()),
+            );
+          },
+        ),
       ),
     );
   }

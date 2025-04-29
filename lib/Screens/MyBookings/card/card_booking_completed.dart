@@ -68,140 +68,137 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
         position: _slideAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: AppColors.beauBlue,
-                  )),
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Gambar dan Judul
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            'https://picsum.photos/400/300?=989',
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 90,
-                          ),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: AppColors.beauBlue,
+                )),
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Gambar dan Judul
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          'https://picsum.photos/400/300?=989',
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 90,
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data?.service.title ?? 'Unknown Hotel',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.location_pin,
-                                    size: 23.0,
-                                    color: AppColors.buttonColor,
-                                  ),
-                                  Text(
-                                    'No location info',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: AppColors.cadetGray,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'completed',
-                                    style: GoogleFonts.poppins(
-                                      color: AppColors.green,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: const Icon(
-                                      Icons.check_circle,
-                                      color: AppColors.green,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BookingDetailRow(
-                          icon: Icons.date_range,
-                          label: 'Check-In',
-                          value: DateFormat('yyyy-MM-dd')
-                              .format(widget.data!.startDate),
-                        ),
-                        BookingDetailRow(
-                          icon: Icons.logout,
-                          label: 'Check-Out',
-                          value: DateFormat('yyyy-MM-dd')
-                              .format(widget.data!.endDate),
-                        ),
-                        BookingDetailRow(
-                          icon: Icons.person,
-                          label: 'Guest',
-                          value: data!.totalGuests.toString(),
-                        ),
-                        const BookingDetailRow(
-                          icon: Icons.meeting_room,
-                          label: 'Number of Rooms',
-                          value: '2 room',
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 5),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomOutlinedButton(
-                        text: 'Beri Ulasan',
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                SendReviewScreen(dataHistory: widget.data!),
-                          ));
-                        },
                       ),
-                    )
-                  ],
-                ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data?.service.title ?? 'Unknown Hotel',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.location_pin,
+                                  size: 23.0,
+                                  color: AppColors.buttonColor,
+                                ),
+                                Text(
+                                  'No location info',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    color: AppColors.cadetGray,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                const SizedBox(width: 4),
+                                Text(
+                                  'completed',
+                                  style: GoogleFonts.poppins(
+                                    color: AppColors.green,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: const Icon(
+                                    Icons.check_circle,
+                                    color: AppColors.green,
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BookingDetailRow(
+                        icon: Icons.date_range,
+                        label: 'Check-In',
+                        value: DateFormat('yyyy-MM-dd')
+                            .format(widget.data!.startDate),
+                      ),
+                      BookingDetailRow(
+                        icon: Icons.logout,
+                        label: 'Check-Out',
+                        value: DateFormat('yyyy-MM-dd')
+                            .format(widget.data!.endDate),
+                      ),
+                      BookingDetailRow(
+                        icon: Icons.person,
+                        label: 'Guest',
+                        value: data?.totalGuests.toString() ?? 'no information',
+                      ),
+                      const BookingDetailRow(
+                        icon: Icons.meeting_room,
+                        label: 'Number of Rooms',
+                        value: '2 room',
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 5),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomOutlinedButton(
+                      text: 'Beri Ulasan',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              SendReviewScreen(dataHistory: widget.data!),
+                        ));
+                      },
+                    ),
+                  )
+                ],
               ),
             ),
           ),

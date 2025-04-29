@@ -8,9 +8,6 @@ import 'package:hotelbookingapp/Screens/MyBookings/card/card_booking_processing.
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../Widgets/detailstext1.dart';
-import '../../../Widgets/detailstext2.dart';
-
 class ProcessingBooking extends StatefulWidget {
   const ProcessingBooking({super.key});
 
@@ -27,9 +24,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Expanded(
               child: BlocBuilder<BookingBloc, BookingState>(
                 builder: (context, state) {
@@ -48,7 +43,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                   height: 200,
                                 ),
                                 Text(
-                                  "",
+                                  "There is no booking history information.",
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -60,10 +55,8 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                           )
                         : ListView(
                             children: state.data.dataHistory
-                                .map(
-                                  (history) =>
-                                      CardBookingProcessing(data: history),
-                                )
+                                .map((history) =>
+                                    CardBookingProcessing(data: history))
                                 .toList(),
                           );
                   }
@@ -94,31 +87,6 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ReusColumn extends StatelessWidget {
-  final String text1, text2;
-  const ReusColumn({
-    super.key,
-    required this.text1,
-    required this.text2,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text2(text2: text1),
-        const SizedBox(
-          height: 2,
-        ),
-        Text1(
-          text1: text2,
-        )
-      ],
     );
   }
 }

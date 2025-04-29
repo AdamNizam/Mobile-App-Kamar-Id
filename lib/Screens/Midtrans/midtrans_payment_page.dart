@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
-import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/credit_card_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_alfamart_page.dart';
@@ -22,12 +21,19 @@ import 'package:url_launcher/url_launcher.dart';
 class MidtransPaymentPage extends StatefulWidget {
   final int totalPrice;
   final String orderId;
-  final UserModel dataUser;
+  final String? emailUser;
+  final String? firstName;
+  final String? lastName;
+  final String? phone;
+
   const MidtransPaymentPage({
     super.key,
     required this.totalPrice,
     required this.orderId,
-    required this.dataUser,
+    required this.emailUser,
+    required this.firstName,
+    required this.lastName,
+    required this.phone,
   });
 
   @override
@@ -265,10 +271,10 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                             ? 'cstore'
                             : selectedType!,
                         customerDetails: CustomerDetails(
-                          email: widget.dataUser.email,
-                          firstName: widget.dataUser.firstName,
-                          lastName: widget.dataUser.lastName,
-                          phone: widget.dataUser.phone,
+                          email: widget.emailUser ?? 'no email user',
+                          firstName: widget.firstName,
+                          lastName: widget.lastName,
+                          phone: widget.phone,
                         ),
                         bankTransfer: selectedType! == 'bank_transfer'
                             ? BankTransfer(bank: selectedBank ?? '')

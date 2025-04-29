@@ -49,7 +49,7 @@ class _LogInState extends State<Login> {
           if (state is AuthLoading) {
             return Center(
               child: LoadingAnimationWidget.hexagonDots(
-                color: AppColors.tabColor,
+                color: AppColors.buttonColor,
                 size: 50,
               ),
             );
