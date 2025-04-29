@@ -64,13 +64,19 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 const Spacer(),
-                                BlocConsumer<NotificationBloc,
+                                BlocBuilder<NotificationBloc,
                                     NotificationState>(
-                                  listener: (context, state) {},
                                   builder: (context, state) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        if (state is NotificationSuccess) {
+                                    if (state is NotificationSuccess) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        setState(() {
+                                          totalNotification =
+                                              state.data.rows.total;
+                                        });
+                                      });
+                                      return GestureDetector(
+                                        onTap: () {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -80,63 +86,54 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                           );
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            setState(
-                                              () {
-                                                totalNotification =
-                                                    state.data.rows.total;
-                                              },
-                                            );
-                                          });
-                                        } else if (state
-                                            is NotificationFailed) {
-                                          showCustomSnackbar(
-                                              context, state.error);
-                                        }
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Stack(
-                                          clipBehavior: Clip.none,
-                                          children: [
-                                            const Icon(
-                                              Icons.notifications_active,
-                                              color: AppColors.buttonColor,
-                                              size:
-                                                  28, // Ukuran ikon disesuaikan
-                                            ),
-                                            Positioned(
-                                              right: -2,
-                                              top: -5,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(4),
-                                                decoration: const BoxDecoration(
-                                                  color: AppColors.redAwesome,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Text(
-                                                  totalNotification.toString(),
-                                                  style: const TextStyle(
-                                                    color: AppColors.white,
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.bold,
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Stack(
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              const Icon(
+                                                Icons.notifications_active,
+                                                color: AppColors.buttonColor,
+                                                size: 28,
+                                              ),
+                                              Positioned(
+                                                right: -2,
+                                                top: -5,
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.all(4),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: AppColors.redAwesome,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Text(
+                                                    totalNotification
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                      color: AppColors.white,
+                                                      fontSize: 8,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
                                   },
-                                ),
+                                )
                               ],
                             ),
                           ),

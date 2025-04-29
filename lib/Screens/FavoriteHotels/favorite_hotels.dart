@@ -39,125 +39,122 @@ class FavoriteHotelsState extends State<FavoriteHotels>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WishlistBloc()..add(GetWishlistEvent()),
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text(
-            'Data Wishlist',
-            style: GoogleFonts.poppins(
-              color: AppColors.cadetGray,
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                showCustomSnackbar(context, 'Fitur is not available');
-              },
-              icon: Row(
-                children: [
-                  const Icon(
-                    Icons.favorite_border,
-                    color: AppColors.redAwesome,
-                    size: 24,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    totalWishlist.toString(),
-                    style: const TextStyle(
-                      color: AppColors.redAwesome,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+      child: BlocConsumer<WishlistBloc, WishlistState>(
+        listener: (context, state) {
+          if (state is WishlistFailed) {
+            showCustomSnackbar(context, state.error);
+          }
+        },
+        builder: (context, state) {
+          if (state is GetWishlistSuccess) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) {
+                setState(() {
+                  totalWishlist = state.data.total;
+                });
+              }
+            });
+          }
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              elevation: 0,
+              centerTitle: true,
+              leading: const Icon(Icons.arrow_back),
+              title: Text(
+                'Data Wishlist',
+                style: GoogleFonts.poppins(
+                  color: AppColors.cadetGray,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                ),
               ),
-            )
-          ],
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.white,
-            ),
-          ),
-          iconTheme: const IconThemeData(
-            color: AppColors.cadetGray,
-          ),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
-            child: BlocConsumer<WishlistBloc, WishlistState>(
-              listener: (context, state) {
-                if (state is WishlistFailed) {
-                  showCustomSnackbar(context, state.error);
-                }
-              },
-              builder: (context, state) {
-                if (state is GetWishlistSuccess) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
-                      setState(() {
-                        totalWishlist = state.data.total;
-                      });
-                    }
-                  });
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    showCustomSnackbar(context, 'Fitur is not available');
+                  },
+                  icon: Row(
                     children: [
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: state.data.dataWishlist.isEmpty
-                              ? Center(
-                                  child: Column(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'images/empty_wishlisht.svg',
-                                        height: 200,
-                                      ),
-                                      Text(
-                                        "No favorites added.",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.cadetGray,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Column(
-                                  children:
-                                      state.data.dataWishlist.map((wishlist) {
-                                    return FavoriteCard(data: wishlist.service);
-                                  }).toList(),
-                                ),
+                      const Icon(
+                        Icons.favorite_border,
+                        color: AppColors.redAwesome,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        totalWishlist.toString(),
+                        style: const TextStyle(
+                          color: AppColors.redAwesome,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ],
-                  );
-                }
-                return Column(
-                  children: List.generate(
-                    4,
-                    (_) => shimmerListTile(),
                   ),
-                );
-              },
+                )
+              ],
+              flexibleSpace: Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.white,
+                ),
+              ),
+              iconTheme: const IconThemeData(
+                color: AppColors.cadetGray,
+              ),
             ),
-          ),
-        ),
+            body: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
+                child: (state is GetWishlistSuccess)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 8),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: state.data.dataWishlist.isEmpty
+                                  ? Center(
+                                      child: Column(
+                                        children: [
+                                          SvgPicture.asset(
+                                            'images/empty_wishlisht.svg',
+                                            height: 200,
+                                          ),
+                                          Text(
+                                            "No favorites added.",
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.cadetGray,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Column(
+                                      children: state.data.dataWishlist
+                                          .map((wishlist) {
+                                        return FavoriteCard(
+                                          data: wishlist.service,
+                                        );
+                                      }).toList(),
+                                    ),
+                            ),
+                          )
+                        ],
+                      )
+                    : Column(
+                        children: List.generate(
+                          4,
+                          (_) => shimmerListTile(),
+                        ),
+                      ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
