@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_hotels.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/home_screen.dart';
 import 'package:hotelbookingapp/Screens/MessagesFlow/no_messages.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
+import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 import 'package:hotelbookingapp/Widgets/drawer_widget.dart';
 
 class BottomNavigationHome extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/card/card_booking_completed.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/card/card_booking_completed.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
 

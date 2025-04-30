@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
+
 import '../../Constants/colors.dart';
 import '../../Widgets/custom_outline_button.dart';
 import '../../Widgets/custombtn.dart';
@@ -22,7 +22,6 @@ class BookingSuccessFully extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(''),
-
               const Center(
                 child: Column(
                   children: [
@@ -39,7 +38,10 @@ class BookingSuccessFully extends StatelessWidget {
                       ),
                     ),
                     Text2(text2: 'Your Hotel Booking is Confirmed'),
-                    Center(child: Text2(text2: 'You can check your booking in the Profile section')),
+                    Center(
+                        child: Text2(
+                            text2:
+                                'You can check your booking in the Profile section')),
                   ],
                 ),
               ),
@@ -48,13 +50,15 @@ class BookingSuccessFully extends StatelessWidget {
                   CustomButton(
                     text: 'View Receipt',
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HotelBookingReceipt()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const HotelBookingReceipt()));
                     },
                   ),
                   CustomOutlinedButton(
                     text: 'View My Bookings',
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyBookingsScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const MyBookingsScreen()));
                     },
                   ),
                 ],

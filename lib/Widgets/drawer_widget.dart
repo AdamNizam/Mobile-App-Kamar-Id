@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/BookMark/book_marks_screen.dart';
 import 'package:hotelbookingapp/Screens/Booking/book_hotel.dart';
 import 'package:hotelbookingapp/Screens/BookingCreation/create_booking.dart';
-import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_hotels.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/Search/search_hotels.dart';
+import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 
 import '../Screens/AvailablityCalendar/avaialblity_calendar.dart';
 import '../Screens/HomeScreen/home_screen.dart';

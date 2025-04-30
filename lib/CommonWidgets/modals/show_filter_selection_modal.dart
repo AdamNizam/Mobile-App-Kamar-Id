@@ -274,13 +274,9 @@ void showFilterSelectionModal(BuildContext context) {
                 CustomButton(
                   text: 'Save',
                   onTap: () {
-                    // Ambil data filter di sini jika diperlukan
                     print("Min Price: ${minPriceController.text}");
                     print("Max Price: ${maxPriceController.text}");
                     print("Rating: $ratingHotel");
-
-                    // Tutup modal
-                    Navigator.of(context).pop();
                   },
                 ),
                 const SizedBox(height: 16),

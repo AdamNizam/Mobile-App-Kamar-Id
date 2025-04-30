@@ -14,16 +14,16 @@ import 'package:hotelbookingapp/Screens/Authentication/message_register_success.
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Screens/BookMark/book_marks_screen.dart';
 import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
-import 'package:hotelbookingapp/Screens/FavoriteHotels/favorite_hotels.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/cancelled_bookings.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/completed_bookings.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/cancelled_bookings.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/completed_bookings.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Screens/Search/search_typing.dart';
 import 'package:hotelbookingapp/Screens/Settings/settings_screen.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
+import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 
 void main() {
   runApp(const MyApp());

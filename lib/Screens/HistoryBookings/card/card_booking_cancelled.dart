@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
-import 'package:hotelbookingapp/Screens/MyBookings/card/booking_detail_row.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/card/booking_detail_row.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custom_outline_button.dart';
 import 'package:intl/intl.dart';
