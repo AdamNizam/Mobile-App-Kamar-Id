@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CommonWidgets/modals/show_filter_selection_modal.dart';
 
 import '../../../Constants/colors.dart';
 
@@ -24,20 +25,23 @@ class SearchWidget extends StatelessWidget {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide: const BorderSide(
+                  color: AppColors.beauBlue,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                    color: AppColors.amberColor,
-                    width: 2), // Red border when focused
+                  color: AppColors.amberColor,
+                  width: 2,
+                ),
               ),
               hintStyle: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
               ),
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.white,
             ),
           ),
         ),
@@ -46,22 +50,20 @@ class SearchWidget extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) =>  const SearchProducts()),
-            // );
+            showFilterSelectionModal(context);
           },
           child: Container(
             height: 46,
             width: 46,
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Image.asset(
-              'images/filter.png',
+            child: const Icon(
+              Icons.tune,
               color: AppColors.buttonColor,
+              size: 24,
             ),
           ),
         ),

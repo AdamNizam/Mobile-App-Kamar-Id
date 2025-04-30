@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card1.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card2.dart';
-import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -45,102 +43,15 @@ class _HomePageState extends State<HomePage> {
                     color: AppColors.tabColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const HomeWidgte(),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 10),
-                                    AddressWidget(),
-                                  ],
-                                ),
-                                const Spacer(),
-                                BlocBuilder<NotificationBloc,
-                                    NotificationState>(
-                                  builder: (context, state) {
-                                    if (state is NotificationSuccess) {
-                                      WidgetsBinding.instance
-                                          .addPostFrameCallback((_) {
-                                        setState(() {
-                                          totalNotification =
-                                              state.data.rows.total;
-                                        });
-                                      });
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  BookingNotifications(
-                                                unreadData: state.data.rows,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              const Icon(
-                                                Icons.notifications_active,
-                                                color: AppColors.buttonColor,
-                                                size: 28,
-                                              ),
-                                              Positioned(
-                                                right: -2,
-                                                top: -5,
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(4),
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    color: AppColors.redAwesome,
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Text(
-                                                    totalNotification
-                                                        .toString(),
-                                                    style: const TextStyle(
-                                                      color: AppColors.white,
-                                                      fontSize: 8,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      return const SizedBox();
-                                    }
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      const SearchWidget(),
+                      HomeWidgte(),
+                      SizedBox(height: 6),
+                      AddressWidget(),
+                      SizedBox(height: 10),
+                      SearchWidget(),
+                      SizedBox(height: 6),
                     ],
                   ),
                 ),
