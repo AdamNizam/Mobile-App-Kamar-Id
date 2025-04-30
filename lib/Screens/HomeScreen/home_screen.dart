@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
+import 'package:hotelbookingapp/CommonWidgets/ShimmerLoading/shimmer_card.dart';
+import 'package:hotelbookingapp/CommonWidgets/ShimmerLoading/shimmer_list.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card1.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card2.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../CommonWidgets/address_widget.dart';
 import '../../../../CommonWidgets/categories_widget.dart';
@@ -122,14 +123,20 @@ class _HomePageState extends State<HomePage> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                            children: List.generate(3, (_) => shimmerCard()),
+                            children: List.generate(
+                              3,
+                              (_) => const ShimmerCard(),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 16),
                         const Text1(text1: 'All The Hotels', size: 18),
                         const SizedBox(height: 10),
                         Column(
-                          children: List.generate(4, (_) => shimmerListTile()),
+                          children: List.generate(
+                            4,
+                            (_) => const ShimmerList(),
+                          ),
                         ),
                       ],
                     );
@@ -138,37 +145,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget shimmerCard({double width = 150, double height = 100}) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[400]!,
-      highlightColor: Colors.grey[200]!,
-      child: Container(
-        width: width,
-        height: height,
-        margin: const EdgeInsets.only(right: 10),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
-
-  Widget shimmerListTile() {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[400]!,
-      highlightColor: Colors.grey[200]!,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );

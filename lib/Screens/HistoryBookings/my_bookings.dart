@@ -24,9 +24,9 @@ class MyBookingsScreen extends StatelessWidget {
                 const Expanded(
                   child: TabBarView(
                     children: [
+                      ProcessingBooking(),
                       CompletedBooking(),
                       CancelledBooking(),
-                      ProcessingBooking(),
                     ],
                   ),
                 ),
@@ -61,9 +61,9 @@ class MyBookingsScreen extends StatelessWidget {
           fontWeight: FontWeight.w400,
         ),
         tabs: const [
+          Tab(text: 'Processing'),
           Tab(text: 'Completed'),
           Tab(text: 'Cancelled'),
-          Tab(text: 'Processing'),
         ],
       ),
     );

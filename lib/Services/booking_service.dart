@@ -23,6 +23,9 @@ class BookingService {
       print('Response add to cart:  ${res.body}');
 
       if (res.statusCode == 200) {
+        if (jsonDecode(res.body)['status'] == 0) {
+          throw jsonDecode(res.body)['message'];
+        }
         return ResultAddToCart.fromJson(jsonDecode(res.body));
       } else {
         throw jsonDecode(res.body)['message'] ?? 'Booking failed!';

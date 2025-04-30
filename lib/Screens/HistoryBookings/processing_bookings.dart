@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CommonWidgets/ShimmerLoading/shimmer_list.dart';
+import 'package:hotelbookingapp/CommonWidgets/no_data_booking.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/card/card_booking_processing.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProcessingBooking extends StatefulWidget {
   const ProcessingBooking({super.key});
@@ -33,58 +31,29 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                       showCustomSnackbar(context, state.error);
                     }
                   });
+
                   if (state is HistoryBookingSuccess) {
-                    return state.data.dataHistory.isEmpty
-                        ? Center(
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  'images/empty_history.svg',
-                                  height: 200,
-                                ),
-                                Text(
-                                  "There is no booking history information.",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.cadetGray,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView(
-                            children: state.data.dataHistory
+                    var processingHistory = state.data.dataHistory
+                        .where((history) => history.status == 'processing')
+                        .toList();
+
+                    return processingHistory.isNotEmpty
+                        ? ListView(
+                            children: processingHistory
                                 .map((history) =>
                                     CardBookingProcessing(data: history))
                                 .toList(),
-                          );
+                          )
+                        : const NoDataBooking();
                   }
+
                   return Column(
-                    children: List.generate(4, (_) => shimmerListTile()),
+                    children: List.generate(4, (_) => const ShimmerList()),
                   );
                 },
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget shimmerListTile() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.grey[400]!,
-        highlightColor: Colors.grey[200]!,
-        child: Container(
-          margin: const EdgeInsets.only(bottom: 12),
-          height: 100,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );

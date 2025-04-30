@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CommonWidgets/ShimmerLoading/shimmer_list.dart';
+import 'package:hotelbookingapp/CommonWidgets/no_data_booking.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/card/card_booking_cancelled.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:shimmer/shimmer.dart';
-
-import '../../../Widgets/detailstext1.dart';
-import '../../../Widgets/detailstext2.dart';
 
 class CancelledBooking extends StatelessWidget {
   const CancelledBooking({super.key});
@@ -34,34 +29,21 @@ class CancelledBooking extends StatelessWidget {
                     }
                   });
                   if (state is HistoryBookingSuccess) {
-                    return state.data.dataHistory.isEmpty
-                        ? Center(
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  'images/empty_history.svg',
-                                  height: 200,
-                                ),
-                                Text(
-                                  "There is no booking history information.",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.cadetGray,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : ListView(
-                            children: state.data.dataHistory
+                    var cancelledHistory = state.data.dataHistory
+                        .where((history) => history.status == 'cancelled')
+                        .toList();
+
+                    return cancelledHistory.isNotEmpty
+                        ? ListView(
+                            children: cancelledHistory
                                 .map((history) =>
                                     CardBookingCancelled(data: history))
                                 .toList(),
-                          );
+                          )
+                        : const NoDataBooking();
                   }
                   return Column(
-                    children: List.generate(4, (_) => shimmerListTile()),
+                    children: List.generate(4, (_) => const ShimmerList()),
                   );
                 },
               ),
@@ -69,49 +51,6 @@ class CancelledBooking extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget shimmerListTile() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.grey[400]!,
-        highlightColor: Colors.grey[200]!,
-        child: Container(
-          margin: const EdgeInsets.only(bottom: 12),
-          height: 100,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ReusColumn extends StatelessWidget {
-  final String text1, text2;
-  const ReusColumn({
-    super.key,
-    required this.text1,
-    required this.text2,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text2(text2: text1),
-        const SizedBox(
-          height: 2,
-        ),
-        Text1(
-          text1: text2,
-        )
-      ],
     );
   }
 }
