@@ -14,7 +14,6 @@ import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {
@@ -275,14 +274,12 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                       color: AppColors.cadetGray,
                     ),
                   ),
-                  Text(
-                    selectedPrice.isNotEmpty
+                  Text1(
+                    text1: selectedPrice.isNotEmpty
                         ? 'Rp${formatToRp(extractNumber(selectedPrice))}'
                         : 'Rp0',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    size: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ],
               ),
@@ -293,7 +290,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     if (state is BookingFailed) {
                       showCustomSnackbar(context, state.error);
                     }
-
                     if (state is BookingSuccess) {
                       Navigator.push(
                         context,
@@ -328,59 +324,48 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: State is BookingLoading
-                          ? LoadingAnimationWidget.fourRotatingDots(
-                              color: AppColors.white,
-                              size: 27,
-                            )
-                          : Text(
-                              'Confirm',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.white,
-                              ),
-                            ),
+                      child: Text(
+                        'Confirm',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.white,
+                        ),
+                      ),
                       onPressed: () {
-                        if (selectedPrice.isEmpty) {
-                          showCustomSnackbar(
-                            context,
-                            'Please select a room first!',
-                          );
-                        } else {
-                          final dataCart = RequestAddToChart(
-                            serviceId: widget.dataHotel.id.toString(),
-                            serviceType: 'hotel',
-                            startDate: formatDateToYMD(widget.checkIn),
-                            endDate: formatDateToYMD(widget.checkOut),
-                            extraPrice:
-                                (widget.dataHotel.extraPrice as List).map((ep) {
-                              return ExtraPriceBooking(
-                                name: ep.name,
-                                nameEn: ep.nameEn,
-                                price: ep.price,
-                                type: ep.type,
-                                number: "0",
-                                enable: "1",
-                                priceHtml: "Rp${ep.price}",
-                                priceType: null,
-                              );
-                            }).toList(),
-                            adults: widget.adult.toString(),
-                            children: widget.child.toString(),
-                            rooms: [
-                              Room(
-                                id: widget.dataRoom.id.toString(),
-                                numberSelected: numberSelected,
-                              ),
-                            ],
-                          );
-                          print('data Cart: ${jsonEncode(dataCart)}');
+                        final dataCart = RequestAddToChart(
+                          serviceId: widget.dataHotel.id.toString(),
+                          serviceType: 'hotel',
+                          startDate: formatDateToYMD(widget.checkIn),
+                          endDate: formatDateToYMD(widget.checkOut),
+                          extraPrice:
+                              (widget.dataHotel.extraPrice as List).map((ep) {
+                            return ExtraPriceBooking(
+                              name: ep.name,
+                              nameEn: ep.nameEn,
+                              price: ep.price,
+                              type: ep.type,
+                              number: "0",
+                              enable: "1",
+                              priceHtml: "Rp${ep.price}",
+                              priceType: null,
+                            );
+                          }).toList(),
+                          adults: widget.adult.toString(),
+                          children: widget.child.toString(),
+                          rooms: [
+                            Room(
+                              id: widget.dataRoom.id.toString(),
+                              numberSelected: numberSelected,
+                            ),
+                          ],
+                        );
 
-                          context
-                              .read<BookingBloc>()
-                              .add(AddToCartEvent(dataCart));
-                        }
+                        print('data Cart: ${jsonEncode(dataCart)}');
+
+                        context
+                            .read<BookingBloc>()
+                            .add(AddToCartEvent(dataCart));
                       },
                     );
                   },

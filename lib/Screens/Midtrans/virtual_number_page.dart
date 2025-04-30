@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/CommonWidgets/status_payment.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -147,13 +146,12 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                       ),
                     ),
                     const SizedBox(height: 10),
-                    StatusPayment(status: widget.data.transactionStatus)
                   ],
                 ),
               ),
               const SizedBox(height: 20),
               Text(
-                'Please copy this number, and paste it into your payment BANK.',
+                'Please copy this number, and paste it into your payment BANK ',
                 style: GoogleFonts.poppins(
                   fontSize: 14,
                   color: AppColors.cadetGray,

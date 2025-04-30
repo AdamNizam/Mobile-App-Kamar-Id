@@ -12,8 +12,6 @@ import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
-import 'package:hotelbookingapp/Widgets/detailstext2.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -123,11 +121,17 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 Text(
                                   widget.dataHotel.location?.name ?? 'No Name',
                                   style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(height: 4),
-                                Text2(text2: widget.roomType),
+                                Text(
+                                  widget.roomType,
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.cadetGray,
+                                  ),
+                                ),
                                 const SizedBox(height: 4),
                                 Row(
                                   children: [
@@ -137,9 +141,12 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                       color: AppColors.buttonColor,
                                     ),
                                     const SizedBox(width: 3),
-                                    Text2(
-                                      text2: widget.dataHotel.address ??
-                                          'No address',
+                                    Text(
+                                      widget.dataHotel.address ?? 'No address',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.cadetGray,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -299,8 +306,20 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text2(text2: label),
-          Text1(text1: value),
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w400,
+              color: AppColors.cadetGray,
+            ),
+          ),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w500,
+              color: AppColors.darkGrey,
+            ),
+          ),
         ],
       ),
     );

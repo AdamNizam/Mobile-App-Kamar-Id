@@ -128,7 +128,7 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                               children: [
                                 const SizedBox(width: 4),
                                 Text(
-                                  'completed',
+                                  widget.data!.status,
                                   style: GoogleFonts.poppins(
                                     color: AppColors.green,
                                     fontSize: 15,

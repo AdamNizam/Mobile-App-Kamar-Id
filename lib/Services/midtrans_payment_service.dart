@@ -9,29 +9,26 @@ class PaymentMidtransService {
   Future<ResultMidtransModel> payWithMidtrans(
       RequestMidtrans midtransModel) async {
     try {
-      final basicAuth = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
+      final authHeader = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
 
       final res = await http.post(
         Uri.parse(midtransUrl),
         headers: {
-          'Authorization': basicAuth,
+          'Authorization': authHeader,
           'Content-Type': 'application/json',
         },
         body: jsonEncode(midtransModel.toJson()),
       );
 
-      print("Midtrans response: ${res.body}");
+      print("Midtrans respon body: ${res.body}");
 
-      final statusCode = res.statusCode;
       final data = jsonDecode(res.body);
+      final statusCode = data['status_code']?.toString() ?? '';
 
-      final midtransStatusCode = data['status_code']?.toString() ?? '';
-
-      if ((statusCode >= 200 && statusCode < 300) ||
-          midtransStatusCode.startsWith('2')) {
+      if (statusCode.startsWith('2')) {
         return ResultMidtransModel.fromJson(data);
       } else {
-        throw jsonDecode(data)['message'] ?? 'Payment failed: $statusCode';
+        throw data['status_message'].toString();
       }
     } catch (error) {
       rethrow;
