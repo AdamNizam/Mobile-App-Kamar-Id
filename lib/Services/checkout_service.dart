@@ -20,7 +20,7 @@ class ChekoutService {
         body: jsonEncode(data.toJson()),
       );
 
-      // print('Result ChekOut : ${res.body}');
+      print('Response do Chekout: ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultChekout.fromJson(jsonDecode(res.body));

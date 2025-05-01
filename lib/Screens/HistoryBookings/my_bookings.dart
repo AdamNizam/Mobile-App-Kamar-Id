@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
 
 import 'cancelled_bookings.dart';
@@ -11,11 +12,11 @@ class MyBookingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
             child: Column(
               children: [
                 const SizedBox(height: 10),
@@ -25,6 +26,7 @@ class MyBookingsScreen extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       ProcessingBooking(),
+                      PaidBooking(),
                       CompletedBooking(),
                       CancelledBooking(),
                     ],
@@ -57,11 +59,12 @@ class MyBookingsScreen extends StatelessWidget {
           color: AppColors.buttonColor,
         ), // Ukuran teks aktif
         unselectedLabelStyle: const TextStyle(
-          fontSize: 14,
+          fontSize: 13,
           fontWeight: FontWeight.w400,
         ),
         tabs: const [
           Tab(text: 'Processing'),
+          Tab(text: 'Paid'),
           Tab(text: 'Completed'),
           Tab(text: 'Cancelled'),
         ],
