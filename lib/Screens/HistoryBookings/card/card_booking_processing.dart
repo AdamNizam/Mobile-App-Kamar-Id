@@ -80,7 +80,7 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                   color: AppColors.beauBlue,
                 )),
             child: Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -127,30 +127,32 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                               ],
                             ),
                             const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                const SizedBox(width: 4),
-                                Text(
-                                  data?.status ?? '',
-                                  style: GoogleFonts.poppins(
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: AppColors.amberColor.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.timelapse,
                                     color: AppColors.amberColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
+                                    size: 18,
                                   ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(6),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    widget.data!.status,
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.amberColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  child: const Icon(
-                                    Icons.running_with_errors,
-                                    color: AppColors.amberColor,
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -164,18 +166,18 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BookingDetailRow(
-                        icon: Icons.date_range,
-                        label: 'Code booking',
+                        icon: Icons.confirmation_number,
+                        label: 'Code Booking',
                         value: data!.code,
                       ),
                       BookingDetailRow(
-                        icon: Icons.date_range,
+                        icon: Icons.payments,
                         label: 'Total Payment',
                         value:
                             'Rp${formatToRp(double.parse(data.payNow).toInt())}',
                       ),
                       BookingDetailRow(
-                        icon: Icons.date_range,
+                        icon: Icons.login,
                         label: 'Check-In',
                         value: DateFormat('yyyy-MM-dd')
                             .format(widget.data!.startDate),
@@ -187,13 +189,17 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                             .format(widget.data!.endDate),
                       ),
                       BookingDetailRow(
-                        icon: Icons.person,
+                        icon: Icons.person_outline,
                         label: 'Guest',
                         value: data.totalGuests.toString(),
                       ),
+                      const BookingDetailRow(
+                        icon: Icons.meeting_room_outlined,
+                        label: 'Number of Rooms',
+                        value: '2 room',
+                      ),
                     ],
                   ),
-
                   const SizedBox(height: 5),
                   Align(
                     alignment: Alignment.centerRight,

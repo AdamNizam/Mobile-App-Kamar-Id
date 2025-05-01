@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
@@ -46,27 +47,30 @@ class MyBookingsScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.beauBlue),
+        border: Border.all(
+          color: AppColors.beauBlue,
+        ),
       ),
       child: TabBar(
         indicator: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
         ),
         labelColor: AppColors.buttonColor,
-        labelStyle: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
+        labelStyle: GoogleFonts.poppins(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
           color: AppColors.buttonColor,
-        ), // Ukuran teks aktif
-        unselectedLabelStyle: const TextStyle(
+        ),
+        unselectedLabelStyle: GoogleFonts.poppins(
           fontSize: 13,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
+          color: AppColors.cadetGray,
         ),
         tabs: const [
-          Tab(text: 'Processing'),
+          Tab(text: 'Proces'),
           Tab(text: 'Paid'),
           Tab(text: 'Completed'),
-          Tab(text: 'Cancelled'),
+          Tab(text: 'Cancel'),
         ],
       ),
     );

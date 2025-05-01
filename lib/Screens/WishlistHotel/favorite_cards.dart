@@ -14,10 +14,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class FavoriteCard extends StatefulWidget {
   final ServiceWishlist data;
 
-  const FavoriteCard({
-    super.key,
-    required this.data,
-  });
+  const FavoriteCard({super.key, required this.data});
 
   @override
   State<FavoriteCard> createState() => _FavoriteCardState();
@@ -35,24 +32,20 @@ class _FavoriteCardState extends State<FavoriteCard>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 600),
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.2),
+      begin: const Offset(0, 0.1),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeOut,
+      curve: Curves.easeInOut,
     ));
 
-    _fadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    ));
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
 
     _controller.forward();
   }
@@ -72,179 +65,172 @@ class _FavoriteCardState extends State<FavoriteCard>
       child: SlideTransition(
         position: _slideAnimation,
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
           child: GestureDetector(
             onTap: () {},
             child: Container(
-              width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: AppColors.beauBlue,
-                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Stack(
                       children: [
-                        Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                'https://picsum.photos/400/300?random=100',
-                                fit: BoxFit.cover,
-                                width: 100,
-                                height: 110,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Hero(
+                            tag: data.id,
+                            child: Image.network(
+                              'https://picsum.photos/400/300?random=100',
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 110,
+                            ),
+                          ),
+                        ),
+                        if (data.isFeatured == 1)
+                          Positioned(
+                            top: 6,
+                            left: 6,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: AppColors.redAwesome,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: const Text(
+                                'Featured',
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                ),
                               ),
                             ),
-                            if (data.isFeatured == 1)
-                              Positioned(
-                                top: 5,
-                                left: 5,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.redAwesome,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: const Text(
-                                    'Featured',
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
+                          ),
+                      ],
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 4.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    data.title,
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.text1Color,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
-                              ),
-                          ],
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                right: 12, top: 4, bottom: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                                const SizedBox(width: 6),
+                                BlocBuilder<WishlistBloc, WishlistState>(
+                                  builder: (context, stateWishlist) {
+                                    if (stateWishlist is WishlistLoading) {
+                                      return LoadingAnimationWidget
+                                          .staggeredDotsWave(
+                                        color: AppColors.redAwesome,
+                                        size: 22,
+                                      );
+                                    }
+                                    if (stateWishlist is PostWishlistSuccess) {
+                                      showCustomSnackbar(
+                                          context, 'Delete favorite success');
+                                    }
+                                    return GestureDetector(
+                                      onTap: () {
+                                        context.read<WishlistBloc>().add(
+                                              PostWishlistEvent(
+                                                RequestWishlist(
+                                                    objectId: widget.data.id),
+                                              ),
+                                            );
+                                      },
+                                      child: const Icon(
+                                        Icons.favorite,
+                                        color: AppColors.redAwesome,
+                                        size: 22,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on,
+                                    size: 18, color: AppColors.tabColor),
+                                const SizedBox(width: 4),
+                                Expanded(
+                                  child: Text(
+                                    data.location?.name ?? 'No location info',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      color: AppColors.cadetGray,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Row(
                               children: [
                                 Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        data.title,
-                                        style: GoogleFonts.poppins(
-                                          color: AppColors.text1Color,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    BlocBuilder<WishlistBloc, WishlistState>(
-                                      builder: (context, stateWishlist) {
-                                        if (stateWishlist is WishlistLoading) {
-                                          return LoadingAnimationWidget.beat(
-                                            color: AppColors.redAwesome,
-                                            size: 27,
-                                          );
-                                        }
-                                        if (stateWishlist
-                                            is PostWishlistSuccess) {
-                                          showCustomSnackbar(
-                                            context,
-                                            'delete favorite success',
-                                          );
-                                        }
-                                        return GestureDetector(
-                                          onTap: () {
-                                            context.read<WishlistBloc>().add(
-                                                  PostWishlistEvent(
-                                                    RequestWishlist(
-                                                      objectId: widget.data.id,
-                                                    ),
-                                                  ),
-                                                );
-                                          },
-                                          child: const Icon(
-                                            Icons.favorite,
-                                            color: AppColors.redAwesome,
-                                            size: 22,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5.0),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_pin,
-                                      size: 23.0,
+                                  children: List.generate(
+                                    3,
+                                    (index) => const Icon(
+                                      Icons.star,
+                                      size: 18,
                                       color: AppColors.tabColor,
                                     ),
-                                    const SizedBox(width: 4.0),
-                                    Text(
-                                      data.location?.name ?? 'No location info',
-                                      style: GoogleFonts.poppins(
-                                        color: AppColors.cadetGray,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                const SizedBox(height: 5.0),
+                                const SizedBox(width: 6),
+                                const Text('0.5'),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Row(
+                              children: [
+                                const Text11(
+                                  text2: '10% Off',
+                                  color: AppColors.tabColor,
+                                ),
+                                const Spacer(),
                                 Row(
                                   children: [
-                                    Row(
-                                      children: List.generate(
-                                          3,
-                                          (index) => const Icon(
-                                                Icons.star,
-                                                size: 20.0,
-                                                color: AppColors.tabColor,
-                                              )),
-                                    ),
-                                    const SizedBox(width: 4.0),
-                                    const Text('0.5'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Row(
-                                  children: [
-                                    const Text11(
-                                      text2: '10% Off',
+                                    Text1(
+                                      text1: data.price,
+                                      size: 16,
                                       color: AppColors.tabColor,
                                     ),
-                                    const Spacer(),
-                                    Row(
-                                      children: [
-                                        Text1(
-                                          text1: data.price,
-                                          size: 16,
-                                          color: AppColors.tabColor,
-                                        ),
-                                        const Text2(text2: '/night')
-                                      ],
-                                    ),
+                                    const Text2(text2: '/night'),
                                   ],
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),

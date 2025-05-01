@@ -132,7 +132,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                     ),
                   ),
                   Text(
-                    'Start from: Rp$startPriceSelection - Rp$endPriceSelection',
+                    'Start from: Rp${startPriceSelection ?? "0"} - Rp${endPriceSelection ?? "0"}',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: AppColors.buttonColor,

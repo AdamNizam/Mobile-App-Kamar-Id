@@ -77,7 +77,7 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                   color: AppColors.beauBlue,
                 )),
             child: Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,15 +136,30 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.all(4),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(6),
+                                    color: AppColors.green.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Icon(
-                                    Icons.check_circle,
-                                    color: AppColors.green,
-                                    size: 20,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.check_circle,
+                                        color: AppColors.green,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        widget.data!.status,
+                                        style: GoogleFonts.poppins(
+                                          color: AppColors.green,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],

@@ -61,31 +61,40 @@ class _CardBookingPaidState extends State<CardBookingPaid>
   @override
   Widget build(BuildContext context) {
     final data = widget.data;
+
     return FadeTransition(
       opacity: _fadeAnimation,
       child: SlideTransition(
         position: _slideAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.only(bottom: 14),
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: AppColors.beauBlue,
-                )),
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  offset: const Offset(0, 4),
+                  blurRadius: 10,
+                ),
+              ],
+              border: Border.all(
+                color: AppColors.beauBlue.withOpacity(0.3),
+              ),
+            ),
             child: Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Gambar dan Judul
+                  // Image and Title
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(14),
                         child: Image.network(
                           'https://picsum.photos/400/300?=989',
                           fit: BoxFit.cover,
@@ -93,7 +102,7 @@ class _CardBookingPaidState extends State<CardBookingPaid>
                           height: 90,
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,76 +111,80 @@ class _CardBookingPaidState extends State<CardBookingPaid>
                               data?.service.title ?? 'Unknown Hotel',
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
                               ),
                             ),
                             const SizedBox(height: 8),
                             Row(
                               children: [
                                 const Icon(
-                                  Icons.location_pin,
-                                  size: 23.0,
+                                  Icons.location_on,
+                                  size: 20.0,
                                   color: AppColors.buttonColor,
                                 ),
+                                const SizedBox(width: 4),
                                 Text(
                                   'No location info',
                                   style: GoogleFonts.poppins(
-                                    fontSize: 14,
+                                    fontSize: 13.5,
                                     color: AppColors.cadetGray,
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                const SizedBox(width: 4),
-                                Text(
-                                  widget.data!.status,
-                                  style: GoogleFonts.poppins(
-                                    color: AppColors.green,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: const Icon(
+                            const SizedBox(height: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: AppColors.green.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
                                     Icons.check_circle,
                                     color: AppColors.green,
-                                    size: 20,
+                                    size: 18,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    widget.data!.status,
+                                    style: GoogleFonts.poppins(
+                                      color: AppColors.green,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  const SizedBox(height: 10),
+                  const Divider(height: 1, color: Colors.black12),
+                  const SizedBox(height: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BookingDetailRow(
-                        icon: Icons.date_range,
-                        label: 'Code booking',
+                        icon: Icons.confirmation_number,
+                        label: 'Code Booking',
                         value: data!.code,
                       ),
                       BookingDetailRow(
-                        icon: Icons.date_range,
+                        icon: Icons.payments,
                         label: 'Total Payment',
                         value:
                             'Rp${formatToRp(double.parse(data.payNow).toInt())}',
                       ),
                       BookingDetailRow(
-                        icon: Icons.date_range,
+                        icon: Icons.login,
                         label: 'Check-In',
                         value: DateFormat('yyyy-MM-dd')
                             .format(widget.data!.startDate),
@@ -183,18 +196,18 @@ class _CardBookingPaidState extends State<CardBookingPaid>
                             .format(widget.data!.endDate),
                       ),
                       BookingDetailRow(
-                        icon: Icons.person,
+                        icon: Icons.person_outline,
                         label: 'Guest',
                         value: data.totalGuests.toString(),
                       ),
                       const BookingDetailRow(
-                        icon: Icons.meeting_room,
+                        icon: Icons.meeting_room_outlined,
                         label: 'Number of Rooms',
                         value: '2 room',
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
