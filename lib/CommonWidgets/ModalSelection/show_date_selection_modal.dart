@@ -5,9 +5,13 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:intl/intl.dart';
 
 Future<Map<String, DateTime>?> showDateSelectionModal(
+    String? startPriceSelection,
+    String? endPriceSelection,
     BuildContext context) async {
   DateTime checkInDate = DateTime.now();
-  DateTime checkOutDate = checkInDate.add(const Duration(days: 1));
+  DateTime checkOutDate = checkInDate.add(
+    const Duration(days: 1),
+  );
 
   return await showModalBottomSheet<Map<String, DateTime>>(
     context: context,
@@ -87,7 +91,6 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                           ],
                         ),
 
-                        // Check Out (dengan penyesuaian agar tidak error)
                         Column(
                           children: [
                             const SizedBox(height: 10),
@@ -128,7 +131,15 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  Text(
+                    'Start from: Rp$startPriceSelection - Rp$endPriceSelection',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: AppColors.buttonColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
                   Text(
                     "${DateFormat('d MMM').format(checkInDate)} - ${DateFormat('d MMM').format(checkOutDate)} (${checkOutDate.difference(checkInDate).inDays} night)",
                     style: GoogleFonts.poppins(
@@ -136,7 +147,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 26),
                   ElevatedButton(
                     onPressed: () {
                       if (!checkOutDate.isAfter(checkInDate)) {

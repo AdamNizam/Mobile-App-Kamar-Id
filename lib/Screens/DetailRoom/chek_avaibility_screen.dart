@@ -30,6 +30,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   bool isLoading = false;
   DateTime? checkInDate;
   DateTime? checkOutDate;
+  String? startPrice;
+  String? endPrice;
   int room = 0;
   int adult = 0;
   int child = 0;
@@ -51,7 +53,11 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   }
 
   void _selectDates() async {
-    final selectedDates = await showDateSelectionModal(context);
+    final selectedDates = await showDateSelectionModal(
+      startPrice,
+      endPrice,
+      context,
+    );
     if (selectedDates != null) {
       setState(() {
         checkInDate = selectedDates["checkIn"];
@@ -74,11 +80,22 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     context, 'Failed to check availability: ${state.error}');
               }
 
-              if (state is CheckAvaibilitySuccess ||
-                  state is ChekAvaibilityFailed) {
-                setState(() {
-                  isLoading = false;
-                });
+              if (state is CheckAvaibilitySuccess) {
+                setState(
+                  () {
+                    isLoading = false;
+                    startPrice =
+                        state.data.rooms != null && state.data.rooms!.isNotEmpty
+                            ? state.data.rooms!.first.price.toString()
+                            : null;
+                    endPrice =
+                        state.data.rooms != null && state.data.rooms!.isNotEmpty
+                            ? state.data.rooms!.last.price.toString()
+                            : null;
+
+                    print('Price modal $startPrice & $endPrice');
+                  },
+                );
               }
             },
             builder: (context, state) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 
 void showFilterSelectionModal(BuildContext context) {
@@ -36,7 +37,10 @@ void showFilterSelectionModal(BuildContext context) {
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                   color: AppColors.white,
-                  border: Border.all(color: AppColors.amberColor),
+                  border: Border.all(
+                    color: AppColors.beauBlue,
+                    width: 2,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -87,15 +91,11 @@ void showFilterSelectionModal(BuildContext context) {
                 height: 48,
                 decoration: BoxDecoration(
                   color: AppColors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                  border: Border.all(color: AppColors.amberColor, width: 1.5),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: AppColors.beauBlue,
+                    width: 2,
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -171,7 +171,7 @@ void showFilterSelectionModal(BuildContext context) {
                         value: ht,
                         activeColor: AppColors.buttonColor,
                         inactiveTrackColor: AppColors.white,
-                        inactiveThumbColor: AppColors.amberColor,
+                        inactiveThumbColor: AppColors.beauBlue,
                         onChanged: (value) {
                           setState(() {
                             ht = value;
@@ -185,7 +185,7 @@ void showFilterSelectionModal(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Hotel termuah",
+                      "Hotel termurah",
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -197,7 +197,7 @@ void showFilterSelectionModal(BuildContext context) {
                         value: hr,
                         activeColor: AppColors.buttonColor,
                         inactiveTrackColor: AppColors.white,
-                        inactiveThumbColor: AppColors.amberColor,
+                        inactiveThumbColor: AppColors.beauBlue,
                         onChanged: (value) {
                           setState(() {
                             hr = value;
@@ -223,7 +223,7 @@ void showFilterSelectionModal(BuildContext context) {
                         value: hf,
                         activeColor: AppColors.buttonColor,
                         inactiveTrackColor: AppColors.white,
-                        inactiveThumbColor: AppColors.amberColor,
+                        inactiveThumbColor: AppColors.beauBlue,
                         onChanged: (value) {
                           setState(() {
                             hf = value;
@@ -274,9 +274,7 @@ void showFilterSelectionModal(BuildContext context) {
                 CustomButton(
                   text: 'Save',
                   onTap: () {
-                    print("Min Price: ${minPriceController.text}");
-                    print("Max Price: ${maxPriceController.text}");
-                    print("Rating: $ratingHotel");
+                    showCustomSnackbar(context, 'feature is not available');
                   },
                 ),
                 const SizedBox(height: 16),
