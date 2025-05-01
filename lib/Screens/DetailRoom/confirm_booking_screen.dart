@@ -11,6 +11,7 @@ import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Widgets/custom_button_loading.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -234,22 +235,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         state is CheckoutLoading
-                            ? Container(
-                                width: double.infinity,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                decoration: BoxDecoration(
-                                  color: AppColors.amberColor,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Center(
-                                  child:
-                                      LoadingAnimationWidget.fourRotatingDots(
-                                    color: AppColors.white,
-                                    size: 27,
-                                  ),
-                                ),
-                              )
+                            ? const CustomButtonLoading()
                             : CustomButton(
                                 text: 'Book Now',
                                 onTap: () {

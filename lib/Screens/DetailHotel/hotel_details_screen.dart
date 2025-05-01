@@ -638,12 +638,13 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
           }
 
           return Scaffold(
-              body: Center(
-            child: LoadingAnimationWidget.hexagonDots(
-              color: AppColors.tabColor,
-              size: 50,
+            body: Center(
+              child: LoadingAnimationWidget.hexagonDots(
+                color: AppColors.tabColor,
+                size: 50,
+              ),
             ),
-          ));
+          );
         },
       ),
     );

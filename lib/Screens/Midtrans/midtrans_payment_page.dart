@@ -11,7 +11,6 @@ import 'package:hotelbookingapp/Screens/Midtrans/store_code_alfamart_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_indomaret_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataPaymentMidtrans/data.dart';
-import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:hotelbookingapp/Widgets/detailstext1.dart';
@@ -41,7 +40,7 @@ class MidtransPaymentPage extends StatefulWidget {
 }
 
 class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
-  String? selectedType;
+  String? selectedType = '';
   String? selectedBank;
   String? selectedStore;
 
@@ -49,85 +48,86 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => MidtransPaymentBloc(),
-      child: Scaffold(
-        body: BlocConsumer<MidtransPaymentBloc, MidtransPaymentState>(
-          listener: (context, state) {
-            if (state is MidtransPaymentFailed) {
-              showCustomSnackbar(context, state.error);
-            }
-            if (state is MidtransPaymentSucsess) {
-              if (['qris', 'dana', 'gopay'].contains(selectedType)) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ScanQrisPage(data: state.data),
-                    ),
-                  );
-                });
-              }
-
-              if (selectedType == 'shopeepay') {
-                final deeplinkAction = state.data.actions?.firstWhere(
-                  (action) => action.name == 'deeplink-redirect',
+      child: BlocConsumer<MidtransPaymentBloc, MidtransPaymentState>(
+        listener: (context, state) {
+          if (state is MidtransPaymentFailed) {
+            showCustomSnackbar(context, state.error);
+          }
+          if (state is MidtransPaymentSucsess) {
+            if (['qris', 'dana', 'gopay'].contains(selectedType)) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScanQrisPage(data: state.data),
+                  ),
                 );
-                final deeplink = deeplinkAction?.url;
+              });
+            }
 
-                if (deeplink != null) {
-                  launchUrl(Uri.parse(deeplink));
-                }
+            if (selectedType == 'shopeepay') {
+              final deeplinkAction = state.data.actions?.firstWhere(
+                (action) => action.name == 'deeplink-redirect',
+              );
+              final deeplink = deeplinkAction?.url;
+
+              if (deeplink != null) {
+                launchUrl(Uri.parse(deeplink));
               }
+            }
 
-              if (selectedType == 'bank_transfer') {
-                final va = state.data.vaNumbers?.first;
-                if (va?.vaNumber != null && va?.bank != null) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            VirtualNumberPage(data: state.data),
-                      ),
-                    );
-                  });
-                }
-              }
-
-              if (selectedType == 'alfamart') {
+            if (selectedType == 'bank_transfer') {
+              final va = state.data.vaNumbers?.first;
+              if (va?.vaNumber != null && va?.bank != null) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          StoreCodeAlfamartPage(data: state.data),
-                    ),
-                  );
-                });
-              }
-
-              if (selectedType == 'Indomaret') {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          StoreCodeIndomaretPage(data: state.data),
+                      builder: (context) => VirtualNumberPage(data: state.data),
                     ),
                   );
                 });
               }
             }
-          },
-          builder: (context, state) {
-            if (state is MidtransPaymentLoading) {
-              return Center(
+
+            if (selectedType == 'alfamart') {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        StoreCodeAlfamartPage(data: state.data),
+                  ),
+                );
+              });
+            }
+
+            if (selectedType == 'Indomaret') {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        StoreCodeIndomaretPage(data: state.data),
+                  ),
+                );
+              });
+            }
+          }
+        },
+        builder: (context, state) {
+          if (state is MidtransPaymentLoading) {
+            return Scaffold(
+              body: Center(
                 child: LoadingAnimationWidget.hexagonDots(
                   color: AppColors.tabColor,
                   size: 50,
                 ),
-              );
-            }
-            return SingleChildScrollView(
+              ),
+            );
+          }
+          return Scaffold(
+            body: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,102 +203,74 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
                   const SizedBox(height: 10),
                 ],
               ),
-            );
-          },
-        ),
-        bottomNavigationBar: Builder(
-          builder: (context) => _buildBottomBar(context),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomBar(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text1(
-                text1: "Total Payment",
-                size: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              Text1(
-                text1: "Rp${formatToRp(widget.totalPrice)}",
-                size: 16,
-                color: AppColors.buttonColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          (selectedType == '')
-              ? CustomButton(
-                  text: 'Pay Now',
-                  color: AppColors.beauBlue,
-                  onTap: () {
-                    showCustomSnackbar(
-                      context,
-                      'Select your payment method',
-                    );
-                  },
-                )
-              : CustomButton(
-                  text: 'Pay Now',
-                  onTap: () {
-                    if (selectedType == 'credit-card') {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const CardCreditPage()),
-                      );
-                    } else {
-                      final dataPayment = RequestMidtrans(
-                        transactionDetails: TransactionDetails(
-                          orderId: widget.orderId,
-                          grossAmount: widget.totalPrice,
-                        ),
-                        paymentType: selectedStore == 'cstore'
-                            ? 'cstore'
-                            : selectedType!,
-                        customerDetails: CustomerDetails(
-                          email: widget.emailUser ?? 'no email user',
-                          firstName: widget.firstName,
-                          lastName: widget.lastName,
-                          phone: widget.phone,
-                        ),
-                        bankTransfer: selectedType! == 'bank_transfer'
-                            ? BankTransfer(bank: selectedBank ?? '')
-                            : null,
-                        cstore: selectedStore == 'cstore'
-                            ? CStore(
-                                store: selectedType!,
-                              )
-                            : null,
-                      );
-
-                      print(
-                        'Data user Payment Midtrans: ${jsonEncode(dataPayment.toJson())}',
-                      );
-
-                      context.read<MidtransPaymentBloc>().add(
-                            PayWithMidtrans(dataPayment),
-                          );
-                    }
-                  },
+            ),
+            bottomNavigationBar: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
                 ),
-        ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomButton(
+                    text: 'Pay Now',
+                    color: selectedType == ''
+                        ? AppColors.beauBlue
+                        : AppColors.buttonColor,
+                    onTap: () {
+                      if (selectedType == '') {
+                        showCustomSnackbar(
+                          context,
+                          'You are not selected a payment method',
+                        );
+                      } else if (selectedType == 'credit-card') {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const CardCreditPage(),
+                          ),
+                        );
+                      } else {
+                        final dataPayment = RequestMidtrans(
+                          transactionDetails: TransactionDetails(
+                            orderId: widget.orderId,
+                            grossAmount: widget.totalPrice,
+                          ),
+                          paymentType: selectedStore == 'cstore'
+                              ? 'cstore'
+                              : selectedType!,
+                          customerDetails: CustomerDetails(
+                            email: widget.emailUser ?? 'no email user',
+                            firstName: widget.firstName,
+                            lastName: widget.lastName,
+                            phone: widget.phone,
+                          ),
+                          bankTransfer: selectedType! == 'bank_transfer'
+                              ? BankTransfer(bank: selectedBank ?? '')
+                              : null,
+                          cstore: selectedStore == 'cstore'
+                              ? CStore(store: selectedType!)
+                              : null,
+                        );
+
+                        print(
+                          'Data user Payment Midtrans: ${jsonEncode(dataPayment.toJson())}',
+                        );
+
+                        context
+                            .read<MidtransPaymentBloc>()
+                            .add(PayWithMidtrans(dataPayment));
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

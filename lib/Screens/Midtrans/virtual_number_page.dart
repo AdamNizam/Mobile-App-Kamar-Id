@@ -213,6 +213,35 @@ class _VirtualNumberPageState extends State<VirtualNumberPage>
                   ],
                 ),
               ),
+              const SizedBox(height: 24),
+              Text(
+                'Cara Pembayaran:',
+                style: GoogleFonts.poppins(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ...[
+                '1. Buka aplikasi mobile banking anda',
+                '2. Pilih menu pembayaran dengan Virtual Account.',
+                '3. Masukkan nomor Virtual Account di atas.',
+                '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)}',
+              ].map((step) => Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Text(
+                      step,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: AppColors.cadetGray,
+                      ),
+                    ),
+                  )),
+              const Spacer(),
+              Text(
+                '*VA number ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
+                style: GoogleFonts.poppins(
+                    fontSize: 12, color: Colors.grey.shade500),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

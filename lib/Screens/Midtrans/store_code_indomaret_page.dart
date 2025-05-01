@@ -277,7 +277,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                 ),
               ),
               const SizedBox(height: 24),
-              // Langkah-Langkah
+
               Text(
                 'Cara Pembayaran:',
                 style: GoogleFonts.poppins(
@@ -294,13 +294,13 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                     child: Text(
                       step,
                       style: GoogleFonts.poppins(
-                          fontSize: 14, color: Colors.grey[700]),
+                        fontSize: 14,
+                        color: AppColors.cadetGray,
+                      ),
                     ),
                   )),
 
               const Spacer(),
-
-              // Info tambahan
               Text(
                 '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
                 style: GoogleFonts.poppins(

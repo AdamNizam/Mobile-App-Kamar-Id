@@ -212,8 +212,6 @@ class _VirtualNumberPageState extends State<StoreCodeAlfamartPage>
               ),
 
               const SizedBox(height: 24),
-
-              // Langkah-Langkah
               Text(
                 'Cara Pembayaran:',
                 style: GoogleFonts.poppins(
@@ -225,18 +223,19 @@ class _VirtualNumberPageState extends State<StoreCodeAlfamartPage>
                 '2. Tunjukkan kode pembayaran ini ke kasir.',
                 '3. Sebutkan bahwa kamu ingin membayar melalui Midtrans.',
                 '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)} dan simpan struk sebagai bukti.',
-              ].map((step) => Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Text(
-                      step,
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, color: Colors.grey[700]),
+              ].map(
+                (step) => Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(
+                    step,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: AppColors.cadetGray,
                     ),
-                  )),
-
+                  ),
+                ),
+              ),
               const Spacer(),
-
-              // Info tambahan
               Text(
                 '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
                 style: GoogleFonts.poppins(
