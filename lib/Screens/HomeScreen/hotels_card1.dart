@@ -9,9 +9,9 @@ import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
-import '../../Widgets/text11.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
+import '../../CustomWidgets/text11.dart';
 import '../DetailHotel/hotel_details_screen.dart';
 
 class HotelsCard1 extends StatefulWidget {

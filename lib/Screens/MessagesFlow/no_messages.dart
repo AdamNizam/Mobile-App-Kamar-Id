@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 import 'new_message_screen.dart';
 
 class NoMessages extends StatelessWidget {
@@ -26,11 +27,11 @@ class NoMessages extends StatelessWidget {
               ),
               const SizedBox(height: 70),
               const Text1(
-              text1:   'No Messages',
+                text1: 'No Messages',
               ),
               const SizedBox(height: 10),
               const Text2(
-               text2:  'You currently have no incoming messages.',
+                text2: 'You currently have no incoming messages.',
               ),
               const SizedBox(height: 5),
               const Text2(

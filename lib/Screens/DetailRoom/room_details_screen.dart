@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/ModalSelection/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/facility_icon_item.dart';
 import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
-import 'package:hotelbookingapp/Widgets/facility_icon_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {

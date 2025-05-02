@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CustomWidgets/custom_outline_button.dart';
+import 'package:hotelbookingapp/CustomWidgets/custombtn.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/card/booking_detail_row.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/custom_outline_button.dart';
-import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:intl/intl.dart';
 
 class CardBookingProcessing extends StatefulWidget {

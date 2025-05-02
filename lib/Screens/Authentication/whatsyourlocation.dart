@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/custom_outline_button.dart';
-import '../../Widgets/custombtn.dart';
+import '../../CustomWidgets/custom_outline_button.dart';
+import '../../CustomWidgets/custombtn.dart';
 import 'enablelocationaccess.dart';
 import 'enter_locations.dart';
-
 
 class WhatsYourLocationScreen extends StatelessWidget {
   const WhatsYourLocationScreen({super.key});
@@ -22,10 +21,8 @@ class WhatsYourLocationScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50,
-               backgroundColor: Colors.grey.withOpacity(0.2),
-
-
-          child: const Icon(
+                backgroundColor: Colors.grey.withOpacity(0.2),
+                child: const Icon(
                   Icons.location_pin,
                   color: AppColors.tabColor,
                   size: 60,
@@ -49,20 +46,25 @@ class WhatsYourLocationScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
-              CustomButton(text: 'Allow Location Access', onTap:(){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) =>   const EnAbleLocationAccessScreen()),
-                );
-              }),
+              CustomButton(
+                  text: 'Allow Location Access',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const EnAbleLocationAccessScreen()),
+                    );
+                  }),
               const SizedBox(height: 10),
-              CustomOutlinedButton(text: 'Enter Location Manually', onTap:(){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) =>   const EnterLocationScreen()),
-                );
-              }),
-
+              CustomOutlinedButton(
+                  text: 'Enter Location Manually',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const EnterLocationScreen()),
+                    );
+                  }),
             ],
           ),
         ),

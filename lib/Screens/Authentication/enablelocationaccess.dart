@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/custom_outline_button.dart';
-import '../../Widgets/custombtn.dart';
+import '../../CustomWidgets/custom_outline_button.dart';
+import '../../CustomWidgets/custombtn.dart';
 import '../HomeScreen/home_screen.dart';
-
 
 class EnAbleLocationAccessScreen extends StatelessWidget {
   const EnAbleLocationAccessScreen({super.key});
@@ -22,8 +21,6 @@ class EnAbleLocationAccessScreen extends StatelessWidget {
               CircleAvatar(
                 radius: 50,
                 backgroundColor: Colors.grey.withOpacity(0.2),
-
-
                 child: const Icon(
                   Icons.notification_important_rounded,
                   color: AppColors.tabColor,
@@ -48,15 +45,14 @@ class EnAbleLocationAccessScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
-              CustomButton(text: 'Allow Notifications', onTap:(){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) =>  const HomePage()));
-              }),
+              CustomButton(
+                  text: 'Allow Notifications',
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const HomePage()));
+                  }),
               const SizedBox(height: 10),
-              CustomOutlinedButton(text: 'Maybe Later', onTap:(){}),
-
+              CustomOutlinedButton(text: 'Maybe Later', onTap: () {}),
             ],
           ),
         ),

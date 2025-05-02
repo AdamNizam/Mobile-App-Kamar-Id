@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/customapp_bar.dart';
+import '../../CustomWidgets/customtextfield.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 import 'all_conversions.dart';
 import 'search_message_screen.dart';
 
@@ -28,10 +28,12 @@ class DirectMessages extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const SearchMessagesScreen()),
+                    MaterialPageRoute(
+                        builder: (_) => const SearchMessagesScreen()),
                   );
                 },
-                child: const CustomTextField(label: 'Search', icon: Icons.search),
+                child:
+                    const CustomTextField(label: 'Search', icon: Icons.search),
               ),
             ),
             const SizedBox(height: 5),
@@ -60,15 +62,42 @@ class DirectMessages extends StatelessWidget {
                     ),
                   ),
                   _buildConversation(
-                      context, 'Reception', 'Confirmation of your room booking...', 'images/c2.png', '2:45 pm', 2),
+                      context,
+                      'Reception',
+                      'Confirmation of your room booking...',
+                      'images/c2.png',
+                      '2:45 pm',
+                      2),
                   _buildConversation(
-                      context, 'Housekeeping', 'Request for extra towels', 'images/c3.png', '2:30 pm', 1),
+                      context,
+                      'Housekeeping',
+                      'Request for extra towels',
+                      'images/c3.png',
+                      '2:30 pm',
+                      1),
                   _buildConversation(
-                      context, 'Concierge', 'Dinner reservation details', 'images/c4.png', '2:15 pm', 0, true),
+                      context,
+                      'Concierge',
+                      'Dinner reservation details',
+                      'images/c4.png',
+                      '2:15 pm',
+                      0,
+                      true),
                   _buildConversation(
-                      context, 'Maintenance', 'Repair request update', 'images/c5.png', '1:50 pm', 0, true),
+                      context,
+                      'Maintenance',
+                      'Repair request update',
+                      'images/c5.png',
+                      '1:50 pm',
+                      0,
+                      true),
                   _buildConversation(
-                      context, 'Guest Services', 'Inquiry about room amenities', 'images/c2.png', '1:30 pm', 1),
+                      context,
+                      'Guest Services',
+                      'Inquiry about room amenities',
+                      'images/c2.png',
+                      '1:30 pm',
+                      1),
                 ],
               ),
             ),
@@ -99,14 +128,9 @@ class DirectMessages extends StatelessWidget {
     );
   }
 
-  Widget _buildConversation(
-      BuildContext context,
-      String name,
-      String message,
-      String imagePath,
-      String time, [
-        int unreadCount = 0,
-        bool isYourTurn = false]) {
+  Widget _buildConversation(BuildContext context, String name, String message,
+      String imagePath, String time,
+      [int unreadCount = 0, bool isYourTurn = false]) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 9),
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../Widgets/custom_outline_button.dart';
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
+
+import '../../CustomWidgets/custom_outline_button.dart';
+import '../../CustomWidgets/customapp_bar.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/customtextfield.dart';
 import 'all_conversions.dart';
 import 'archived_message_screen.dart';
 
@@ -12,21 +13,17 @@ class NewMessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-
             const CustomAppBar(text: 'New Messages', text1: ''),
-
             const SizedBox(height: 10),
             const CustomTextField(
               label: 'To',
               icon: Icons.person_add_alt_1,
-
             ),
             const SizedBox(height: 20),
             const CustomTextField(
@@ -34,7 +31,6 @@ class NewMessageScreen extends StatelessWidget {
               icon: Icons.message,
             ),
             const SizedBox(height: 20),
-
             CustomButton(
               text: 'Send',
               onTap: () {
@@ -49,11 +45,11 @@ class NewMessageScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ArchivedMessagesScreen()),
+                  MaterialPageRoute(
+                      builder: (_) => const ArchivedMessagesScreen()),
                 );
               },
             ),
-
           ],
         ),
       ),

@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
+import 'package:hotelbookingapp/CustomWidgets/text11.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
-import 'package:hotelbookingapp/Widgets/detailstext2.dart';
-import 'package:hotelbookingapp/Widgets/text11.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FavoriteCard extends StatefulWidget {

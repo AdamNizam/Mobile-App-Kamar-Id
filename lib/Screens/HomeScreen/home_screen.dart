@@ -11,10 +11,10 @@ import '../../../../CommonWidgets/address_widget.dart';
 import '../../../../CommonWidgets/categories_widget.dart';
 import '../../../../CommonWidgets/home_widget.dart';
 import '../../../../Constants/colors.dart';
-import '../../../../Widgets/detailstext1.dart';
-import '../../../../Widgets/text11.dart';
-import '../../../Widgets/drawer_widget.dart';
 import '../../CommonWidgets/search_widget.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/drawer_widget.dart';
+import '../../CustomWidgets/text11.dart';
 import '../Categories/all_categories.dart';
 
 class HomePage extends StatefulWidget {

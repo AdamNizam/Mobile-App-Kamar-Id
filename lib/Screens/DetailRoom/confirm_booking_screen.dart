@@ -6,13 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CustomWidgets/custom_button_loading.dart';
+import 'package:hotelbookingapp/CustomWidgets/custombtn.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/custom_button_loading.dart';
-import 'package:hotelbookingapp/Widgets/custombtn.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

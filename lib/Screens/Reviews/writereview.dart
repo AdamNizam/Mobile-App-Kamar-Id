@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 
 class WriteReviews extends StatefulWidget {
   const WriteReviews({super.key});

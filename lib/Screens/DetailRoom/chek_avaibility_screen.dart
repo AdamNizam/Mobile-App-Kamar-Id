@@ -9,10 +9,10 @@ import 'package:hotelbookingapp/CommonWidgets/ModalSelection/show_date_selection
 import 'package:hotelbookingapp/CommonWidgets/ModalSelection/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/CommonWidgets/card_avaibility.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CustomWidgets/custom_nav_title.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/custom_nav_title.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

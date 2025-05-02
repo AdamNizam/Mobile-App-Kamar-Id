@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/customtextfield.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});

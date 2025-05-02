@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
-import 'package:hotelbookingapp/Widgets/detailstext2.dart';
+import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
 
 class CardConfirmaBooking extends StatelessWidget {
   const CardConfirmaBooking({super.key});

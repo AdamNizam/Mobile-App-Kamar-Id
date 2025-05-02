@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../Widgets/customapp_bar.dart';
-import '../../../Widgets/customtextfield.dart';
+import '../../../CustomWidgets/customapp_bar.dart';
+import '../../../CustomWidgets/customtextfield.dart';
 
 class HelpCenterScreen extends StatefulWidget {
   const HelpCenterScreen({super.key});
@@ -17,7 +17,6 @@ class HelpCenterScreenState extends State<HelpCenterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: SafeArea(
         child: DefaultTabController(
           length: 2,
@@ -30,10 +29,12 @@ class HelpCenterScreenState extends State<HelpCenterScreen> {
                 child: CustomAppBar(text: 'Help Center', text1: ''),
               ),
               const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: CustomTextField(icon: Icons.search,label: 'Search',)
-              ),
-        
+                  padding: EdgeInsets.all(16.0),
+                  child: CustomTextField(
+                    icon: Icons.search,
+                    label: 'Search',
+                  )),
+
               // Tabs for FAQ and Contact Us
               const TabBar(
                 indicatorColor: Colors.red,
@@ -44,7 +45,7 @@ class HelpCenterScreenState extends State<HelpCenterScreen> {
                   Tab(text: "Contact Us"),
                 ],
               ),
-        
+
               // TabBarView to switch between FAQ and Contact Us content
               Expanded(
                 child: TabBarView(
@@ -92,51 +93,50 @@ class HelpCenterScreenState extends State<HelpCenterScreen> {
                             _buildFAQPanel(
                               title: "Can I track my order's delivery status?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 0,
                             ),
                             _buildFAQPanel(
                               title: "Is there a return policy?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 1,
                             ),
                             _buildFAQPanel(
                               title: "Can I save my favorite items for later?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 2,
                             ),
                             _buildFAQPanel(
-                              title:
-                              "Can I share products with my friends?",
+                              title: "Can I share products with my friends?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 3,
                             ),
                             _buildFAQPanel(
                               title: "How do I contact customer support?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 4,
                             ),
                             _buildFAQPanel(
                               title: "What payment methods are accepted?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 5,
                             ),
                             _buildFAQPanel(
                               title: "How to add review?",
                               content:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                               isExpanded: _selectedFAQ == 6,
                             ),
                           ],
                         ),
                       ],
                     ),
-        
+
                     // Contact Us tab
                     ListView(
                       padding: const EdgeInsets.all(16.0),
@@ -216,8 +216,7 @@ class HelpCenterScreenState extends State<HelpCenterScreen> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-          vertical: 5, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),

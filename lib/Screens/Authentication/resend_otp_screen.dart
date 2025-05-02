@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/customtextfield.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 
 class ResendOtpScreen extends StatelessWidget {
   const ResendOtpScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,6 @@ class ResendOtpScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-
             const SizedBox(
               height: 8,
             ),
@@ -28,26 +27,20 @@ class ResendOtpScreen extends StatelessWidget {
                 children: [
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text1(text1: 'Resend OTP'),
-                      Text('  🔄')
-                    ],
+                    children: [Text1(text1: 'Resend OTP'), Text('  🔄')],
                   ),
                   const SizedBox(
                     height: 12,
                   ),
                   const Center(
                     child: Text2(
-                        text2: 'Please enter your phone number to resend OTP'
-                    ),
+                        text2: 'Please enter your phone number to resend OTP'),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   const CustomTextField(
-                      icon: Icons.phone,
-                      label: 'Phone Number'
-                  ),
+                      icon: Icons.phone, label: 'Phone Number'),
                   const SizedBox(
                     height: 7,
                   ),
@@ -55,8 +48,7 @@ class ResendOtpScreen extends StatelessWidget {
                       text: 'Send OTP',
                       onTap: () {
                         // Handle resend OTP logic here
-                      }
-                  ),
+                      }),
                 ],
               ),
             ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../../Constants/colors.dart';
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/customapp_bar.dart';
+import '../../CustomWidgets/customtextfield.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 
 class SearchMessagesScreen extends StatelessWidget {
   const SearchMessagesScreen({super.key});
@@ -31,16 +32,71 @@ class SearchMessagesScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  _buildConversation('Event Organizer', 'Can you provide details about the event schedule?', 'images/c5.png', '12:34 pm', 1),
-                  _buildConversation('Participant 1', 'Will there be refreshments available?', 'images/c2.png', '12:34 pm', 1),
-                  _buildConversation('Speaker 1', 'Please confirm my speaking slot.', 'images/c3.png', '12:34 pm', 0, true),
-                  _buildConversation('Attendee 1', 'What is the dress code for the event?', 'images/c4.png', '12:34 pm', 0, true),
-                  _buildConversation('Event Coordinator', 'Please check the updated event agenda.', 'images/c5.png', '12:34 pm', 1),
-                  _buildConversation('Participant 2', 'Is there a parking facility available?', 'images/c3.png', '12:34 pm', 1),
-                  _buildConversation('Volunteer', 'I need instructions for my shift.', 'images/c2.png', '12:34 pm', 0, true),
-                  _buildConversation('Sponsor', 'Can we discuss the sponsorship details?', 'images/c5.png', '12:34 pm', 0, true),
-                  _buildConversation('Participant 3', 'How can I register for the workshops?', 'images/c4.png', '12:34 pm', 1),
-                  _buildConversation('Guest Speaker', 'Please confirm the event location.', 'images/c3.png', '12:34 pm', 0, true),
+                  _buildConversation(
+                      'Event Organizer',
+                      'Can you provide details about the event schedule?',
+                      'images/c5.png',
+                      '12:34 pm',
+                      1),
+                  _buildConversation(
+                      'Participant 1',
+                      'Will there be refreshments available?',
+                      'images/c2.png',
+                      '12:34 pm',
+                      1),
+                  _buildConversation(
+                      'Speaker 1',
+                      'Please confirm my speaking slot.',
+                      'images/c3.png',
+                      '12:34 pm',
+                      0,
+                      true),
+                  _buildConversation(
+                      'Attendee 1',
+                      'What is the dress code for the event?',
+                      'images/c4.png',
+                      '12:34 pm',
+                      0,
+                      true),
+                  _buildConversation(
+                      'Event Coordinator',
+                      'Please check the updated event agenda.',
+                      'images/c5.png',
+                      '12:34 pm',
+                      1),
+                  _buildConversation(
+                      'Participant 2',
+                      'Is there a parking facility available?',
+                      'images/c3.png',
+                      '12:34 pm',
+                      1),
+                  _buildConversation(
+                      'Volunteer',
+                      'I need instructions for my shift.',
+                      'images/c2.png',
+                      '12:34 pm',
+                      0,
+                      true),
+                  _buildConversation(
+                      'Sponsor',
+                      'Can we discuss the sponsorship details?',
+                      'images/c5.png',
+                      '12:34 pm',
+                      0,
+                      true),
+                  _buildConversation(
+                      'Participant 3',
+                      'How can I register for the workshops?',
+                      'images/c4.png',
+                      '12:34 pm',
+                      1),
+                  _buildConversation(
+                      'Guest Speaker',
+                      'Please confirm the event location.',
+                      'images/c3.png',
+                      '12:34 pm',
+                      0,
+                      true),
                 ],
               ),
             ),
@@ -50,7 +106,9 @@ class SearchMessagesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildConversation(String name, String message, String imagePath, String time, [int unreadCount = 0, bool isYourTurn = false]) {
+  Widget _buildConversation(
+      String name, String message, String imagePath, String time,
+      [int unreadCount = 0, bool isYourTurn = false]) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 2),
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 4),
@@ -81,7 +139,8 @@ class SearchMessagesScreen extends StatelessWidget {
               CircleAvatar(
                 radius: 12,
                 backgroundColor: AppColors.buttonColor,
-                child: Text('$unreadCount', style: const TextStyle(color: Colors.white)),
+                child: Text('$unreadCount',
+                    style: const TextStyle(color: Colors.white)),
               ),
             if (isYourTurn)
               Container(

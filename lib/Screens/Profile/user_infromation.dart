@@ -5,8 +5,8 @@ import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/customtextfield.dart';
 
 class UserInformation extends StatefulWidget {
   const UserInformation({super.key});

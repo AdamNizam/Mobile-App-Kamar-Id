@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/CustomWidgets/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
-import 'package:hotelbookingapp/Widgets/custombtn.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 
 class CardCreditPage extends StatelessWidget {
   const CardCreditPage({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../Constants/colors.dart'; // Ensure AppColors has the new color scheme for your hotel booking app
-import '../../Widgets/detailstext1.dart'; // Assuming this is your custom Text widget
+import '../../CustomWidgets/detailstext1.dart'; // Assuming this is your custom Text widget
 
 class AllCategoriesScreen extends StatefulWidget {
   const AllCategoriesScreen({super.key});
@@ -42,13 +43,17 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back, color: AppColors.text1Color, size: 17),
+                    icon: const Icon(Icons.arrow_back,
+                        color: AppColors.text1Color, size: 17),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   const Spacer(),
-                  const Text1(text1: 'Hotel Categories', color: AppColors.text1Color), // Updated to use theme color
+                  const Text1(
+                      text1: 'Hotel Categories',
+                      color:
+                          AppColors.text1Color), // Updated to use theme color
                   const Spacer(),
                 ],
               ),
@@ -61,7 +66,8 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                     // Define action on tap
                   },
                   child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 8,
                       mainAxisSpacing: 2,
@@ -94,18 +100,21 @@ class CategoryItem extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: AppColors.textFormFieldBorderColor, // Updated to match form field border color
+          backgroundColor: AppColors
+              .textFormFieldBorderColor, // Updated to match form field border color
           child: Icon(
             category.icon,
             size: 30,
-            color: AppColors.buttonColor, // Use button color for icon consistency
+            color:
+                AppColors.buttonColor, // Use button color for icon consistency
           ),
         ),
         const SizedBox(height: 8),
         Flexible(
           child: Text1(
             text1: category.name,
-            color: AppColors.text1Color, // Use primary text color for category names
+            color: AppColors
+                .text1Color, // Use primary text color for category names
           ),
         ),
       ],

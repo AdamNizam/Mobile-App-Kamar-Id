@@ -4,9 +4,9 @@ import 'package:hotelbookingapp/Screens/Authentication/resend_otp_screen.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 import '../HomeScreen/home_screen.dart';
 
 class OtpScreen extends StatelessWidget {

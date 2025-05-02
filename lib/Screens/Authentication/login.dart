@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Widgets/detailstext1.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/customtextfield.dart';
+import '../../CustomWidgets/detailstext2.dart';
 import 'forgotpassword.dart';
 import 'getstarted.dart';
 

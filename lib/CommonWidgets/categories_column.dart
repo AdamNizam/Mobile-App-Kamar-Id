@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../Widgets/detailstext1.dart';
+import '../CustomWidgets/detailstext1.dart';
 
 class CategoriesColumn extends StatelessWidget {
   final String image;
@@ -22,7 +22,6 @@ class CategoriesColumn extends StatelessWidget {
             radius: 30,
             backgroundImage: AssetImage(image),
           ),
-
           const SizedBox(
             height: 5,
           ),

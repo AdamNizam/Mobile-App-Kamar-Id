@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Reviews/writereview.dart';
 
 import '../../Constants/colors.dart';
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/detailstext1.dart';
+import '../../CustomWidgets/customapp_bar.dart';
+import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/detailstext1.dart';
 
 class Reviews extends StatelessWidget {
   const Reviews({super.key});

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../../Constants/colors.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/detailstext2.dart';
 import 'no_messages.dart';
 
 class AllConversions extends StatelessWidget {
@@ -70,12 +71,14 @@ class ChatBody extends StatelessWidget {
           child: ListView(
             children: const [
               ChatBubble(
-                text: 'I have a reservation for next weekend. Can I get a room upgrade?',
+                text:
+                    'I have a reservation for next weekend. Can I get a room upgrade?',
                 isSender: true,
                 time: '09:30 am',
               ),
               ChatBubble(
-                text: 'We have a few rooms available. I’ll check the options for you.',
+                text:
+                    'We have a few rooms available. I’ll check the options for you.',
                 isSender: false,
                 time: '09:31 am',
               ),
@@ -85,7 +88,8 @@ class ChatBody extends StatelessWidget {
                 time: '09:33 am',
               ),
               ChatBubble(
-                text: 'We have a suite available with a view. Would you like that?',
+                text:
+                    'We have a suite available with a view. Would you like that?',
                 isSender: false,
                 time: '09:35 am',
               ),
@@ -95,7 +99,8 @@ class ChatBody extends StatelessWidget {
                 time: '09:37 am',
               ),
               ChatBubble(
-                text: 'I’ve confirmed the upgrade. You will receive a confirmation email shortly.',
+                text:
+                    'I’ve confirmed the upgrade. You will receive a confirmation email shortly.',
                 isSender: false,
                 time: '09:38 am',
               ),
@@ -178,7 +183,7 @@ class ChatBubble extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Column(
         crossAxisAlignment:
-        isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           if (!isVoiceMessage)
             Container(
@@ -187,15 +192,15 @@ class ChatBubble extends StatelessWidget {
                 color: isSender ? Colors.blue[50] : Colors.grey[100],
                 borderRadius: isSender
                     ? const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                )
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      )
                     : const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
               ),
               child: Text(
                 text,
