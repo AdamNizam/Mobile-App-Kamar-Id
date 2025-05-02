@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 
-import '../CustomWidgets/detailstext1.dart';
+import '../detailstext1.dart';
 
 class CategoryLocationCard extends StatelessWidget {
   final String icon;
