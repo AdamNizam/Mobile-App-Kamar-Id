@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
-import 'package:hotelbookingapp/Screens/Search/search_hotels.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_hotels.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 
 import '../Screens/HomeScreen/home_screen.dart';

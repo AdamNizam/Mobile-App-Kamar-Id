@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
+import '../../../Widgets/customapp_bar.dart';
+import '../../../Widgets/custombtn.dart';
+import '../../../Widgets/customtextfield.dart';
+import '../../../Widgets/detailstext1.dart';
+import '../../../Widgets/detailstext2.dart';
 
 class SearchTyping extends StatelessWidget {
   const SearchTyping({super.key});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../Constants/colors.dart';
-import '../../Models/hotel_model.dart';
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
-import '../../Widgets/text11.dart';
-import '../DetailHotel/hotel_details_screen.dart';
+import '../../../Constants/colors.dart';
+import '../../../Models/hotel_model.dart';
+import '../../../Widgets/customapp_bar.dart';
+import '../../../Widgets/customtextfield.dart';
+import '../../../Widgets/detailstext1.dart';
+import '../../../Widgets/detailstext2.dart';
+import '../../../Widgets/text11.dart';
+import '../../DetailHotel/hotel_details_screen.dart';
 
 class SearchResult extends StatefulWidget {
   const SearchResult({super.key});

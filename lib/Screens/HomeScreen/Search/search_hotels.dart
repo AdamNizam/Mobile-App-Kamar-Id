@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/Search/search_typing.dart';
+import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_typing.dart';
 
-import '../../Constants/colors.dart';
-import '../../Models/hotel_model.dart';
-import '../../Widgets/customapp_bar.dart';
-import '../../Widgets/custombtn.dart';
-import '../../Widgets/customtextfield.dart';
-import '../../Widgets/detailstext1.dart';
-import '../../Widgets/detailstext2.dart';
-import '../../Widgets/text11.dart';
-import '../DetailHotel/hotel_details_screen.dart';
+import '../../../Constants/colors.dart';
+import '../../../Models/hotel_model.dart';
+import '../../../Widgets/customapp_bar.dart';
+import '../../../Widgets/custombtn.dart';
+import '../../../Widgets/customtextfield.dart';
+import '../../../Widgets/detailstext1.dart';
+import '../../../Widgets/detailstext2.dart';
+import '../../../Widgets/text11.dart';
+import '../../DetailHotel/hotel_details_screen.dart';
 
 class SearchHotel extends StatefulWidget {
   const SearchHotel({super.key});
