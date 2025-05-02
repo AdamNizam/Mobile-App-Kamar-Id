@@ -3,7 +3,7 @@ import 'package:hotelbookingapp/Screens/Reviews/writereview.dart';
 
 import '../../Constants/colors.dart';
 import '../../CustomWidgets/customapp_bar.dart';
-import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/detailstext1.dart';
 
 class Reviews extends StatelessWidget {

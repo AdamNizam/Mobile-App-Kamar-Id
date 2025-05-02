@@ -8,7 +8,7 @@ import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CommonWidgets/galleryimages_widget.dart';
-import 'package:hotelbookingapp/CustomWidgets/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/error_card.dart';

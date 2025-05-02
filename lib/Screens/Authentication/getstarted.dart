@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 
-import '../../CustomWidgets/custom_outline_button.dart';
-import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/CustomButton/custom_outline_button.dart';
+import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/detailstext1.dart';
 import '../../CustomWidgets/detailstext2.dart';
 import 'login.dart';

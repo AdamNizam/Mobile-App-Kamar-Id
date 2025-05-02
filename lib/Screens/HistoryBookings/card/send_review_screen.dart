@@ -10,7 +10,7 @@ import 'package:hotelbookingapp/Models/ReviewModel/form_review.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../../CustomWidgets/custombtn.dart';
+import '../../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../../CustomWidgets/detailstext1.dart';
 import '../../../CustomWidgets/detailstext2.dart';
 

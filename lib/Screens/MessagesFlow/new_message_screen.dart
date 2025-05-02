@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/custom_outline_button.dart';
+import '../../CustomWidgets/CustomButton/custom_outline_button.dart';
 import '../../CustomWidgets/customapp_bar.dart';
-import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/customtextfield.dart';
 import 'all_conversions.dart';
 import 'archived_message_screen.dart';

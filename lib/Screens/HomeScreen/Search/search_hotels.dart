@@ -3,7 +3,7 @@ import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_typing.dart';
 
 import '../../../Constants/colors.dart';
 import '../../../CustomWidgets/customapp_bar.dart';
-import '../../../CustomWidgets/custombtn.dart';
+import '../../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../../CustomWidgets/customtextfield.dart';
 import '../../../CustomWidgets/detailstext1.dart';
 import '../../../CustomWidgets/detailstext2.dart';

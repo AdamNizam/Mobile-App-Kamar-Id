@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
 
 import '../../Constants/colors.dart';
-import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/detailstext1.dart';
 import '../../CustomWidgets/detailstext2.dart';
 

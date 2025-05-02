@@ -4,7 +4,7 @@ import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
-import '../../CustomWidgets/custombtn.dart';
+import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/customtextfield.dart';
 import '../../CustomWidgets/detailstext1.dart';
 

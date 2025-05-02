@@ -7,7 +7,7 @@ import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CommonWidgets/ModalSelection/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
-import 'package:hotelbookingapp/CustomWidgets/facility_icon_item.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomIcon/facility_icon_item.dart';
 import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
