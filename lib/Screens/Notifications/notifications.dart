@@ -108,8 +108,8 @@ class _BookingNotificationsState extends State<BookingNotifications> {
                         .map(
                           (dataNotif) => NotificationCard(
                             icon: Icons.notifications_active,
-                            iconColor: AppColors.green,
-                            iconBackgroundColor: Colors.green.shade100,
+                            iconColor: AppColors.buttonColor,
+                            iconBackgroundColor: Colors.blue.shade100,
                             title: dataNotif.data.notification.name,
                             content: dataNotif.data.notification.message,
                             date: '${formatDateToYMD(dataNotif.createdAt)}',

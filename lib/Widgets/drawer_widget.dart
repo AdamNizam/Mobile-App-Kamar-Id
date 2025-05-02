@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/BookMark/book_marks_screen.dart';
-import 'package:hotelbookingapp/Screens/Booking/book_hotel.dart';
-import 'package:hotelbookingapp/Screens/BookingCreation/create_booking.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/Search/search_hotels.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 
-import '../Screens/AvailablityCalendar/avaialblity_calendar.dart';
 import '../Screens/HomeScreen/home_screen.dart';
 import '../Screens/MessagesFlow/direct_messages.dart';
 import '../Screens/Profile/profile_screen.dart';
@@ -61,13 +57,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             },
           ),
           const SizedBox(height: 3),
-          buildMenuItem(
-            title: "Booking Hotel",
-            icon: Icons.hotel,
-            onTap: () {
-              navigateTo(const BookHotelScreen());
-            },
-          ),
           const SizedBox(height: 3),
           buildMenuItem(
             title: "My Bookings",
@@ -97,30 +86,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             title: "Notifications",
             icon: Icons.notifications,
             onTap: () {},
-          ),
-          const SizedBox(height: 3),
-          buildMenuItem(
-            title: "BookMark Hotels",
-            icon: Icons.bookmark,
-            onTap: () {
-              navigateTo(const BookMarkHotel());
-            },
-          ),
-          const SizedBox(height: 3),
-          buildMenuItem(
-            title: "Availability Scheduling",
-            icon: Icons.calendar_today,
-            onTap: () {
-              navigateTo(const AvailabilityCalendarScheduleScreen());
-            },
-          ),
-          const SizedBox(height: 3),
-          buildMenuItem(
-            title: "CreateBooking",
-            icon: Icons.event_available,
-            onTap: () {
-              navigateTo(const CreateBooking());
-            },
           ),
           const SizedBox(height: 3),
           buildMenuItem(

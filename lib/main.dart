@@ -12,7 +12,6 @@ import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
 import 'package:hotelbookingapp/Screens/Authentication/message_register_success.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
-import 'package:hotelbookingapp/Screens/BookMark/book_marks_screen.dart';
 import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/cancelled_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/completed_bookings.dart';
@@ -83,7 +82,6 @@ class MyApp extends StatelessWidget {
             '/cancel-booking': (context) => const CancelledBooking(),
             '/completed-booking': (context) => const CompletedBooking(),
             '/favorite-hotels': (context) => const FavoriteHotels(),
-            '/bookmark': (context) => const BookMarkHotel(),
             '/maintenance': (context) => const MaintenanceScreen(),
           },
         ));
