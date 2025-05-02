@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/CommonWidgets/no_data_booking.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/card/card_booking_cancelled.dart';
+import 'package:hotelbookingapp/Screens/Status/Default_screen_booking.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 class CancelledBooking extends StatelessWidget {
