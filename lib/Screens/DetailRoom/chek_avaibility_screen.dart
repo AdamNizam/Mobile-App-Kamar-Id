@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_room_selection_modal.dart';
@@ -13,6 +12,7 @@ import 'package:hotelbookingapp/CustomWidgets/custom_nav_title.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

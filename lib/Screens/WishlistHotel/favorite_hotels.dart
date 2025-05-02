@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_cards.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FavoriteHotels extends StatefulWidget {

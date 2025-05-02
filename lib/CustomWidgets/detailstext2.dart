@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Constants/colors.dart';
+import '../Themes/colors.dart';
 
 class Text2 extends StatelessWidget {
   final String text2;

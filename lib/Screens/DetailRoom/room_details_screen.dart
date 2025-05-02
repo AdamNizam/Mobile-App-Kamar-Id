@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/facility_icon_item.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
@@ -14,6 +13,7 @@ import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class RoomDetailsScreen extends StatefulWidget {

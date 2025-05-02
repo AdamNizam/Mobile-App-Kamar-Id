@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_typing.dart';
 
-import '../../../Constants/colors.dart';
-import '../../../CustomWidgets/customapp_bar.dart';
 import '../../../CustomWidgets/CustomButton/custombtn.dart';
+import '../../../CustomWidgets/customapp_bar.dart';
 import '../../../CustomWidgets/customtextfield.dart';
 import '../../../CustomWidgets/detailstext1.dart';
 import '../../../CustomWidgets/detailstext2.dart';
 import '../../../CustomWidgets/text11.dart';
 import '../../../Models/hotel_model.dart';
+import '../../../Themes/colors.dart';
 import '../../DetailHotel/hotel_details_screen.dart';
 
 class SearchHotel extends StatefulWidget {

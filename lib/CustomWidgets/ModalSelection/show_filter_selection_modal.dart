@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showFilterSelectionModal(BuildContext context) {
   int ratingHotel = 1;

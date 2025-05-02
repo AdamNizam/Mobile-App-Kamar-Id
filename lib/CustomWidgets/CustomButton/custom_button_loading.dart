@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CustomButtonLoading extends StatelessWidget {

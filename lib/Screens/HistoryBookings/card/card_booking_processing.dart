@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
@@ -8,6 +7,7 @@ import 'package:hotelbookingapp/Screens/HistoryBookings/card/booking_detail_row.
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 
 class CardBookingProcessing extends StatefulWidget {

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/text11.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HotelsCard2 extends StatefulWidget {

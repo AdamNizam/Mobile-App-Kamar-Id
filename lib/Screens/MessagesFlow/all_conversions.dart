@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../Constants/colors.dart';
 import '../../CustomWidgets/detailstext1.dart';
 import '../../CustomWidgets/detailstext2.dart';
+import '../../Themes/colors.dart';
 import 'no_messages.dart';
 
 class AllConversions extends StatelessWidget {

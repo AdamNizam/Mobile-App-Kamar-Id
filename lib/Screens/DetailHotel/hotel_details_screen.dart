@@ -22,7 +22,7 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../Constants/colors.dart';
+import '../../Themes/colors.dart';
 
 class HotelDetailsScreen extends StatefulWidget {
   final String? slug;

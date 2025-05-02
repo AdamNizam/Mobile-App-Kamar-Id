@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 class HomeWidgte extends StatefulWidget {
   const HomeWidgte({

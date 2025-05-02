@@ -6,9 +6,9 @@ import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../Constants/colors.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/customtextfield.dart';
+import '../../Themes/colors.dart';
 import 'login.dart';
 
 class Register extends StatefulWidget {

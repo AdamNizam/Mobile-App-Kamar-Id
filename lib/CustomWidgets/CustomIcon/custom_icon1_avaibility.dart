@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CustomIcon1Avaibility extends StatelessWidget {
   final IconData icon;

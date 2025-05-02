@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
@@ -14,6 +13,7 @@ import 'package:hotelbookingapp/Screens/Midtrans/store_code_indomaret_page.dart'
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/DataPaymentMidtrans/data.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 

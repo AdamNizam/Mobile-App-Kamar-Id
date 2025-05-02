@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../Constants/colors.dart';
 import '../../CustomWidgets/customapp_bar.dart';
 import '../../CustomWidgets/customtextfield.dart';
 import '../../CustomWidgets/detailstext1.dart';
 import '../../CustomWidgets/detailstext2.dart';
+import '../../Themes/colors.dart';
 
 class SearchMessagesScreen extends StatelessWidget {
   const SearchMessagesScreen({super.key});

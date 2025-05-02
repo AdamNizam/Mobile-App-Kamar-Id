@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 class GoogleMapsHotel extends StatefulWidget {
   final LatLng initialPosition;

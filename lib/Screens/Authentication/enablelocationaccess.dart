@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../Constants/colors.dart';
 import '../../CustomWidgets/CustomButton/custom_outline_button.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
+import '../../Themes/colors.dart';
 import '../HomeScreen/home_screen.dart';
 
 class EnAbleLocationAccessScreen extends StatelessWidget {

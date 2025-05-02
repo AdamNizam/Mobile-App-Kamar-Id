@@ -7,10 +7,10 @@ import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../Constants/colors.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/customtextfield.dart';
 import '../../CustomWidgets/detailstext2.dart';
+import '../../Themes/colors.dart';
 import 'forgotpassword.dart';
 import 'getstarted.dart';
 

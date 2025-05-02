@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

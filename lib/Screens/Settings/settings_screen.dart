@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../Constants/colors.dart';
 import '../../CustomWidgets/customapp_bar.dart';
+import '../../Themes/colors.dart';
 import '../Profile/change_password.dart';
 
 class SettingsScreen extends StatelessWidget {

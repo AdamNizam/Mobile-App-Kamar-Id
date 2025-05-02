@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 import 'cancelled_bookings.dart';
 import 'completed_bookings.dart';

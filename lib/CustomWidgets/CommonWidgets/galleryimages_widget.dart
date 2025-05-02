@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 // Widget GalleryImage yang bisa diklik
 class GalleryImage extends StatelessWidget {

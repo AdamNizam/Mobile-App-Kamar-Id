@@ -7,7 +7,6 @@ import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
 import 'package:hotelbookingapp/Screens/Authentication/message_register_success.dart';
@@ -23,6 +22,7 @@ import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Screens/Settings/settings_screen.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 void main() {
   runApp(const MyApp());

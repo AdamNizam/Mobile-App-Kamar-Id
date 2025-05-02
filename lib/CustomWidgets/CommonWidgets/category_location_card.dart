@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Constants/colors.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 import '../detailstext1.dart';
 

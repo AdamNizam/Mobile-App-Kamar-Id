@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Constants/colors.dart';
+import '../Themes/colors.dart';
 import 'detailstext1.dart';
 
 class CustomAppBar extends StatelessWidget {

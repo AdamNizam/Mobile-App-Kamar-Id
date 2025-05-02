@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_filter_selection_modal.dart';
 
-import '../../../../Constants/colors.dart';
+import '../../Themes/colors.dart';
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({
