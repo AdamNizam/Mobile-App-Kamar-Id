@@ -19,7 +19,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(HotelSuccess(data));
           } catch (error) {
-            // print('Get Data Hotel Error : $error');
+            print('Get Data All Hotel Error : $error');
             emit(const HotelFailed('Get data failed!'));
           }
         }
@@ -32,7 +32,7 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(GetAllHotelDetailSuccess(data));
           } catch (error) {
-            // print('Get Data Detail Hotel: $error');
+            print('Get Data Detail Hotel: $error');
             emit(const HotelFailed('Hotel not found'));
           }
         }

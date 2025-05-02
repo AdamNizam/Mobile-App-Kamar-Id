@@ -277,10 +277,10 @@ class ServiceFee {
 }
 
 class Offer {
-  final String cancelPolicy;
-  final String foodPolicy;
-  final String moveDate;
-  final String breakfastType;
+  final String? cancelPolicy;
+  final String? foodPolicy;
+  final String? moveDate;
+  final String? breakfastType;
 
   Offer({
     required this.cancelPolicy,
@@ -294,10 +294,10 @@ class Offer {
   String toRawJson() => json.encode(toJson());
 
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(
-        cancelPolicy: json["cancel_policy"] ?? "No Data",
-        foodPolicy: json["food_policy"] ?? "No Data",
-        moveDate: json["move_date"] ?? "No Data",
-        breakfastType: json["breakfast_type"] ?? "No Data",
+        cancelPolicy: json["cancel_policy"],
+        foodPolicy: json["food_policy"],
+        moveDate: json["move_date"],
+        breakfastType: json["breakfast_type"],
       );
 
   Map<String, dynamic> toJson() => {

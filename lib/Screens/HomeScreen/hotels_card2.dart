@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
-import 'package:hotelbookingapp/CustomWidgets/text11.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
@@ -168,8 +168,10 @@ class _HotelsCard2State extends State<HotelsCard2> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(right: 12, top: 4, bottom: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 4,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -177,19 +179,12 @@ class _HotelsCard2State extends State<HotelsCard2> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: Text(
-                                  widget.hotel.title ?? 'No Title',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                      color: AppColors.text1Color,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
+                                  child: CustomTextEllipsis(
+                                text: widget.hotel.title ?? 'No tittle info',
+                                size: 14,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w600,
+                              )),
                               const SizedBox(width: 8), // beri jarak sedikit
                               BlocBuilder<WishlistBloc, WishlistState>(
                                 builder: (context, stateWishlist) {
@@ -237,10 +232,27 @@ class _HotelsCard2State extends State<HotelsCard2> {
                               ),
                               const SizedBox(width: 4.0),
                               Expanded(
-                                child: Text2(
-                                  text2: widget.hotel.address ?? 'No-data',
-                                  size: 15,
+                                child: CustomTextEllipsis(
+                                  text: widget.hotel.address ??
+                                      'No location info',
+                                  size: 14,
                                 ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5.0),
+                          Row(
+                            children: [
+                              Text1(
+                                text1: widget.hotel.price != null
+                                    ? "Rp${widget.hotel.price}"
+                                    : '0',
+                                size: 16,
+                                color: AppColors.tabColor,
+                              ),
+                              const Text2(
+                                text2: '/night',
+                                size: 14,
                               ),
                             ],
                           ),
@@ -270,31 +282,8 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                       text2:
                                           widget.hotel.reviewScore.toString())
                                   : const Text('0.0'),
-                            ],
-                          ),
-                          const SizedBox(height: 5.0),
-                          Row(
-                            children: [
-                              const Text11(
-                                text2: '10% Off',
-                                color: AppColors.tabColor,
-                              ),
                               const Spacer(),
-                              Row(
-                                children: [
-                                  Text1(
-                                    text1: widget.hotel.price != null
-                                        ? "Rp${widget.hotel.price}"
-                                        : '0',
-                                    size: 16,
-                                    color: AppColors.tabColor,
-                                  ),
-                                  const Text2(
-                                    text2: '/night',
-                                    size: 14,
-                                  ),
-                                ],
-                              ),
+                              const TextRemaining(text: '12 Rooms')
                             ],
                           )
                         ],

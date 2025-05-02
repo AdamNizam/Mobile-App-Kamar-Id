@@ -9,8 +9,8 @@ import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
-import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/error_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
@@ -48,7 +48,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
       child: BlocBuilder<HotelBloc, HotelState>(
         builder: (context, state) {
           if (state is HotelFailed) {
-            showCustomSnackbar(context, state.error);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showCustomSnackbar(context, state.error);
+            });
           }
 
           if (state is GetAllHotelDetailSuccess) {
@@ -154,26 +156,25 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          state.data.rowData!.isFeatured == 1
-                              ? Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.redAwesome,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: const Text(
-                                    'Featured',
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              : Container(),
+                          if (state.data.rowData!.isFeatured == 1)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.redAwesome,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: const Text(
+                                'Featured',
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,15 +220,19 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 10),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Icon(Icons.location_on,
                                   size: 20, color: AppColors.tabColor),
                               const SizedBox(width: 8),
-                              Text2(
-                                text2: state.data.rowData!.location?.name
-                                        .toString() ??
-                                    'Location not available',
+                              Expanded(
+                                child: CustomTextOverflow(
+                                  text: state.data.rowData?.address ??
+                                      'No location info',
+                                  size: 15,
+                                ),
                               ),
                             ],
                           ),
@@ -352,64 +357,56 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          // Extra Price Hotel
-                          Text(
-                            'Extra Price',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                          if (state.data.rowData?.extraPrice != null &&
+                              state.data.rowData!.extraPrice!.isNotEmpty) ...[
+                            Text(
+                              'Extra Price',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: state.data.rowData!.extraPrice != null &&
-                                    state.data.rowData!.extraPrice!.isNotEmpty
-                                ? state.data.rowData!.extraPrice!.map((extra) {
-                                    return TaskCardService(
-                                      title: extra.name, // Pastikan ada
-                                      clientName:
-                                          "Rp${extra.price}", // Pastikan ada
-                                      backgroundColor: Colors.white,
-                                      statusColor: AppColors.buttonColor,
-                                    );
-                                  }).toList()
-                                : [
-                                    const ErrorCard(
-                                        message: 'Extra Price is not available')
-                                  ],
-                          ),
-                          const SizedBox(height: 10),
+                            const SizedBox(height: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:
+                                  state.data.rowData!.extraPrice!.map((extra) {
+                                return TaskCardService(
+                                  title: extra.name,
+                                  clientName: "Rp${extra.price}",
+                                  backgroundColor: Colors.white,
+                                  statusColor: AppColors.buttonColor,
+                                );
+                              }).toList(),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
                           // Service Hotel
-                          Text(
-                            'Service Fee',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                          if (state.data.rowData?.serviceFee != null &&
+                              state.data.rowData!.serviceFee!.isNotEmpty) ...[
+                            Text(
+                              'Service Fee',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: state.data.rowData!.serviceFee != null &&
-                                    state.data.rowData!.serviceFee!.isNotEmpty
-                                ? state.data.rowData!.serviceFee!
-                                    .map((service) {
-                                    return TaskCardService(
-                                      title: service.name,
-                                      clientName: service.unit == 'fixed'
-                                          ? 'Rp${service.price}'
-                                          : '${service.price}%',
-                                      backgroundColor: AppColors.white,
-                                      statusColor: AppColors.buttonColor,
-                                    );
-                                  }).toList()
-                                : [
-                                    const ErrorCard(
-                                      message: 'Service Fee is not available',
-                                    )
-                                  ],
-                          ),
+                            const SizedBox(height: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: state.data.rowData!.serviceFee!
+                                  .map((service) {
+                                return TaskCardService(
+                                  title: service.name,
+                                  clientName: service.unit == 'fixed'
+                                      ? 'Rp${service.price}'
+                                      : '${service.price}%',
+                                  backgroundColor: AppColors.white,
+                                  statusColor: AppColors.buttonColor,
+                                );
+                              }).toList(),
+                            ),
+                          ],
                           const SizedBox(height: 10),
                           // Offer Hotel
                           const Text1(
@@ -427,25 +424,29 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           leading: const Icon(
                                               Icons.check_circle,
                                               color: AppColors.buttonColor),
-                                          title: Text(offer.cancelPolicy),
+                                          title: Text(
+                                              offer.cancelPolicy ?? 'kosong'),
                                         ),
                                         ListTile(
                                           leading: const Icon(
                                               Icons.check_circle,
                                               color: AppColors.buttonColor),
-                                          title: Text(offer.foodPolicy),
+                                          title: Text(
+                                              offer.foodPolicy ?? 'kosong'),
                                         ),
                                         ListTile(
                                           leading: const Icon(
                                               Icons.check_circle,
                                               color: AppColors.buttonColor),
-                                          title: Text(offer.moveDate),
+                                          title:
+                                              Text(offer.moveDate ?? 'kosong'),
                                         ),
                                         ListTile(
                                           leading: const Icon(
                                               Icons.check_circle,
                                               color: AppColors.buttonColor),
-                                          title: Text(offer.breakfastType),
+                                          title: Text(
+                                              offer.breakfastType ?? 'kosong'),
                                         ),
                                       ],
                                     );

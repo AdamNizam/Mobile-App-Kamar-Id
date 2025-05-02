@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/text11.dart';
@@ -132,13 +133,11 @@ class _FavoriteCardState extends State<FavoriteCard>
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text(
-                                    data.title,
-                                    style: GoogleFonts.poppins(
-                                      color: AppColors.text1Color,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                    ),
+                                  child: CustomTextOverflow(
+                                    text: data.title,
+                                    color: AppColors.black,
+                                    size: 14,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 const SizedBox(width: 6),
