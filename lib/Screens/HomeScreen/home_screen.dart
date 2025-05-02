@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/CommonWidgets/Shimmers/shimmer_card.dart';
-import 'package:hotelbookingapp/CommonWidgets/Shimmers/shimmer_list.dart';
+import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_card.dart';
+import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card1.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card2.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
