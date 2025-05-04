@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/customapp_bar.dart';
-import '../../CustomWidgets/detailstext1.dart';
-import '../../CustomWidgets/detailstext2.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext2.dart';
 
 class ArchivedMessagesScreen extends StatelessWidget {
   const ArchivedMessagesScreen({super.key});

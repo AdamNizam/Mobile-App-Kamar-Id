@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
-import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
-import 'package:hotelbookingapp/CustomWidgets/detailstext2.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
@@ -170,7 +170,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 6,
-                        vertical: 4,
+                        vertical: 6,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

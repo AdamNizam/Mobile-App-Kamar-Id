@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
-import 'package:hotelbookingapp/Screens/HistoryBookings/card/booking_detail_row.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -102,27 +104,22 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              data?.service.title ?? 'Unknown Hotel',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            CustomTextOverflow(
+                              text: data?.service.title ?? 'Unknown Hotel',
+                              color: AppColors.black,
+                              size: 14,
+                              fontWeight: FontWeight.w600,
                             ),
                             const SizedBox(height: 8),
-                            Row(
+                            const Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.location_pin,
                                   size: 23.0,
                                   color: AppColors.buttonColor,
                                 ),
-                                Text(
-                                  'No location info',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: AppColors.cadetGray,
-                                  ),
+                                CustomTextEllipsis(
+                                  text: 'No location info',
                                 ),
                               ],
                             ),

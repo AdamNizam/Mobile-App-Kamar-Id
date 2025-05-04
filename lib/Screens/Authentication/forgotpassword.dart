@@ -3,8 +3,8 @@ import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/customtextfield.dart';
-import '../../CustomWidgets/detailstext1.dart';
-import '../../CustomWidgets/detailstext2.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext2.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});

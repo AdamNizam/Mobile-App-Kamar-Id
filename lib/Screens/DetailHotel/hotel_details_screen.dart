@@ -1,7 +1,6 @@
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
@@ -9,9 +8,9 @@ import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/galleryimages_widget.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
-import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
-import 'package:hotelbookingapp/CustomWidgets/error_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/chek_avaibility_screen.dart';
@@ -316,15 +315,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          (state.data.rowData!.content != null &&
-                                  state.data.rowData!.content!.isNotEmpty)
-                              ? HtmlWidget(
-                                  state.data.rowData!.content.toString(),
-                                  textStyle: GoogleFonts.poppins(fontSize: 14),
-                                )
-                              : const ErrorCard(
-                                  message: 'Description is not available',
-                                ),
+                          if (state.data.rowData!.content != null)
+                            TextConvertHTML(
+                              text: state.data.rowData!.content ??
+                                  'No Description info',
+                            ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -414,52 +409,37 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             size: 17,
                           ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: state.data.rowData!.offer != null &&
-                                    state.data.rowData!.offer!.isNotEmpty
-                                ? state.data.rowData!.offer!.map((offer) {
-                                    return Column(
-                                      children: [
-                                        ListTile(
-                                          leading: const Icon(
-                                              Icons.check_circle,
-                                              color: AppColors.buttonColor),
-                                          title: Text(
-                                              offer.cancelPolicy ?? 'kosong'),
-                                        ),
-                                        ListTile(
-                                          leading: const Icon(
-                                              Icons.check_circle,
-                                              color: AppColors.buttonColor),
-                                          title: Text(
-                                              offer.foodPolicy ?? 'kosong'),
-                                        ),
-                                        ListTile(
-                                          leading: const Icon(
-                                              Icons.check_circle,
-                                              color: AppColors.buttonColor),
-                                          title:
-                                              Text(offer.moveDate ?? 'kosong'),
-                                        ),
-                                        ListTile(
-                                          leading: const Icon(
-                                              Icons.check_circle,
-                                              color: AppColors.buttonColor),
-                                          title: Text(
-                                              offer.breakfastType ?? 'kosong'),
-                                        ),
-                                      ],
-                                    );
-                                  }).toList()
-                                : [
-                                    const Text(
-                                      'Buffer is not available',
-                                      style: TextStyle(
-                                        fontSize: 16,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: state.data.rowData!.offer!.map((offer) {
+                                return Column(
+                                  children: [
+                                    if (offer.cancelPolicy != null)
+                                      ListTile(
+                                        leading: const Icon(Icons.check_circle,
+                                            color: AppColors.buttonColor),
+                                        title: Text(offer.cancelPolicy ?? ''),
                                       ),
-                                    ),
+                                    if (offer.foodPolicy != null)
+                                      ListTile(
+                                        leading: const Icon(Icons.check_circle,
+                                            color: AppColors.buttonColor),
+                                        title: Text(offer.foodPolicy ?? ''),
+                                      ),
+                                    if (offer.moveDate != null)
+                                      ListTile(
+                                        leading: const Icon(Icons.check_circle,
+                                            color: AppColors.buttonColor),
+                                        title: Text(offer.moveDate ?? ''),
+                                      ),
+                                    if (offer.breakfastType != null)
+                                      ListTile(
+                                        leading: const Icon(Icons.check_circle,
+                                            color: AppColors.buttonColor),
+                                        title: Text(offer.breakfastType ?? ''),
+                                      ),
                                   ],
-                          ),
+                                );
+                              }).toList()),
 
                           const SizedBox(height: 10),
                           // Google Maps

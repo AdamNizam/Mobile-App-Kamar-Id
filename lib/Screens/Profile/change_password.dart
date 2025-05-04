@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/customtextfield.dart';
-import '../../CustomWidgets/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});

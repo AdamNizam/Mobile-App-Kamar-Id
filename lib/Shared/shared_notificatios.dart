@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showCustomSnackbar(BuildContext context, String message) {

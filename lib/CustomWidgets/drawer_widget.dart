@@ -8,7 +8,7 @@ import '../Screens/MessagesFlow/direct_messages.dart';
 import '../Screens/Profile/profile_screen.dart';
 import '../Screens/Reviews/reviews.dart';
 import '../Screens/Settings/settings_screen.dart';
-import 'detailstext1.dart';
+import 'CustomText/detailstext1.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});

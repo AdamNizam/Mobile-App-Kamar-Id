@@ -16,8 +16,8 @@ class TextRemaining extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.poppins(
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
         color: color,
       ),
     );

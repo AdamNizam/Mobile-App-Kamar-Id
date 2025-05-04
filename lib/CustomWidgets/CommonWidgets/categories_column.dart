@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../detailstext1.dart';
+import '../CustomText/detailstext1.dart';
 
 class CategoriesColumn extends StatelessWidget {
   final String image;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'detailstext1.dart';
+import 'CustomText/detailstext1.dart';
 
 class CustomDropdown extends StatefulWidget {
   final String label;
@@ -54,7 +54,11 @@ class _CustomDropdownState extends State<CustomDropdown> {
           Row(
             children: [
               Text1(text1: widget.title, size: 11),
-              const Text1(text1: ' *', color: Colors.orange,size: 17,),
+              const Text1(
+                text1: ' *',
+                color: Colors.orange,
+                size: 17,
+              ),
             ],
           ),
           const SizedBox(height: 3),
@@ -63,22 +67,32 @@ class _CustomDropdownState extends State<CustomDropdown> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: Colors.black38.withOpacity(0.2), width: 1),
+              border:
+                  Border.all(color: Colors.black38.withOpacity(0.2), width: 1),
             ),
             child: DropdownButtonFormField<String>(
               focusNode: _focusNode,
               value: _currentSelectedItem,
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 border: InputBorder.none,
                 isDense: true,
-                prefixIcon: widget.icon != null ? Icon(widget.icon, color: Colors.black54) : null,
-                suffixIcon: widget.icon2 != null ? Icon(widget.icon2, color: Colors.black54) : null,
+                prefixIcon: widget.icon != null
+                    ? Icon(widget.icon, color: Colors.black54)
+                    : null,
+                suffixIcon: widget.icon2 != null
+                    ? Icon(widget.icon2, color: Colors.black54)
+                    : null,
               ),
               items: widget.items.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value, style: const TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400)),
+                  child: Text(value,
+                      style: const TextStyle(
+                          color: Colors.black54,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400)),
                 );
               }).toList(),
               onChanged: (newValue) {
@@ -91,7 +105,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
               },
               icon: const Icon(Icons.arrow_drop_down, color: Colors.black54),
               isExpanded: true,
-              style: const TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.w400),
+              style: const TextStyle(
+                  color: Colors.black54,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
             ),
           ),
         ],

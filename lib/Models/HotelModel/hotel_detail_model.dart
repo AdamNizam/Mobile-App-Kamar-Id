@@ -283,10 +283,10 @@ class Offer {
   final String? breakfastType;
 
   Offer({
-    required this.cancelPolicy,
-    required this.foodPolicy,
-    required this.moveDate,
-    required this.breakfastType,
+    this.cancelPolicy,
+    this.foodPolicy,
+    this.moveDate,
+    this.breakfastType,
   });
 
   factory Offer.fromRawJson(String str) => Offer.fromJson(json.decode(str));

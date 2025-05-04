@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/detailstext1.dart';
-import '../../CustomWidgets/detailstext2.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
 import 'no_messages.dart';
 

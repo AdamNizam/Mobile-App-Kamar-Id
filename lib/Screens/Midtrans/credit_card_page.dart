@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
-import 'package:hotelbookingapp/CustomWidgets/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 

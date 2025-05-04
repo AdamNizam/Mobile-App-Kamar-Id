@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/customapp_bar.dart';
 import '../../CustomWidgets/customtextfield.dart';
-import '../../CustomWidgets/detailstext1.dart';
-import '../../CustomWidgets/detailstext2.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
 import 'all_conversions.dart';
 import 'search_message_screen.dart';

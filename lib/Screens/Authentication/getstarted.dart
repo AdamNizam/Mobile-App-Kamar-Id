@@ -3,8 +3,8 @@ import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 
 import '../../CustomWidgets/CustomButton/custom_outline_button.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/detailstext1.dart';
-import '../../CustomWidgets/detailstext2.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext2.dart';
 import 'login.dart';
 import 'otp_screen.dart';
 
