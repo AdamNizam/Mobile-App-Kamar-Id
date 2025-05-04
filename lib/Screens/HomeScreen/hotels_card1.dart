@@ -99,42 +99,114 @@ class _HotelCard1 extends State<HotelsCard1> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: SizedBox(
-                    width: 190,
-                    height: 130,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: _imageUrls.isNotEmpty ? _imageUrls.length : 1,
-                      itemBuilder: (context, index) {
-                        return Image.network(
-                          _imageUrls.isNotEmpty
-                              ? _imageUrls[index]
-                              : 'https://via.placeholder.com/190x130',
-                          width: 190,
-                          height: 130,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: LoadingAnimationWidget.threeArchedCircle(
-                                color: AppColors.white,
-                                size: 200,
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        width: 190,
+                        height: 130,
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount:
+                              _imageUrls.isNotEmpty ? _imageUrls.length : 1,
+                          itemBuilder: (context, index) {
+                            return Image.network(
+                              _imageUrls.isNotEmpty
+                                  ? _imageUrls[index]
+                                  : 'https://via.placeholder.com/190x130',
+                              width: 190,
+                              height: 130,
+                              fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child:
+                                      LoadingAnimationWidget.threeArchedCircle(
+                                    color: AppColors.white,
+                                    size: 200,
+                                  ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.asset(
+                                'images/no-image.jpg',
+                                fit: BoxFit.cover,
+                                width: 190,
+                                height: 130.0,
                               ),
                             );
                           },
-                          errorBuilder: (context, error, stackTrace) =>
-                              Image.asset(
-                            'images/no-image.jpg',
-                            fit: BoxFit.cover,
-                            width: 190,
-                            height: 130.0,
-                          ),
-                        );
-                      },
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 50,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: AppColors.amberColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(12),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: List.generate(
+                                widget.hotel.starRate != null
+                                    ? widget.hotel.starRate!.toInt()
+                                    : 1,
+                                (index) => const Icon(
+                                  Icons.star,
+                                  size: 15,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ),
+                            Text2(
+                              text2:
+                                  widget.hotel.reviewScore?.toString() ?? '0.0',
+                              fontWeight: FontWeight.bold,
+                              size: 10,
+                              color: AppColors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // if (widget.hotel.isFeatured == 0)
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 5,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: AppColors.redAwesome,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(12),
+                          ),
+                        ),
+                        child: const Text1(
+                          text1: 'Featured',
+                          color: AppColors.white,
+                          size: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
@@ -146,7 +218,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                         children: [
                           Expanded(
                             child: CustomTextEllipsis(
-                              text: widget.hotel.title ?? 'No Title',
+                              text: widget.hotel.title ?? 'No information name',
                               size: 13,
                               color: AppColors.black,
                               fontWeight: FontWeight.w600,
@@ -208,6 +280,10 @@ class _HotelCard1 extends State<HotelsCard1> {
                         ],
                       ),
                       const SizedBox(height: 8),
+                      const TextRemaining(
+                        text: '12 Rooms Left',
+                      ),
+                      const SizedBox(height: 5.0),
                       Row(
                         children: [
                           Row(
@@ -216,7 +292,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                                 text1: widget.hotel.price != null
                                     ? "Rp${widget.hotel.price}"
                                     : '0',
-                                size: 13,
+                                size: 14,
                                 color: AppColors.buttonColor,
                               ),
                               const Text2(
@@ -228,57 +304,12 @@ class _HotelCard1 extends State<HotelsCard1> {
                         ],
                       ),
                       const SizedBox(height: 5.0),
-                      Row(
-                        children: [
-                          Row(
-                            children: List.generate(
-                              widget.hotel.starRate != null
-                                  ? widget.hotel.starRate!.toInt()
-                                  : 1,
-                              (index) => Icon(
-                                Icons.star,
-                                size: 20.0,
-                                color: index < (widget.hotel.reviewScore ?? 0)
-                                    ? AppColors.amberColor
-                                    : Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Text2(
-                            text2:
-                                widget.hotel.reviewScore?.toString() ?? '0.0',
-                          ),
-                          const Spacer(),
-                          const TextRemaining(text: '12 Rooms')
-                        ],
-                      ),
-                      const SizedBox(height: 5.0),
                     ],
                   ),
                 ),
               ],
             ),
-            if (widget.hotel.isFeatured == 1)
-              Positioned(
-                top: 5,
-                left: 5,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: AppColors.redAwesome,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: const Text(
-                    'Featured',
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+            // if (widget.hotel.isFeatured == 1)
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
@@ -72,19 +73,43 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   width: double.infinity,
                                   child: PageView.builder(
                                     controller: _pageController,
-                                    itemCount: _imageUrls.length,
+                                    itemCount: state.data.gallery?.length ?? 0,
                                     itemBuilder: (context, index) {
+                                      final large =
+                                          state.data.gallery?[index].large;
+
+                                      final imageUrl =
+                                          large is String ? large : null;
+
                                       return ClipRRect(
                                         borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(15),
+                                          bottomRight: Radius.circular(15),
                                         ),
-                                        child: Image.network(
-                                          _imageUrls[index],
-                                          height: 260,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                        ),
+                                        child: imageUrl != null
+                                            ? Image.network(
+                                                imageUrl,
+                                                height: 260,
+                                                width: double.infinity,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return const Center(
+                                                    child: Icon(
+                                                      Icons.broken_image,
+                                                      size: 150,
+                                                      color: AppColors.beauBlue,
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : const Center(
+                                                child: Icon(
+                                                  Icons.image_not_supported,
+                                                  size: 150,
+                                                  color: AppColors.beauBlue,
+                                                ),
+                                              ),
                                       );
                                     },
                                   ),
@@ -140,7 +165,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         dotWidth: 8,
                                         activeDotColor: AppColors.white,
                                         dotColor:
-                                            AppColors.white.withOpacity(0.5),
+                                            AppColors.beauBlue.withOpacity(0.5),
                                       ),
                                     ),
                                   ),
@@ -207,8 +232,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Icon(Icons.location_on,
-                                          size: 20, color: AppColors.tabColor),
+                                      const Icon(
+                                        Icons.location_on,
+                                        size: 20,
+                                        color: AppColors.buttonColor,
+                                      ),
                                       const SizedBox(width: 8),
                                       Expanded(
                                         child: CustomTextOverflow(
@@ -259,10 +287,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          const CircleAvatar(
+                                          CircleAvatar(
                                             radius: 18,
                                             backgroundImage: NetworkImage(
-                                              "https://randomuser.me/api/portraits/men/1.jpg",
+                                              state.data.author?.avatar ??
+                                                  'https://via.placeholder.com/150',
                                             ),
                                           ),
                                           const SizedBox(width: 10),
@@ -271,20 +300,18 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  state.data.author!.name
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                                CustomTextEllipsis(
+                                                  text:
+                                                      state.data.author!.name ??
+                                                          'Unknown Author',
+                                                  size: 13,
+                                                  color: AppColors.black,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
-                                                const Text(
-                                                  "2 days ago ",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: AppColors.cadetGray,
-                                                  ),
+                                                const Text1(
+                                                  text1: "Author Hotel",
+                                                  size: 11,
+                                                  color: AppColors.cadetGray,
                                                 ),
                                               ],
                                             ),
@@ -318,78 +345,93 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     color: AppColors.black,
                                   ),
                                   const SizedBox(height: 20),
-                                  Center(
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          if (state.data.locationCategory !=
-                                              null)
-                                            ...state.data.locationCategory!.map(
-                                              (category) {
-                                                return CategoryLocationCard(
-                                                  icon:
-                                                      category.iconClass ?? '',
-                                                  title:
-                                                      category.name.toString(),
-                                                );
-                                              },
-                                            ),
-                                        ],
+                                  if (state.data.locationCategory!.isNotEmpty)
+                                    Center(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            if (state.data.locationCategory !=
+                                                null)
+                                              ...state.data.locationCategory!
+                                                  .map(
+                                                (category) {
+                                                  return CategoryLocationCard(
+                                                    icon: category.iconClass ??
+                                                        '',
+                                                    title: category.name
+                                                        .toString(),
+                                                  );
+                                                },
+                                              ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
                                   const SizedBox(height: 20),
-                                  if (state.data.rowData?.extraPrice !=
-                                      null) ...[
-                                    const CustomTextEllipsis(
-                                      text: 'Extra Price',
-                                      size: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.black,
-                                    ),
-                                    const SizedBox(height: 10),
+                                  if (state
+                                      .data.rowData!.extraPrice!.isNotEmpty)
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: state.data.rowData!.extraPrice!
-                                          .map((extra) {
-                                        return TaskCardService(
-                                          title: extra.name,
-                                          clientName: "Rp${extra.price}",
-                                          backgroundColor: Colors.white,
-                                          statusColor: AppColors.buttonColor,
-                                        );
-                                      }).toList(),
+                                      children: [
+                                        const CustomTextEllipsis(
+                                          text: 'Extra Price',
+                                          size: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.black,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: state
+                                              .data.rowData!.extraPrice!
+                                              .map((extra) {
+                                            return TaskCardService(
+                                              title: extra.name,
+                                              clientName: "Rp${extra.price}",
+                                              backgroundColor: AppColors.white,
+                                              statusColor:
+                                                  AppColors.buttonColor,
+                                            );
+                                          }).toList(),
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
                                     ),
-                                    const SizedBox(height: 10),
-                                  ],
+
                                   // Service Hotel
-                                  if (state.data.rowData?.serviceFee !=
-                                      null) ...[
-                                    const CustomTextEllipsis(
-                                      text: 'Serive Fee',
-                                      size: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.black,
-                                    ),
-                                    const SizedBox(height: 10),
+                                  if (state
+                                      .data.rowData!.serviceFee!.isNotEmpty)
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: state.data.rowData!.serviceFee!
-                                          .map((service) {
-                                        return TaskCardService(
-                                          title: service.name,
-                                          clientName: service.unit == 'fixed'
-                                              ? 'Rp${service.price}'
-                                              : '${service.price}%',
-                                          backgroundColor: AppColors.white,
-                                          statusColor: AppColors.buttonColor,
-                                        );
-                                      }).toList(),
+                                      children: [
+                                        const CustomTextEllipsis(
+                                          text: 'Serive Fee',
+                                          size: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.black,
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: state
+                                              .data.rowData!.serviceFee!
+                                              .map((service) {
+                                            return TaskCardService(
+                                              title: service.name,
+                                              clientName:
+                                                  service.unit == 'fixed'
+                                                      ? 'Rp${service.price}'
+                                                      : '${service.price}%',
+                                              backgroundColor: AppColors.white,
+                                              statusColor:
+                                                  AppColors.buttonColor,
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+
                                   const SizedBox(height: 10),
                                   // Offer Hotel
                                   const CustomTextEllipsis(

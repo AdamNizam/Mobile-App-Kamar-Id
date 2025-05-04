@@ -351,7 +351,7 @@ class Author {
         city: json["city"],
         state: json["state"],
         country: json["country"],
-        avatar: json["avatar"],
+        avatar: json["avatar_url"],
       );
 
   Map<String, dynamic> toJson() => {

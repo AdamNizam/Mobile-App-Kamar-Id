@@ -103,9 +103,9 @@ class _HotelsCard2State extends State<HotelsCard2> {
                   Stack(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(12),
                         child: SizedBox(
-                          width: 100,
+                          width: 120,
                           height: 113,
                           child: PageView.builder(
                             controller: _pageController,
@@ -116,7 +116,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                 _imageUrls.isNotEmpty
                                     ? _imageUrls[index]
                                     : 'https://via.placeholder.com/190x130',
-                                width: 100,
+                                width: 120,
                                 height: 113,
                                 fit: BoxFit.cover,
                                 loadingBuilder:
@@ -142,27 +142,69 @@ class _HotelsCard2State extends State<HotelsCard2> {
                           ),
                         ),
                       ),
-                      if (widget.hotel.isFeatured == 1)
-                        Positioned(
-                          top: 5,
-                          left: 5,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: AppColors.redAwesome,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: const Text(
-                              'Featured',
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
+                      // if (widget.hotel.isFeatured == 0)
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: const BoxDecoration(
+                            color: AppColors.redAwesome,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              bottomRight: Radius.circular(12),
                             ),
                           ),
+                          child: const Text1(
+                            text1: 'Featured',
+                            color: AppColors.white,
+                            size: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: 50,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: AppColors.amberColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              bottomRight: Radius.circular(12),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: List.generate(
+                                  widget.hotel.starRate != null
+                                      ? widget.hotel.starRate!.toInt()
+                                      : 1,
+                                  (index) => const Icon(
+                                    Icons.star,
+                                    size: 15,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ),
+                              Text2(
+                                text2: widget.hotel.reviewScore?.toString() ??
+                                    '0.0',
+                                size: 10,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(width: 8),
@@ -247,7 +289,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                 text1: widget.hotel.price != null
                                     ? "Rp${widget.hotel.price}"
                                     : '0',
-                                size: 13,
+                                size: 14,
                                 color: AppColors.tabColor,
                               ),
                               const Text2(
@@ -257,35 +299,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
-                          Row(
-                            children: [
-                              Row(
-                                children: List.generate(
-                                  widget.hotel.starRate != null
-                                      ? widget.hotel.starRate!.toInt()
-                                      : 1,
-                                  (index) => Icon(
-                                    Icons.star,
-                                    size: 20.0,
-                                    color: index <
-                                            double.tryParse(widget
-                                                    .hotel.reviewScore
-                                                    ?.toString() ??
-                                                '0.0')!
-                                        ? AppColors.amberColor
-                                        : Colors.grey,
-                                  ),
-                                ),
-                              ),
-                              widget.hotel.reviewScore != null
-                                  ? Text2(
-                                      text2:
-                                          widget.hotel.reviewScore.toString())
-                                  : const Text('0.0'),
-                              const Spacer(),
-                              const TextRemaining(text: '12 Rooms')
-                            ],
-                          )
+                          const TextRemaining(text: '12 Rooms Left')
                         ],
                       ),
                     ),
