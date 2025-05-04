@@ -12,8 +12,8 @@ class TextConvertHTML extends StatelessWidget {
   const TextConvertHTML({
     super.key,
     required this.text,
-    this.color = AppColors.black,
-    this.size = 16,
+    this.color = AppColors.cadetGray,
+    this.size = 14,
     this.fontWeight = FontWeight.w400,
   });
 

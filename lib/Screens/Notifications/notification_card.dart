@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class NotificationCard extends StatelessWidget {
@@ -64,13 +65,18 @@ class NotificationCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: CustomTextEllipsis(
+                        text: title,
+                        size: 12,
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -78,7 +84,7 @@ class NotificationCard extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     color: AppColors.cadetGray,
                     fontWeight: FontWeight.w400,
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
                 ),
                 const SizedBox(height: 6),

@@ -147,7 +147,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                           Expanded(
                             child: CustomTextEllipsis(
                               text: widget.hotel.title ?? 'No Title',
-                              size: 14,
+                              size: 13,
                               color: AppColors.black,
                               fontWeight: FontWeight.w600,
                             ),
@@ -200,14 +200,14 @@ class _HotelCard1 extends State<HotelsCard1> {
                           ),
                           const SizedBox(width: 4.0),
                           Expanded(
-                            child: Text2(
-                              text2: widget.hotel.address ?? 'No-data',
-                              size: 15,
+                            child: CustomTextEllipsis(
+                              text: widget.hotel.address ?? 'no location info',
+                              size: 13,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5.0),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           Row(
@@ -216,7 +216,7 @@ class _HotelCard1 extends State<HotelsCard1> {
                                 text1: widget.hotel.price != null
                                     ? "Rp${widget.hotel.price}"
                                     : '0',
-                                size: 16,
+                                size: 13,
                                 color: AppColors.buttonColor,
                               ),
                               const Text2(

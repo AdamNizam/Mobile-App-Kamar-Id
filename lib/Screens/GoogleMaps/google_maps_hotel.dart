@@ -47,8 +47,8 @@ class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: AppColors.beauBlue,
-              width: 5,
+              color: AppColors.white,
+              width: 4,
             ),
           ),
           child: ClipRRect(

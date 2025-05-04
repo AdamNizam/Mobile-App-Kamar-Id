@@ -20,7 +20,7 @@ class AppColors {
   static const Color strokColor = Color(0xffBDC3C7);
   static const Color redDark = Color(0xff891e0c);
   static const Color white = Color(0xffffffff);
-  static const Color black = Color(0xff000000);
+  static const Color black = Color(0xff37474F);
   static const Color redAwesome = Color(0xffff2052);
   static const Color redAuburn = Color(0xffa52a2a);
   static const Color green = Color(0xff558B2F);

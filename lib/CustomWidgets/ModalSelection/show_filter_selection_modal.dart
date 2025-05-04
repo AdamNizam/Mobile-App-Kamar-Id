@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showFilterSelectionModal(BuildContext context) {
-  int ratingHotel = 1;
   bool ht = false;
   bool hr = false;
   bool hf = false;
-  final TextEditingController minPriceController = TextEditingController();
-  final TextEditingController maxPriceController = TextEditingController();
 
   showModalBottomSheet(
     context: context,
@@ -30,119 +27,6 @@ void showFilterSelectionModal(BuildContext context) {
         ),
         child: StatefulBuilder(
           builder: (context, setState) {
-            Widget buildTextField(String hint,
-                {TextEditingController? controller, bool isEditable = false}) {
-              return Container(
-                height: 48,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  border: Border.all(
-                    color: AppColors.beauBlue,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: isEditable
-                          ? TextField(
-                              controller: controller,
-                              keyboardType: TextInputType.number,
-                              style: GoogleFonts.poppins(fontSize: 14),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Rp0",
-                              ),
-                            )
-                          : Text(
-                              hint,
-                              style: GoogleFonts.poppins(fontSize: 14),
-                            ),
-                    ),
-                  ],
-                ),
-              );
-            }
-
-            Widget buildLabeledField(String label, Widget child) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  child,
-                ],
-              );
-            }
-
-            Widget buildRoomCounter() {
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                height: 48,
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: AppColors.beauBlue,
-                    width: 2,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        if (ratingHotel > 5) {
-                          setState(() => ratingHotel--);
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.remove,
-                        size: 24,
-                        color: AppColors.redDark,
-                      ),
-                    ),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      transitionBuilder: (child, animation) {
-                        return ScaleTransition(scale: animation, child: child);
-                      },
-                      child: Text(
-                        '$ratingHotel',
-                        key: ValueKey<int>(ratingHotel),
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.star_rounded,
-                      size: 22,
-                      color: AppColors.amberColor,
-                    ),
-                    IconButton(
-                      onPressed: () => setState(() => ratingHotel++),
-                      icon: const Icon(
-                        Icons.add,
-                        size: 24,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -158,12 +42,11 @@ void showFilterSelectionModal(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Tampilkan hotel terdekat",
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    const CustomTextEllipsis(
+                      text: 'Hotel terdekat',
+                      size: 14,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
                     ),
                     Transform.scale(
                       scale: 0.90,
@@ -184,12 +67,11 @@ void showFilterSelectionModal(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Hotel termurah",
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    const CustomTextEllipsis(
+                      text: 'Hotel termurah',
+                      size: 14,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
                     ),
                     Transform.scale(
                       scale: 0.90,
@@ -210,12 +92,11 @@ void showFilterSelectionModal(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Hotel featured",
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    const CustomTextEllipsis(
+                      text: 'Rating tertinggi',
+                      size: 14,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
                     ),
                     Transform.scale(
                       scale: 0.90,
@@ -233,39 +114,27 @@ void showFilterSelectionModal(BuildContext context) {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: buildLabeledField(
-                        "Min Price",
-                        buildTextField(
-                          "Rp0",
-                          controller: minPriceController,
-                          isEditable: true,
-                        ),
-                      ),
+                    const CustomTextEllipsis(
+                      text: 'Rating terendah',
+                      size: 14,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: buildLabeledField(
-                        "Max Price",
-                        buildTextField(
-                          'Rp0',
-                          controller: maxPriceController,
-                          isEditable: true,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: buildLabeledField(
-                        "Rating Hotel",
-                        buildRoomCounter(),
+                    Transform.scale(
+                      scale: 0.90,
+                      child: Switch(
+                        value: hf,
+                        activeColor: AppColors.buttonColor,
+                        inactiveTrackColor: AppColors.white,
+                        inactiveThumbColor: AppColors.beauBlue,
+                        onChanged: (value) {
+                          setState(() {
+                            hf = value;
+                          });
+                        },
                       ),
                     ),
                   ],

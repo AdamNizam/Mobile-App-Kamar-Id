@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -33,13 +34,10 @@ class _BookingNotificationsState extends State<BookingNotifications> {
             Navigator.pop(context);
           },
         ),
-        title: Text(
-          'Notifications',
-          style: GoogleFonts.poppins(
-            color: AppColors.cadetGray,
-            fontWeight: FontWeight.w500,
-            fontSize: 18,
-          ),
+        title: const CustomTextEllipsis(
+          text: 'Notification',
+          size: 15,
+          fontWeight: FontWeight.w500,
         ),
         actions: [
           IconButton(

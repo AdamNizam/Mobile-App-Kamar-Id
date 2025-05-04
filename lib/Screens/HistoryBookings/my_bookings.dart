@@ -27,7 +27,7 @@ class MyBookingsScreen extends StatelessWidget {
                   indicatorPadding: EdgeInsets.zero,
                   labelColor: AppColors.buttonColor,
                   labelStyle: GoogleFonts.poppins(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.buttonColor,
                   ),
@@ -40,7 +40,7 @@ class MyBookingsScreen extends StatelessWidget {
                     Tab(text: 'all'),
                     Tab(text: 'proses'),
                     Tab(text: 'paid'),
-                    Tab(text: 'completed'),
+                    Tab(text: 'done'),
                     Tab(text: 'cancel'),
                   ],
                 ),
