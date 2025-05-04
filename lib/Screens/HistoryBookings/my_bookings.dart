@@ -13,19 +13,42 @@ class MyBookingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 14),
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                _buildTabBar(),
+                TabBar(
+                  padding: EdgeInsets.zero,
+                  indicatorColor: AppColors.buttonColor,
+                  indicatorPadding: EdgeInsets.zero,
+                  labelColor: AppColors.buttonColor,
+                  labelStyle: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.buttonColor,
+                  ),
+                  unselectedLabelStyle: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.cadetGray,
+                  ),
+                  tabs: const [
+                    Tab(text: 'all'),
+                    Tab(text: 'proses'),
+                    Tab(text: 'paid'),
+                    Tab(text: 'completed'),
+                    Tab(text: 'cancel'),
+                  ],
+                ),
                 const SizedBox(height: 5),
                 const Expanded(
                   child: TabBarView(
                     children: [
+                      ProcessingBooking(),
                       ProcessingBooking(),
                       PaidBooking(),
                       CompletedBooking(),
@@ -37,41 +60,6 @@ class MyBookingsScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildTabBar() {
-    return Container(
-      height: 45,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: AppColors.beauBlue,
-        ),
-      ),
-      child: TabBar(
-        indicator: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        labelColor: AppColors.buttonColor,
-        labelStyle: GoogleFonts.poppins(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: AppColors.buttonColor,
-        ),
-        unselectedLabelStyle: GoogleFonts.poppins(
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-          color: AppColors.cadetGray,
-        ),
-        tabs: const [
-          Tab(text: 'Proces'),
-          Tab(text: 'Paid'),
-          Tab(text: 'Completed'),
-          Tab(text: 'Cancel'),
-        ],
       ),
     );
   }
