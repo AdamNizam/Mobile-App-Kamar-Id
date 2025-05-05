@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart';
+import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
@@ -72,16 +72,9 @@ class _CardBookingPaidState extends State<CardBookingPaid>
             width: double.infinity,
             decoration: BoxDecoration(
               color: AppColors.white,
-              borderRadius: BorderRadius.circular(18),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  offset: const Offset(0, 4),
-                  blurRadius: 10,
-                ),
-              ],
+              borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: AppColors.beauBlue.withOpacity(0.3),
+                color: AppColors.beauBlue,
               ),
             ),
             child: Padding(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
@@ -12,46 +11,49 @@ class MyBookingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
+    return const DefaultTabController(
+      length: 6,
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 14),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: Column(
               children: [
-                const SizedBox(height: 10),
+                SizedBox(height: 20),
                 TabBar(
-                  padding: EdgeInsets.zero,
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
                   indicatorColor: AppColors.buttonColor,
-                  indicatorPadding: EdgeInsets.zero,
+                  labelPadding: EdgeInsets.symmetric(horizontal: 16),
                   labelColor: AppColors.buttonColor,
-                  labelStyle: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                  labelStyle: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                     color: AppColors.buttonColor,
                   ),
-                  unselectedLabelStyle: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: AppColors.cadetGray,
                   ),
-                  tabs: const [
-                    Tab(text: 'all'),
-                    Tab(text: 'proses'),
-                    Tab(text: 'paid'),
-                    Tab(text: 'done'),
-                    Tab(text: 'cancel'),
+                  tabs: [
+                    Tab(text: 'All booking'),
+                    Tab(text: 'Proses'),
+                    Tab(text: 'Paid'),
+                    Tab(text: 'Completed'),
+                    Tab(text: 'Cancel'),
+                    Tab(text: 'Refund'),
                   ],
                 ),
-                const SizedBox(height: 5),
-                const Expanded(
+                SizedBox(height: 5),
+                Expanded(
                   child: TabBarView(
                     children: [
                       ProcessingBooking(),
                       ProcessingBooking(),
                       PaidBooking(),
                       CompletedBooking(),
+                      CancelledBooking(),
                       CancelledBooking(),
                     ],
                   ),

@@ -32,8 +32,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
   DateTime? checkOutDate;
   String? startPrice;
   String? endPrice;
-  int room = 0;
-  int adult = 0;
+  int room = 1;
+  int adult = 1;
   int child = 0;
 
   void _selectRoom() {
