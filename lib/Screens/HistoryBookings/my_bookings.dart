@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
+import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 import 'cancelled_bookings.dart';
@@ -13,12 +15,19 @@ class MyBookingsScreen extends StatelessWidget {
     return const DefaultTabController(
       length: 6,
       child: Scaffold(
+        appBar: CustomAppTopBar(
+          title: 'History Booking',
+          icon: Icons.history,
+          iconColor: AppColors.buttonColor,
+          total: 1,
+        ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 12,
+            ),
             child: Column(
               children: [
-                SizedBox(height: 20),
                 TabBar(
                   isScrollable: true,
                   tabAlignment: TabAlignment.start,
@@ -26,7 +35,7 @@ class MyBookingsScreen extends StatelessWidget {
                   labelPadding: EdgeInsets.symmetric(horizontal: 16),
                   labelColor: AppColors.buttonColor,
                   labelStyle: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.buttonColor,
                   ),
@@ -48,12 +57,12 @@ class MyBookingsScreen extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      CompletedBooking(),
+                      MaintenanceScreen(),
                       CompletedBooking(),
                       PaidBooking(),
                       CompletedBooking(),
                       CancelledBooking(),
-                      CancelledBooking(),
+                      MaintenanceScreen(),
                     ],
                   ),
                 ),

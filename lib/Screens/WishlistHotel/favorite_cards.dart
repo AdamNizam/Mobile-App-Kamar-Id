@@ -68,21 +68,19 @@ class _FavoriteCardState extends State<FavoriteCard>
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              showCustomSnackbar(context, 'fitur is not available');
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColors.beauBlue,
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -131,6 +129,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
                                   child: CustomTextOverflow(
@@ -199,7 +198,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                                     (index) => const Icon(
                                       Icons.star,
                                       size: 18,
-                                      color: AppColors.tabColor,
+                                      color: AppColors.amberColor,
                                     ),
                                   ),
                                 ),
@@ -212,7 +211,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                               children: [
                                 const Text11(
                                   text2: '10% Off',
-                                  color: AppColors.tabColor,
+                                  color: AppColors.buttonColor,
                                 ),
                                 const Spacer(),
                                 Row(
@@ -225,6 +224,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                                     const Text2(text2: '/night'),
                                   ],
                                 ),
+                                const SizedBox(height: 5)
                               ],
                             ),
                           ],

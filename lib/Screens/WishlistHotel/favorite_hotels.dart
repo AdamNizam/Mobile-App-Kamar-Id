@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_cards.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
@@ -58,48 +58,11 @@ class FavoriteHotelsState extends State<FavoriteHotels>
           }
           return Scaffold(
             extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              elevation: 0,
-              centerTitle: true,
-              leading: const Icon(Icons.arrow_back),
-              title: const CustomTextEllipsis(
-                text: 'Data Wishlist',
-                size: 15,
-                fontWeight: FontWeight.w500,
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    showCustomSnackbar(context, 'Fitur is not available');
-                  },
-                  icon: Row(
-                    children: [
-                      const Icon(
-                        Icons.favorite_border,
-                        color: AppColors.redAwesome,
-                        size: 24,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        totalWishlist.toString(),
-                        style: const TextStyle(
-                          color: AppColors.redAwesome,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.white,
-                ),
-              ),
-              iconTheme: const IconThemeData(
-                color: AppColors.cadetGray,
-              ),
+            appBar: CustomAppTopBar(
+              title: 'Wishlist Hotel',
+              icon: Icons.favorite_border,
+              iconColor: AppColors.redAwesome,
+              total: totalWishlist,
             ),
             body: SafeArea(
               child: Padding(

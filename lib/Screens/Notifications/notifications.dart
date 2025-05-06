@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
-import 'notification_card.dart'; // Import NotificationCard
+import '../../CustomWidgets/CustomCard/card_notification.dart'; // Import NotificationCard
 
 class BookingNotifications extends StatefulWidget {
   final RowsNotif unreadData;
@@ -25,64 +24,11 @@ class _BookingNotificationsState extends State<BookingNotifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const CustomTextEllipsis(
-          text: 'Notification',
-          size: 15,
-          fontWeight: FontWeight.w500,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showCustomSnackbar(context, 'Fitur is not available');
-            },
-            icon: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                const Icon(
-                  Icons.notifications_active,
-                  color: AppColors.buttonColor,
-                  size: 28,
-                ),
-                Positioned(
-                  right: -2,
-                  top: -2,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: AppColors.redAwesome,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      widget.unreadData.total.toString(),
-                      style: const TextStyle(
-                        color: AppColors.white,
-                        fontSize: 8,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-          ),
-        ),
-        iconTheme: const IconThemeData(
-          color: AppColors.cadetGray,
-        ),
+      appBar: CustomAppTopBar(
+        title: 'Notification',
+        icon: Icons.notifications_active,
+        iconColor: AppColors.buttonColor,
+        total: widget.unreadData.total,
       ),
       body: widget.unreadData.dataNotif.isNotEmpty
           ? SingleChildScrollView(
