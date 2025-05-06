@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/customtextfield.dart';
+import '../../CustomWidgets/CustomText/customtextfield.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../Themes/colors.dart';
 

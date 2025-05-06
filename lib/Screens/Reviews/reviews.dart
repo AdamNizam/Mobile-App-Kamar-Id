@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Reviews/writereview.dart';
 
+import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/customapp_bar.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../Themes/colors.dart';
 

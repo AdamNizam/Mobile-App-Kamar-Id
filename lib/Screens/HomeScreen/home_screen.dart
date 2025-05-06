@@ -9,11 +9,11 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../CustomWidgets/CommonWidgets/address_widget.dart';
 import '../../CustomWidgets/CommonWidgets/categories_widget.dart';
+import '../../CustomWidgets/CommonWidgets/drawer_widget.dart';
 import '../../CustomWidgets/CommonWidgets/home_widget.dart';
 import '../../CustomWidgets/CommonWidgets/search_widget.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
-import '../../CustomWidgets/drawer_widget.dart';
-import '../../CustomWidgets/text11.dart';
+import '../../CustomWidgets/CustomText/text11.dart';
 import '../../Themes/colors.dart';
 import '../Categories/all_categories.dart';
 

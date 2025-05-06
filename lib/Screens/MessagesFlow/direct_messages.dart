@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/customapp_bar.dart';
-import '../../CustomWidgets/customtextfield.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
 import 'all_conversions.dart';
-import 'search_message_screen.dart';
 
 class DirectMessages extends StatelessWidget {
   const DirectMessages({super.key});
@@ -15,93 +12,66 @@ class DirectMessages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-              child: CustomAppBar(text: 'Messages', text1: ''),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 1),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const SearchMessagesScreen()),
-                  );
-                },
-                child:
-                    const CustomTextField(label: 'Search', icon: Icons.search),
-              ),
-            ),
-            const SizedBox(height: 5),
-            Container(
-              height: 90,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildDirectMessage('Reception', 'images/c2.png'),
-                  _buildDirectMessage('Housekeeping', 'images/c3.png'),
-                  _buildDirectMessage('Concierge', 'images/c4.png'),
-                  _buildDirectMessage('Maintenance', 'images/c5.png'),
-                  _buildDirectMessage('Guest Services', 'images/c2.png'),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-                    child: Text1(
-                      text1: 'Recent Conversations',
-                      size: 18,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              Expanded(
+                child: ListView(
+                  children: [
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                      child: Text1(
+                        text1: 'Recent Conversations',
+                        size: 18,
+                      ),
                     ),
-                  ),
-                  _buildConversation(
-                      context,
-                      'Reception',
-                      'Confirmation of your room booking...',
-                      'images/c2.png',
-                      '2:45 pm',
-                      2),
-                  _buildConversation(
-                      context,
-                      'Housekeeping',
-                      'Request for extra towels',
-                      'images/c3.png',
-                      '2:30 pm',
-                      1),
-                  _buildConversation(
-                      context,
-                      'Concierge',
-                      'Dinner reservation details',
-                      'images/c4.png',
-                      '2:15 pm',
-                      0,
-                      true),
-                  _buildConversation(
-                      context,
-                      'Maintenance',
-                      'Repair request update',
-                      'images/c5.png',
-                      '1:50 pm',
-                      0,
-                      true),
-                  _buildConversation(
-                      context,
-                      'Guest Services',
-                      'Inquiry about room amenities',
-                      'images/c2.png',
-                      '1:30 pm',
-                      1),
-                ],
+                    _buildConversation(
+                        context,
+                        'Reception',
+                        'Confirmation of your room booking...',
+                        'images/c2.png',
+                        '2:45 pm',
+                        2),
+                    _buildConversation(
+                        context,
+                        'Housekeeping',
+                        'Request for extra towels',
+                        'images/c3.png',
+                        '2:30 pm',
+                        1),
+                    _buildConversation(
+                        context,
+                        'Concierge',
+                        'Dinner reservation details',
+                        'images/c4.png',
+                        '2:15 pm',
+                        0,
+                        true),
+                    _buildConversation(
+                        context,
+                        'Maintenance',
+                        'Repair request update',
+                        'images/c5.png',
+                        '1:50 pm',
+                        0,
+                        true),
+                    _buildConversation(
+                        context,
+                        'Guest Services',
+                        'Inquiry about room amenities',
+                        'images/c2.png',
+                        '1:30 pm',
+                        1),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
@@ -114,11 +84,19 @@ class DirectMessages extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              imagePath,
-              width: 55,
-              height: 55,
-              fit: BoxFit.cover,
+            child: Container(
+              color: Colors.grey, // warna border
+              padding: const EdgeInsets.all(2), // ketebalan border
+              child: ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(10), // radius dikurangi sedikit
+                child: Image.asset(
+                  imagePath,
+                  width: 51,
+                  height: 51,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -137,6 +115,7 @@ class DirectMessages extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.beauBlue),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),

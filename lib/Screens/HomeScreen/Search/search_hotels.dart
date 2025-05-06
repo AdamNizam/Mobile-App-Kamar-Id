@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_typing.dart';
 
+import '../../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../../CustomWidgets/CustomButton/custombtn.dart';
+import '../../../CustomWidgets/CustomText/customtextfield.dart';
 import '../../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../../CustomWidgets/CustomText/detailstext2.dart';
-import '../../../CustomWidgets/customapp_bar.dart';
-import '../../../CustomWidgets/customtextfield.dart';
-import '../../../CustomWidgets/text11.dart';
+import '../../../CustomWidgets/CustomText/text11.dart';
 import '../../../Models/hotel_model.dart';
 import '../../../Themes/colors.dart';
 import '../../DetailHotel/hotel_details_screen.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Screens/MessagesFlow/direct_messages.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
-import 'new_message_screen.dart';
 
 class NoMessages extends StatelessWidget {
   const NoMessages({super.key});
@@ -43,7 +43,7 @@ class NoMessages extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const NewMessageScreen()),
+                    MaterialPageRoute(builder: (_) => const DirectMessages()),
                   );
                 },
               ),

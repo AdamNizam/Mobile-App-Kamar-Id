@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../CustomWidgets/customapp_bar.dart';
-import '../../../CustomWidgets/customtextfield.dart';
+import '../../../CustomWidgets/CustomBar/customapp_bar.dart';
+import '../../../CustomWidgets/CustomText/customtextfield.dart';
 
 class HelpCenterScreen extends StatefulWidget {
   const HelpCenterScreen({super.key});

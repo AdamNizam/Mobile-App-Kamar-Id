@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
-import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 import 'cancelled_bookings.dart';
@@ -49,8 +48,8 @@ class MyBookingsScreen extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      ProcessingBooking(),
-                      ProcessingBooking(),
+                      CompletedBooking(),
+                      CompletedBooking(),
                       PaidBooking(),
                       CompletedBooking(),
                       CancelledBooking(),

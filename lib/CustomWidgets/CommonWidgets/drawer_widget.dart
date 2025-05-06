@@ -3,12 +3,12 @@ import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_hotels.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 
-import '../Screens/HomeScreen/home_screen.dart';
-import '../Screens/MessagesFlow/direct_messages.dart';
-import '../Screens/Profile/profile_screen.dart';
-import '../Screens/Reviews/reviews.dart';
-import '../Screens/Settings/settings_screen.dart';
-import 'CustomText/detailstext1.dart';
+import '../../Screens/HomeScreen/home_screen.dart';
+import '../../Screens/MessagesFlow/direct_messages.dart';
+import '../../Screens/Profile/profile_screen.dart';
+import '../../Screens/Reviews/reviews.dart';
+import '../../Screens/Settings/settings_screen.dart';
+import '../CustomText/detailstext1.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/customapp_bar.dart';
+import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../Themes/colors.dart';
 import '../Profile/change_password.dart';
 

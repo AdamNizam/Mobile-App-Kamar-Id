@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../CustomWidgets/customapp_bar.dart';
+import '../../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../../CustomWidgets/customtextfield.dart';
+import '../../../CustomWidgets/CustomText/customtextfield.dart';
 import '../../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../../CustomWidgets/CustomText/detailstext2.dart';
 
