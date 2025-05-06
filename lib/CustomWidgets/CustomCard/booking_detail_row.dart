@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class BookingDetailRow extends StatelessWidget {
@@ -22,22 +22,18 @@ class BookingDetailRow extends StatelessWidget {
         children: [
           Icon(icon, size: 16, color: Colors.grey[600]),
           const SizedBox(width: 8),
-          Text(
-            '$label:',
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+          Text1(
+            text1: '$label:',
+            size: 14,
+            fontWeight: FontWeight.w500,
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              value,
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppColors.cadetGray,
-              ),
+            child: Text1(
+              text1: value,
+              size: 14,
+              fontWeight: FontWeight.w500,
+              color: AppColors.cadetGray,
             ),
           ),
         ],

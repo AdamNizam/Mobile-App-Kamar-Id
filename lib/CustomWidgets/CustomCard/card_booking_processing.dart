@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_status_booking.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -96,7 +95,7 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                           'https://picsum.photos/400/300?=989',
                           fit: BoxFit.cover,
                           width: 100,
-                          height: 90,
+                          height: 100,
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -104,53 +103,34 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomTextOverflow(
+                            CustomTextEllipsis(
                               text: data?.service.title ?? 'Unknown Hotel',
-                              color: AppColors.black,
                               size: 14,
                               fontWeight: FontWeight.w600,
+                              color: AppColors.black,
                             ),
                             const SizedBox(height: 8),
                             const Row(
                               children: [
                                 Icon(
-                                  Icons.location_pin,
-                                  size: 23.0,
+                                  Icons.location_on,
+                                  size: 20.0,
                                   color: AppColors.buttonColor,
                                 ),
+                                SizedBox(width: 6),
                                 CustomTextEllipsis(
                                   text: 'No location info',
+                                  size: 13,
+                                  color: AppColors.cadetGray,
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 4),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: AppColors.amberColor.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.timelapse,
-                                    color: AppColors.amberColor,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    widget.data!.status,
-                                    style: GoogleFonts.poppins(
-                                      color: AppColors.amberColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            const SizedBox(height: 10),
+                            LabelStatusBooking(
+                              icon: Icons.timelapse,
+                              status: widget.data!.status,
+                              color: AppColors.amberColor,
+                            )
                           ],
                         ),
                       ),

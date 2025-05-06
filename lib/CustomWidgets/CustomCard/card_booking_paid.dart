@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_status_booking.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
@@ -78,7 +79,7 @@ class _CardBookingPaidState extends State<CardBookingPaid>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,113 +93,90 @@ class _CardBookingPaidState extends State<CardBookingPaid>
                           'https://picsum.photos/400/300?=989',
                           fit: BoxFit.cover,
                           width: 100,
-                          height: 90,
+                          height: 100,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              data?.service.title ?? 'Unknown Hotel',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
+                            CustomTextEllipsis(
+                              text: data?.service.title ?? 'Unknown Hotel',
+                              size: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.black,
                             ),
                             const SizedBox(height: 8),
-                            Row(
+                            const Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.location_on,
                                   size: 20.0,
                                   color: AppColors.buttonColor,
                                 ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  'No location info',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 13.5,
-                                    color: AppColors.cadetGray,
-                                  ),
+                                SizedBox(width: 6),
+                                CustomTextEllipsis(
+                                  text: 'No location info',
+                                  size: 13,
+                                  color: AppColors.cadetGray,
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 6),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: AppColors.green.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.check_circle,
-                                    color: AppColors.green,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    widget.data!.status,
-                                    style: GoogleFonts.poppins(
-                                      color: AppColors.green,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            const SizedBox(height: 10),
+                            LabelStatusBooking(
+                              icon: Icons.check_circle,
+                              status: widget.data!.status,
+                              color: AppColors.green,
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  const Divider(height: 1, color: Colors.black12),
-                  const SizedBox(height: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BookingDetailRow(
-                        icon: Icons.confirmation_number,
-                        label: 'Code Booking',
-                        value: data!.code,
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.payments,
-                        label: 'Total Payment',
-                        value:
-                            'Rp${formatToRp(double.parse(data.payNow).toInt())}',
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.login,
-                        label: 'Check-In',
-                        value: DateFormat('yyyy-MM-dd')
-                            .format(widget.data!.startDate),
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.logout,
-                        label: 'Check-Out',
-                        value: DateFormat('yyyy-MM-dd')
-                            .format(widget.data!.endDate),
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.person_outline,
-                        label: 'Guest',
-                        value: data.totalGuests.toString(),
-                      ),
-                      const BookingDetailRow(
-                        icon: Icons.meeting_room_outlined,
-                        label: 'Number of Rooms',
-                        value: '2 room',
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 5,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BookingDetailRow(
+                          icon: Icons.confirmation_number,
+                          label: 'Code Booking',
+                          value: data!.code,
+                        ),
+                        BookingDetailRow(
+                          icon: Icons.payments,
+                          label: 'Total Payment',
+                          value:
+                              'Rp${formatToRp(double.parse(data.payNow).toInt())}',
+                        ),
+                        BookingDetailRow(
+                          icon: Icons.login,
+                          label: 'Check-In',
+                          value: DateFormat('yyyy-MM-dd')
+                              .format(widget.data!.startDate),
+                        ),
+                        BookingDetailRow(
+                          icon: Icons.logout,
+                          label: 'Check-Out',
+                          value: DateFormat('yyyy-MM-dd')
+                              .format(widget.data!.endDate),
+                        ),
+                        BookingDetailRow(
+                          icon: Icons.person_outline,
+                          label: 'Guest',
+                          value: data.totalGuests.toString(),
+                        ),
+                        const BookingDetailRow(
+                          icon: Icons.meeting_room_outlined,
+                          label: 'Number of Rooms',
+                          value: '2 room',
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 8),
                 ],
