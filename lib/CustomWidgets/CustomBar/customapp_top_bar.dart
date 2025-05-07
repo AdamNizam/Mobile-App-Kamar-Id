@@ -25,30 +25,20 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 18,
-              backgroundColor: AppColors.white,
-              child: Center(
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: AppColors.tabColor,
-                    size: 20,
-                  ),
-                  onPressed: () {
-                    showCustomSnackbar(context, 'Fitur is not available');
-                  },
-                ),
-              ),
-            ),
-          ],
+        child: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.tabColor,
+            size: 24,
+          ),
+          onPressed: () {
+            showCustomSnackbar(context, 'Fitur is not available');
+          },
         ),
       ),
       title: Text1(
         text1: title,
-        size: 16,
+        size: 18,
         fontWeight: FontWeight.bold,
       ),
       actions: [
@@ -68,7 +58,7 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
                 CustomTextEllipsis(
                   text: total.toString(),
                   color: iconColor,
-                  size: 15,
+                  size: 13,
                   fontWeight: FontWeight.bold,
                 ),
               const SizedBox(width: 5),

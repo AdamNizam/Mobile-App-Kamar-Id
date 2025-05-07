@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_hotels.dart';
-import 'package:hotelbookingapp/Screens/Messages/direct_messages.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 
 import '../../Screens/HomeScreen/home_screen.dart';
@@ -86,14 +85,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             title: "Notifications",
             icon: Icons.notifications,
             onTap: () {},
-          ),
-          const SizedBox(height: 3),
-          buildMenuItem(
-            title: "Messages",
-            icon: Icons.message,
-            onTap: () {
-              navigateTo(const DirectMessages());
-            },
           ),
           const SizedBox(height: 3),
           buildMenuItem(

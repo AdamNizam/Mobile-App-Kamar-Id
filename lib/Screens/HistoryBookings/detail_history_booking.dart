@@ -102,31 +102,26 @@ class BookingDetailPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(height: 10),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CustomTextEllipsis(
+                    CustomTextEllipsis(
                       text: "Location",
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.black,
                       size: 14,
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const CustomTextEllipsis(
-                        text: "Open Map",
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.buttonColor,
-                        size: 13,
-                      ),
-                    ),
                   ],
                 ),
+                const SizedBox(height: 10),
                 const GoogleMapsHotel(
-                  initialPosition:
-                      LatLng(-8.890461192156403, 116.27823302115988),
+                  initialPosition: LatLng(
+                    -8.890461192156403,
+                    116.27823302115988,
+                  ),
                   title: 'Pandu Homes Stay',
-                  snippet: 'Kuta',
+                  snippet: 'Kuta, Mandlika',
                   heightMap: 200,
                 ),
                 const CustomTextEllipsis(
@@ -211,7 +206,11 @@ class BookingDetailPage extends StatelessWidget {
   ) {
     return Row(
       children: [
-        Icon(icon, size: 18),
+        Icon(
+          icon,
+          size: 18,
+          color: AppColors.black,
+        ),
         const SizedBox(width: 8),
         Text1(
           text1: label,

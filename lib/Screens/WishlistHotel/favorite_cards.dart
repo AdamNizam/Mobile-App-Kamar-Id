@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text11.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -80,7 +81,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(4),
+                padding: const EdgeInsets.all(2),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -93,32 +94,73 @@ class _FavoriteCardState extends State<FavoriteCard>
                             child: Image.network(
                               'https://picsum.photos/400/300?random=100',
                               fit: BoxFit.cover,
-                              width: 100,
-                              height: 110,
+                              width: 120,
+                              height: 120,
                             ),
                           ),
                         ),
-                        if (data.isFeatured == 1)
-                          Positioned(
-                            top: 6,
-                            left: 6,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: AppColors.redAwesome,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: const Text(
-                                'Featured',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                ),
+                        // if (data.isFeatured == 1)
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 5,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: AppColors.redAwesome,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
                               ),
                             ),
+                            child: const Text1(
+                              text1: 'Featured',
+                              color: AppColors.white,
+                              size: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            width: 50,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: AppColors.amberColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Row(
+                                  children: List.generate(
+                                    1,
+                                    (index) => const Icon(
+                                      Icons.star,
+                                      size: 15,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                ),
+                                const Text2(
+                                  text2: '0.0',
+                                  fontWeight: FontWeight.bold,
+                                  size: 10,
+                                  color: AppColors.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(width: 12),
@@ -190,21 +232,8 @@ class _FavoriteCardState extends State<FavoriteCard>
                               ],
                             ),
                             const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Row(
-                                  children: List.generate(
-                                    3,
-                                    (index) => const Icon(
-                                      Icons.star,
-                                      size: 18,
-                                      color: AppColors.amberColor,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                const Text('0.5'),
-                              ],
+                            const TextRemaining(
+                              text: '12 Rooms Left',
                             ),
                             const SizedBox(height: 6),
                             Row(

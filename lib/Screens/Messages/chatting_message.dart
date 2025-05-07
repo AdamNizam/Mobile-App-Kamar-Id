@@ -5,8 +5,8 @@ import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
 import 'no_messages.dart';
 
-class AllConversions extends StatelessWidget {
-  const AllConversions({super.key});
+class ChattingMessage extends StatelessWidget {
+  const ChattingMessage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/Messages/direct_messages.dart';
+import 'package:hotelbookingapp/Screens/Messages/message_screen.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
@@ -43,7 +43,7 @@ class NoMessages extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const DirectMessages()),
+                    MaterialPageRoute(builder: (_) => const MessageScreen()),
                   );
                 },
               ),

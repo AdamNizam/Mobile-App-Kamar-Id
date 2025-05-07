@@ -1,32 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/chat_tittle.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
-class MessagePage extends StatelessWidget {
-  const MessagePage({super.key});
+class MessageScreen extends StatelessWidget {
+  const MessageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Message', style: TextStyle(color: Colors.black)),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: const BackButton(color: Colors.black),
+      appBar: const CustomAppTopBar(
+        title: 'Message',
+        icon: Icons.more_vert,
+        iconColor: AppColors.buttonColor,
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search...',
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: const Icon(Icons.tune),
+                prefixIcon: const Icon(Icons.search, size: 20),
+                suffixIcon: const Icon(Icons.tune, size: 20),
+                isDense: true, // membuat TextField lebih kecil
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: AppColors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: const BorderSide(
+                    color: AppColors.beauBlue,
+                  ), // tampilkan border
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: const BorderSide(
+                    color: AppColors.beauBlue,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: const BorderSide(color: AppColors.amberColor),
                 ),
               ),
             ),
@@ -35,7 +52,7 @@ class MessagePage extends StatelessWidget {
             child: ListView(
               children: const [
                 ChatTile(
-                  name: 'Miss Dolores Schowalter',
+                  name: 'Admin Pandu Home Stay',
                   message: 'Thank you! 😊',
                   time: '7:12 AM',
                   unreadCount: 3,
@@ -53,24 +70,6 @@ class MessagePage extends StatelessWidget {
                   time: '4:35 PM',
                   avatar: 'https://i.pravatar.cc/150?img=3',
                 ),
-                ChatTile(
-                  name: 'Ollie Haley',
-                  message: 'Wow, this is really epic',
-                  time: '8:12 PM',
-                  avatar: 'https://i.pravatar.cc/150?img=4',
-                ),
-                ChatTile(
-                  name: 'Traci Maggio',
-                  message: 'omg, this is amazing',
-                  time: '10:22 PM',
-                  avatar: 'https://i.pravatar.cc/150?img=5',
-                ),
-                ChatTile(
-                  name: 'Mathew Konopelski',
-                  message: 'woohoooo',
-                  time: 'yesterday',
-                  avatar: 'https://i.pravatar.cc/150?img=6',
-                ),
               ],
             ),
           ),
@@ -78,55 +77,13 @@ class MessagePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Aksi ketika tombol tambah ditekan
+          showCustomSnackbar(context, 'fitur is not available');
         },
-        backgroundColor: Colors.blue,
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class ChatTile extends StatelessWidget {
-  final String name;
-  final String message;
-  final String time;
-  final String avatar;
-  final int unreadCount;
-
-  const ChatTile({
-    super.key,
-    required this.name,
-    required this.message,
-    required this.time,
-    required this.avatar,
-    this.unreadCount = 0,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(backgroundImage: NetworkImage(avatar)),
-      title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: Text(message, overflow: TextOverflow.ellipsis),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(time, style: const TextStyle(fontSize: 12)),
-          if (unreadCount > 0)
-            Container(
-              margin: const EdgeInsets.only(top: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                unreadCount.toString(),
-                style: const TextStyle(color: Colors.white, fontSize: 12),
-              ),
-            ),
-        ],
+        backgroundColor: AppColors.buttonColor,
+        child: const Icon(
+          Icons.add,
+          color: AppColors.white,
+        ),
       ),
     );
   }
