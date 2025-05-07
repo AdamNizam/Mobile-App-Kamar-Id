@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/send_review_screen.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/detail_history_booking.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 
@@ -69,115 +70,126 @@ class _CardBookingCompletedState extends State<CardBookingCompleted>
         position: _slideAnimation,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 12),
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: AppColors.beauBlue,
-                )),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Gambar dan Judul
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          'https://picsum.photos/400/300?=989',
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 90,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const BookingDetailPage(),
+                ),
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: AppColors.beauBlue,
+                  )),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Gambar dan Judul
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.network(
+                            'https://picsum.photos/400/300?=989',
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 90,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomTextEllipsis(
-                              text: data?.service.title ?? 'Unknown Hotel',
-                              size: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black,
-                            ),
-                            const SizedBox(height: 8),
-                            const Row(
-                              children: [
-                                Icon(
-                                  Icons.location_on,
-                                  size: 20.0,
-                                  color: AppColors.buttonColor,
-                                ),
-                                SizedBox(width: 6),
-                                CustomTextEllipsis(
-                                  text: 'No location info',
-                                  size: 13,
-                                  color: AppColors.cadetGray,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            LabelStatusBooking(
-                              icon: Icons.check_circle,
-                              status: widget.data!.status,
-                              color: AppColors.green,
-                            ),
-                          ],
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomTextEllipsis(
+                                text: data?.service.title ?? 'Unknown Hotel',
+                                size: 14,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.black,
+                              ),
+                              const SizedBox(height: 8),
+                              const Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    size: 20.0,
+                                    color: AppColors.buttonColor,
+                                  ),
+                                  SizedBox(width: 6),
+                                  CustomTextEllipsis(
+                                    text: 'No location info',
+                                    size: 13,
+                                    color: AppColors.cadetGray,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              LabelStatusBooking(
+                                icon: Icons.check_circle,
+                                status: widget.data!.status,
+                                color: AppColors.green,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BookingDetailRow(
-                        icon: Icons.date_range,
-                        label: 'Check-In',
-                        value: DateFormat('yyyy-MM-dd')
-                            .format(widget.data!.startDate),
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.logout,
-                        label: 'Check-Out',
-                        value: DateFormat('yyyy-MM-dd')
-                            .format(widget.data!.endDate),
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.person,
-                        label: 'Guest',
-                        value: data?.totalGuests.toString() ?? 'no information',
-                      ),
-                      const BookingDetailRow(
-                        icon: Icons.meeting_room,
-                        label: 'Number of Rooms',
-                        value: '2 room',
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 5),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: CustomOutlinedButton(
-                      text: 'Beri Ulasan',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              SendReviewScreen(dataHistory: widget.data!),
-                        ));
-                      },
+                      ],
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BookingDetailRow(
+                          icon: Icons.date_range,
+                          label: 'Check-In',
+                          value: DateFormat('yyyy-MM-dd')
+                              .format(widget.data!.startDate),
+                        ),
+                        BookingDetailRow(
+                          icon: Icons.logout,
+                          label: 'Check-Out',
+                          value: DateFormat('yyyy-MM-dd')
+                              .format(widget.data!.endDate),
+                        ),
+                        BookingDetailRow(
+                          icon: Icons.person,
+                          label: 'Guest',
+                          value:
+                              data?.totalGuests.toString() ?? 'no information',
+                        ),
+                        const BookingDetailRow(
+                          icon: Icons.meeting_room,
+                          label: 'Number of Rooms',
+                          value: '2 room',
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 5),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: CustomOutlinedButton(
+                        text: 'Beri Ulasan',
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                SendReviewScreen(dataHistory: widget.data!),
+                          ));
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

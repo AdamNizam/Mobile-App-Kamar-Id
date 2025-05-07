@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/MessagesFlow/direct_messages.dart';
+import 'package:hotelbookingapp/Screens/Messages/direct_messages.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';

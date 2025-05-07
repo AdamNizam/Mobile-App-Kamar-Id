@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/detail_history_booking.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
@@ -70,7 +71,14 @@ class _CardBookingCancelledState extends State<CardBookingCancelled>
         child: Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const BookingDetailPage(),
+                ),
+              );
+            },
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(

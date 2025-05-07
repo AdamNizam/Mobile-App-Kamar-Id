@@ -9,18 +9,15 @@ import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
-import 'package:hotelbookingapp/Screens/Authentication/message_register_success.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/cancelled_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/completed_bookings.dart';
-import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_typing.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Screens/Settings/settings_screen.dart';
-import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -70,19 +67,15 @@ class MyApp extends StatelessWidget {
             '/': (context) => const SplashScreen(),
             '/login': (context) => const Login(),
             '/register': (context) => const Register(),
-            '/message-success-register': (context) =>
-                const MessageRegisterSuccess(),
             '/home': (context) => const BottomNavigationHome(),
             '/profile': (context) => const ProfileScreen(),
             '/reviews': (context) => const Reviews(),
             '/categories': (context) => const AllCategoriesScreen(),
             '/settings': (context) => const SettingsScreen(),
             '/search-typing': (context) => const SearchTyping(),
-            '/my-booking': (context) => const MyBookingsScreen(),
             '/cancel-booking': (context) => const CancelledBooking(),
             '/completed-booking': (context) => const CompletedBooking(),
             '/favorite-hotels': (context) => const FavoriteHotels(),
-            '/maintenance': (context) => const MaintenanceScreen(),
           },
         ));
   }
