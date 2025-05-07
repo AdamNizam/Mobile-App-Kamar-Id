@@ -143,37 +143,22 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BookingDetailRow(
-                        icon: Icons.confirmation_number,
-                        label: 'Code Booking',
-                        value: data!.code,
-                      ),
-                      BookingDetailRow(
                         icon: Icons.payments,
                         label: 'Total Payment',
                         value:
-                            'Rp${formatToRp(double.parse(data.payNow).toInt())}',
+                            'Rp${formatToRp(double.parse(data!.payNow).toInt())}',
                       ),
                       BookingDetailRow(
-                        icon: Icons.login,
+                        icon: Icons.date_range,
                         label: 'Check-In',
                         value: DateFormat('yyyy-MM-dd')
                             .format(widget.data!.startDate),
                       ),
                       BookingDetailRow(
-                        icon: Icons.logout,
+                        icon: Icons.date_range,
                         label: 'Check-Out',
                         value: DateFormat('yyyy-MM-dd')
                             .format(widget.data!.endDate),
-                      ),
-                      BookingDetailRow(
-                        icon: Icons.person_outline,
-                        label: 'Guest',
-                        value: data.totalGuests.toString(),
-                      ),
-                      const BookingDetailRow(
-                        icon: Icons.meeting_room_outlined,
-                        label: 'Number of Rooms',
-                        value: '2 room',
                       ),
                     ],
                   ),

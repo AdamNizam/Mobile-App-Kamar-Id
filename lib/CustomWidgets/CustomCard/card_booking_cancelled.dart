@@ -4,7 +4,6 @@ import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/booking_detail_row.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
-import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
@@ -142,37 +141,16 @@ class _CardBookingCancelledState extends State<CardBookingCancelled>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         BookingDetailRow(
-                          icon: Icons.confirmation_number,
-                          label: 'Code Booking',
-                          value: data!.code,
-                        ),
-                        BookingDetailRow(
-                          icon: Icons.payments,
-                          label: 'Total Payment',
-                          value:
-                              'Rp${formatToRp(double.parse(data.payNow).toInt())}',
-                        ),
-                        BookingDetailRow(
-                          icon: Icons.login,
+                          icon: Icons.date_range,
                           label: 'Check-In',
                           value: DateFormat('yyyy-MM-dd')
                               .format(widget.data!.startDate),
                         ),
                         BookingDetailRow(
-                          icon: Icons.logout,
+                          icon: Icons.date_range,
                           label: 'Check-Out',
                           value: DateFormat('yyyy-MM-dd')
                               .format(widget.data!.endDate),
-                        ),
-                        BookingDetailRow(
-                          icon: Icons.person_outline,
-                          label: 'Guest',
-                          value: data.totalGuests.toString(),
-                        ),
-                        const BookingDetailRow(
-                          icon: Icons.meeting_room_outlined,
-                          label: 'Number of Rooms',
-                          value: '2 room',
                         ),
                       ],
                     ),

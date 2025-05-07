@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
@@ -135,48 +136,64 @@ class BookingDetailPage extends StatelessWidget {
                   size: 14,
                 ),
                 const SizedBox(height: 12),
-                const Row(
-                  children: [
-                    Icon(Icons.calendar_today, size: 18),
-                    SizedBox(width: 8),
-                    Text("Dates"),
-                    Spacer(),
-                    Text("12 - 14 Nov 2024",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+                _rowBookingDetail(
+                  Icons.confirmation_number,
+                  'Code booking',
+                  '545JSK0',
                 ),
                 const SizedBox(height: 10),
-                const Row(
-                  children: [
-                    Icon(Icons.people_outline, size: 18),
-                    SizedBox(width: 8),
-                    Text("Guest"),
-                    Spacer(),
-                    Text("2 Guests (1 Room)",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+                _rowBookingDetail(
+                  Icons.calendar_today,
+                  'Check-in',
+                  '10-10-2025',
                 ),
                 const SizedBox(height: 10),
-                const Row(
-                  children: [
-                    Icon(Icons.meeting_room_outlined, size: 18),
-                    SizedBox(width: 8),
-                    Text("Room type"),
-                    Spacer(),
-                    Text("Queen Room",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+                _rowBookingDetail(
+                  Icons.calendar_today,
+                  'Check-out',
+                  '10-10-2025',
                 ),
                 const SizedBox(height: 10),
-                const Row(
-                  children: [
-                    Icon(Icons.phone, size: 18),
-                    SizedBox(width: 8),
-                    Text("Phone"),
-                    Spacer(),
-                    Text("02143454646",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+                _rowBookingDetail(
+                  Icons.meeting_room_outlined,
+                  'Room type',
+                  'Type Room',
+                ),
+                const SizedBox(height: 10),
+                _rowBookingDetail(
+                  Icons.people_outline,
+                  'Guest',
+                  '1',
+                ),
+                const SizedBox(height: 10),
+                _rowBookingDetail(
+                  Icons.people,
+                  'name',
+                  'Andre lucmana',
+                ),
+                const SizedBox(height: 10),
+                _rowBookingDetail(
+                  Icons.email,
+                  'Email',
+                  'andreLuc10@gmail.com',
+                ),
+                const SizedBox(height: 10),
+                _rowBookingDetail(
+                  Icons.phone,
+                  'Phone number',
+                  '087862910011',
+                ),
+                const SizedBox(height: 10),
+                _rowBookingDetail(
+                  Icons.location_city,
+                  'Addres',
+                  '-',
+                ),
+                const SizedBox(height: 10),
+                _rowBookingDetail(
+                  Icons.folder_zip,
+                  'Zip code',
+                  '10011',
                 ),
                 const SizedBox(height: 10),
               ],
@@ -184,6 +201,32 @@ class BookingDetailPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _rowBookingDetail(
+    IconData icon,
+    String label,
+    String value,
+  ) {
+    return Row(
+      children: [
+        Icon(icon, size: 18),
+        const SizedBox(width: 8),
+        Text1(
+          text1: label,
+          color: AppColors.cadetGray,
+          size: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        const Spacer(),
+        Text1(
+          text1: value,
+          color: AppColors.black,
+          size: 14,
+          fontWeight: FontWeight.bold,
+        )
+      ],
     );
   }
 }

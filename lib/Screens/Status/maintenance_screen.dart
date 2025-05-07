@@ -24,12 +24,12 @@ class MaintenanceScreen extends StatelessWidget {
             SvgPicture.asset(
               'images/Maintenance.svg',
               semanticsLabel: 'Acme Logo',
-              width: 350,
+              width: 400,
               height: 300,
               fit: BoxFit.contain,
             ),
             const Text1(
-              text1: 'Feature dalam tahap pengembangan.',
+              text1: 'Fitur dalam tahap pengembangan.',
               size: 14,
               fontWeight: FontWeight.w500,
               color: AppColors.black,

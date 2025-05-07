@@ -20,7 +20,11 @@ class BookingDetailRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: Colors.grey[600]),
+          Icon(
+            icon,
+            size: 16,
+            color: AppColors.black,
+          ),
           const SizedBox(width: 8),
           Text1(
             text1: '$label:',
