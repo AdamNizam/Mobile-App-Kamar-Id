@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_loading.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
@@ -83,23 +84,22 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             ),
                           ),
                           const SizedBox(width: 50),
-                          Text(
-                            'Confirmation Hotel',
-                            style: GoogleFonts.poppins(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          const CustomTextOverflow(
+                            text: 'Confirmation Hotel',
+                            size: 16,
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600,
                           ),
                         ],
                       ),
                       const SizedBox(height: 23),
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: AppColors.white,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            width: 2,
+                            width: 1,
                             color: AppColors.beauBlue,
                           ),
                         ),
@@ -109,7 +109,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.network(
-                                widget.dataHotel.imageId ?? '',
+                                widget.dataHotel.imageId ??
+                                    'https://via.placeholder.com/150',
                                 width: 75,
                                 height: 75,
                                 fit: BoxFit.cover,
@@ -119,19 +120,19 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.dataHotel.location?.name ?? 'No Name',
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                CustomTextOverflow(
+                                  text: widget.dataHotel.location?.name ??
+                                      'No title infromation',
+                                  fontWeight: FontWeight.w600,
+                                  size: 14,
+                                  color: AppColors.black,
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  widget.roomType,
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.cadetGray,
-                                  ),
+                                const SizedBox(height: 5),
+                                CustomTextOverflow(
+                                  text: widget.roomType,
+                                  fontWeight: FontWeight.w500,
+                                  size: 13,
+                                  color: AppColors.cadetGray,
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
@@ -142,12 +143,12 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                       color: AppColors.buttonColor,
                                     ),
                                     const SizedBox(width: 3),
-                                    Text(
-                                      widget.dataHotel.address ?? 'No address',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.cadetGray,
-                                      ),
+                                    CustomTextOverflow(
+                                      text: widget.dataHotel.address ??
+                                          'No address',
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.cadetGray,
+                                      size: 12,
                                     ),
                                   ],
                                 ),
@@ -161,9 +162,11 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: AppColors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(width: 2, color: AppColors.beauBlue),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            width: 1,
+                            color: AppColors.beauBlue,
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -292,19 +295,17 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w400,
-              color: AppColors.cadetGray,
-            ),
+          Text1(
+            text1: label,
+            fontWeight: FontWeight.w400,
+            color: AppColors.cadetGray,
+            size: 14,
           ),
-          Text(
-            value,
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w500,
-              color: AppColors.darkGrey,
-            ),
+          Text1(
+            text1: value,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+            size: 14,
           ),
         ],
       ),

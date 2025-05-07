@@ -10,7 +10,6 @@ import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/chek_avaibility_screen.dart';
@@ -239,8 +238,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ),
                                       const SizedBox(width: 8),
                                       Expanded(
-                                        child: CustomTextOverflow(
-                                          text: state.data.rowData?.address ??
+                                        child: Text1(
+                                          text1: state.data.rowData?.address ??
                                               'No location info',
                                           size: 13,
                                         ),
@@ -262,19 +261,17 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         size: 24,
                                       ),
                                       const Spacer(),
-                                      Text(
-                                        'Rp${state.data.rowData!.price.toString()}',
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.buttonColor,
-                                        ),
+                                      Text1(
+                                        text1:
+                                            'Rp${state.data.rowData!.price.toString()}',
+                                        size: 15,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.buttonColor,
                                       ),
-                                      const Text(
-                                        '/night',
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                        ),
+                                      const Text1(
+                                        text1: '/night',
+                                        size: 14,
+                                        color: AppColors.cadetGray,
                                       ),
                                     ],
                                   ),

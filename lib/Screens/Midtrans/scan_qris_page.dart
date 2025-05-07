@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
@@ -57,7 +56,7 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   children: [
@@ -80,13 +79,11 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const Center(
-                  child: Text1(
-                    text1: 'Scan Your QR Code',
-                    size: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.cadetGray,
-                  ),
+                const Text1(
+                  text1: 'Scan Your QR Code',
+                  size: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.cadetGray,
                 ),
                 const SizedBox(height: 15),
                 Container(
@@ -98,16 +95,14 @@ class _ScanQrisPageState extends State<ScanQrisPage> {
                     color: AppColors.beauBlue,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
-                    'Expired time: ${formatDuration(_remainingTime)}',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: AppColors.buttonColor,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  child: Text1(
+                    text1: 'Expired time: ${formatDuration(_remainingTime)}',
+                    size: 14,
+                    color: AppColors.buttonColor,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 16),
                 Center(
                   child: Container(
                     padding: const EdgeInsets.all(24),

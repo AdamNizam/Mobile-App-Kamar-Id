@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/custom_icon2_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/room_details_screen.dart';
@@ -109,10 +109,11 @@ class CardAvailbilityState extends State<CardAvailbility> {
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: Column(
                         children: [
-                          Text(
-                            widget.dataRoom.title ?? "No-Data",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                          CustomTextEllipsis(
+                            text: widget.dataRoom.title ?? "No-Data",
+                            size: 14,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.black,
                           ),
                         ],
                       ),
@@ -122,13 +123,11 @@ class CardAvailbilityState extends State<CardAvailbility> {
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: Row(
                         children: [
-                          Text(
-                            'Rp${formatToRp(widget.dataRoom.price)}',
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.buttonColor,
-                            ),
+                          Text1(
+                            text1: 'Rp${formatToRp(widget.dataRoom.price)}',
+                            size: 14,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.buttonColor,
                           ),
                           Text1(
                             text1: countNights(

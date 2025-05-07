@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/facility_icon_item.dart';
-import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
+import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_price_selection_modal.dart';
 import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
@@ -106,8 +109,8 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             itemBuilder: (context, index) {
                               return ClipRRect(
                                 borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(15),
+                                  bottomRight: Radius.circular(15),
                                 ),
                                 child: Image.network(
                                   _imageUrls[index],
@@ -120,11 +123,42 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                           ),
                         ),
                         Positioned(
-                          top: 20,
-                          left: 16,
-                          child: iconBackButton(Icons.arrow_back, () {
-                            Navigator.pop(context);
-                          }),
+                          top: 15,
+                          left: 10,
+                          child: CustomButtonIcon(
+                            icon: Icons.arrow_back,
+                            size: 20,
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          top: 15,
+                          right: 10,
+                          child: Row(
+                            children: [
+                              CustomButtonIcon(
+                                icon: Icons.share,
+                                size: 20,
+                                onTap: () {
+                                  showCustomSnackbar(
+                                      context, 'fiture is not availabe');
+                                },
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              CustomButtonIcon(
+                                icon: Icons.more_vert,
+                                size: 20,
+                                onTap: () {
+                                  showCustomSnackbar(
+                                      context, 'fiture is not availabe');
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                         Positioned(
                           bottom: 16,
@@ -138,7 +172,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 dotHeight: 8,
                                 dotWidth: 8,
                                 activeDotColor: AppColors.white,
-                                dotColor: AppColors.white.withOpacity(0.5),
+                                dotColor: AppColors.beauBlue.withOpacity(0.5),
                               ),
                             ),
                           ),
@@ -150,21 +184,24 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.dataRoom.title!,
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                          CustomTextOverflow(
+                            text: widget.dataRoom.title!,
+                            size: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black,
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            ' ${widget.dataRoom.id} -- $numberSelected -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
-                            style: GoogleFonts.poppins(fontSize: 14),
+                          CustomTextOverflow(
+                            text:
+                                ' ${widget.dataRoom.id} -- $numberSelected -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
+                            size: 13,
                           ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Facilities Room',
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                          const SizedBox(height: 10),
+                          const CustomTextOverflow(
+                            text: 'Facilities Room',
+                            size: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black,
                           ),
                           const SizedBox(height: 8),
                           Wrap(
@@ -224,13 +261,11 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
         children: [
           Row(
             children: [
-              Text(
-                'Rp${formatToRp(price)}',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: AppColors.buttonColor,
-                  fontWeight: FontWeight.w500,
-                ),
+              Text1(
+                text1: 'Rp${formatToRp(price)}',
+                size: 14,
+                color: AppColors.buttonColor,
+                fontWeight: FontWeight.w500,
               ),
               Text1(
                 text1: countNights(
@@ -267,18 +302,16 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Total Price :',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: AppColors.cadetGray,
-                    ),
+                  const CustomTextEllipsis(
+                    text: 'Total Price :',
+                    size: 12,
+                    color: AppColors.cadetGray,
                   ),
                   Text1(
                     text1: selectedPrice.isNotEmpty
                         ? 'Rp${formatToRp(extractNumber(selectedPrice))}'
                         : 'Rp0',
-                    size: 18,
+                    size: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ],

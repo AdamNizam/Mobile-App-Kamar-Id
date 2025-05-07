@@ -6,12 +6,16 @@ class GoogleMapsHotel extends StatefulWidget {
   final LatLng initialPosition;
   final String title;
   final String snippet;
+  final double? heightMap;
+  final double? widthMap;
 
   const GoogleMapsHotel({
     super.key,
     required this.initialPosition,
     required this.title,
     required this.snippet,
+    this.heightMap = 370,
+    this.widthMap = 600,
   });
 
   @override
@@ -42,8 +46,8 @@ class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          height: 370,
-          width: 600,
+          height: widget.heightMap,
+          width: widget.widthMap,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
+import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -17,9 +18,8 @@ class MyBookingsScreen extends StatelessWidget {
       child: Scaffold(
         appBar: CustomAppTopBar(
           title: 'History Booking',
-          icon: Icons.history,
+          icon: Icons.more_vert,
           iconColor: AppColors.buttonColor,
-          total: 1,
         ),
         body: SafeArea(
           child: Padding(
@@ -58,7 +58,7 @@ class MyBookingsScreen extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       MaintenanceScreen(),
-                      CompletedBooking(),
+                      ProcessingBooking(),
                       PaidBooking(),
                       CompletedBooking(),
                       CancelledBooking(),

@@ -71,7 +71,7 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
       child: SlideTransition(
         position: _slideAnimation,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -81,7 +81,7 @@ class _CardBookingProcessingState extends State<CardBookingProcessing>
                   color: AppColors.beauBlue,
                 )),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

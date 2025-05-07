@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -7,14 +8,14 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData icon;
   final Color iconColor;
-  final int total;
+  final int? total;
 
   const CustomAppTopBar({
     super.key,
     required this.title,
     required this.icon,
     required this.iconColor,
-    required this.total,
+    this.total = 0,
   });
 
   @override
@@ -22,7 +23,29 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       centerTitle: true,
-      leading: const Icon(Icons.arrow_back),
+      leading: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 18,
+              backgroundColor: AppColors.white,
+              child: Center(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: AppColors.tabColor,
+                    size: 20,
+                  ),
+                  onPressed: () {
+                    showCustomSnackbar(context, 'Fitur is not available');
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       title: Text1(
         text1: title,
         size: 16,
@@ -41,12 +64,13 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
                 size: 22,
               ),
               const SizedBox(width: 2),
-              Text1(
-                text1: total.toString(),
-                color: iconColor,
-                size: 14,
-                fontWeight: FontWeight.bold,
-              ),
+              if (total != 0)
+                CustomTextEllipsis(
+                  text: total.toString(),
+                  color: iconColor,
+                  size: 15,
+                  fontWeight: FontWeight.bold,
+                ),
               const SizedBox(width: 5),
             ],
           ),
