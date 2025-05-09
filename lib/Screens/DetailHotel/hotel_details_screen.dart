@@ -715,7 +715,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
               ),
             );
           }
-
           return Scaffold(
             body: Center(
               child: LoadingAnimationWidget.hexagonDots(

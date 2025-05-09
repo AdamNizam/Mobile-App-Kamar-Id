@@ -106,7 +106,7 @@ void showPriceRoomModal({
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
-                                        " - (Rp ${formatToRp(extractNumber(priceRoom[index]['price'].toString()))}${priceRoom[index]['nights']})",
+                                        " - (Rp ${formatToRp(extractNumber(priceRoom[index]['price'].toString()))})",
                                         style: TextStyle(
                                           fontSize: isSelected ? 16 : 15,
                                           color: isSelected

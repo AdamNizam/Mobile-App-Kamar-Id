@@ -67,7 +67,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
         'room': '${index + 1} ${index > 0 ? "Rooms" : "Room"}',
         'number': '${index + 1}',
         'price': '${price * (index + 1)}',
-        'nights': countNights(widget.checkIn, widget.checkOut),
       };
     });
 
@@ -262,19 +261,11 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
           Row(
             children: [
               Text1(
-                text1: 'Rp${formatToRp(price)}',
+                text1: widget.dataRoom.priceText,
                 size: 14,
                 color: AppColors.buttonColor,
                 fontWeight: FontWeight.w500,
               ),
-              Text1(
-                text1: countNights(
-                  widget.checkIn,
-                  widget.checkOut,
-                ),
-                size: 14,
-                fontWeight: FontWeight.w400,
-              )
             ],
           ),
           TextFormField(

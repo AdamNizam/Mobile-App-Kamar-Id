@@ -357,7 +357,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           width: 2,
-          color: (room == 0 && adult == 0)
+          color: (room == 1 && adult == 1)
               ? AppColors.beauBlue
               : AppColors.amberColor,
         ),

@@ -6,7 +6,6 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/room_details_screen.dart';
-import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CardAvailbility extends StatefulWidget {
@@ -121,23 +120,11 @@ class CardAvailbilityState extends State<CardAvailbility> {
                     const SizedBox(height: 2),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Row(
-                        children: [
-                          Text1(
-                            text1: 'Rp${formatToRp(widget.dataRoom.price)}',
-                            size: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.buttonColor,
-                          ),
-                          Text1(
-                            text1: countNights(
-                              widget.checkInDate,
-                              widget.checkOutDate,
-                            ),
-                            size: 14,
-                            fontWeight: FontWeight.w400,
-                          )
-                        ],
+                      child: Text1(
+                        text1: widget.dataRoom.priceText,
+                        size: 13,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.buttonColor,
                       ),
                     ),
                     const SizedBox(height: 8),

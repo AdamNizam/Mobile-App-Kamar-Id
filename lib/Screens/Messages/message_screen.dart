@@ -18,32 +18,39 @@ class MessageScreen extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search...',
-                prefixIcon: const Icon(Icons.search, size: 20),
-                suffixIcon: const Icon(Icons.tune, size: 20),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  size: 20,
+                ),
                 isDense: true, // membuat TextField lebih kecil
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 filled: true,
                 fillColor: AppColors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                   borderSide: const BorderSide(
                     color: AppColors.beauBlue,
+                    width: 1,
                   ), // tampilkan border
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                   borderSide: const BorderSide(
                     color: AppColors.beauBlue,
+                    width: 1,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: AppColors.amberColor),
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: const BorderSide(
+                    color: AppColors.amberColor,
+                    width: 1,
+                  ),
                 ),
               ),
             ),
@@ -65,7 +72,7 @@ class MessageScreen extends StatelessWidget {
                   avatar: 'https://i.pravatar.cc/150?img=2',
                 ),
                 ChatTile(
-                  name: 'Amos Hessel',
+                  name: 'Hotel Lakside Tuktuk',
                   message: 'I think this one is good',
                   time: '4:35 PM',
                   avatar: 'https://i.pravatar.cc/150?img=3',

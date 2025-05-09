@@ -25,6 +25,7 @@ class MyBookingsScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 12,
+              vertical: 16,
             ),
             child: Column(
               children: [
