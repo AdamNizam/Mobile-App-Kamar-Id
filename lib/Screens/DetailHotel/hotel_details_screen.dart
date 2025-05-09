@@ -14,6 +14,7 @@ import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/chek_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
+import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -369,6 +370,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   if (state
                                       .data.rowData!.extraPrice!.isNotEmpty)
                                     Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const CustomTextEllipsis(
                                           text: 'Extra Price',
@@ -378,8 +381,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         ),
                                         const SizedBox(height: 10),
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                           children: state
                                               .data.rowData!.extraPrice!
                                               .map((extra) {
@@ -645,6 +646,49 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              floatingActionButton: SizedBox(
+                width: 48,
+                height: 48,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const NoMessages(),
+                      ),
+                    );
+                  },
+                  backgroundColor: AppColors.buttonColor,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      const Icon(
+                        Icons.message,
+                        color: AppColors.white,
+                        size: 26,
+                      ),
+                      Positioned(
+                        right: -3,
+                        top: -8,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: AppColors.redAwesome,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Text(
+                            '1',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               bottomNavigationBar: Padding(

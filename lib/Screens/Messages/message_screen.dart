@@ -59,7 +59,7 @@ class MessageScreen extends StatelessWidget {
                   avatar: 'https://i.pravatar.cc/150?img=1',
                 ),
                 ChatTile(
-                  name: 'Lorena Farrell',
+                  name: 'Hotel Mandlika',
                   message: 'Yes! please take a order',
                   time: '9:28 AM',
                   avatar: 'https://i.pravatar.cc/150?img=2',

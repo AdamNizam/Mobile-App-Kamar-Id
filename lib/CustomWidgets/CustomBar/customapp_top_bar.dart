@@ -68,11 +68,11 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
       ],
       flexibleSpace: Container(
         decoration: const BoxDecoration(
-          color: AppColors.bgColor,
+          color: AppColors.white,
         ),
       ),
       iconTheme: const IconThemeData(
-        color: AppColors.cadetGray,
+        color: AppColors.black,
       ),
     );
   }

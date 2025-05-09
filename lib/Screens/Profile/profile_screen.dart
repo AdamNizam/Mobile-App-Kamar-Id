@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
-import 'HelpCenter/help_center.dart';
 import 'change_password.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -119,15 +119,12 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
                 ProfileRow(
-                  leadingIcon: Icons.help,
-                  title: 'Help Center',
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const HelpCenterScreen()),
-                    );
-                  },
-                ),
+                    leadingIcon: Icons.support_agent,
+                    title: 'Customer service',
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const CustomerServiceScreen()));
+                    }),
                 ProfileRow(
                   leadingIcon: Icons.logout,
                   title: 'Logout',

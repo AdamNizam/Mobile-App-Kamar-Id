@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
-import 'no_messages.dart';
 
 class ChattingMessage extends StatelessWidget {
   const ChattingMessage({super.key});
@@ -22,16 +22,19 @@ class ChattingMessage extends StatelessWidget {
         ),
         title: Row(
           children: [
-            Image.asset('images/c3.png', width: 40), // Image for hotel guest
+            Image.asset('images/c3.png', width: 30), // Image for hotel guest
             const SizedBox(width: 10),
             const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text1(
-                  text1: 'Hotel Guest', // Placeholder for the guest's name
+                  text1:
+                      'Admin Pandu Home Stay', // Placeholder for the guest's name
                 ),
                 Text2(
-                  text2: 'Online', // Placeholder for online status
+                  text2: 'Online',
+                  size: 12,
+                  color: AppColors.green, // Placeholder for online status
                 ),
               ],
             ),
@@ -40,13 +43,13 @@ class ChattingMessage extends StatelessWidget {
               children: [
                 Icon(
                   Icons.call,
-                  color: AppColors.text3Color,
+                  color: AppColors.buttonColor,
                   size: 16,
                 ),
                 SizedBox(width: 8),
                 Icon(
                   Icons.video_call,
-                  color: AppColors.text3Color,
+                  color: AppColors.buttonColor,
                   size: 20,
                 ),
               ],
@@ -126,11 +129,15 @@ class ChatBody extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: 'Type your message...',
                     filled: true,
-                    fillColor: Colors.grey.shade200,
-                    suffixIcon: const Icon(Icons.attach_file,
-                        color: AppColors.text3Color),
+                    fillColor: AppColors.white,
+                    suffixIcon: const Icon(
+                      Icons.attach_file,
+                      color: AppColors.redAwesome,
+                    ),
                     contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
+                      vertical: 10,
+                      horizontal: 20,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25),
                       borderSide: BorderSide.none,
@@ -140,15 +147,14 @@ class ChatBody extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               CircleAvatar(
-                backgroundColor: AppColors.tabColor,
+                backgroundColor: AppColors.buttonColor,
                 child: IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const NoMessages()));
+                    showCustomSnackbar(context, 'fitur is not available');
                   },
                   icon: const Icon(
                     Icons.send,
-                    color: Colors.white,
+                    color: AppColors.white,
                     size: 20,
                   ),
                 ),
@@ -189,7 +195,10 @@ class ChatBubble extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
               decoration: BoxDecoration(
-                color: isSender ? Colors.blue[50] : Colors.grey[100],
+                color: isSender ? AppColors.buttonColor : AppColors.white,
+                border: Border.all(
+                  color: AppColors.beauBlue,
+                ),
                 borderRadius: isSender
                     ? const BorderRadius.only(
                         topLeft: Radius.circular(20),
@@ -202,9 +211,11 @@ class ChatBubble extends StatelessWidget {
                         bottomRight: Radius.circular(20),
                       ),
               ),
-              child: Text(
-                text,
-                style: const TextStyle(color: Colors.black),
+              child: Text1(
+                text1: text,
+                size: 14,
+                color: isSender ? AppColors.white : AppColors.black,
+                fontWeight: FontWeight.w400,
               ),
             ),
           if (isVoiceMessage)
@@ -256,7 +267,7 @@ class ChatBubble extends StatelessWidget {
           ),
           Text(
             time,
-            style: const TextStyle(color: Colors.grey, fontSize: 12),
+            style: const TextStyle(color: AppColors.cadetGray, fontSize: 12),
           ),
         ],
       ),
