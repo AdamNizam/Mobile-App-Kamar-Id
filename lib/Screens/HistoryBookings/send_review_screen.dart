@@ -10,9 +10,9 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../CustomButton/custombtn.dart';
-import '../CustomText/detailstext1.dart';
-import '../CustomText/detailstext2.dart';
+import '../../CustomWidgets/CustomButton/custombtn.dart';
+import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/detailstext2.dart';
 
 class SendReviewScreen extends StatefulWidget {
   final DataHistory dataHistory;
