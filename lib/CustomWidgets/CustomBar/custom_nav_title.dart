@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CustomNavTitle extends StatelessWidget {
@@ -37,18 +37,13 @@ class CustomNavTitle extends StatelessWidget {
           // Title berada di tengah
           Expanded(
             child: Center(
-              child: Text(
-                title,
-                style: GoogleFonts.poppins(
-                  color: color,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: CustomTextEllipsis(
+                text: title,
+                color: color,
+                size: 16,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ),
-          const SizedBox(
-            width: 10,
           ),
         ],
       ),

@@ -24,10 +24,8 @@ class RoomDetailsScreen extends StatefulWidget {
   final RowData dataHotel;
   final DateTime checkIn;
   final DateTime checkOut;
-  final int room;
   final int adult;
   final int child;
-  final int priceRoom;
 
   const RoomDetailsScreen({
     super.key,
@@ -35,10 +33,8 @@ class RoomDetailsScreen extends StatefulWidget {
     required this.dataHotel,
     required this.checkIn,
     required this.checkOut,
-    required this.room,
     required this.adult,
     required this.child,
-    required this.priceRoom,
   });
 
   @override
@@ -323,10 +319,10 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             checkIn: widget.checkIn,
                             checkOut: widget.checkOut,
                             roomType: widget.dataRoom.title!,
-                            room: widget.room,
+                            room: numberSelected,
                             adult: widget.adult,
                             child: widget.child,
-                            pricePerNight: widget.priceRoom,
+                            pricePerNight: widget.dataRoom.priceText,
                             totalAmount: selectedPrice,
                             orderId: state.data.bookingCode,
                           ),

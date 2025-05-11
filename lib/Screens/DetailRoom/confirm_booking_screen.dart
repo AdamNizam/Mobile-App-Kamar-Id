@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_loading.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
@@ -22,10 +23,10 @@ class ConfirmBookingScreen extends StatefulWidget {
   final DateTime checkIn;
   final DateTime checkOut;
   final String roomType;
-  final int room;
+  final String room;
   final int adult;
   final int child;
-  final int pricePerNight;
+  final String pricePerNight;
   final String totalAmount;
   final String orderId;
 
@@ -57,6 +58,11 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
         }
         if (userState is UserSuccess) {
           return Scaffold(
+            appBar: const CustomAppTopBar(
+              title: 'Confirm booking',
+              icon: Icons.more_vert_rounded,
+              iconColor: AppColors.buttonColor,
+            ),
             body: SafeArea(
               child: Padding(
                 padding:
@@ -65,34 +71,6 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: AppColors.white,
-                            child: Center(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  color: AppColors.tabColor,
-                                  size: 20,
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 50),
-                          const CustomTextOverflow(
-                            text: 'Confirmation Hotel',
-                            size: 16,
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 23),
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -145,7 +123,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     const SizedBox(width: 3),
                                     CustomTextOverflow(
                                       text: widget.dataHotel.address ??
-                                          'No address',
+                                          'No information',
                                       fontWeight: FontWeight.w400,
                                       color: AppColors.cadetGray,
                                       size: 12,
@@ -192,7 +170,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             ),
                             _detailRow(
                               'Price per Night',
-                              'Rp${formatToRp(widget.pricePerNight)}',
+                              widget.pricePerNight,
                             ),
                             _detailRow(
                               'Total Amount',

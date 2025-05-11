@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
@@ -126,12 +127,15 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             );
           }
           return Scaffold(
+            appBar: const CustomAppTopBar(
+                title: 'Payment Method',
+                icon: Icons.more_vert,
+                iconColor: AppColors.buttonColor),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50),
                   const Text1(
                     text1: "Bank Transfer",
                     size: 16,
@@ -264,6 +268,12 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     return Card(
       color: AppColors.white,
       elevation: 0,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: AppColors.beauBlue,
+        ),
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: RadioListTile<String>(
         value: bankKey,
         activeColor: AppColors.buttonColor,
@@ -299,6 +309,12 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     return Card(
       color: AppColors.white,
       elevation: 0,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: AppColors.beauBlue,
+        ),
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: RadioListTile<String>(
         value: type,
         activeColor: AppColors.buttonColor,
@@ -330,6 +346,12 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
     return Card(
       color: AppColors.white,
       elevation: 0,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(
+          color: AppColors.beauBlue,
+        ),
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: RadioListTile<String>(
         value: name,
         activeColor: AppColors.buttonColor,

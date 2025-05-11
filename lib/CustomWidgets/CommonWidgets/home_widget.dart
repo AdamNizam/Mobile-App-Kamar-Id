@@ -87,13 +87,13 @@ class _HomeWidgteState extends State<HomeWidgte> {
                     clipBehavior: Clip.none,
                     children: [
                       const Icon(
-                        Icons.notifications,
+                        Icons.notifications_active,
                         color: AppColors.buttonColor,
                         size: 26,
                       ),
                       Positioned(
                         right: -2,
-                        top: -5,
+                        top: -4,
                         child: Container(
                           padding: const EdgeInsets.all(4),
                           decoration: const BoxDecoration(
@@ -104,7 +104,7 @@ class _HomeWidgteState extends State<HomeWidgte> {
                             totalNotification.toString(),
                             style: const TextStyle(
                               color: AppColors.white,
-                              fontSize: 7,
+                              fontSize: 6,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

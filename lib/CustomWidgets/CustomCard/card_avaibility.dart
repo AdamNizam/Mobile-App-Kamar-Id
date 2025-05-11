@@ -13,7 +13,7 @@ class CardAvailbility extends StatefulWidget {
   final RowData dataHotel;
   final DateTime checkInDate;
   final DateTime checkOutDate;
-  final int room;
+
   final int adult;
   final int child;
 
@@ -23,7 +23,6 @@ class CardAvailbility extends StatefulWidget {
     required this.dataHotel,
     required this.checkInDate,
     required this.checkOutDate,
-    required this.room,
     required this.adult,
     required this.child,
   });
@@ -53,10 +52,8 @@ class CardAvailbilityState extends State<CardAvailbility> {
               dataHotel: widget.dataHotel,
               checkIn: widget.checkInDate,
               checkOut: widget.checkOutDate,
-              room: widget.room,
               adult: widget.adult,
               child: widget.child,
-              priceRoom: widget.dataRoom.price,
             ),
           ),
         );

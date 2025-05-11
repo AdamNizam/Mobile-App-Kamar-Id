@@ -13,7 +13,7 @@ class CustomButtonLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.amberColor,
         borderRadius: BorderRadius.circular(14),

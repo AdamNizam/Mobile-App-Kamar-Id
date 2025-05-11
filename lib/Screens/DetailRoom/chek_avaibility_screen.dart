@@ -275,7 +275,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                 dataHotel: widget.dataHotel,
                                 checkInDate: checkInDate!,
                                 checkOutDate: checkOutDate!,
-                                room: room,
                                 adult: adult,
                                 child: child,
                               ),
