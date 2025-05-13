@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../Themes/colors.dart';
 import '../Profile/change_password.dart';
 
@@ -14,7 +13,6 @@ class SettingsScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
           children: [
-            const CustomAppBar(text: 'Settings', text1: ''),
             const SizedBox(
               height: 20,
             ),

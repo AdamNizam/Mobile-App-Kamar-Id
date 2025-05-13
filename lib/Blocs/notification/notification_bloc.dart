@@ -9,7 +9,7 @@ part 'notification_state.dart';
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   NotificationBloc() : super(NotificationInitial()) {
     on<NotificationEvent>((event, emit) async {
-      if (event is PostNotication) {
+      if (event is PostNotificationUnred) {
         try {
           emit(NotificationLoading());
 
@@ -18,7 +18,21 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
           emit(NotificationSuccess(data));
         } catch (error) {
-          print('Notication error : $error');
+          print('Notication Unred error : $error');
+          emit(const NotificationFailed('Notification Failed!'));
+        }
+      }
+
+      if (event is PostNotificationRead) {
+        try {
+          emit(NotificationLoading());
+
+          final data =
+              await NotificationService().loadNotify(event.dataRequest);
+
+          emit(NotificationSuccess(data));
+        } catch (error) {
+          print('Notication Unred error : $error');
           emit(const NotificationFailed('Notification Failed!'));
         }
       }

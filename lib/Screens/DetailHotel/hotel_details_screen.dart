@@ -12,7 +12,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
-import 'package:hotelbookingapp/Screens/DetailRoom/chek_avaibility_screen.dart';
+import 'package:hotelbookingapp/Screens/DetailRoom/check_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';

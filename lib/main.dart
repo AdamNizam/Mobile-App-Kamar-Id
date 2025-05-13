@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) =>
-                NotificationBloc()..add(const PostNotication('unread')),
+                NotificationBloc()..add(const PostNotificationUnred('unread')),
           ),
           BlocProvider(
             create: (context) => WishlistBloc(),

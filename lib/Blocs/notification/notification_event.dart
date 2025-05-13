@@ -7,10 +7,19 @@ sealed class NotificationEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PostNotication extends NotificationEvent {
+class PostNotificationUnred extends NotificationEvent {
   final String dataRequest;
 
-  const PostNotication(this.dataRequest);
+  const PostNotificationUnred(this.dataRequest);
+
+  @override
+  List<Object> get props => [dataRequest];
+}
+
+class PostNotificationRead extends NotificationEvent {
+  final String dataRequest;
+
+  const PostNotificationRead(this.dataRequest);
 
   @override
   List<Object> get props => [dataRequest];
