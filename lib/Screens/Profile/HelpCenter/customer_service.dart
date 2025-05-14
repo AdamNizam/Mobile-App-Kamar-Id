@@ -219,10 +219,15 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppTopBar(
+      appBar: CustomAppTopBar(
         title: 'Customer Serice',
         icon: Icons.support_agent,
-        iconColor: AppColors.buttonColor,
+        onPop: () {
+          Navigator.pop(context);
+        },
+        onTap: () {
+          showCustomSnackbar(context, 'fitur is not avaibale');
+        },
       ),
       body: Column(
         children: [

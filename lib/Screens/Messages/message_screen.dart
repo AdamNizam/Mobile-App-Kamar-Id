@@ -5,15 +5,23 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key});
+  final VoidCallback? onBack;
+  const MessageScreen({super.key, this.onBack});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppTopBar(
+      appBar: CustomAppTopBar(
         title: 'Message',
         icon: Icons.more_vert,
-        iconColor: AppColors.buttonColor,
+        onPop: () {
+          if (onBack != null) {
+            onBack!();
+          }
+        },
+        onTap: () {
+          showCustomSnackbar(context, 'fitur is not avaibale');
+        },
       ),
       body: Column(
         children: [

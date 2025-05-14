@@ -17,13 +17,31 @@ class BottomNavigationHome extends StatefulWidget {
 class _BottomNavigationHomeState extends State<BottomNavigationHome> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    const MyBookingsScreen(),
-    const MessageScreen(),
-    const FavoriteHotels(),
-    const ProfileScreen(),
-  ];
+  List<Widget> get _pages => [
+        const HomePage(),
+        MyBookingsScreen(
+          onBack: () {
+            setState(() {
+              _selectedIndex = 0;
+            });
+          },
+        ),
+        MessageScreen(
+          onBack: () {
+            setState(() {
+              _selectedIndex = 0;
+            });
+          },
+        ),
+        FavoriteHotels(
+          onBack: () {
+            setState(() {
+              _selectedIndex = 0;
+            });
+          },
+        ),
+        const ProfileScreen(),
+      ];
 
   void _onItemTapped(int index) {
     setState(() {

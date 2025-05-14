@@ -10,7 +10,9 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FavoriteHotels extends StatefulWidget {
-  const FavoriteHotels({super.key});
+  final VoidCallback? onBack;
+
+  const FavoriteHotels({super.key, this.onBack});
 
   @override
   FavoriteHotelsState createState() => FavoriteHotelsState();
@@ -58,10 +60,17 @@ class FavoriteHotelsState extends State<FavoriteHotels>
           }
           return Scaffold(
             extendBodyBehindAppBar: true,
-            appBar: const CustomAppTopBar(
+            appBar: CustomAppTopBar(
               title: 'Wishlist Hotel',
               icon: Icons.favorite_border,
-              iconColor: AppColors.redAwesome,
+              onPop: () {
+                if (widget.onBack != null) {
+                  widget.onBack!();
+                }
+              },
+              onTap: () {
+                showCustomSnackbar(context, 'fitur is not avaibale');
+              },
             ),
             body: SafeArea(
               child: Padding(

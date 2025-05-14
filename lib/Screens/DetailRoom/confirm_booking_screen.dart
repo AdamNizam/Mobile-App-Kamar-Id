@@ -58,10 +58,15 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
         }
         if (userState is UserSuccess) {
           return Scaffold(
-            appBar: const CustomAppTopBar(
+            appBar: CustomAppTopBar(
               title: 'Confirm booking',
               icon: Icons.more_vert_rounded,
-              iconColor: AppColors.buttonColor,
+              onPop: () {
+                Navigator.pop(context);
+              },
+              onTap: () {
+                showCustomSnackbar(context, 'fitur is not avaibale');
+              },
             ),
             body: SafeArea(
               child: Padding(

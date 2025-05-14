@@ -127,10 +127,16 @@ class _MidtransPaymentPageState extends State<MidtransPaymentPage> {
             );
           }
           return Scaffold(
-            appBar: const CustomAppTopBar(
-                title: 'Payment Method',
-                icon: Icons.more_vert,
-                iconColor: AppColors.buttonColor),
+            appBar: CustomAppTopBar(
+              title: 'Payment Method',
+              icon: Icons.more_vert,
+              onPop: () {
+                Navigator.pop(context);
+              },
+              onTap: () {
+                showCustomSnackbar(context, 'fitur is not avaibale');
+              },
+            ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(

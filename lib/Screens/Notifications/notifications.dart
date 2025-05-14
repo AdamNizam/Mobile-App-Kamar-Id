@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_notification.dart'
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart'; // Import NotificationCard
 
 class BookingNotifications extends StatefulWidget {
@@ -25,8 +26,12 @@ class _BookingNotificationsState extends State<BookingNotifications> {
       appBar: CustomAppTopBar(
         title: 'Notification',
         icon: Icons.notifications_active,
-        iconColor: AppColors.buttonColor,
-        total: widget.unreadData.total,
+        onPop: () {
+          Navigator.pop(context);
+        },
+        onTap: () {
+          showCustomSnackbar(context, 'fitur is not avaibale');
+        },
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, kToolbarHeight + 32, 16, 14),

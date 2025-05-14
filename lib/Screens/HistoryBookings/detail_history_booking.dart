@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class BookingDetailPage extends StatelessWidget {
@@ -12,10 +13,15 @@ class BookingDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppTopBar(
+      appBar: CustomAppTopBar(
         title: 'Booking Detail',
         icon: Icons.more_vert,
-        iconColor: AppColors.buttonColor,
+        onPop: () {
+          Navigator.pop(context);
+        },
+        onTap: () {
+          showCustomSnackbar(context, 'fitur is not avaibale');
+        },
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(14),

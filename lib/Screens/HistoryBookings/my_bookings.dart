@@ -3,25 +3,34 @@ import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 import 'cancelled_bookings.dart';
 import 'completed_bookings.dart';
 
 class MyBookingsScreen extends StatelessWidget {
-  const MyBookingsScreen({super.key});
+  final VoidCallback? onBack;
+  const MyBookingsScreen({super.key, this.onBack});
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 6,
       child: Scaffold(
         appBar: CustomAppTopBar(
           title: 'History Booking',
           icon: Icons.more_vert,
-          iconColor: AppColors.buttonColor,
+          onPop: () {
+            if (onBack != null) {
+              onBack!();
+            }
+          },
+          onTap: () {
+            showCustomSnackbar(context, 'fitur is not avaibale');
+          },
         ),
-        body: SafeArea(
+        body: const SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 12,

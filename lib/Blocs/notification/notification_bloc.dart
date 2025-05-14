@@ -14,7 +14,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           emit(NotificationLoading());
 
           final unreadData =
-              await NotificationService().loadNotifyUnread(event.dataRequest);
+              await NotificationService().loadNotify(event.dataRequest);
 
           emit(NotificationSuccess(unreadData));
         } catch (error) {
