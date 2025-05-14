@@ -35,14 +35,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
   final PageController _pageController = PageController();
   String selectedImage = '';
 
-  final List<String> _imageUrls = [
-    'https://picsum.photos/800/400?random=1',
-    'https://picsum.photos/800/400?random=2',
-    'https://picsum.photos/800/400?random=3',
-    'https://picsum.photos/800/400?random=4',
-    'https://picsum.photos/800/400?random=5',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -159,7 +151,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   child: Center(
                                     child: SmoothPageIndicator(
                                       controller: _pageController,
-                                      count: _imageUrls.length,
+                                      count: state.data.gallery!.length,
                                       effect: ExpandingDotsEffect(
                                         dotHeight: 8,
                                         dotWidth: 8,

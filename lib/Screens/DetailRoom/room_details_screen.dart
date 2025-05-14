@@ -74,14 +74,6 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     );
   }
 
-  final List<String> _imageUrls = [
-    'https://picsum.photos/800/400?random=1',
-    'https://picsum.photos/800/400?random=2',
-    'https://picsum.photos/800/400?random=3',
-    'https://picsum.photos/800/400?random=4',
-    'https://picsum.photos/800/400?random=5',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,26 +88,57 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                     Stack(
                       children: [
                         SizedBox(
-                          height: 250,
+                          height: 260,
                           width: double.infinity,
-                          child: PageView.builder(
-                            controller: _pageController,
-                            itemCount: _imageUrls.length,
-                            itemBuilder: (context, index) {
-                              return ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(15),
-                                  bottomRight: Radius.circular(15),
+                          child: (widget.dataRoom.gallery == null ||
+                                  widget.dataRoom.gallery!.isEmpty)
+                              ? const Center(
+                                  child: Icon(
+                                    Icons.image_not_supported,
+                                    size: 150,
+                                    color: AppColors.beauBlue,
+                                  ),
+                                )
+                              : PageView.builder(
+                                  controller: _pageController,
+                                  itemCount: widget.dataRoom.gallery!.length,
+                                  itemBuilder: (context, index) {
+                                    final large =
+                                        widget.dataRoom.gallery![index].large;
+                                    final imageUrl = large;
+
+                                    return ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(15),
+                                        bottomRight: Radius.circular(15),
+                                      ),
+                                      child: imageUrl.isNotEmpty
+                                          ? Image.network(
+                                              imageUrl,
+                                              height: 260,
+                                              width: double.infinity,
+                                              fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return const Center(
+                                                  child: Icon(
+                                                    Icons.broken_image,
+                                                    size: 150,
+                                                    color: AppColors.beauBlue,
+                                                  ),
+                                                );
+                                              },
+                                            )
+                                          : const Center(
+                                              child: Icon(
+                                                Icons.image_not_supported,
+                                                size: 150,
+                                                color: AppColors.beauBlue,
+                                              ),
+                                            ),
+                                    );
+                                  },
                                 ),
-                                child: Image.network(
-                                  _imageUrls[index],
-                                  height: 250,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            },
-                          ),
                         ),
                         Positioned(
                           top: 15,
@@ -138,40 +161,40 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                                 size: 20,
                                 onTap: () {
                                   showCustomSnackbar(
-                                      context, 'fiture is not availabe');
+                                      context, 'fiture is not available');
                                 },
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
+                              const SizedBox(width: 5),
                               CustomButtonIcon(
                                 icon: Icons.more_vert,
                                 size: 20,
                                 onTap: () {
                                   showCustomSnackbar(
-                                      context, 'fiture is not availabe');
+                                      context, 'fiture is not available');
                                 },
                               ),
                             ],
                           ),
                         ),
-                        Positioned(
-                          bottom: 16,
-                          left: 0,
-                          right: 0,
-                          child: Center(
-                            child: SmoothPageIndicator(
-                              controller: _pageController,
-                              count: _imageUrls.length,
-                              effect: ExpandingDotsEffect(
-                                dotHeight: 8,
-                                dotWidth: 8,
-                                activeDotColor: AppColors.white,
-                                dotColor: AppColors.beauBlue.withOpacity(0.5),
+                        if (widget.dataRoom.gallery != null &&
+                            widget.dataRoom.gallery!.isNotEmpty)
+                          Positioned(
+                            bottom: 16,
+                            left: 0,
+                            right: 0,
+                            child: Center(
+                              child: SmoothPageIndicator(
+                                controller: _pageController,
+                                count: widget.dataRoom.gallery!.length,
+                                effect: ExpandingDotsEffect(
+                                  dotHeight: 8,
+                                  dotWidth: 8,
+                                  activeDotColor: AppColors.white,
+                                  dotColor: AppColors.beauBlue.withOpacity(0.5),
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                     Padding(
@@ -185,15 +208,18 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             fontWeight: FontWeight.w600,
                             color: AppColors.black,
                           ),
-                          const SizedBox(height: 8),
-                          CustomTextOverflow(
-                            text:
-                                ' ${widget.dataRoom.id} -- $numberSelected -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
-                            size: 13,
-                          ),
+
+                          // const SizedBox(height: 8),
+                          // CustomTextOverflow(
+                          //   text:
+                          //       ' ${widget.dataRoom.id} -- $numberSelected -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
+                          //   size: 13,
+                          // ),
+
                           const SizedBox(height: 10),
-                          const CustomTextOverflow(
-                            text: 'Facilities Room',
+                          CustomTextOverflow(
+                            text: widget.dataRoom.terms?.the8.parent.title ??
+                                'no information',
                             size: 16,
                             fontWeight: FontWeight.w600,
                             color: AppColors.black,
@@ -203,11 +229,13 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                             spacing: 12,
                             runSpacing: 12,
                             children: widget.dataRoom.terms!.the8.child
-                                .map((facilitiesRoom) => FacilityIconItem(
-                                      icon: facilitiesRoom.icon,
-                                      color: AppColors.buttonColor,
-                                      title: facilitiesRoom.title,
-                                    ))
+                                .map(
+                                  (facilitiesRoom) => FacilityIconItem(
+                                    icon: facilitiesRoom.icon,
+                                    color: AppColors.buttonColor,
+                                    title: facilitiesRoom.title,
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ],

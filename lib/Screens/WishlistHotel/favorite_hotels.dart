@@ -58,11 +58,10 @@ class FavoriteHotelsState extends State<FavoriteHotels>
           }
           return Scaffold(
             extendBodyBehindAppBar: true,
-            appBar: CustomAppTopBar(
+            appBar: const CustomAppTopBar(
               title: 'Wishlist Hotel',
               icon: Icons.favorite_border,
               iconColor: AppColors.redAwesome,
-              total: totalWishlist,
             ),
             body: SafeArea(
               child: Padding(

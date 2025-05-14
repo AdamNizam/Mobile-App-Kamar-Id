@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_notification.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
-import 'package:hotelbookingapp/Themes/colors.dart';
-
-import '../../CustomWidgets/CustomCard/card_notification.dart'; // Import NotificationCard
+import 'package:hotelbookingapp/Themes/colors.dart'; // Import NotificationCard
 
 class BookingNotifications extends StatefulWidget {
   final RowsNotif unreadData;
@@ -32,46 +31,63 @@ class _BookingNotificationsState extends State<BookingNotifications> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, kToolbarHeight + 32, 16, 14),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            if (widget.unreadData.dataNotif.isNotEmpty)
-              Column(
-                children: widget.unreadData.dataNotif
-                    .map(
-                      (dataNotif) => NotificationCard(
-                        icon: Icons.notifications_active,
-                        iconColor: AppColors.buttonColor,
-                        iconBackgroundColor: Colors.blue.shade100,
-                        title: dataNotif.data.notification.name,
-                        content: dataNotif.data.notification.message,
-                        date: '${formatDateToYMD(dataNotif.createdAt)}',
-                        isRead: false,
-                      ),
-                    )
-                    .toList(),
-              ),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text1(
-                  text1: 'Read message',
+                const Text1(
+                  text1: 'Unread message',
                   size: 13,
                   color: AppColors.cadetGray,
                 ),
-                SizedBox(height: 2),
-                Divider(color: AppColors.strokColor, thickness: 1),
-                NotificationCard(
-                  icon: Icons.notifications_off,
-                  iconColor: AppColors.cadetGray,
-                  iconBackgroundColor: AppColors.bgColor,
-                  title: 'Booking Completed',
-                  content: 'Your booking is now completed.',
-                  date: '2025-04-20',
-                  isRead: true,
-                ),
+                const SizedBox(height: 2),
+                const Divider(color: AppColors.strokColor, thickness: 1),
+                if (widget.unreadData.dataNotif.isNotEmpty)
+                  Column(
+                    children: widget.unreadData.dataNotif
+                        .map(
+                          (dataNotif) => NotificationCard(
+                            icon: Icons.notifications_active,
+                            iconColor: AppColors.buttonColor,
+                            iconBackgroundColor: Colors.blue.shade100,
+                            title: dataNotif.data.notification.name,
+                            content: dataNotif.data.notification.message,
+                            date: '${formatDateToYMD(dataNotif.createdAt)}',
+                            isRead: false,
+                          ),
+                        )
+                        .toList(),
+                  ),
               ],
             ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     const Text1(
+            //       text1: 'Read message',
+            //       size: 13,
+            //       color: AppColors.cadetGray,
+            //     ),
+            //     const SizedBox(height: 2),
+            //     const Divider(color: AppColors.strokColor, thickness: 1),
+            //     Column(
+            //       children: widget.readData.dataNotif
+            //           .map(
+            //             (dataNotif) => NotificationCard(
+            //               icon: Icons.notifications_off,
+            //               iconColor: AppColors.cadetGray,
+            //               iconBackgroundColor: AppColors.bgColor,
+            //               title: dataNotif.data.notification.name,
+            //               content: dataNotif.data.notification.message,
+            //               date: '${formatDateToYMD(dataNotif.createdAt)}',
+            //               isRead: true,
+            //             ),
+            //           )
+            //           .toList(),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

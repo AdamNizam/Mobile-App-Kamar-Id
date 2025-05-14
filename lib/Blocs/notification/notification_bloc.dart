@@ -13,29 +13,29 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         try {
           emit(NotificationLoading());
 
-          final data =
-              await NotificationService().loadNotify(event.dataRequest);
+          final unreadData =
+              await NotificationService().loadNotifyUnread(event.dataRequest);
 
-          emit(NotificationSuccess(data));
+          emit(NotificationSuccess(unreadData));
         } catch (error) {
           print('Notication Unred error : $error');
           emit(const NotificationFailed('Notification Failed!'));
         }
       }
 
-      if (event is PostNotificationRead) {
-        try {
-          emit(NotificationLoading());
+      // if (event is PostNotificationRead) {
+      //   try {
+      //     emit(NotificationLoading());
 
-          final data =
-              await NotificationService().loadNotify(event.dataRequest);
+      //     final readData =
+      //         await NotificationService().loadNotifyRead(event.dataRequest);
 
-          emit(NotificationSuccess(data));
-        } catch (error) {
-          print('Notication Unred error : $error');
-          emit(const NotificationFailed('Notification Failed!'));
-        }
-      }
+      //     emit(NotificationSuccess(readData));
+      //   } catch (error) {
+      //     print('Notication Unred error : $error');
+      //     emit(const NotificationFailed('Notification Failed!'));
+      //   }
+      // }
     });
   }
 }

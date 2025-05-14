@@ -21,10 +21,10 @@ final class NotificationFailed extends NotificationState {
 }
 
 final class NotificationSuccess extends NotificationState {
-  final ResultNotification data;
+  final ResultNotification unreadData;
 
-  const NotificationSuccess(this.data);
+  const NotificationSuccess(this.unreadData);
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [unreadData];
 }

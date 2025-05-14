@@ -63,7 +63,7 @@ class _HomeWidgteState extends State<HomeWidgte> {
             if (state is NotificationSuccess) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 setState(() {
-                  totalNotification = state.data.rows.total;
+                  totalNotification = state.unreadData.rows.total;
                 });
               });
               return GestureDetector(
@@ -72,7 +72,7 @@ class _HomeWidgteState extends State<HomeWidgte> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BookingNotifications(
-                        unreadData: state.data.rows,
+                        unreadData: state.unreadData.rows,
                       ),
                     ),
                   );

@@ -92,7 +92,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                           child: Hero(
                             tag: data.id,
                             child: Image.network(
-                              'https://picsum.photos/400/300?random=100',
+                              data.image ?? 'https://picsum.photos/400/300',
                               fit: BoxFit.cover,
                               width: 120,
                               height: 120,

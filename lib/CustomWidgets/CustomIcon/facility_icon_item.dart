@@ -5,12 +5,12 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 
 class FacilityIconItem extends StatelessWidget {
   final String icon;
-  final Color color;
+  final Color? color;
   final String title;
   const FacilityIconItem({
     super.key,
     required this.icon,
-    required this.color,
+    this.color = AppColors.buttonColor,
     required this.title,
   });
 

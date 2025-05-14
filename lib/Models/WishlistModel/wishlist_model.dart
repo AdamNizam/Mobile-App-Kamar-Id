@@ -73,7 +73,7 @@ class ServiceWishlist {
   final String price;
   final String? salePrice;
   final String? discountPercent;
-  final bool image;
+  final String? image;
   final String? content;
   final Location? location;
   final dynamic isFeatured;
@@ -87,7 +87,7 @@ class ServiceWishlist {
     required this.price,
     required this.salePrice,
     required this.discountPercent,
-    required this.image,
+    required this.image, // <- Sesuaikan di sini juga
     required this.content,
     required this.location,
     required this.isFeatured,
@@ -103,18 +103,18 @@ class ServiceWishlist {
         price: json["price"],
         salePrice: json["sale_price"]?.toString(),
         discountPercent: json["discount_percent"]?.toString(),
-        image: json["image"] ?? false,
+        image: json["image"]?.toString(), // <- Perubahan penting
         content: json["content"],
         location: json["location"] != null
             ? Location.fromJson(json["location"])
             : null,
         isFeatured: json["is_featured"] ?? 0,
-        serviceIcon: json["service_icon"],
+        serviceIcon: json["service_icon"] ?? "",
         reviewScore: json["review_score"] != null
             ? ReviewScore.fromJson(json["review_score"])
             : ReviewScore(
                 scoreTotal: 0, totalReview: 0, reviewText: "Not rated"),
-        serviceType: json["service_type"],
+        serviceType: json["service_type"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

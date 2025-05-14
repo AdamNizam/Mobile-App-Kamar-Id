@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/custom_nav_title.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_avaibility.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_room_selection_modal.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
@@ -223,20 +224,20 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       children: [
-                        Text(
-                          'Available Rooms',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        CustomTextEllipsis(
+                          text: 'Available Rooms',
+                          size: 16,
+                          fontWeight: FontWeight.w500,
                         ),
-                        const SizedBox(height: 2),
-                        const Divider(
-                            color: AppColors.strokColor, thickness: 2),
+                        SizedBox(height: 2),
+                        Divider(
+                          color: AppColors.strokColor,
+                          thickness: 2,
+                        ),
                       ],
                     ),
                   ),
@@ -250,13 +251,11 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                               'images/soldout.svg',
                               height: 250,
                             ),
-                            Text(
-                              "SOLDOUT ROOM",
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.cadetGray,
-                              ),
+                            const CustomTextEllipsis(
+                              text: "SOLDOUT ROOM",
+                              size: 16,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.cadetGray,
                             ),
                           ],
                         ),
@@ -289,19 +288,17 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         children: [
                           SvgPicture.asset(
                             'images/avaibility.svg',
-                            semanticsLabel: 'Acme Logo',
+                            semanticsLabel: 'serach image',
                             width: 150,
                             height: 150,
                             fit: BoxFit.contain,
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            'Search your room',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
+                          const CustomTextEllipsis(
+                            text: 'Search your room',
+                            size: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
                           ),
                         ],
                       ),

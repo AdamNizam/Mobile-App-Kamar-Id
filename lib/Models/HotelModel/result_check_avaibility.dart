@@ -40,7 +40,7 @@ class RoomChekAvaibility {
   final int? minDayStays;
   final dynamic image;
   final int? tmpNumber;
-  final List<dynamic>? gallery;
+  final List<Gallery>? gallery;
   final dynamic priceHtml;
   final dynamic priceText;
   final Terms? terms;
@@ -88,7 +88,7 @@ class RoomChekAvaibility {
       image: json["image"],
       tmpNumber: json["tmp_number"] ?? 0,
       gallery: json["gallery"] != null
-          ? List<dynamic>.from(json["gallery"].map((x) => x))
+          ? List<Gallery>.from(json["gallery"].map((x) => Gallery.fromJson(x)))
           : [],
       priceHtml: json["price_html"],
       priceText: json["price_text"],
@@ -121,6 +121,30 @@ class RoomChekAvaibility {
         "term_features": termFeatures != null
             ? List<dynamic>.from(termFeatures!.map((x) => x.toJson()))
             : [],
+      };
+}
+
+class Gallery {
+  final String large;
+  final String thumb;
+
+  Gallery({
+    required this.large,
+    required this.thumb,
+  });
+
+  factory Gallery.fromRawJson(String str) => Gallery.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Gallery.fromJson(Map<String, dynamic> json) => Gallery(
+        large: json["large"],
+        thumb: json["thumb"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "large": large,
+        "thumb": thumb,
       };
 }
 
