@@ -23,8 +23,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthSuccess(userLog));
           } catch (error) {
-            print('failed login : $error');
-            emit(AuthFailed(error.toString()));
+            print('Login failed: $error');
+            emit(const AuthFailed('Login failed'));
           }
         }
 
@@ -36,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthRegSuccess(userReg));
           } catch (error) {
-            // print('error register : ${error}');
+            print('Register failed: $error');
             emit(const AuthFailed('Register failed'));
           }
         }
@@ -54,8 +54,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthSuccess(user));
           } catch (error) {
-            // print('error get current user : $error');
-            emit(const AuthFailed('Authentication Failed'));
+            print('Failed get token: $error');
+            emit(const AuthFailed('Token Failed'));
           }
         }
 
@@ -67,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
             emit(AuthInitial());
           } catch (error) {
-            // print('error logout : $error');
+            print('Logout failed: $error');
             emit(const AuthFailed('Logout Failed'));
           }
         }

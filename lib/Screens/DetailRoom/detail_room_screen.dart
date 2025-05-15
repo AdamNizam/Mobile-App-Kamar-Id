@@ -19,7 +19,7 @@ import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class RoomDetailsScreen extends StatefulWidget {
+class DetailRoomScreen extends StatefulWidget {
   final RoomChekAvaibility dataRoom;
   final RowData dataHotel;
   final DateTime checkIn;
@@ -27,7 +27,7 @@ class RoomDetailsScreen extends StatefulWidget {
   final int adult;
   final int child;
 
-  const RoomDetailsScreen({
+  const DetailRoomScreen({
     super.key,
     required this.dataRoom,
     required this.dataHotel,
@@ -38,10 +38,10 @@ class RoomDetailsScreen extends StatefulWidget {
   });
 
   @override
-  State<RoomDetailsScreen> createState() => _RoomDetailsScreenState();
+  State<DetailRoomScreen> createState() => _DetailRoomScreenState();
 }
 
-class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
+class _DetailRoomScreenState extends State<DetailRoomScreen> {
   final PageController _pageController = PageController();
   final TextEditingController _controller = TextEditingController();
   String selectedPrice = '';

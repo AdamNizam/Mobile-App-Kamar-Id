@@ -54,210 +54,193 @@ class _UserInformationState extends State<UserInformation> {
   }
 
   final Map<String, String> countryList = {
-    "AF": "Afghanistan",
-    "AL": "Albania",
-    "DZ": "Algeria",
-    "AD": "Andorra",
-    "AO": "Angola",
-    "AR": "Argentina",
-    "AU": "Australia",
-    "AT": "Austria",
-    "BE": "Belgium",
-    "BD": "Bangladesh",
-    "BR": "Brazil",
-    "CA": "Canada",
-    "CN": "China",
-    "FR": "France",
-    "DE": "Germany",
     "ID": "Indonesia",
     "IT": "Italy",
-    "JP": "Japan",
-    "MY": "Malaysia",
-    "NL": "Netherlands",
-    "SG": "Singapore",
-    "ES": "Spain",
-    "SE": "Sweden",
-    "CH": "Switzerland",
-    "GB": "United Kingdom",
-    "US": "United States",
   };
-
-  void _saveChanges() {
-    final dataRequest = RequestUserUpdate(
-      businessName: '',
-      userName: fullNameController.text,
-      email: emailController.text,
-      firstName: firstNameController.text,
-      lastName: lastNameController.text,
-      phone: phoneController.text,
-      birthday: '01/01/1970',
-      bio: '',
-      avatarId: '',
-      address: streetAddressController.text,
-      address2: '',
-      city: cityController.text,
-      state: stateController.text,
-      country: selectedCountry!,
-      zipCode: zipCodeController.text,
-    );
-
-    // print('Data Update User ${jsonEncode(dataRequest.toJson())}');
-    context.read<UpdateUserBloc>().add(PostUserUpdateEvent(dataRequest));
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Center(
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage(
-                      'images/user_default_profile.png',
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Center(
-                  child: Text(
-                    fullname ?? '',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.text1Color,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Center(
-                  child: Text(
-                    email ?? '',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: AppColors.text2Color,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                CustomTextField(
-                  icon: Icons.person,
-                  label: 'User Name',
-                  controller: fullNameController,
-                ),
-                CustomTextField(
-                  icon: Icons.person_outline,
-                  label: 'First Name',
-                  controller: firstNameController,
-                ),
-                CustomTextField(
-                  icon: Icons.person_outline,
-                  label: 'Last Name',
-                  controller: lastNameController,
-                ),
-                CustomTextField(
-                  icon: Icons.email,
-                  label: 'Email Address',
-                  controller: emailController,
-                ),
-                CustomTextField(
-                  icon: Icons.phone,
-                  label: 'Phone Number',
-                  controller: phoneController,
-                ),
-                CustomTextField(
-                  icon: Icons.home,
-                  label: 'Street Address',
-                  controller: streetAddressController,
-                ),
-                CustomTextField(
-                  icon: Icons.location_city,
-                  label: 'City',
-                  controller: cityController,
-                ),
-                CustomTextField(
-                  icon: Icons.location_on,
-                  label: 'State',
-                  controller: stateController,
-                ),
-                CustomTextField(
-                  icon: Icons.markunread_mailbox,
-                  label: 'Zip Code',
-                  controller: zipCodeController,
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  height: 50,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: BoxDecoration(
-                    border:
-                        Border.all(color: AppColors.textFormFieldBorderColor),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.public, color: Colors.black54),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          isDense: true,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
-                          ),
-                          value: selectedCountry,
-                          hint: const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Pilih Negara",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          items: countryList.entries.map((entry) {
-                            return DropdownMenuItem<String>(
-                              value: entry.key,
-                              child: Text(
-                                entry.value,
-                                style: const TextStyle(
-                                    fontSize: 14, color: Colors.black54),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedCountry = value;
-                            });
-                          },
-                          dropdownColor: AppColors.white,
-                          icon: const Icon(Icons.arrow_drop_down,
-                              color: Colors.black54),
+    return BlocBuilder<UpdateUserBloc, UpdateUserState>(
+      builder: (context, state) {
+        if (state is UpdateUserSuccess) {}
+        if (state is UpdateUserFailed) {}
+        return Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Center(
+                      child: CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage(
+                          'images/user_default_profile.png',
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Text(
+                        fullname ?? '',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.text1Color,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Center(
+                      child: Text(
+                        email ?? '',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: AppColors.text2Color,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    CustomTextField(
+                      icon: Icons.person,
+                      label: 'User Name',
+                      controller: fullNameController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.person_outline,
+                      label: 'First Name',
+                      controller: firstNameController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.person_outline,
+                      label: 'Last Name',
+                      controller: lastNameController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.email,
+                      label: 'Email Address',
+                      controller: emailController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.phone,
+                      label: 'Phone Number',
+                      controller: phoneController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.home,
+                      label: 'Street Address',
+                      controller: streetAddressController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.location_city,
+                      label: 'City',
+                      controller: cityController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.location_on,
+                      label: 'State',
+                      controller: stateController,
+                    ),
+                    CustomTextField(
+                      icon: Icons.markunread_mailbox,
+                      label: 'Zip Code',
+                      controller: zipCodeController,
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: AppColors.textFormFieldBorderColor),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.public, color: Colors.black54),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: DropdownButtonFormField<String>(
+                              isDense: true,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.zero,
+                              ),
+                              value: selectedCountry,
+                              hint: const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Select Country",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              items: countryList.entries.map((entry) {
+                                return DropdownMenuItem<String>(
+                                  value: entry.key,
+                                  child: Text(
+                                    entry.value,
+                                    style: const TextStyle(
+                                        fontSize: 14, color: Colors.black54),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedCountry = value;
+                                });
+                              },
+                              dropdownColor: AppColors.white,
+                              icon: const Icon(Icons.arrow_drop_down,
+                                  color: Colors.black54),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 25),
+                  ],
                 ),
-                const SizedBox(height: 25),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-        child: CustomButton(
-          text: 'Save changes',
-          onTap: _saveChanges,
-        ),
-      ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+            child: CustomButton(
+              text: 'Save changes',
+              onTap: () {
+                final dataRequest = RequestUserUpdate(
+                  businessName: '',
+                  userName: fullNameController.text,
+                  email: emailController.text,
+                  firstName: firstNameController.text,
+                  lastName: lastNameController.text,
+                  phone: phoneController.text,
+                  birthday: '01/01/1970',
+                  bio: '',
+                  avatarId: '',
+                  address: streetAddressController.text,
+                  address2: '',
+                  city: cityController.text,
+                  state: stateController.text,
+                  country: selectedCountry!,
+                  zipCode: zipCodeController.text,
+                );
+
+                // print('Data Update User ${jsonEncode(dataRequest.toJson())}');
+                context
+                    .read<UpdateUserBloc>()
+                    .add(PostUserUpdateEvent(dataRequest));
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

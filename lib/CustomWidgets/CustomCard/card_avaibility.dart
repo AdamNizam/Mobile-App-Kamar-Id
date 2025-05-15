@@ -5,7 +5,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
-import 'package:hotelbookingapp/Screens/DetailRoom/room_details_screen.dart';
+import 'package:hotelbookingapp/Screens/DetailRoom/detail_room_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CardAvailbility extends StatefulWidget {
@@ -47,7 +47,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RoomDetailsScreen(
+            builder: (context) => DetailRoomScreen(
               dataRoom: widget.dataRoom,
               dataHotel: widget.dataHotel,
               checkIn: widget.checkInDate,
