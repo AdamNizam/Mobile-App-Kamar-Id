@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
@@ -11,36 +10,30 @@ class MessageRegisterSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arguments =
-        ModalRoute.of(context)!.settings.arguments as RegisterResponse?;
-    final String message = (arguments?.message['email'] as List?)?.first ??
-        "Registration Successful!";
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Center(
+              const Center(
                 child: Column(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 55,
                       backgroundColor: AppColors.buttonColor,
                       child:
                           Icon(Icons.check, color: AppColors.white, size: 70),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text1(
                         text1: 'Registration Successful!',
                         size: 25,
                       ),
                     ),
-                    Text2(text2: message),
+                    Text2(text2: 'Please Verified your email'),
                   ],
                 ),
               ),

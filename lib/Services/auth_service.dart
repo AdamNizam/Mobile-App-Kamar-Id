@@ -19,6 +19,8 @@ class AuthService {
         body: jsonEncode(data.toJson()),
       );
 
+      print('Login Response: ${res.body}');
+
       if (res.statusCode == 200) {
         LoginResponse userResultLog = LoginResponse.fromJson(
           jsonDecode(res.body),
@@ -102,6 +104,8 @@ class AuthService {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data.toJson()),
       );
+
+      print('Register User Response: ${res.body}');
 
       if (res.statusCode == 200) {
         return RegisterResponse.fromJson(jsonDecode(res.body));

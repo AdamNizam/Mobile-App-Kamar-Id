@@ -6,7 +6,7 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback onPop;
   final VoidCallback onTap;
-  final IconData icon;
+  final IconData? icon;
 
   const CustomAppTopBar({
     super.key,
