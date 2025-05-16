@@ -59,8 +59,10 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 10),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AllCategoriesScreen()));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const AllCategoriesScreen()),
+                    );
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,14 +78,12 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 9),
                 const CategoriesWidget(),
                 const SizedBox(height: 16),
-                BlocConsumer<HotelBloc, HotelState>(
-                  listener: (context, state) {
-                    if (state is HotelFailed) {
-                      showCustomSnackbar(context, state.error);
+                BlocBuilder<HotelBloc, HotelState>(
+                  builder: (context, hotelState) {
+                    if (hotelState is HotelFailed) {
+                      showCustomSnackbar(context, hotelState.error);
                     }
-                  },
-                  builder: (context, state) {
-                    if (state is HotelSuccess) {
+                    if (hotelState is HotelSuccess) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: state.data.map((hotel) {
+                              children: hotelState.data.map((hotel) {
                                 return HotelsCard1(hotel: hotel);
                               }).toList(),
                             ),
@@ -107,14 +107,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 10.0),
                           Column(
-                            children: state.data.map((hotel) {
+                            children: hotelState.data.map((hotel) {
                               return HotelsCard2(hotel: hotel);
                             }).toList(),
                           ),
                         ],
                       );
                     }
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -141,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     );
                   },
-                )
+                ),
               ],
             ),
           ),

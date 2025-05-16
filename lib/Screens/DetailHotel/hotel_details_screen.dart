@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
@@ -11,7 +10,6 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/check_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
@@ -180,46 +178,29 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                       const Spacer(),
-                                      BlocBuilder<PostWishlistBloc,
-                                          PostWishlistState>(
-                                        builder: (context, stateWishlist) {
-                                          if (stateWishlist
-                                              is PostWishlistLoading) {
-                                            return LoadingAnimationWidget.beat(
-                                              color: AppColors.buttonColor,
-                                              size: 27,
-                                            );
-                                          }
-                                          if (stateWishlist
-                                              is PostWishlistSuccess) {
-                                            return const Icon(
-                                              Icons.favorite,
-                                              color: AppColors.redAwesome,
-                                              size: 30,
-                                            );
-                                          }
-
-                                          return GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<PostWishlistBloc>()
-                                                  .add(
-                                                    PostData(
-                                                      RequestWishlist(
-                                                        objectId: state
-                                                            .data.rowData!.id!,
-                                                      ),
-                                                    ),
-                                                  );
-                                            },
-                                            child: const Icon(
-                                              Icons.favorite_outline,
-                                              color: AppColors.redAwesome,
-                                              size: 26,
+                                      (state.data.rowData!.id != null)
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showCustomSnackbar(context,
+                                                    'fitur is not available');
+                                              },
+                                              child: const Icon(
+                                                Icons.favorite,
+                                                color: AppColors.redAwesome,
+                                                size: 22,
+                                              ),
+                                            )
+                                          : GestureDetector(
+                                              onTap: () {
+                                                showCustomSnackbar(context,
+                                                    'fitur is not available');
+                                              },
+                                              child: const Icon(
+                                                Icons.favorite_outline,
+                                                color: AppColors.redAwesome,
+                                                size: 22,
+                                              ),
                                             ),
-                                          );
-                                        },
-                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 10),

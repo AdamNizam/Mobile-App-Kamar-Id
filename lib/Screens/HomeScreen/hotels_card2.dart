@@ -10,6 +10,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -228,40 +229,34 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                 fontWeight: FontWeight.w600,
                               )),
                               const SizedBox(width: 8), // beri jarak sedikit
-                              BlocBuilder<PostWishlistBloc, PostWishlistState>(
-                                builder: (context, stateWishlist) {
-                                  if (stateWishlist is PostWishlistLoading) {
-                                    return LoadingAnimationWidget.beat(
-                                      color: AppColors.redAwesome,
-                                      size: 27,
-                                    );
-                                  }
-                                  if (stateWishlist is PostWishlistSuccess) {
-                                    return const Icon(
-                                      Icons.favorite,
-                                      color: AppColors.redAwesome,
-                                      size: 22,
-                                    );
-                                  }
-
-                                  return GestureDetector(
-                                    onTap: () {
-                                      context.read<PostWishlistBloc>().add(
-                                            PostData(
-                                              RequestWishlist(
-                                                objectId: widget.hotel.id!,
+                              (widget.hotel.hasWishList != null)
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        showCustomSnackbar(
+                                            context, 'You are added wislist');
+                                      },
+                                      child: const Icon(
+                                        Icons.favorite,
+                                        color: AppColors.redAwesome,
+                                        size: 22,
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        context.read<PostWishlistBloc>().add(
+                                              PostData(
+                                                RequestWishlist(
+                                                  objectId: widget.hotel.id!,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                    },
-                                    child: const Icon(
-                                      Icons.favorite_outline,
-                                      color: AppColors.redAwesome,
-                                      size: 22,
+                                            );
+                                      },
+                                      child: const Icon(
+                                        Icons.favorite_outline,
+                                        color: AppColors.redAwesome,
+                                        size: 22,
+                                      ),
                                     ),
-                                  );
-                                },
-                              ),
                             ],
                           ),
                           const SizedBox(height: 5.0),

@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   NotificationBloc()..add(const PostNotificationUnred('read'))),
           BlocProvider(
-            create: (context) => GetWishlistBloc(),
+            create: (context) => PostWishlistBloc(),
           ),
           BlocProvider(
-            create: (context) => PostWishlistBloc(),
+            create: (context) => GetWishlistBloc()..add(GetData()),
           ),
           BlocProvider(
             create: (context) => UpdateUserBloc(),

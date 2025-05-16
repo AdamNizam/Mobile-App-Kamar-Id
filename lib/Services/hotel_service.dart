@@ -21,6 +21,7 @@ class HotelService {
           'Content-Type': 'application/json',
         },
       );
+      print('Response Get All Hotel:  ${res.body}');
 
       if (res.statusCode == 200) {
         return List<HotelAllModel>.from(
@@ -46,6 +47,8 @@ class HotelService {
           'Content-Type': 'application/json',
         },
       );
+
+      print('Response Get Detail hotel with slug($slug):  ${res.body}');
 
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);

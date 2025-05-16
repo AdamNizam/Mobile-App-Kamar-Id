@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class HotelAllModel {
   final int? id;
   final String? title;
@@ -9,6 +11,7 @@ class HotelAllModel {
   final double? starRate;
   final double? price;
   final double? reviewScore;
+  final HasWishList? hasWishList;
 
   HotelAllModel({
     this.id,
@@ -21,6 +24,7 @@ class HotelAllModel {
     this.isFeatured,
     this.price,
     this.reviewScore,
+    this.hasWishList,
   });
 
   factory HotelAllModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +45,9 @@ class HotelAllModel {
       reviewScore: json['review_score'] != null
           ? double.tryParse(json['review_score'].toString())
           : null,
+      hasWishList: json["has_wish_list"] == null
+          ? null
+          : HasWishList.fromJson(json["has_wish_list"]),
     );
   }
 
@@ -56,6 +63,40 @@ class HotelAllModel {
       'is_featured': isFeatured,
       'price': price,
       'review_score': reviewScore,
+      "has_wish_list": hasWishList,
     };
   }
+}
+
+class HasWishList {
+  final int id;
+  final int objectId;
+  final String objectModel;
+  final int userId;
+
+  HasWishList({
+    required this.id,
+    required this.objectId,
+    required this.objectModel,
+    required this.userId,
+  });
+
+  factory HasWishList.fromRawJson(String str) =>
+      HasWishList.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory HasWishList.fromJson(Map<String, dynamic> json) => HasWishList(
+        id: json["id"],
+        objectId: json["object_id"],
+        objectModel: json["object_model"],
+        userId: json["user_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "object_id": objectId,
+        "object_model": objectModel,
+        "user_id": userId,
+      };
 }

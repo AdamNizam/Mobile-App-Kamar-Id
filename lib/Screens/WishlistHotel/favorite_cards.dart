@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text11.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
@@ -211,18 +209,15 @@ class _FavoriteCardState extends State<FavoriteCard>
                               ],
                             ),
                             const SizedBox(height: 6),
-                            Row(
+                            const Row(
                               children: [
-                                const Icon(Icons.location_on,
+                                Icon(Icons.location_on,
                                     size: 18, color: AppColors.tabColor),
-                                const SizedBox(width: 4),
+                                SizedBox(width: 4),
                                 Expanded(
-                                  child: Text(
-                                    data.location?.name ?? 'No location info',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 13,
-                                      color: AppColors.cadetGray,
-                                    ),
+                                  child: Text1(
+                                    text1: 'no location info',
+                                    size: 13,
                                   ),
                                 ),
                               ],
@@ -234,22 +229,12 @@ class _FavoriteCardState extends State<FavoriteCard>
                             const SizedBox(height: 6),
                             Row(
                               children: [
-                                const Text11(
-                                  text2: '10% Off',
-                                  color: AppColors.buttonColor,
+                                Text1(
+                                  text1: data.price,
+                                  size: 16,
+                                  color: AppColors.tabColor,
                                 ),
-                                const Spacer(),
-                                Row(
-                                  children: [
-                                    Text1(
-                                      text1: data.price,
-                                      size: 16,
-                                      color: AppColors.tabColor,
-                                    ),
-                                    const Text2(text2: '/night'),
-                                  ],
-                                ),
-                                const SizedBox(height: 5)
+                                const Text2(text2: '/night'),
                               ],
                             ),
                           ],
