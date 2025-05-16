@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
@@ -62,8 +63,14 @@ class _UserInformationState extends State<UserInformation> {
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateUserBloc, UpdateUserState>(
       builder: (context, state) {
-        if (state is UpdateUserSuccess) {}
-        if (state is UpdateUserFailed) {}
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (state is UpdateUserSuccess) {
+            showCustomSnackbar(context, 'Update success');
+          }
+          if (state is UpdateUserFailed) {
+            showCustomSnackbar(context, 'update failed');
+          }
+        });
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(

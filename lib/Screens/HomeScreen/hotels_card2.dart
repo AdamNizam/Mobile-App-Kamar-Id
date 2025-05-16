@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
+import 'package:hotelbookingapp/Blocs/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
@@ -228,9 +228,9 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                 fontWeight: FontWeight.w600,
                               )),
                               const SizedBox(width: 8), // beri jarak sedikit
-                              BlocBuilder<WishlistBloc, WishlistState>(
+                              BlocBuilder<PostWishlistBloc, PostWishlistState>(
                                 builder: (context, stateWishlist) {
-                                  if (stateWishlist is WishlistLoading) {
+                                  if (stateWishlist is PostWishlistLoading) {
                                     return LoadingAnimationWidget.beat(
                                       color: AppColors.redAwesome,
                                       size: 27,
@@ -246,8 +246,8 @@ class _HotelsCard2State extends State<HotelsCard2> {
 
                                   return GestureDetector(
                                     onTap: () {
-                                      context.read<WishlistBloc>().add(
-                                            PostWishlistEvent(
+                                      context.read<PostWishlistBloc>().add(
+                                            PostData(
                                               RequestWishlist(
                                                 objectId: widget.hotel.id!,
                                               ),

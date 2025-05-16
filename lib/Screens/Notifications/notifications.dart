@@ -39,10 +39,10 @@ class _BookingNotificationsState extends State<BookingNotifications> {
           children: [
             const SizedBox(height: 16),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text1(
-                  text1: 'Unread message',
+                Text1(
+                  text1: 'Unread message (${widget.unreadData.total})',
                   size: 13,
                   color: AppColors.cadetGray,
                 ),
@@ -70,7 +70,7 @@ class _BookingNotificationsState extends State<BookingNotifications> {
             //   crossAxisAlignment: CrossAxisAlignment.start,
             //   children: [
             //     const Text1(
-            //       text1: 'Read message',
+            //       text1: 'Read message 'Unread message (${widget.readData.total})',',
             //       size: 13,
             //       color: AppColors.cadetGray,
             //     ),

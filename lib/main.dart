@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
+import 'package:hotelbookingapp/Blocs/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
+import 'package:hotelbookingapp/Blocs/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
@@ -16,9 +17,6 @@ import 'package:hotelbookingapp/Screens/HistoryBookings/completed_bookings.dart'
 import 'package:hotelbookingapp/Screens/HomeScreen/Search/search_typing.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
-import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
-import 'package:hotelbookingapp/Screens/Settings/settings_screen.dart';
-import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_hotels.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void main() {
@@ -46,7 +44,10 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   NotificationBloc()..add(const PostNotificationUnred('read'))),
           BlocProvider(
-            create: (context) => WishlistBloc(),
+            create: (context) => GetWishlistBloc(),
+          ),
+          BlocProvider(
+            create: (context) => PostWishlistBloc(),
           ),
           BlocProvider(
             create: (context) => UpdateUserBloc(),
@@ -68,13 +69,10 @@ class MyApp extends StatelessWidget {
             '/register': (context) => const Register(),
             '/home': (context) => const BottomNavigationHome(),
             '/profile': (context) => const ProfileScreen(),
-            '/reviews': (context) => const Reviews(),
             '/categories': (context) => const AllCategoriesScreen(),
-            '/settings': (context) => const SettingsScreen(),
             '/search-typing': (context) => const SearchTyping(),
             '/cancel-booking': (context) => const CancelledBooking(),
             '/completed-booking': (context) => const CompletedBooking(),
-            '/favorite-hotels': (context) => const FavoriteHotels(),
           },
         ));
   }

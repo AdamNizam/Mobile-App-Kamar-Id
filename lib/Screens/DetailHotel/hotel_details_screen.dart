@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
+import 'package:hotelbookingapp/Blocs/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
@@ -180,10 +180,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                       const Spacer(),
-                                      BlocBuilder<WishlistBloc, WishlistState>(
+                                      BlocBuilder<PostWishlistBloc,
+                                          PostWishlistState>(
                                         builder: (context, stateWishlist) {
                                           if (stateWishlist
-                                              is WishlistLoading) {
+                                              is PostWishlistLoading) {
                                             return LoadingAnimationWidget.beat(
                                               color: AppColors.buttonColor,
                                               size: 27,
@@ -200,8 +201,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
                                           return GestureDetector(
                                             onTap: () {
-                                              context.read<WishlistBloc>().add(
-                                                    PostWishlistEvent(
+                                              context
+                                                  .read<PostWishlistBloc>()
+                                                  .add(
+                                                    PostData(
                                                       RequestWishlist(
                                                         objectId: state
                                                             .data.rowData!.id!,

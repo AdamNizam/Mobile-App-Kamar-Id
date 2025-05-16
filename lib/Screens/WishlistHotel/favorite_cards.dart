@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/wishlist_bloc.dart';
+import 'package:hotelbookingapp/Blocs/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text11.dart';
@@ -11,7 +11,6 @@ import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FavoriteCard extends StatefulWidget {
   final ServiceWishlist data;
@@ -182,23 +181,17 @@ class _FavoriteCardState extends State<FavoriteCard>
                                   ),
                                 ),
                                 const SizedBox(width: 6),
-                                BlocBuilder<WishlistBloc, WishlistState>(
+                                BlocBuilder<PostWishlistBloc,
+                                    PostWishlistState>(
                                   builder: (context, stateWishlist) {
-                                    if (stateWishlist is WishlistLoading) {
-                                      return LoadingAnimationWidget
-                                          .staggeredDotsWave(
-                                        color: AppColors.redAwesome,
-                                        size: 22,
-                                      );
-                                    }
                                     if (stateWishlist is PostWishlistSuccess) {
                                       showCustomSnackbar(
                                           context, 'Delete favorite success');
                                     }
                                     return GestureDetector(
                                       onTap: () {
-                                        context.read<WishlistBloc>().add(
-                                              PostWishlistEvent(
+                                        context.read<PostWishlistBloc>().add(
+                                              PostData(
                                                 RequestWishlist(
                                                     objectId: widget.data.id),
                                               ),
