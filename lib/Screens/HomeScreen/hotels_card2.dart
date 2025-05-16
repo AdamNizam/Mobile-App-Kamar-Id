@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_featured.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/start_rating_hotel.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/hotel_image_caraousel.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
@@ -12,7 +15,6 @@ import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_details_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HotelsCard2 extends StatefulWidget {
   final HotelAllModel hotel;
@@ -28,12 +30,14 @@ class _HotelsCard2State extends State<HotelsCard2> {
   int _currentPage = 0;
   Timer? _timer;
 
+  late ValueNotifier<bool> isFavoriteNotifier;
+
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
+    isFavoriteNotifier = ValueNotifier(widget.hotel.hasWishList != null);
 
-    // Pastikan widget sudah terpasang sebelum menjalankan timer
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
@@ -101,113 +105,19 @@ class _HotelsCard2State extends State<HotelsCard2> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: SizedBox(
-                          width: 120,
-                          height: 113,
-                          child: PageView.builder(
-                            controller: _pageController,
-                            itemCount:
-                                _imageUrls.isNotEmpty ? _imageUrls.length : 1,
-                            itemBuilder: (context, index) {
-                              return Image.network(
-                                _imageUrls.isNotEmpty
-                                    ? _imageUrls[index]
-                                    : 'https://via.placeholder.com/190x130',
-                                width: 120,
-                                height: 113,
-                                fit: BoxFit.cover,
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: LoadingAnimationWidget
-                                        .threeArchedCircle(
-                                      color: AppColors.white,
-                                      size: 200,
-                                    ),
-                                  );
-                                },
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Image.asset(
-                                  'images/no-image.jpg',
-                                  fit: BoxFit.cover,
-                                  width: 190,
-                                  height: 130.0,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      // if (widget.hotel.isFeatured == 0)
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          decoration: const BoxDecoration(
-                            color: AppColors.redAwesome,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomRight: Radius.circular(12),
-                            ),
-                          ),
-                          child: const Text1(
-                            text1: 'Featured',
-                            color: AppColors.white,
-                            size: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          width: 50,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: AppColors.amberColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomRight: Radius.circular(12),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Row(
-                                children: List.generate(
-                                  widget.hotel.starRate != null
-                                      ? widget.hotel.starRate!.toInt()
-                                      : 1,
-                                  (index) => const Icon(
-                                    Icons.star,
-                                    size: 15,
-                                    color: AppColors.white,
-                                  ),
-                                ),
-                              ),
-                              Text2(
-                                text2: widget.hotel.reviewScore?.toString() ??
-                                    '0.0',
-                                size: 10,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.white,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                  Stack(children: [
+                    HotelImageCarousel(
+                      pageController: _pageController,
+                      imageUrls: _imageUrls,
+                      width: 120,
+                      height: 113,
+                    ),
+                    StarRatingHotel(
+                      starRate: widget.hotel.starRate?.toInt(),
+                      reviewScore: widget.hotel.reviewScore,
+                    ),
+                    const LabelFeatured()
+                  ]),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Padding(
@@ -229,20 +139,12 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                 fontWeight: FontWeight.w600,
                               )),
                               const SizedBox(width: 8), // beri jarak sedikit
-                              (widget.hotel.hasWishList != null)
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        showCustomSnackbar(
-                                            context, 'You are added wislist');
-                                      },
-                                      child: const Icon(
-                                        Icons.favorite,
-                                        color: AppColors.redAwesome,
-                                        size: 22,
-                                      ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () {
+                              ValueListenableBuilder<bool>(
+                                valueListenable: isFavoriteNotifier,
+                                builder: (context, isFavorite, _) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if (!isFavorite) {
                                         context.read<PostWishlistBloc>().add(
                                               PostData(
                                                 RequestWishlist(
@@ -250,13 +152,24 @@ class _HotelsCard2State extends State<HotelsCard2> {
                                                 ),
                                               ),
                                             );
-                                      },
-                                      child: const Icon(
-                                        Icons.favorite_outline,
-                                        color: AppColors.redAwesome,
-                                        size: 22,
-                                      ),
+                                        isFavoriteNotifier.value = true;
+                                        showCustomSnackbar(context,
+                                            'You are added to wishlist');
+                                      } else {
+                                        showCustomSnackbar(context,
+                                            'You are already in wishlist');
+                                      }
+                                    },
+                                    child: Icon(
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: AppColors.redAwesome,
+                                      size: 22,
                                     ),
+                                  );
+                                },
+                              ),
                             ],
                           ),
                           const SizedBox(height: 5.0),

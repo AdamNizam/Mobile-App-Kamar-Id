@@ -56,7 +56,7 @@ class _UserInformationState extends State<UserInformation> {
 
   final Map<String, String> countryList = {
     "ID": "Indonesia",
-    "IT": "Italy",
+    "Eng": "English",
   };
 
   @override
@@ -65,7 +65,7 @@ class _UserInformationState extends State<UserInformation> {
       builder: (context, state) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (state is UpdateUserSuccess) {
-            showCustomSnackbar(context, 'Update success');
+            showCustomSnackbar(context, state.data.message.userName[0]);
           }
           if (state is UpdateUserFailed) {
             showCustomSnackbar(context, 'update failed');

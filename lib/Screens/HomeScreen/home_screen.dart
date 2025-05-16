@@ -96,7 +96,10 @@ class _HomePageState extends State<HomePage> {
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: hotelState.data.map((hotel) {
-                                return HotelsCard1(hotel: hotel);
+                                return HotelsCard1(
+                                  key: ValueKey(hotel.id),
+                                  hotel: hotel,
+                                );
                               }).toList(),
                             ),
                           ),
@@ -108,7 +111,10 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 10.0),
                           Column(
                             children: hotelState.data.map((hotel) {
-                              return HotelsCard2(hotel: hotel);
+                              return HotelsCard2(
+                                key: ValueKey(hotel.id),
+                                hotel: hotel,
+                              );
                             }).toList(),
                           ),
                         ],

@@ -194,7 +194,8 @@ class _FavoriteCardState extends State<FavoriteCard>
                                         context.read<PostWishlistBloc>().add(
                                               PostData(
                                                 RequestWishlist(
-                                                    objectId: widget.data.id),
+                                                  objectId: widget.data.id,
+                                                ),
                                               ),
                                             );
                                       },

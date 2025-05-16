@@ -53,66 +53,68 @@ class FavoriteHotelsState extends State<FavoriteHotels>
           showCustomSnackbar(context, 'fitur is not avaibale');
         },
       ),
-      body: BlocBuilder<GetWishlistBloc, GetWishlistState>(
-          builder: (context, state) {
-        if (state is GetWishlistFailed) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            showCustomSnackbar(context, state.error);
-          });
-        }
-
-        if (state is GetWishlistLoading) {
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) => const ShimmerList(),
+      body: BlocConsumer<GetWishlistBloc, GetWishlistState>(
+        listener: (context, state) {
+          if (state is GetWishlistFailed) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showCustomSnackbar(context, state.error);
+            });
+          }
+        },
+        builder: (context, state) {
+          if (state is GetWishlistLoading) {
+            return Padding(
+              padding: const EdgeInsets.all(12),
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) => const ShimmerList(),
+              ),
+            );
+          }
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
+              child: (state is GetWishlistSuccess)
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 8),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: state.data.dataWishlist.isNotEmpty
+                                ? Column(
+                                    children:
+                                        state.data.dataWishlist.map((wishlist) {
+                                      return FavoriteCard(
+                                        data: wishlist.service,
+                                      );
+                                    }).toList(),
+                                  )
+                                : Center(
+                                    child: Column(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'images/empty_wishlisht.svg',
+                                          height: 200,
+                                        ),
+                                        const CustomTextEllipsis(
+                                          text: "No favorites added.",
+                                          size: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.cadetGray,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                          ),
+                        )
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ),
           );
-        }
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 14),
-            child: (state is GetWishlistSuccess)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: state.data.dataWishlist.isNotEmpty
-                              ? Column(
-                                  children:
-                                      state.data.dataWishlist.map((wishlist) {
-                                    return FavoriteCard(
-                                      data: wishlist.service,
-                                    );
-                                  }).toList(),
-                                )
-                              : Center(
-                                  child: Column(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'images/empty_wishlisht.svg',
-                                        height: 200,
-                                      ),
-                                      const CustomTextEllipsis(
-                                        text: "No favorites added.",
-                                        size: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.cadetGray,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                        ),
-                      )
-                    ],
-                  )
-                : const SizedBox.shrink(),
-          ),
-        );
-      }),
+        },
+      ),
     );
   }
 }

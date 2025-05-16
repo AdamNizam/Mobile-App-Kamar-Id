@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 class ResultUserUpdate {
-  final dynamic message; // bisa String atau Map
-  final bool status;
+  final int status;
+  final Message message;
 
   ResultUserUpdate({
-    required this.message,
     required this.status,
+    required this.message,
   });
 
   factory ResultUserUpdate.fromRawJson(String str) =>
@@ -16,12 +16,36 @@ class ResultUserUpdate {
 
   factory ResultUserUpdate.fromJson(Map<String, dynamic> json) =>
       ResultUserUpdate(
-        message: json["message"],
-        status: json["status"] == true || json["status"] == 1,
+        status: json["status"],
+        message: Message.fromJson(json["message"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "message": message,
         "status": status,
+        "message": message.toJson(),
+      };
+}
+
+class Message {
+  final List<String> userName;
+  final List<String> phone;
+
+  Message({
+    required this.userName,
+    required this.phone,
+  });
+
+  factory Message.fromRawJson(String str) => Message.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Message.fromJson(Map<String, dynamic> json) => Message(
+        userName: List<String>.from(json["user_name"].map((x) => x)),
+        phone: List<String>.from(json["phone"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "user_name": List<dynamic>.from(userName.map((x) => x)),
+        "phone": List<dynamic>.from(phone.map((x) => x)),
       };
 }
