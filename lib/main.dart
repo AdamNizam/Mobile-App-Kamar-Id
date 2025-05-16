@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
-import 'package:hotelbookingapp/Blocs/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
-import 'package:hotelbookingapp/Blocs/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
-import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';

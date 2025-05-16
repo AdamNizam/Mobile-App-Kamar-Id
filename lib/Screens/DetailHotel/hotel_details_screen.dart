@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/Blocs/post_wishlist/post_wishlist_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';

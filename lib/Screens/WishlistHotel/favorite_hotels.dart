@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotelbookingapp/Blocs/get_wishlist/get_wishlist_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_cards.dart';
@@ -58,7 +58,9 @@ class FavoriteHotelsState extends State<FavoriteHotels>
         child: BlocBuilder<GetWishlistBloc, GetWishlistState>(
             builder: (context, state) {
           if (state is GetWishlistFailed) {
-            showCustomSnackbar(context, state.error);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showCustomSnackbar(context, state.error);
+            });
           }
 
           if (state is GetWishlistLoading) {

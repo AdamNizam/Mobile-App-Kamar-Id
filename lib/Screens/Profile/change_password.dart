@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Blocs/update_user/update_user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 
