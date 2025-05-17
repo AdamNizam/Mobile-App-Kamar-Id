@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_featured.dart';
-import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/start_rating_hotel.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/hotel_image_caraousel.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -42,7 +40,7 @@ class _HotelsCard1State extends State<HotelsCard1> {
     _pageController = PageController(initialPage: 0);
     isFavoriteNotifier = ValueNotifier(widget.hotel.hasWishList != null);
 
-    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       if (_pageController.hasClients && mounted) {
         _currentPage = (_currentPage + 1) % _imageUrls.length;
         _pageController.animateToPage(
@@ -104,7 +102,7 @@ class _HotelsCard1State extends State<HotelsCard1> {
               children: [
                 Stack(
                   children: [
-                    HotelImageCarousel(
+                    CarouselCardImage(
                       pageController: _pageController,
                       imageUrls: _imageUrls,
                       width: 190,
@@ -154,13 +152,17 @@ class _HotelsCard1State extends State<HotelsCard1> {
                                         context, 'You are already in wishlist');
                                   }
                                 },
-                                child: Icon(
-                                  isFavorite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: AppColors.redAwesome,
-                                  size: 22,
-                                ),
+                                child: isFavorite
+                                    ? const Icon(
+                                        Icons.favorite,
+                                        color: AppColors.redAwesome,
+                                        size: 22,
+                                      )
+                                    : const Icon(
+                                        Icons.favorite_rounded,
+                                        color: AppColors.redAwesome,
+                                        size: 22,
+                                      ),
                               );
                             },
                           ),

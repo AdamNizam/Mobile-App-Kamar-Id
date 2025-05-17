@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_slide_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/facility_icon_item.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
@@ -17,7 +17,6 @@ import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DetailRoomScreen extends StatefulWidget {
   final RoomChekAvaibility dataRoom;
@@ -85,117 +84,13 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        SizedBox(
-                          height: 260,
-                          width: double.infinity,
-                          child: (widget.dataRoom.gallery == null ||
-                                  widget.dataRoom.gallery!.isEmpty)
-                              ? const Center(
-                                  child: Icon(
-                                    Icons.image_not_supported,
-                                    size: 150,
-                                    color: AppColors.beauBlue,
-                                  ),
-                                )
-                              : PageView.builder(
-                                  controller: _pageController,
-                                  itemCount: widget.dataRoom.gallery!.length,
-                                  itemBuilder: (context, index) {
-                                    final large =
-                                        widget.dataRoom.gallery![index].large;
-                                    final imageUrl = large;
-
-                                    return ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        bottomLeft: Radius.circular(15),
-                                        bottomRight: Radius.circular(15),
-                                      ),
-                                      child: imageUrl.isNotEmpty
-                                          ? Image.network(
-                                              imageUrl,
-                                              height: 260,
-                                              width: double.infinity,
-                                              fit: BoxFit.cover,
-                                              errorBuilder:
-                                                  (context, error, stackTrace) {
-                                                return const Center(
-                                                  child: Icon(
-                                                    Icons.broken_image,
-                                                    size: 150,
-                                                    color: AppColors.beauBlue,
-                                                  ),
-                                                );
-                                              },
-                                            )
-                                          : const Center(
-                                              child: Icon(
-                                                Icons.image_not_supported,
-                                                size: 150,
-                                                color: AppColors.beauBlue,
-                                              ),
-                                            ),
-                                    );
-                                  },
-                                ),
-                        ),
-                        Positioned(
-                          top: 15,
-                          left: 10,
-                          child: CustomButtonIcon(
-                            icon: Icons.arrow_back,
-                            size: 20,
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        Positioned(
-                          top: 15,
-                          right: 10,
-                          child: Row(
-                            children: [
-                              CustomButtonIcon(
-                                icon: Icons.share,
-                                size: 20,
-                                onTap: () {
-                                  showCustomSnackbar(
-                                      context, 'fiture is not available');
-                                },
-                              ),
-                              const SizedBox(width: 5),
-                              CustomButtonIcon(
-                                icon: Icons.more_vert,
-                                size: 20,
-                                onTap: () {
-                                  showCustomSnackbar(
-                                      context, 'fiture is not available');
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (widget.dataRoom.gallery != null &&
-                            widget.dataRoom.gallery!.isNotEmpty)
-                          Positioned(
-                            bottom: 16,
-                            left: 0,
-                            right: 0,
-                            child: Center(
-                              child: SmoothPageIndicator(
-                                controller: _pageController,
-                                count: widget.dataRoom.gallery!.length,
-                                effect: ExpandingDotsEffect(
-                                  dotHeight: 8,
-                                  dotWidth: 8,
-                                  activeDotColor: AppColors.white,
-                                  dotColor: AppColors.beauBlue.withOpacity(0.5),
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
+                    CarouselSlideImage(
+                      pageController: _pageController,
+                      imageUrls: (widget.dataRoom.gallery?.isNotEmpty ?? false)
+                          ? widget.dataRoom.gallery!
+                              .map((e) => e.large)
+                              .toList()
+                          : [null],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),

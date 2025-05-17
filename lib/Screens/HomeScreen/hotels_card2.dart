@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_featured.dart';
-import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/start_rating_hotel.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/hotel_image_caraousel.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
@@ -40,7 +38,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
+        _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
           if (_pageController.hasClients) {
             _currentPage = (_currentPage + 1) % _imageUrls.length;
             _pageController.animateToPage(
@@ -106,7 +104,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Stack(children: [
-                    HotelImageCarousel(
+                    CarouselCardImage(
                       pageController: _pageController,
                       imageUrls: _imageUrls,
                       width: 120,

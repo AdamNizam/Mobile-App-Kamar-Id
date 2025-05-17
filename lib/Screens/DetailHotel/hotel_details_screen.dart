@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_icon.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_slide_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
@@ -17,7 +17,6 @@ import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../Themes/colors.dart';
 
@@ -56,111 +55,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Stack(
-                              children: [
-                                SizedBox(
-                                  height: 260,
-                                  width: double.infinity,
-                                  child: PageView.builder(
-                                    controller: _pageController,
-                                    itemCount: state.data.gallery?.length ?? 0,
-                                    itemBuilder: (context, index) {
-                                      final large =
-                                          state.data.gallery?[index].large;
-
-                                      final imageUrl =
-                                          large is String ? large : null;
-
-                                      return ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(15),
-                                          bottomRight: Radius.circular(15),
-                                        ),
-                                        child: imageUrl != null
-                                            ? Image.network(
-                                                imageUrl,
-                                                height: 260,
-                                                width: double.infinity,
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return const Center(
-                                                    child: Icon(
-                                                      Icons.broken_image,
-                                                      size: 150,
-                                                      color: AppColors.beauBlue,
-                                                    ),
-                                                  );
-                                                },
-                                              )
-                                            : const Center(
-                                                child: Icon(
-                                                  Icons.image_not_supported,
-                                                  size: 150,
-                                                  color: AppColors.beauBlue,
-                                                ),
-                                              ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 15,
-                                  left: 10,
-                                  child: CustomButtonIcon(
-                                    icon: Icons.arrow_back,
-                                    size: 20,
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 15,
-                                  right: 10,
-                                  child: Row(
-                                    children: [
-                                      CustomButtonIcon(
-                                        icon: Icons.share,
-                                        size: 20,
-                                        onTap: () {
-                                          showCustomSnackbar(context,
-                                              'fiture is not availabe');
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      CustomButtonIcon(
-                                        icon: Icons.more_vert,
-                                        size: 20,
-                                        onTap: () {
-                                          showCustomSnackbar(context,
-                                              'fiture is not availabe');
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 16,
-                                  left: 0,
-                                  right: 0,
-                                  child: Center(
-                                    child: SmoothPageIndicator(
-                                      controller: _pageController,
-                                      count: state.data.gallery!.length,
-                                      effect: ExpandingDotsEffect(
-                                        dotHeight: 8,
-                                        dotWidth: 8,
-                                        activeDotColor: AppColors.white,
-                                        dotColor:
-                                            AppColors.beauBlue.withOpacity(0.5),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            CarouselSlideImage(
+                              pageController: _pageController,
+                              imageUrls: state.data.gallery
+                                      ?.map((e) => e.large is String
+                                          ? e.large as String?
+                                          : null)
+                                      .toList() ??
+                                  [],
                             ),
                             const SizedBox(height: 10),
                             Padding(
