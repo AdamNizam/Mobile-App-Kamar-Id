@@ -26,13 +26,14 @@ class UserModel {
   final String? isVerified;
   final int activeStatus;
   final int darkMode;
-  final String? messengerColor;
   final String? stripeCustomerId;
   final String? totalBeforeFees;
   final String? userName;
   final dynamic otpCode;
   final DateTime? otpExpiresAt;
-  final String avatar;
+  final String? avatar;
+  final String? avatarUrl;
+  final String? avatarThumbUrl;
 
   UserModel({
     required this.id,
@@ -62,13 +63,14 @@ class UserModel {
     this.isVerified,
     required this.activeStatus,
     required this.darkMode,
-    required this.messengerColor,
     this.stripeCustomerId,
     this.totalBeforeFees,
     this.userName,
     this.otpCode,
     this.otpExpiresAt,
-    required this.avatar,
+    this.avatar,
+    this.avatarUrl,
+    this.avatarThumbUrl,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -103,7 +105,6 @@ class UserModel {
         isVerified: json["is_verified"],
         activeStatus: json["active_status"] ?? 0,
         darkMode: json["dark_mode"] ?? 0,
-        messengerColor: json["messenger_color"] ?? "#000000",
         stripeCustomerId: json["stripe_customer_id"],
         totalBeforeFees: json["total_before_fees"],
         userName: json["user_name"],
@@ -111,7 +112,9 @@ class UserModel {
         otpExpiresAt: json["otp_expires_at"] != null
             ? DateTime.tryParse(json["otp_expires_at"])
             : null,
-        avatar: json["avatar"] ?? "default.png",
+        avatar: json["avatar"],
+        avatarUrl: json["avatar_url"],
+        avatarThumbUrl: json["avatar_thumb_url"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -142,12 +145,13 @@ class UserModel {
         "is_verified": isVerified,
         "active_status": activeStatus,
         "dark_mode": darkMode,
-        "messenger_color": messengerColor,
         "stripe_customer_id": stripeCustomerId,
         "total_before_fees": totalBeforeFees,
         "user_name": userName,
         "otp_code": otpCode,
         "otp_expires_at": otpExpiresAt?.toIso8601String(),
         "avatar": avatar,
+        "avatar_url": avatarUrl,
+        "avatar_thumb_url": avatarThumbUrl,
       };
 }

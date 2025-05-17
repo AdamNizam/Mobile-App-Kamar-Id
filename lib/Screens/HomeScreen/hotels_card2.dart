@@ -38,7 +38,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+        _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
           if (_pageController.hasClients) {
             _currentPage = (_currentPage + 1) % _imageUrls.length;
             _pageController.animateToPage(

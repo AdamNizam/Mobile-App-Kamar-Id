@@ -41,8 +41,12 @@ class MyApp extends StatelessWidget {
             create: (context) => UserBloc()..add(GetUserProfile()),
           ),
           BlocProvider(
-              create: (context) =>
-                  NotificationBloc()..add(const PostNotificationUnred('read'))),
+            create: (context) => NotificationBloc()
+              ..add(const FetchAllNotifications(
+                unreadRequest: 'read',
+                readRequest: 'read',
+              )),
+          ),
           BlocProvider(
             create: (context) => PostWishlistBloc(),
           ),

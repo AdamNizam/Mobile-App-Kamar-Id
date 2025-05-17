@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
-import 'package:hotelbookingapp/Screens/Notifications/notifications.dart';
+import 'package:hotelbookingapp/Screens/Notifications/notifications_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class HomeWidgte extends StatefulWidget {
@@ -61,18 +61,27 @@ class _HomeWidgteState extends State<HomeWidgte> {
         BlocBuilder<NotificationBloc, NotificationState>(
           builder: (context, state) {
             if (state is NotificationSuccess) {
+              print(
+                  'Unread Notifications total: ${state.unreadData.rows.total}');
+              print('Read Notifications total: ${state.readData.rows.total}');
+
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                setState(() {
-                  totalNotification = state.unreadData.rows.total;
-                });
+                // Cek dulu apakah nilai berubah
+                if (totalNotification != state.unreadData.rows.total) {
+                  setState(() {
+                    totalNotification = state.unreadData.rows.total;
+                  });
+                }
               });
+
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookingNotifications(
+                      builder: (context) => NoticationScreen(
                         unreadData: state.unreadData.rows,
+                        readData: state.readData.rows,
                       ),
                     ),
                   );

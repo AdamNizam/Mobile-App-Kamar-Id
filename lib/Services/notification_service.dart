@@ -19,7 +19,7 @@ class NotificationService {
         body: jsonEncode({'type': type}),
       );
 
-      print('Response API UNREAD notification: ${res.body}');
+      print('Response API UnRead notification: ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultNotification.fromJson(jsonDecode(res.body));

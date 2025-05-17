@@ -5,20 +5,22 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
-import 'package:hotelbookingapp/Themes/colors.dart'; // Import NotificationCard
+import 'package:hotelbookingapp/Themes/colors.dart';
 
-class BookingNotifications extends StatefulWidget {
+class NoticationScreen extends StatefulWidget {
   final RowsNotif unreadData;
-  const BookingNotifications({
+  final RowsNotif readData;
+  const NoticationScreen({
     super.key,
     required this.unreadData,
+    required this.readData,
   });
 
   @override
-  State<BookingNotifications> createState() => _BookingNotificationsState();
+  State<NoticationScreen> createState() => _NoticationScreenState();
 }
 
-class _BookingNotificationsState extends State<BookingNotifications> {
+class _NoticationScreenState extends State<NoticationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +41,13 @@ class _BookingNotificationsState extends State<BookingNotifications> {
           children: [
             const SizedBox(height: 16),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text1(
                   text1: 'Unread message (${widget.unreadData.total})',
-                  size: 13,
+                  size: 12,
                   color: AppColors.cadetGray,
                 ),
-                const SizedBox(height: 2),
                 const Divider(color: AppColors.strokColor, thickness: 1),
                 if (widget.unreadData.dataNotif.isNotEmpty)
                   Column(

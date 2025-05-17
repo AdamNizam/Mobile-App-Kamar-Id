@@ -40,7 +40,7 @@ class _HotelsCard1State extends State<HotelsCard1> {
     _pageController = PageController(initialPage: 0);
     isFavoriteNotifier = ValueNotifier(widget.hotel.hasWishList != null);
 
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 4), (timer) {
       if (_pageController.hasClients && mounted) {
         _currentPage = (_currentPage + 1) % _imageUrls.length;
         _pageController.animateToPage(
