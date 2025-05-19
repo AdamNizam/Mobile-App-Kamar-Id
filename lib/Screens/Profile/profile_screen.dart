@@ -24,9 +24,6 @@ class ProfileScreen extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/login', (route) => false);
           }
-          if (state is AuthFailed) {
-            showCustomSnackbar(context, state.error);
-          }
         },
         builder: (context, state) {
           if (state is AuthLoading) {
