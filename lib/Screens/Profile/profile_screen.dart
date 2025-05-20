@@ -7,6 +7,7 @@ import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
+import 'package:hotelbookingapp/main.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
@@ -21,8 +22,10 @@ class ProfileScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthInitial) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/login', (route) => false);
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MyApp()),
+              (route) => false,
+            );
           }
         },
         builder: (context, state) {

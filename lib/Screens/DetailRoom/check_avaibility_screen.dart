@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/custom_nav_title.dart';
@@ -10,6 +9,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_room_selection_modal.dart';
+import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
@@ -244,21 +244,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                   const SizedBox(height: 15),
                   if (state is CheckAvaibilitySuccess)
                     if (state.data.rooms == null || state.data.rooms!.isEmpty)
-                      Center(
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(
-                              'images/soldout.svg',
-                              height: 250,
-                            ),
-                            const CustomTextEllipsis(
-                              text: "SOLDOUT ROOM",
-                              size: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.cadetGray,
-                            ),
-                          ],
-                        ),
+                      const DefaultValue(
+                        imageSvg: 'images/soldout.svg',
+                        text: 'SOLDOUT ROOM',
                       )
                     else
                       Expanded(
@@ -282,26 +270,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         ),
                       )
                   else
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'images/avaibility.svg',
-                            semanticsLabel: 'serach image',
-                            width: 150,
-                            height: 150,
-                            fit: BoxFit.contain,
-                          ),
-                          const SizedBox(height: 10),
-                          const CustomTextEllipsis(
-                            text: 'Search your room',
-                            size: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
+                    const DefaultValue(
+                      imageSvg: 'images/avaibility.svg',
+                      text: 'Search your room',
                     ),
                   const SizedBox(height: 20),
                 ],

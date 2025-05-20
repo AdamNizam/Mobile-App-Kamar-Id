@@ -6,14 +6,11 @@ import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
-import 'package:hotelbookingapp/Screens/Categories/all_categories.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
-import 'package:hotelbookingapp/Screens/Profile/profile_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void main() {
@@ -23,7 +20,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -48,9 +44,6 @@ class MyApp extends StatelessWidget {
             create: (context) => PostWishlistBloc(),
           ),
           BlocProvider(
-            create: (context) => GetWishlistBloc()..add(GetData()),
-          ),
-          BlocProvider(
             create: (context) => UpdateUserBloc(),
           ),
           BlocProvider(
@@ -59,7 +52,7 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Hotel Booking',
+          title: 'Kamar.Id',
           theme: ThemeData(
             scaffoldBackgroundColor: AppColors.bgColor,
             useMaterial3: true,
@@ -69,8 +62,6 @@ class MyApp extends StatelessWidget {
             '/login': (context) => const Login(),
             '/register': (context) => const Register(),
             '/home': (context) => const BottomNavigationHome(),
-            '/profile': (context) => const ProfileScreen(),
-            '/categories': (context) => const AllCategoriesScreen(),
           },
         ));
   }

@@ -28,12 +28,14 @@ class HotelsCard1 extends StatefulWidget {
 
 class _HotelsCard1State extends State<HotelsCard1> {
   late PageController _pageController;
+  late bool isWishlisted;
   late AutoSliderController _autoSliderController;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
+    isWishlisted = widget.hotel.hasWishList != null;
     _autoSliderController = AutoSliderController(
       pageController: _pageController,
       itemCount: _imageUrls.length,
@@ -124,20 +126,13 @@ class _HotelsCard1State extends State<HotelsCard1> {
                               if (state is PostWishlistSuccess) {
                                 context.read<HotelBloc>().add(GetAllHotels());
                               }
+                              if (state is PostWishlistLoading) {
+                                print('OK Loading');
+                              }
                             },
                             builder: (context, state) {
-                              return IconButton(
-                                icon: Icon(
-                                  widget.hotel.hasWishList != null
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                ),
-                                tooltip: 'Add wishlist',
-                                color: AppColors.redAwesome,
-                                padding: EdgeInsets.zero,
-                                alignment: Alignment.topRight,
-                                iconSize: 22,
-                                onPressed: () {
+                              return GestureDetector(
+                                onTap: () {
                                   context.read<PostWishlistBloc>().add(
                                         PostData(
                                           RequestWishlist(
@@ -146,6 +141,13 @@ class _HotelsCard1State extends State<HotelsCard1> {
                                         ),
                                       );
                                 },
+                                child: Icon(
+                                  isWishlisted
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: AppColors.redAwesome,
+                                  size: 22,
+                                ),
                               );
                             },
                           )

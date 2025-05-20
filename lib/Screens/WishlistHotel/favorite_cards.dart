@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
@@ -9,7 +10,6 @@ import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FavoriteCard extends StatefulWidget {
   final ServiceWishlist data;
@@ -180,15 +180,14 @@ class _FavoriteCardState extends State<FavoriteCard>
                                   ),
                                 ),
                                 const SizedBox(width: 6),
-                                BlocBuilder<PostWishlistBloc,
+                                BlocConsumer<PostWishlistBloc,
                                     PostWishlistState>(
+                                  listener: (context, state) {
+                                    context
+                                        .read<GetWishlistBloc>()
+                                        .add(GetData());
+                                  },
                                   builder: (context, stateWishlist) {
-                                    if (stateWishlist is PostWishlistLoading) {
-                                      return LoadingAnimationWidget.beat(
-                                        color: AppColors.redAwesome,
-                                        size: 27,
-                                      );
-                                    }
                                     return GestureDetector(
                                       onTap: () {
                                         context.read<PostWishlistBloc>().add(

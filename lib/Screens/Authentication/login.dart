@@ -84,24 +84,20 @@ class _LogInState extends State<Login> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
-                                'Kamar.Id',
-                                style: TextStyle(
-                                  fontSize: 27,
-                                  color: AppColors.buttonColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              const Text1(
+                                text1: 'Kamar.Id',
+                                size: 27,
+                                color: AppColors.buttonColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ],
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          const Text(
-                            'Please Enter your account',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
+                          const Text1(
+                            text1: 'Please Enter your account',
+                            size: 16,
                           ),
                         ],
                       ),

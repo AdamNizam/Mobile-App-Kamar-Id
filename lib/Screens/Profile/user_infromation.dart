@@ -36,21 +36,19 @@ class _UserInformationState extends State<UserInformation> {
     super.initState();
     final userState = context.read<UserBloc>().state;
     if (userState is UserSuccess) {
-      final data = userState.data;
+      fullname = userState.data.name;
+      email = userState.data.email;
 
-      fullname = data.name;
-      email = data.email;
-
-      fullNameController.text = data.name;
-      firstNameController.text = data.firstName;
-      lastNameController.text = data.lastName;
-      emailController.text = data.email;
-      phoneController.text = data.phone;
-      streetAddressController.text = data.address ?? '';
-      cityController.text = data.city ?? '';
-      stateController.text = data.state ?? '';
-      zipCodeController.text = data.zipCode?.toString() ?? '';
-      selectedCountry = data.country;
+      fullNameController.text = userState.data.name;
+      firstNameController.text = userState.data.firstName;
+      lastNameController.text = userState.data.lastName;
+      emailController.text = userState.data.email;
+      phoneController.text = userState.data.phone;
+      streetAddressController.text = userState.data.address ?? '';
+      cityController.text = userState.data.city ?? '';
+      stateController.text = userState.data.state ?? '';
+      zipCodeController.text = userState.data.zipCode?.toString() ?? '';
+      selectedCountry = userState.data.country;
     }
   }
 
