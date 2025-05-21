@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
@@ -167,19 +169,26 @@ class _LogInState extends State<Login> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomBottomWithImage(
                             image: 'images/icons8-google-48.png',
                             text: 'Continue With Google',
+                            onTap: () async {},
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           CustomBottomWithImage(
                             image: 'images/icons8-facebook-48.png',
                             text: 'Continue With Facebook',
+                            onTap: () async {
+                              showCustomSnackbar(
+                                context,
+                                'login Facebook berhasil!',
+                              );
+                            },
                           ),
                         ],
                       ),

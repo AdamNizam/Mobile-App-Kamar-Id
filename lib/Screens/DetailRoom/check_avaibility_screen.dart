@@ -80,24 +80,6 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                 showCustomSnackbar(
                     context, 'Failed to check availability: ${state.error}');
               }
-
-              if (state is CheckAvaibilitySuccess) {
-                setState(
-                  () {
-                    isLoading = false;
-                    startPrice =
-                        state.data.rooms != null && state.data.rooms!.isNotEmpty
-                            ? state.data.rooms!.first.price.toString()
-                            : null;
-                    endPrice =
-                        state.data.rooms != null && state.data.rooms!.isNotEmpty
-                            ? state.data.rooms!.last.price.toString()
-                            : null;
-
-                    print('Price modal $startPrice & $endPrice');
-                  },
-                );
-              }
             },
             builder: (context, state) {
               return Column(

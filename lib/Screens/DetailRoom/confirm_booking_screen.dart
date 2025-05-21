@@ -224,7 +224,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             ? const CustomButtonLoading()
                             : CustomButton(
                                 text: 'Book Now',
-                                onTap: () {
+                                onTap: () async {
                                   final dataChekout = RequestChekout(
                                     code: widget.orderId,
                                     firstName: userState.data.firstName,

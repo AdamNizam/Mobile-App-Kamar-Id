@@ -275,7 +275,7 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                           color: AppColors.white,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         final dataCart = RequestAddToChart(
                           serviceId: widget.dataHotel.id.toString(),
                           serviceType: 'hotel',
