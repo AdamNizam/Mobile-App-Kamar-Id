@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/getstarted.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
+import 'package:hotelbookingapp/Services/facebook_sign_in_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -28,70 +28,20 @@ class _LogInState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Map<String, dynamic>? _userData;
-  AccessToken? _accessToken;
-  bool _checking = true;
-
-  Future<void> loginWithFb() async {
-    final accesstoken = await FacebookAuth.instance.accessToken;
-    setState(() {
-      _checking = false;
-    });
-
-    if (accesstoken != null) {
-      final userData = await FacebookAuth.instance.getUserData();
-      _accessToken = accesstoken;
-      setState(() {
-        _userData = userData;
-      });
-
-      // Print data lengkap hasil login
-      print('Access Token: ${_accessToken!.token}');
-      print('User Data: $_userData');
-      print('User ID: ${_userData!['id']}');
-      print('User Name: ${_userData!['name']}');
-      print('User Email: ${_userData!['email']}');
-    } else {
-      await loginFb();
-    }
-  }
-
-  Future<void> loginFb() async {
-    final LoginResult result = await FacebookAuth.instance.login();
-    if (result.status == LoginStatus.success) {
-      _accessToken = result.accessToken;
-      final userData = await FacebookAuth.instance.getUserData();
-      setState(() {
-        _userData = userData;
-      });
-
-      // Print data lengkap hasil login
-      print('Access Token: ${_accessToken!.token}');
-      print('User Data: $_userData');
-      print('User ID: ${_userData!['id']}');
-      print('User Name: ${_userData!['name']}');
-      print('User Email: ${_userData!['email']}');
-    } else {
-      print('status log : ${result.status}');
-      print('message log : ${result.message}');
-    }
-
-    setState(() {
-      _checking = false;
-    });
-  }
-
-  Future<void> _logoutFb() async {
-    await FacebookAuth.instance.logOut();
-    setState(() {
-      _accessToken = null;
-      _userData = null;
-    });
-  }
-
   bool validate() {
     return emailController.text.isNotEmpty &&
         passwordController.text.isNotEmpty;
+  }
+
+  void handleFacebookLogin() async {
+    FacebookAuthService facebookAuthService = FacebookAuthService();
+    final userData = await facebookAuthService.login();
+
+    if (userData != null) {
+      showCustomSnackbar(context, 'Login berhasil: ${userData['name']}');
+    } else {
+      showCustomSnackbar(context, 'Gagal login dengan Facebook');
+    }
   }
 
   @override
@@ -214,15 +164,13 @@ class _LogInState extends State<Login> {
                           CustomBottomWithImage(
                             image: 'images/icons8-google-48.png',
                             text: 'Continue With Google',
-                            onTap: () async {
-                              // implement Google sign-in here if needed
-                            },
+                            onTap: () {},
                           ),
                           const SizedBox(width: 10),
                           CustomBottomWithImage(
                             image: 'images/icons8-facebook-48.png',
                             text: 'Continue With Facebook',
-                            onTap: loginWithFb,
+                            onTap: handleFacebookLogin,
                           ),
                         ],
                       ),

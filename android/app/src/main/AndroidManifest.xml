@@ -16,7 +16,11 @@
         <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBGoHHBrJc6djW-yHkplXfQusVgL2CseB4"/>
+            android:value="@string/google_maps_api_key"/>
+<!-- 
+        <meta-data
+            android:name="com.google.android.gms.client_id"
+            android:value="@string/gcp_client_id" /> -->
 
         <!-- Facebook SDK -->
         <meta-data
@@ -61,7 +65,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="fb1593292418021263" />
+                <data android:scheme="@string/facebook_app_id" />
             </intent-filter>
         </activity>
 

@@ -1,6 +1,6 @@
 // String baseUrl = 'https://kamar.id/api';
 
-String baseUrl = 'https://tripordare.com/api';
+String baseUrl = 'https://develop.tripordare.com/api';
 
 String midtransUrl = 'https://api.sandbox.midtrans.com/v2/charge';
 

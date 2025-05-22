@@ -39,6 +39,31 @@ class AuthService {
     }
   }
 
+  Future<LoginResponse> authFacebook(String tokenFacebook) async {
+    LoginResponse? userResultLog;
+    try {
+      final res = await http.post(
+        Uri.parse('$baseUrl/auth/social-callback/facebook'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'token': tokenFacebook}),
+      );
+
+      print('Response Auth With Facebook: ${res.body}');
+
+      if (res.statusCode == 200) {
+        userResultLog = LoginResponse.fromJson(
+          jsonDecode(res.body),
+        );
+        await saveToken(userResultLog);
+      } else {
+        throw Exception(jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan');
+      }
+      return userResultLog;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> saveToken(LoginResponse userLog) async {
     if (userLog.token != null && userLog.token!.isNotEmpty) {
       await storage.write(key: 'token', value: userLog.token);

@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Hotel Booking</string>
+    <string name="app_name">hotelbookingapp</string>
+
+    <!-- Facebook for daveloper -->
     <string name="facebook_app_id">1593292418021263</string>
     <string name="fb_login_protocol_scheme">fb1593292418021263</string>
     <string name="facebook_client_token">f2ee363e25eb87aae5dc38fd4b4abf5f</string>
-    
+
+     <!-- Google Maps Platform -->
+    <string name="google_maps_api_key">AIzaSyDAfa_cojGFUhituvvlc052o8g0QvormgE</string>
+
+     <!-- Google Cloud Platform -->
+    <string name="gcp_client_id">978224562526-attd6ttf358dsufbg3ic7mgap81cl1fg.apps.googleusercontent.com</string>
+
 </resources>

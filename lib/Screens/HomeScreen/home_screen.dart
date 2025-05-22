@@ -228,9 +228,12 @@ class _HomePageState extends State<HomePage> {
   Widget _homeAllHotel() {
     return BlocBuilder<HotelBloc, HotelState>(
       builder: (context, hotelState) {
-        if (hotelState is HotelFailed) {
-          showCustomSnackbar(context, hotelState.error);
-        }
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (hotelState is HotelFailed) {
+            showCustomSnackbar(context, hotelState.error);
+          }
+        });
+
         if (hotelState is HotelSuccess) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

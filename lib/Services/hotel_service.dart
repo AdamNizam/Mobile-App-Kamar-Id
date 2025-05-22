@@ -24,9 +24,9 @@ class HotelService {
       print('Response Get All Hotel:  ${res.body}');
 
       if (res.statusCode == 200) {
+        final hotelList = jsonDecode(res.body)['data']['rows']['data'];
         return List<HotelAllModel>.from(
-          jsonDecode(res.body)['data']
-              .map((hotel) => HotelAllModel.fromJson(hotel)),
+          hotelList.map((hotel) => HotelAllModel.fromJson(hotel)),
         );
       } else {
         throw jsonDecode(res.body)['message'];
