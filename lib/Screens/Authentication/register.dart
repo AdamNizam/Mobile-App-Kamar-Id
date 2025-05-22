@@ -10,7 +10,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
 import '../../Themes/colors.dart';
-import 'login.dart';
+import 'login_screen.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});

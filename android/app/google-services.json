@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291440294481",
+    "project_id": "kamar-id-f7757",
+    "storage_bucket": "kamar-id-f7757.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291440294481:android:c7580cede9a6f01b4f9670",
+        "android_client_info": {
+          "package_name": "com.example.hotelbookingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcfQeEcrnVB0czDL-e4sLnxspluAe3dCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

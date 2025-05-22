@@ -5,7 +5,7 @@ import '../../CustomWidgets/CustomButton/custom_outline_button.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
-import 'login.dart';
+import 'login_screen.dart';
 import 'otp_screen.dart';
 
 class GetStarted extends StatelessWidget {

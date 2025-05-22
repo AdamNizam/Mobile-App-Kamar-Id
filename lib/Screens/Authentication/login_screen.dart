@@ -8,6 +8,7 @@ import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/getstarted.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Services/facebook_sign_in_service.dart';
+import 'package:hotelbookingapp/Services/google_sign_in_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -31,6 +32,17 @@ class _LogInState extends State<Login> {
   bool validate() {
     return emailController.text.isNotEmpty &&
         passwordController.text.isNotEmpty;
+  }
+
+  void handleGoogleLogin() async {
+    final googleService = GoogleSignInService();
+    final userData = await googleService.signInWithGoogle();
+
+    if (userData != null) {
+      showCustomSnackbar(context, 'Login Google Berhasil: ${userData['name']}');
+    } else {
+      showCustomSnackbar(context, 'Login Google dibatalkan atau gagal');
+    }
   }
 
   void handleFacebookLogin() async {
@@ -164,7 +176,7 @@ class _LogInState extends State<Login> {
                           CustomBottomWithImage(
                             image: 'images/icons8-google-48.png',
                             text: 'Continue With Google',
-                            onTap: () {},
+                            onTap: handleGoogleLogin,
                           ),
                           const SizedBox(width: 10),
                           CustomBottomWithImage(

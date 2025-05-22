@@ -14,11 +14,11 @@ class FacebookAuthService {
       tokenAccess = result.accessToken;
       dataUser = await FacebookAuth.instance.getUserData();
 
-      print('Access Token: ${tokenAccess!.token}');
-      print('User Data: $dataUser');
-      print('User ID: ${dataUser!['id']}');
-      print('User Name: ${dataUser!['name']}');
-      print('User Email: ${dataUser!['email']}');
+      debugPrint('Access Token: ${tokenAccess!.token}');
+      debugPrint('User Data: $dataUser');
+      debugPrint('User ID: ${dataUser!['id']}');
+      debugPrint('User Name: ${dataUser!['name']}');
+      debugPrint('User Email: ${dataUser!['email']}');
 
       return dataUser;
     } else {

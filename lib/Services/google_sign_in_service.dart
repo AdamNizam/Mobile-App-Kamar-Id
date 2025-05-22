@@ -1,26 +1,42 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInService {
-  // Sesuaikan clientId hanya jika untuk Web
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: <String>[
       'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
     ],
-    // Kalau untuk web, isi clientId berikut
-    // clientId: '978224562526-attd6ttf358dsufbg3ic7mgap81cl1fg.apps.googleusercontent.com',
   );
 
-  Future<GoogleSignInAccount?> signIn() async {
+  Future<Map<String, dynamic>?> signInWithGoogle() async {
     try {
-      return await _googleSignIn.signIn();
+      final GoogleSignInAccount? account = await _googleSignIn.signIn();
+      if (account == null) return null;
+
+      final GoogleSignInAuthentication auth = await account.authentication;
+
+      final userData = {
+        'displayName': account.displayName,
+        'email': account.email,
+        'photoUrl': account.photoUrl,
+        'idToken': auth.idToken,
+        'accessToken': auth.accessToken,
+      };
+
+      debugPrint(const JsonEncoder.withIndent('  ').convert(userData));
+
+      return userData;
     } catch (e) {
-      print('Google Sign-In error: $e');
+      print('Google Sign-In Error: $e');
       return null;
     }
   }
 
-  Future<void> signOut() => _googleSignIn.disconnect();
+  Future<void> signOut() async {
+    await _googleSignIn.signOut();
+  }
 
   GoogleSignInAccount? get currentUser => _googleSignIn.currentUser;
 }
