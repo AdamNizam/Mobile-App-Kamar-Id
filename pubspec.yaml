@@ -55,8 +55,9 @@ dependencies:
   qr_flutter: ^4.1.0
   shimmer: ^3.0.0
   url_launcher: ^6.1.10
-  flutter_facebook_auth: ^7.1.0
+  flutter_facebook_auth: ^6.0.3
   google_sign_in: ^6.2.2
+  midtrans_sdk: ^0.4.0
   loading_animation_widget:
 
 dev_dependencies:
