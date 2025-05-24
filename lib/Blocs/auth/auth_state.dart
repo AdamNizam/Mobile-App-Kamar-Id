@@ -24,6 +24,7 @@ final class AuthRegSuccess extends AuthState {
   final RegisterResponse data;
 
   const AuthRegSuccess(this.data);
+
   @override
   List<Object> get props => [data];
 }
@@ -34,4 +35,13 @@ final class AuthFailed extends AuthState {
 
   @override
   List<Object> get props => [error];
+}
+
+final class TokenExpired extends AuthState {
+  final String text;
+
+  const TokenExpired(this.text);
+
+  @override
+  List<Object> get props => [text];
 }

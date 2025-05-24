@@ -7,7 +7,7 @@ sealed class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AuthLogout extends AuthEvent {}
+class AuthGetCurrentUser extends AuthEvent {}
 
 class AuthLogin extends AuthEvent {
   final FormLoginModel data;
@@ -18,7 +18,23 @@ class AuthLogin extends AuthEvent {
   List<Object> get props => [data];
 }
 
-class AuthGetCurrentUser extends AuthEvent {}
+class AuthFacebook extends AuthEvent {
+  final String accesToken;
+
+  const AuthFacebook(this.accesToken);
+
+  @override
+  List<Object> get props => [accesToken];
+}
+
+class AuthGoogle extends AuthEvent {
+  final String accesToken;
+
+  const AuthGoogle(this.accesToken);
+
+  @override
+  List<Object> get props => [accesToken];
+}
 
 class AuthRegister extends AuthEvent {
   final FormRegisterModel data;
@@ -28,3 +44,5 @@ class AuthRegister extends AuthEvent {
   @override
   List<Object> get props => [data];
 }
+
+class AuthLogout extends AuthEvent {}

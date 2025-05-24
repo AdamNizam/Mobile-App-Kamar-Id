@@ -29,9 +29,19 @@ class _LogInState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool validate() {
-    return emailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty;
+  void handleLogin() {
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      context.read<AuthBloc>().add(
+            AuthLogin(
+              FormLoginModel(
+                email: emailController.text,
+                password: passwordController.text,
+              ),
+            ),
+          );
+    } else {
+      showCustomSnackbar(context, 'Enter your username & password');
+    }
   }
 
   void handleGoogleLogin() async {
@@ -39,6 +49,8 @@ class _LogInState extends State<Login> {
     final userData = await googleService.signInWithGoogle();
 
     if (userData != null) {
+      // final idToken = userData['idToken'];
+      // final accessToken = userData['accessToken'];
       showCustomSnackbar(context, 'Login Google Berhasil: ${userData['name']}');
     } else {
       showCustomSnackbar(context, 'Login Google dibatalkan atau gagal');
@@ -50,6 +62,10 @@ class _LogInState extends State<Login> {
     final userData = await facebookAuthService.login();
 
     if (userData != null) {
+      final accessToken = facebookAuthService.accessToken?.token;
+
+      print('Facebook Access Token: $accessToken');
+
       showCustomSnackbar(context, 'Login berhasil: ${userData['name']}');
     } else {
       showCustomSnackbar(context, 'Gagal login dengan Facebook');
@@ -63,6 +79,10 @@ class _LogInState extends State<Login> {
         listener: (context, state) {
           if (state is AuthFailed) {
             showCustomSnackbar(context, state.error);
+          }
+          if (state is TokenExpired) {
+            showCustomSnackbar(context, state.text);
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           }
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
@@ -152,21 +172,7 @@ class _LogInState extends State<Login> {
                       ),
                       CustomButton(
                         text: 'Log In',
-                        onTap: () {
-                          if (validate()) {
-                            context.read<AuthBloc>().add(
-                                  AuthLogin(
-                                    FormLoginModel(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                    ),
-                                  ),
-                                );
-                          } else {
-                            showCustomSnackbar(
-                                context, 'Enter your username & password');
-                          }
-                        },
+                        onTap: handleLogin,
                       ),
                       const Center(child: Text2(text2: 'Or')),
                       const SizedBox(height: 10),

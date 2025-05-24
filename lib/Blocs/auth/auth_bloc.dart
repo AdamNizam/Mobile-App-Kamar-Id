@@ -5,6 +5,7 @@ import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -13,20 +14,81 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<AuthEvent>(
       (event, emit) async {
+        if (event is AuthGetCurrentUser) {
+          try {
+            emit(AuthLoading());
+
+            final token = await AuthService().getToken();
+
+            if (token.isNotEmpty && !JwtDecoder.isExpired(token)) {
+              emit(
+                AuthSuccess(LoginResponse(token: token)),
+              );
+            } else {
+              emit(const TokenExpired('Token expired'));
+            }
+          } catch (error) {
+            print('Failed get token: $error');
+            emit(const AuthFailed('Token Failed'));
+          }
+        }
+
         if (event is AuthLogin) {
           try {
             emit(AuthLoading());
 
-            final userLog = await AuthService().login(event.data);
+            final data = await AuthService().login(event.data);
 
-            print('userLog: $userLog');
-
-            emit(AuthSuccess(userLog));
+            emit(AuthSuccess(data));
           } catch (error) {
             print('Login failed: $error');
             emit(const AuthFailed('Login failed'));
           }
         }
+
+        if (event is AuthFacebook) {
+          try {
+            emit(AuthLoading());
+
+            final token = await AuthService().authFacebook(event.accesToken);
+
+            emit(AuthSuccess(token));
+          } catch (error) {
+            print('failed login with facebook: $error');
+            emit(const AuthFailed('Failed login'));
+          }
+        }
+
+        if (event is AuthGoogle) {
+          try {
+            emit(AuthLoading());
+
+            final token = await AuthService().authFacebook(event.accesToken);
+
+            emit(AuthSuccess(token));
+          } catch (error) {
+            print('failed login with google: $error');
+            emit(const AuthFailed('Failed login'));
+          }
+        }
+
+        // if (event is AuthGetCurrentUser) {
+        //   try {
+        //     final FormLoginModel? data =
+        //         await AuthService().getCredentialFromLocal();
+
+        //     if (data == null) return;
+
+        //     emit(AuthLoading());
+
+        //     final LoginResponse user = await AuthService().login(data);
+
+        //     emit(AuthSuccess(user));
+        //   } catch (error) {
+        //     print('Failed get token: $error');
+        //     emit(const AuthFailed('Token Failed'));
+        //   }
+        // }
 
         if (event is AuthRegister) {
           try {
@@ -38,24 +100,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           } catch (error) {
             print('Register failed: $error');
             emit(const AuthFailed('Register failed'));
-          }
-        }
-
-        if (event is AuthGetCurrentUser) {
-          try {
-            final FormLoginModel? data =
-                await AuthService().getCredentialFromLocal();
-
-            if (data == null) return;
-
-            emit(AuthLoading());
-
-            final LoginResponse user = await AuthService().login(data);
-
-            emit(AuthSuccess(user));
-          } catch (error) {
-            print('Failed get token: $error');
-            emit(const AuthFailed('Token Failed'));
           }
         }
 
