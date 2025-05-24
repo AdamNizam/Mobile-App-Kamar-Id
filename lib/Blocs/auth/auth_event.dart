@@ -19,21 +19,21 @@ class AuthLogin extends AuthEvent {
 }
 
 class AuthFacebook extends AuthEvent {
-  final String accesToken;
+  final String accessToken;
 
-  const AuthFacebook(this.accesToken);
+  const AuthFacebook(this.accessToken);
 
   @override
-  List<Object> get props => [accesToken];
+  List<Object> get props => [accessToken];
 }
 
 class AuthGoogle extends AuthEvent {
-  final String accesToken;
+  final String accessToken;
 
-  const AuthGoogle(this.accesToken);
+  const AuthGoogle(this.accessToken);
 
   @override
-  List<Object> get props => [accesToken];
+  List<Object> get props => [accessToken];
 }
 
 class AuthRegister extends AuthEvent {

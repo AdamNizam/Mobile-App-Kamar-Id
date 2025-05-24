@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             }
           } catch (error) {
             print('Failed get token: $error');
-            emit(const AuthFailed('Token Failed'));
+            emit(const AuthFailed('Token expired'));
           }
         }
 
@@ -50,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           try {
             emit(AuthLoading());
 
-            final token = await AuthService().authFacebook(event.accesToken);
+            final token = await AuthService().authFacebook(event.accessToken);
 
             emit(AuthSuccess(token));
           } catch (error) {
@@ -63,7 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           try {
             emit(AuthLoading());
 
-            final token = await AuthService().authFacebook(event.accesToken);
+            final token = await AuthService().authFacebook(event.accessToken);
 
             emit(AuthSuccess(token));
           } catch (error) {
@@ -71,24 +71,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(const AuthFailed('Failed login'));
           }
         }
-
-        // if (event is AuthGetCurrentUser) {
-        //   try {
-        //     final FormLoginModel? data =
-        //         await AuthService().getCredentialFromLocal();
-
-        //     if (data == null) return;
-
-        //     emit(AuthLoading());
-
-        //     final LoginResponse user = await AuthService().login(data);
-
-        //     emit(AuthSuccess(user));
-        //   } catch (error) {
-        //     print('Failed get token: $error');
-        //     emit(const AuthFailed('Token Failed'));
-        //   }
-        // }
 
         if (event is AuthRegister) {
           try {

@@ -42,7 +42,7 @@ class WishlistService {
           'Content-Type': 'application/json',
         },
       );
-      print('Reponse Get Wishlist: ${res.body}');
+      print('Reponse API Get Wishlist: ${res.body}');
 
       if (res.statusCode == 200) {
         return GetWishlistModel.fromJson(jsonDecode(res.body));

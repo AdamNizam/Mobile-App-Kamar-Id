@@ -29,8 +29,8 @@ class GoogleSignInService {
 
       return userData;
     } catch (e) {
-      print('Google Sign-In Error: $e');
-      return null;
+      debugPrint('Google Sign-In Error: $e');
+      rethrow;
     }
   }
 

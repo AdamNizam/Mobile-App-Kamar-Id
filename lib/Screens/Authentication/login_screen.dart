@@ -7,8 +7,8 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/getstarted.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
-import 'package:hotelbookingapp/Services/facebook_sign_in_service.dart';
-import 'package:hotelbookingapp/Services/google_sign_in_service.dart';
+import 'package:hotelbookingapp/Services/facebook_service.dart';
+import 'package:hotelbookingapp/Services/google_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -49,26 +49,19 @@ class _LogInState extends State<Login> {
     final userData = await googleService.signInWithGoogle();
 
     if (userData != null) {
-      // final idToken = userData['idToken'];
-      // final accessToken = userData['accessToken'];
-      showCustomSnackbar(context, 'Login Google Berhasil: ${userData['name']}');
+      context.read<AuthBloc>().add(AuthGoogle(userData['accessToken']));
     } else {
-      showCustomSnackbar(context, 'Login Google dibatalkan atau gagal');
+      showCustomSnackbar(context, 'Failed log with your account google');
     }
   }
 
   void handleFacebookLogin() async {
-    FacebookAuthService facebookAuthService = FacebookAuthService();
-    final userData = await facebookAuthService.login();
+    final accessToken = FacebookAuthService().accessToken?.token;
 
-    if (userData != null) {
-      final accessToken = facebookAuthService.accessToken?.token;
-
-      print('Facebook Access Token: $accessToken');
-
-      showCustomSnackbar(context, 'Login berhasil: ${userData['name']}');
+    if (accessToken != null) {
+      context.read<AuthBloc>().add(AuthFacebook(accessToken));
     } else {
-      showCustomSnackbar(context, 'Gagal login dengan Facebook');
+      showCustomSnackbar(context, 'Failed log with facebook account');
     }
   }
 
@@ -88,17 +81,16 @@ class _LogInState extends State<Login> {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (route) => false);
           }
-        },
-        builder: (context, state) {
           if (state is AuthLoading) {
-            return Center(
+            Center(
               child: LoadingAnimationWidget.hexagonDots(
                 color: AppColors.buttonColor,
                 size: 50,
               ),
             );
           }
-
+        },
+        builder: (context, state) {
           return SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),

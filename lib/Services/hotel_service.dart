@@ -48,7 +48,7 @@ class HotelService {
         },
       );
 
-      print('Response Get Detail hotel with slug($slug):  ${res.body}');
+      print('Response API Get Detail hotel slug: ($slug) :  ${res.body}');
 
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);

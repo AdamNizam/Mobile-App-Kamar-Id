@@ -22,7 +22,7 @@ class UserService {
         },
       );
 
-      print('Result Data Profile User : ${res.body}');
+      print('Response API Get Profile: ${res.body}');
 
       if (res.statusCode == 200) {
         return UserModel.fromJson(jsonDecode(res.body)['data']);
@@ -47,7 +47,7 @@ class UserService {
         body: jsonEncode(data.toJson()),
       );
 
-      print('Result Update Profile : ${res.body}');
+      print('Response API Update Profile: ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultUserUpdate.fromJson(jsonDecode(res.body));
@@ -72,7 +72,7 @@ class UserService {
         body: jsonEncode(data.toJson()),
       );
 
-      print('Result Update Password : ${res.body}');
+      print('Response API Update Password: ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultUpdatePassword.fromJson(jsonDecode(res.body));
