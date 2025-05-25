@@ -26,10 +26,4 @@ class FacebookService {
     }
     return null;
   }
-
-  Future<void> logout() async {
-    await FacebookAuth.instance.logOut();
-    tokenAccess = null;
-    dataUser = null;
-  }
 }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
@@ -121,27 +123,6 @@ class AuthService {
     return now < expiredAt;
   }
 
-  Future<void> logout() async {
-    try {
-      final token = await getToken();
-      final res = await http.post(
-        Uri.parse('$baseUrl/auth/logout'),
-        headers: {
-          'Authorization': token,
-        },
-      );
-      if (res.statusCode == 200) {
-        await storage.deleteAll();
-        // await GoogleService().logoutAccountGoogle();
-        // await FacebookService().logout();
-      } else {
-        throw jsonDecode(res.body)['message'];
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<RegisterResponse> register(FormRegisterModel data) async {
     try {
       final res = await http.post(
@@ -160,5 +141,11 @@ class AuthService {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> logout() async {
+    await storage.deleteAll();
+    await FacebookAuth.instance.logOut();
+    await GoogleSignIn().signOut();
   }
 }

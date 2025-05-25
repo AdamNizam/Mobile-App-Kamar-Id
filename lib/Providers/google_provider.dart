@@ -34,9 +34,5 @@ class GoogleService {
     }
   }
 
-  Future<void> logoutAccountGoogle() async {
-    await _googleSignIn.signOut();
-  }
-
   GoogleSignInAccount? get currentUser => _googleSignIn.currentUser;
 }

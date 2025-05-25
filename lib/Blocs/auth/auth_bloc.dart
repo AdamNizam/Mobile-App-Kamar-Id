@@ -84,16 +84,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
 
         if (event is AuthLogout) {
-          try {
-            emit(AuthLoading());
+          emit(AuthLoading());
 
-            await AuthService().logout();
+          await AuthService().logout();
 
-            emit(AuthInitial());
-          } catch (error) {
-            print('Logout failed: $error');
-            emit(const AuthFailed('Logout Failed'));
-          }
+          emit(AuthInitial());
         }
       },
     );

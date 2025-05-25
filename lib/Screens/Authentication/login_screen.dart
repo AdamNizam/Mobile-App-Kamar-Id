@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
+import 'package:hotelbookingapp/Providers/facebook_provider.dart';
+import 'package:hotelbookingapp/Providers/google_provider.dart';
 import 'package:hotelbookingapp/Screens/Authentication/getstarted.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
-import 'package:hotelbookingapp/Services/facebook_service.dart';
-import 'package:hotelbookingapp/Services/google_service.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
