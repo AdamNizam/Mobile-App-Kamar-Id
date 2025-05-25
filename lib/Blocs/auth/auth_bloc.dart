@@ -5,7 +5,6 @@ import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
 import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -19,11 +18,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AuthLoading());
 
             final token = await AuthService().getToken();
+            final isValid = await AuthService().isTokenValid();
 
-            if (token.isNotEmpty && !JwtDecoder.isExpired(token)) {
-              emit(
-                AuthSuccess(LoginResponse(token: token)),
-              );
+            if (token.isNotEmpty && isValid) {
+              emit(AuthSuccess(LoginResponse(token: token)));
             } else {
               emit(const TokenExpired('Token expired'));
             }
@@ -33,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
 
-        if (event is AuthLogin) {
+        if (event is AuthLoginEvent) {
           try {
             emit(AuthLoading());
 
@@ -46,29 +44,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         }
 
-        if (event is AuthFacebook) {
+        if (event is AuthFacebookEvent) {
           try {
             emit(AuthLoading());
 
-            final token = await AuthService().authFacebook(event.accessToken);
+            final token = await AuthService().logFacebook(event.accessToken);
 
             emit(AuthSuccess(token));
           } catch (error) {
             print('failed login with facebook: $error');
-            emit(const AuthFailed('Failed login'));
+            emit(const AuthFailed('Failed log with facebook'));
           }
         }
 
-        if (event is AuthGoogle) {
+        if (event is AuthGoogleEvent) {
           try {
             emit(AuthLoading());
 
-            final token = await AuthService().authFacebook(event.accessToken);
+            final token = await AuthService().logGoogle(event.accessToken);
 
             emit(AuthSuccess(token));
           } catch (error) {
             print('failed login with google: $error');
-            emit(const AuthFailed('Failed login'));
+            emit(const AuthFailed('Failed log with google'));
           }
         }
 

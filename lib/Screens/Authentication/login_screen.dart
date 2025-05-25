@@ -32,7 +32,7 @@ class _LogInState extends State<Login> {
   void handleLogin() {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       context.read<AuthBloc>().add(
-            AuthLogin(
+            AuthLoginEvent(
               FormLoginModel(
                 email: emailController.text,
                 password: passwordController.text,
@@ -45,23 +45,27 @@ class _LogInState extends State<Login> {
   }
 
   void handleGoogleLogin() async {
-    final googleService = GoogleSignInService();
+    final googleService = GoogleService();
     final userData = await googleService.signInWithGoogle();
 
     if (userData != null) {
-      context.read<AuthBloc>().add(AuthGoogle(userData['accessToken']));
+      // final idToken = userData['idToken'];
+      // final accessToken = userData['accessToken'];
+      context.read<AuthBloc>().add(AuthGoogleEvent(userData['accessToken']));
     } else {
-      showCustomSnackbar(context, 'Failed log with your account google');
+      showCustomSnackbar(context, 'Login Google dibatalkan atau gagal');
     }
   }
 
   void handleFacebookLogin() async {
-    final accessToken = FacebookAuthService().accessToken?.token;
+    FacebookService facebookAuthService = FacebookService();
+    final userData = await facebookAuthService.login();
 
-    if (accessToken != null) {
-      context.read<AuthBloc>().add(AuthFacebook(accessToken));
+    if (userData != null) {
+      final accessToken = facebookAuthService.accessToken?.token;
+      context.read<AuthBloc>().add(AuthFacebookEvent(accessToken!));
     } else {
-      showCustomSnackbar(context, 'Failed log with facebook account');
+      showCustomSnackbar(context, 'Gagal login dengan Facebook');
     }
   }
 
@@ -75,22 +79,23 @@ class _LogInState extends State<Login> {
           }
           if (state is TokenExpired) {
             showCustomSnackbar(context, state.text);
-            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/login', (route) => false);
           }
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (route) => false);
           }
+        },
+        builder: (context, state) {
           if (state is AuthLoading) {
-            Center(
+            return Center(
               child: LoadingAnimationWidget.hexagonDots(
                 color: AppColors.buttonColor,
                 size: 50,
               ),
             );
           }
-        },
-        builder: (context, state) {
           return SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),

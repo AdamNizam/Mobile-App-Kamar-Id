@@ -24,29 +24,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(
+          BlocProvider<AuthBloc>(
             create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
           ),
-          BlocProvider(
+          BlocProvider<HotelBloc>(
             create: (context) => HotelBloc()..add(GetAllHotels()),
           ),
-          BlocProvider(
+          BlocProvider<UserBloc>(
             create: (context) => UserBloc()..add(GetUserProfile()),
           ),
-          BlocProvider(
-            create: (context) => NotificationBloc()
-              ..add(const FetchAllNotifications(
-                unreadRequest: 'read',
-                readRequest: 'read',
-              )),
+          BlocProvider<NotificationBloc>(
+            create: (context) => NotificationBloc(),
           ),
-          BlocProvider(
+          BlocProvider<PostWishlistBloc>(
             create: (context) => PostWishlistBloc(),
           ),
-          BlocProvider(
+          BlocProvider<UpdateUserBloc>(
             create: (context) => UpdateUserBloc(),
           ),
-          BlocProvider(
+          BlocProvider<ReviewBloc>(
             create: (context) => ReviewBloc(),
           ),
         ],

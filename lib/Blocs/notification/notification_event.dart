@@ -19,3 +19,5 @@ class FetchAllNotifications extends NotificationEvent {
   @override
   List<Object> get props => [unreadRequest, readRequest];
 }
+
+class GetUnreadNoticiation extends NotificationEvent {}

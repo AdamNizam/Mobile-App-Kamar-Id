@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class GoogleSignInService {
+class GoogleService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: <String>[
       'email',
@@ -28,13 +28,13 @@ class GoogleSignInService {
       debugPrint(const JsonEncoder.withIndent('  ').convert(userData));
 
       return userData;
-    } catch (e) {
-      debugPrint('Google Sign-In Error: $e');
-      rethrow;
+    } catch (error) {
+      debugPrint('Google Sign-In Error: $error');
+      return null;
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> logoutAccountGoogle() async {
     await _googleSignIn.signOut();
   }
 

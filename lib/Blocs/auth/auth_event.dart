@@ -9,28 +9,28 @@ sealed class AuthEvent extends Equatable {
 
 class AuthGetCurrentUser extends AuthEvent {}
 
-class AuthLogin extends AuthEvent {
+class AuthLoginEvent extends AuthEvent {
   final FormLoginModel data;
 
-  const AuthLogin(this.data);
+  const AuthLoginEvent(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
-class AuthFacebook extends AuthEvent {
+class AuthFacebookEvent extends AuthEvent {
   final String accessToken;
 
-  const AuthFacebook(this.accessToken);
+  const AuthFacebookEvent(this.accessToken);
 
   @override
   List<Object> get props => [accessToken];
 }
 
-class AuthGoogle extends AuthEvent {
+class AuthGoogleEvent extends AuthEvent {
   final String accessToken;
 
-  const AuthGoogle(this.accessToken);
+  const AuthGoogleEvent(this.accessToken);
 
   @override
   List<Object> get props => [accessToken];

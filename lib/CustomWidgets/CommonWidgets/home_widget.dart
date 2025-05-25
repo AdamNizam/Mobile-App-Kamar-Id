@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
-import 'package:hotelbookingapp/Screens/Notifications/notifications_screen.dart';
+import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class HomeWidgte extends StatefulWidget {
@@ -60,80 +60,29 @@ class _HomeWidgteState extends State<HomeWidgte> {
         ),
         BlocBuilder<NotificationBloc, NotificationState>(
           builder: (context, state) {
-            if (state is NotificationSuccess) {
-              print(
-                  'Unread Notifications total: ${state.unreadData.rows.total}');
-              print('Read Notifications total: ${state.readData.rows.total}');
-
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                // Cek dulu apakah nilai berubah
-                if (totalNotification != state.unreadData.rows.total) {
-                  setState(() {
-                    totalNotification = state.unreadData.rows.total;
-                  });
-                }
-              });
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NoticationScreen(
-                        unreadData: state.unreadData.rows,
-                        readData: state.readData.rows,
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      const Icon(
-                        Icons.notifications_active,
-                        color: AppColors.buttonColor,
-                        size: 26,
-                      ),
-                      Positioned(
-                        right: -2,
-                        top: -4,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: const BoxDecoration(
-                            color: AppColors.redAwesome,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            totalNotification.toString(),
-                            style: const TextStyle(
-                              color: AppColors.white,
-                              fontSize: 6,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (state is NotificationSuccess) {
+                showCustomSnackbar(context, 'Get Data Notication sucess');
+              }
+              if (state is NotificationFailed) {
+                showCustomSnackbar(context, state.error);
+              }
+            });
+            return GestureDetector(
+              onTap: () {
+                context.read<NotificationBloc>().add(GetUnreadNoticiation());
+              },
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              );
-            }
-            return Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(
-                Icons.notifications_off,
-                color: AppColors.cadetGray,
-                size: 24,
+                child: const Icon(
+                  Icons.notifications_off,
+                  color: AppColors.cadetGray,
+                  size: 24,
+                ),
               ),
             );
           },

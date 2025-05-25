@@ -1,31 +1,31 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
-import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationService {
-  Future<ResultNotification> loadNotify(String type) async {
+  Future<Map<String, dynamic>> loadNotify() async {
     try {
       final token = await AuthService().getToken();
 
       final res = await http.post(
-        Uri.parse('$baseUrl/notification/load-notify'),
+        Uri.parse(
+            'https://develop.tripordare.com/api/notification/load-notify'),
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': token,
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({'type': type}),
+        body: jsonEncode({'type': 'unread'}),
       );
 
       print('Response API notification: ${res.body}');
 
       if (res.statusCode == 200) {
-        return ResultNotification.fromJson(jsonDecode(res.body));
-      } else {
-        throw Exception('Failed to load notification');
+        final decoded = jsonDecode(res.body);
+        return decoded; // return langsung hasil decode
       }
+
+      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }

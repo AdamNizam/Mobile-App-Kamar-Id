@@ -11,15 +11,6 @@ final class AuthInitial extends AuthState {}
 
 final class AuthLoading extends AuthState {}
 
-final class AuthSuccess extends AuthState {
-  final LoginResponse data;
-
-  const AuthSuccess(this.data);
-
-  @override
-  List<Object> get props => [data];
-}
-
 final class AuthRegSuccess extends AuthState {
   final RegisterResponse data;
 
@@ -44,4 +35,31 @@ final class TokenExpired extends AuthState {
 
   @override
   List<Object> get props => [text];
+}
+
+final class AuthSuccess extends AuthState {
+  final LoginResponse data;
+
+  const AuthSuccess(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+final class AuthSuccessWithFacebook extends AuthState {
+  final LoginResponse data;
+
+  const AuthSuccessWithFacebook(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+final class AuthSuccessWithGoogle extends AuthState {
+  final LoginResponse data;
+
+  const AuthSuccessWithGoogle(this.data);
+
+  @override
+  List<Object> get props => [data];
 }

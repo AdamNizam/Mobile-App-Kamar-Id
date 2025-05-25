@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-class FacebookAuthService {
+class FacebookService {
   AccessToken? tokenAccess;
   Map<String, dynamic>? dataUser;
 
@@ -20,7 +20,8 @@ class FacebookAuthService {
 
         return dataUser;
       }
-    } catch (e) {
+    } catch (error) {
+      debugPrint('Facebook Sign-In Error: $error');
       rethrow;
     }
     return null;

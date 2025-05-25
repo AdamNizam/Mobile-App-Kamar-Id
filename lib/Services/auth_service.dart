@@ -26,21 +26,18 @@ class AuthService {
         LoginResponse userResultLog = LoginResponse.fromJson(
           jsonDecode(res.body),
         );
-
         await saveToken(userResultLog);
-
-        // await saveCredentials(data.email.toString(), data.password.toString());
 
         return userResultLog;
       } else {
-        throw Exception(jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan');
+        throw Exception(jsonDecode(res.body)['message']);
       }
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<LoginResponse> authFacebook(String accessToken) async {
+  Future<LoginResponse> logFacebook(String accessToken) async {
     LoginResponse? userResultLog;
     try {
       final res = await http.post(
@@ -49,7 +46,7 @@ class AuthService {
         body: jsonEncode({'token': accessToken}),
       );
 
-      debugPrint('Response Auth With Facebook: ${res.body}');
+      debugPrint('Response API Auth With Facebook: ${res.body}');
 
       if (res.statusCode == 200) {
         userResultLog = LoginResponse.fromJson(
@@ -65,7 +62,7 @@ class AuthService {
     }
   }
 
-  Future<LoginResponse> authGoogle(String accessToken) async {
+  Future<LoginResponse> logGoogle(String accessToken) async {
     LoginResponse? userResultLog;
     try {
       final res = await http.post(
@@ -74,7 +71,7 @@ class AuthService {
         body: jsonEncode({'token': accessToken}),
       );
 
-      debugPrint('Response Auth With Google: ${res.body}');
+      debugPrint('Response API Auth With Google: ${res.body}');
 
       if (res.statusCode == 200) {
         userResultLog = LoginResponse.fromJson(
@@ -93,8 +90,16 @@ class AuthService {
   Future<void> saveToken(LoginResponse userLog) async {
     if (userLog.token != null && userLog.token!.isNotEmpty) {
       await storage.write(key: 'token', value: userLog.token);
+
+      if (userLog.expiresIn != null) {
+        final expiredAt = DateTime.now()
+            .add(Duration(seconds: userLog.expiresIn!))
+            .millisecondsSinceEpoch
+            .toString();
+        await storage.write(key: 'expiredTime', value: expiredAt);
+      }
     } else {
-      throw Exception("Token tidak valid");
+      throw Exception("Token invalid");
     }
   }
 
@@ -103,27 +108,18 @@ class AuthService {
     return token != null ? 'Bearer $token' : '';
   }
 
-  // Future<void> saveCredentials(String email, String password) async {
-  //   await storage.write(key: 'email', value: email);
-  //   await storage.write(key: 'password', value: password);
-  // }
+  Future<bool> isTokenValid() async {
+    final token = await storage.read(key: 'token');
+    final expiredStr = await storage.read(key: 'expiredTime');
 
-  // Future<FormLoginModel?> getCredentialFromLocal() async {
-  //   try {
-  //     Map<String, String> values = await storage.readAll();
+    if (token == null || expiredStr == null) return false;
 
-  //     if (values['email'] == null || values['password'] == null) {
-  //       return null;
-  //     } else {
-  //       return FormLoginModel(
-  //         email: values['email']!,
-  //         password: values['password']!,
-  //       );
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+    final expiredAt = int.tryParse(expiredStr);
+    if (expiredAt == null) return false;
+
+    final now = DateTime.now().millisecondsSinceEpoch;
+    return now < expiredAt;
+  }
 
   Future<void> logout() async {
     try {
@@ -135,17 +131,15 @@ class AuthService {
         },
       );
       if (res.statusCode == 200) {
-        await clearLocalStorage();
+        await storage.deleteAll();
+        // await GoogleService().logoutAccountGoogle();
+        // await FacebookService().logout();
       } else {
         throw jsonDecode(res.body)['message'];
       }
     } catch (e) {
       rethrow;
     }
-  }
-
-  Future<void> clearLocalStorage() async {
-    await storage.deleteAll();
   }
 
   Future<RegisterResponse> register(FormRegisterModel data) async {

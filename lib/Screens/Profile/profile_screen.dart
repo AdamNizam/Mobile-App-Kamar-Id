@@ -18,26 +18,26 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthInitial) {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (_) => const MyApp()),
-              (route) => false,
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is AuthLoading) {
-            return Center(
-              child: LoadingAnimationWidget.hexagonDots(
-                color: AppColors.tabColor,
-                size: 50,
-              ),
-            );
-          }
-          return SafeArea(
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, authState) {
+        if (authState is AuthInitial) {
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => const MyApp()),
+            (route) => false,
+          );
+        }
+      },
+      builder: (context, authState) {
+        if (authState is AuthLoading) {
+          return Center(
+            child: LoadingAnimationWidget.hexagonDots(
+              color: AppColors.tabColor,
+              size: 50,
+            ),
+          );
+        }
+        return Scaffold(
+          body: SafeArea(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
               children: [
@@ -57,8 +57,8 @@ class ProfileScreen extends StatelessWidget {
                       showCustomSnackbar(context, state.error);
                     }
                   },
-                  builder: (context, state) {
-                    if (state is UserLoading) {
+                  builder: (context, Userstate) {
+                    if (Userstate is UserLoading) {
                       return Center(
                         child: LoadingAnimationWidget.staggeredDotsWave(
                           color: AppColors.tabColor,
@@ -66,12 +66,12 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       );
                     }
-                    if (state is UserSuccess) {
+                    if (Userstate is UserSuccess) {
                       return Column(
                         children: [
                           const SizedBox(height: 10),
                           Text(
-                            state.data.name,
+                            Userstate.data.name,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            state.data.email,
+                            Userstate.data.email,
                             style: const TextStyle(
                               fontSize: 16,
                               color: AppColors.cadetGray,
@@ -134,9 +134,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
