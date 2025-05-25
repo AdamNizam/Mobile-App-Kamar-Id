@@ -91,6 +91,7 @@ class AuthService {
 
   Future<void> saveToken(LoginResponse userLog) async {
     if (userLog.token != null && userLog.token!.isNotEmpty) {
+      print('Token App Kamar.ID: ${userLog.token}');
       await storage.write(key: 'token', value: userLog.token);
 
       if (userLog.expiresIn != null) {
@@ -107,6 +108,7 @@ class AuthService {
 
   Future<String> getToken() async {
     String? token = await storage.read(key: 'token');
+    print('Token App Kamar.ID: $token');
     return token != null ? 'Bearer $token' : '';
   }
 

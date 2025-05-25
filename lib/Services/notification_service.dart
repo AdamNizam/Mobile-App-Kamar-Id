@@ -1,58 +1,64 @@
 import 'dart:convert';
 
+import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
+// Tempat baseUrl didefinisikan
 
 class NotificationService {
-  Future<Map<String, dynamic>> loadNotify() async {
+  Future<ResultNotification> loadNotify(String type) async {
     try {
       final token = await AuthService().getToken();
 
-      final res = await http.post(
-        Uri.parse('$baseUrl/notification/load-notify'),
-        headers: {'Authorization': token},
-        body: jsonEncode(
-          {'type': 'unread'},
-        ),
-      );
-
-      print('Response API notification: ${res.body}');
-
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      }
-
-      throw jsonDecode(res.body)['message'];
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<Map<String, dynamic>> readNotif(List<int> ids) async {
-    try {
-      final token = await AuthService().getToken();
-
-      final res = await http.post(
+      final response = await http.post(
         Uri.parse('$baseUrl/notification/load-notify'),
         headers: {
           'Authorization': token,
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(
-          {'ids': ids},
-        ),
+        body: jsonEncode({'type': type}),
       );
 
-      print('Response Read notification: ${res.body}');
+      print('Response API notification: ${response.body}');
 
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return ResultNotification.fromJson(data);
+      } else {
+        final error = jsonDecode(response.body);
+        throw Exception(error['message'] ?? 'Terjadi kesalahan');
       }
-
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
+      print('Error: $e');
       rethrow;
     }
+  }
+}
+
+Future<Map<String, dynamic>> readNotif(List<int> ids) async {
+  try {
+    final token = await AuthService().getToken();
+
+    final res = await http.post(
+      Uri.parse('$baseUrl/notification/load-notify'),
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(
+        {'ids': ids},
+      ),
+    );
+
+    print('Response Read notification: ${res.body}');
+
+    if (res.statusCode == 200) {
+      return jsonDecode(res.body);
+    }
+
+    throw jsonDecode(res.body)['message'];
+  } catch (e) {
+    rethrow;
   }
 }

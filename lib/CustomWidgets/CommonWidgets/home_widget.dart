@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotelbookingapp/Blocs/notification/notication_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/Screens/Notifications/notifications_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class HomeWidgte extends StatefulWidget {
@@ -50,17 +52,71 @@ class _HomeWidgteState extends State<HomeWidgte> {
             );
           },
         ),
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.notifications_off,
-            color: AppColors.cadetGray,
-            size: 24,
-          ),
+        BlocBuilder<NoticationBloc, NoticationState>(
+          builder: (context, state) {
+            if (state is NoticationSuccess) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => NotificationScreen(
+                        unreadData: state.unreadData.rows,
+                        readData: state.readData.rows,
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      const Icon(
+                        Icons.notifications_active,
+                        color: AppColors.buttonColor,
+                        size: 26,
+                      ),
+                      Positioned(
+                        right: -2,
+                        top: -4,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: AppColors.redAwesome,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            totalNotification.toString(),
+                            style: const TextStyle(
+                              color: AppColors.white,
+                              fontSize: 6,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+            return Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.notifications_off,
+                color: AppColors.cadetGray,
+                size: 24,
+              ),
+            );
+          },
         ),
       ],
     );

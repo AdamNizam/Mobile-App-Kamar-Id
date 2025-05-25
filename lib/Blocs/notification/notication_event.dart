@@ -8,9 +8,13 @@ sealed class NoticationEvent extends Equatable {
 }
 
 class GetAllMessage extends NoticationEvent {
-  final String type;
+  final String typeUnred;
+  final String typeread;
 
-  const GetAllMessage(this.type);
+  const GetAllMessage({
+    required this.typeUnred,
+    required this.typeread,
+  });
 }
 
 class ReadMessage extends NoticationEvent {

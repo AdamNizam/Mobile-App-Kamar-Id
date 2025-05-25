@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 
 class DefaultValue extends StatelessWidget {
   final String imageSvg;
@@ -19,16 +19,16 @@ class DefaultValue extends StatelessWidget {
         children: [
           SvgPicture.asset(
             imageSvg,
-            semanticsLabel: 'serach image',
-            width: 150,
-            height: 150,
+            semanticsLabel: text,
+            width: 200,
+            height: 200,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 10),
-          CustomTextEllipsis(
-            text: text,
+          Text1(
+            text1: text,
             size: 16,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w400,
             color: Colors.grey,
           ),
         ],

@@ -79,12 +79,40 @@ class _UserInformationState extends State<UserInformation> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Center(
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: AssetImage(
-                          'images/user_default_profile.png',
-                        ),
+                    Center(
+                      child: Stack(
+                        children: [
+                          const CircleAvatar(
+                            radius: 35,
+                            backgroundImage: AssetImage(
+                              'images/user_default_profile.png',
+                            ),
+                          ),
+                          Positioned(
+                            bottom: -0,
+                            right: -0,
+                            child: GestureDetector(
+                              onTap: () {
+                                // Aksi upload image, misalnya showModalBottomSheet atau pick image
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: Colors.white, width: 2),
+                                ),
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  size: 18,
+                                  color: AppColors.cadetGray,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 10),

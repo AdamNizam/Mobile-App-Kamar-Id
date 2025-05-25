@@ -51,11 +51,13 @@ class ConfirmBookingScreen extends StatefulWidget {
 class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, userState) {
+    return BlocConsumer<UserBloc, UserState>(
+      listener: (context, userState) {
         if (userState is UserFailed) {
           showCustomSnackbar(context, userState.error);
         }
+      },
+      builder: (context, userState) {
         if (userState is UserSuccess) {
           return Scaffold(
             appBar: CustomAppTopBar(
@@ -65,47 +67,47 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 Navigator.pop(context);
               },
               onTap: () {
-                showCustomSnackbar(context, 'fitur is not avaibale');
+                showCustomSnackbar(context, 'fitur is not available');
               },
             ),
             body: SafeArea(
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            width: 1,
-                            color: AppColors.beauBlue,
-                          ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.beauBlue,
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                widget.dataHotel.imageId ??
-                                    'https://via.placeholder.com/150',
-                                width: 75,
-                                height: 75,
-                                fit: BoxFit.cover,
-                              ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              widget.dataHotel.imageId ??
+                                  'https://via.placeholder.com/150',
+                              width: 75,
+                              height: 75,
+                              fit: BoxFit.cover,
                             ),
-                            const SizedBox(width: 16),
-                            Column(
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomTextOverflow(
-                                  text: widget.dataHotel.location?.name ??
-                                      'No title infromation',
+                                  text: widget.dataHotel.title ??
+                                      'No information',
                                   fontWeight: FontWeight.w600,
                                   size: 14,
                                   color: AppColors.black,
@@ -119,6 +121,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Icon(
                                       Icons.location_on,
@@ -127,69 +130,59 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     ),
                                     const SizedBox(width: 3),
                                     Expanded(
-                                      child: CustomTextOverflow(
-                                        text: widget.dataHotel.address ??
+                                      child: Text1(
+                                        text1: widget.dataHotel.address ??
                                             'No information',
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.cadetGray,
-                                        size: 12,
+                                        size: 13,
                                       ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.beauBlue,
                         ),
                       ),
-                      const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            width: 1,
-                            color: AppColors.beauBlue,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _detailRow(
+                            'Check-In',
+                            DateFormat('EEEE, MMMM dd, yyyy')
+                                .format(widget.checkIn),
                           ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _detailRow(
-                              'Check-In',
-                              DateFormat('EEEE, MMMM dd, yyyy')
-                                  .format(widget.checkIn),
-                            ),
-                            _detailRow(
-                              'Check-Out',
-                              DateFormat('EEEE, MMMM dd, yyyy')
-                                  .format(widget.checkOut),
-                            ),
-                            _detailRow('Room Type', widget.roomType),
-                            _detailRow(
-                              'Count of Room',
-                              '${widget.room} room',
-                            ),
-                            _detailRow(
-                              'Guests',
-                              '${widget.adult + widget.child} people',
-                            ),
-                            _detailRow(
-                              'Price per Night',
-                              widget.pricePerNight,
-                            ),
-                            _detailRow(
-                              'Total Amount',
-                              'Rp${formatToRp(
-                                extractNumber(widget.totalAmount),
-                              )}',
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          _detailRow(
+                            'Check-Out',
+                            DateFormat('EEEE, MMMM dd, yyyy')
+                                .format(widget.checkOut),
+                          ),
+                          _detailRow('Room Type', widget.roomType),
+                          _detailRow('Count of Room', '${widget.room} room'),
+                          _detailRow('Guests',
+                              '${widget.adult + widget.child} people'),
+                          _detailRow('Price per Night', widget.pricePerNight),
+                          _detailRow(
+                            'Total Amount',
+                            'Rp${formatToRp(extractNumber(widget.totalAmount))}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -227,7 +220,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             : CustomButton(
                                 text: 'Book Now',
                                 onTap: () async {
-                                  final dataChekout = RequestChekout(
+                                  final dataCheckout = RequestChekout(
                                     code: widget.orderId,
                                     firstName: userState.data.firstName,
                                     lastName: userState.data.lastName,
@@ -244,13 +237,13 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     termConditions: 'on',
                                     couponCode: null,
                                   );
+
                                   print(
-                                    'data chekout ${jsonEncode(dataChekout.toJson())}',
-                                  );
+                                      'data checkout: ${jsonEncode(dataCheckout.toJson())}');
 
                                   context
                                       .read<CheckoutBloc>()
-                                      .add(CheckoutSubmitEvent(dataChekout));
+                                      .add(CheckoutSubmitEvent(dataCheckout));
                                 },
                               ),
                       ],
@@ -262,6 +255,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
           );
         }
 
+        // Default loading UI jika bukan UserSuccess
         return Scaffold(
           body: Center(
             child: LoadingAnimationWidget.hexagonDots(
