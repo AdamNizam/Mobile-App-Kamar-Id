@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
-import 'package:hotelbookingapp/Screens/Authentication/message_register_success.dart';
+import 'package:hotelbookingapp/Screens/Authentication/message_success.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -49,7 +49,12 @@ class _RegisterState extends State<Register> {
           if (state is AuthRegSuccess) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MessageRegisterSuccess()),
+              MaterialPageRoute(
+                builder: (_) => const MessageSuccess(
+                  title: 'Register Success!',
+                  message: 'Please, Verified your email',
+                ),
+              ),
             );
           }
         },

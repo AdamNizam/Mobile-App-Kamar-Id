@@ -8,3 +8,5 @@ sealed class GetWishlistEvent extends Equatable {
 }
 
 class GetData extends GetWishlistEvent {}
+
+class WishlistRiset extends GetWishlistEvent {}

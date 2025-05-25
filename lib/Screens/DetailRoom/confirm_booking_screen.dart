@@ -126,12 +126,14 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                       color: AppColors.buttonColor,
                                     ),
                                     const SizedBox(width: 3),
-                                    CustomTextOverflow(
-                                      text: widget.dataHotel.address ??
-                                          'No information',
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.cadetGray,
-                                      size: 12,
+                                    Expanded(
+                                      child: CustomTextOverflow(
+                                        text: widget.dataHotel.address ??
+                                            'No information',
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.cadetGray,
+                                        size: 12,
+                                      ),
                                     ),
                                   ],
                                 ),

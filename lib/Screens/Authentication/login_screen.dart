@@ -84,7 +84,10 @@ class _LogInState extends State<Login> {
           }
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, '/home', (route) => false);
+              context,
+              '/home',
+              (route) => false,
+            );
           }
         },
         builder: (context, state) {

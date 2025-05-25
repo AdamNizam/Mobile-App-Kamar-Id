@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/Blocs/notification/notification_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
@@ -24,25 +23,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider<AuthBloc>(
+          BlocProvider(
             create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
           ),
-          BlocProvider<HotelBloc>(
+          BlocProvider(
             create: (context) => HotelBloc()..add(GetAllHotels()),
           ),
-          BlocProvider<UserBloc>(
+          BlocProvider(
             create: (context) => UserBloc()..add(GetUserProfile()),
           ),
-          BlocProvider<NotificationBloc>(
-            create: (context) => NotificationBloc(),
-          ),
-          BlocProvider<PostWishlistBloc>(
+          BlocProvider(
             create: (context) => PostWishlistBloc(),
           ),
-          BlocProvider<UpdateUserBloc>(
+          BlocProvider(
             create: (context) => UpdateUserBloc(),
           ),
-          BlocProvider<ReviewBloc>(
+          BlocProvider(
             create: (context) => ReviewBloc(),
           ),
         ],

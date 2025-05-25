@@ -9,6 +9,8 @@ sealed class AuthEvent extends Equatable {
 
 class AuthGetCurrentUser extends AuthEvent {}
 
+class AuthLogout extends AuthEvent {}
+
 class AuthLoginEvent extends AuthEvent {
   final FormLoginModel data;
 
@@ -44,5 +46,3 @@ class AuthRegister extends AuthEvent {
   @override
   List<Object> get props => [data];
 }
-
-class AuthLogout extends AuthEvent {}

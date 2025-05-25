@@ -80,6 +80,11 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                 showCustomSnackbar(
                     context, 'Failed to check availability: ${state.error}');
               }
+              if (state is CheckAvaibilitySuccess) {
+                setState(() {
+                  isLoading = false;
+                });
+              }
             },
             builder: (context, state) {
               return Column(

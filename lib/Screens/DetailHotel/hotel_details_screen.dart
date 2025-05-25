@@ -53,6 +53,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                   children: [
                     Expanded(
                       child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
                         child: Column(
                           children: [
                             CarouselSlideImage(

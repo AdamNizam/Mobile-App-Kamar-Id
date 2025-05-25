@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/Screens/Authentication/message_success.dart';
 import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
-import 'package:hotelbookingapp/main.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
@@ -20,12 +20,16 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, authState) {
-        if (authState is AuthInitial) {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const MyApp()),
-            (route) => false,
-          );
-        }
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const MessageSuccess(
+              title: 'Logout Success!',
+              message: 'your acount is log out in sistem',
+            ),
+          ),
+          (Route<dynamic> route) => false,
+        );
       },
       builder: (context, authState) {
         if (authState is AuthLoading) {
