@@ -23,6 +23,17 @@ class NoticationBloc extends Bloc<NoticationEvent, NoticationState> {
           emit(NoticationFailed(error.toString()));
         }
       }
+      if (event is ReadMessage) {
+        try {
+          emit(NoticationLoading());
+
+          final data = await NotificationService().readNotif(event.idNotif);
+
+          print('Result notif $data');
+        } catch (error) {
+          emit(NoticationFailed(error.toString()));
+        }
+      }
     });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showFilterSelectionModal(BuildContext context) {

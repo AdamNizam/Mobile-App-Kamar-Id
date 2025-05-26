@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
@@ -6,7 +8,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Screens/Authentication/message_success.dart';
 import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -45,24 +47,15 @@ class ProfileScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
               children: [
-                const SizedBox(height: 20),
-                const Center(
-                  child: CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage(
-                      'images/user_default_profile.png',
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 5),
                 BlocConsumer<UserBloc, UserState>(
-                  listener: (context, state) {
-                    if (state is UserFailed) {
-                      showCustomSnackbar(context, state.error);
+                  listener: (context, userState) {
+                    if (userState is UserFailed) {
+                      showCustomSnackbar(context, userState.error);
                     }
                   },
-                  builder: (context, Userstate) {
-                    if (Userstate is UserLoading) {
+                  builder: (context, userState) {
+                    if (userState is UserLoading) {
                       return Center(
                         child: LoadingAnimationWidget.staggeredDotsWave(
                           color: AppColors.tabColor,
@@ -70,12 +63,37 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       );
                     }
-                    if (Userstate is UserSuccess) {
+                    if (userState is UserSuccess) {
                       return Column(
                         children: [
+                          const SizedBox(height: 20),
+                          Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColors.white,
+                                  width: 3,
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundImage:
+                                    (userState.data.avatarThumbUrl == null ||
+                                            userState
+                                                .data.avatarThumbUrl!.isEmpty)
+                                        ? const AssetImage(
+                                            'images/user_default_profile.png',
+                                          )
+                                        : NetworkImage(
+                                            userState.data.avatarThumbUrl!,
+                                          ) as ImageProvider<Object>,
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 10),
                           Text(
-                            Userstate.data.name,
+                            userState.data.name,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -83,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            Userstate.data.email,
+                            userState.data.email,
                             style: const TextStyle(
                               fontSize: 16,
                               color: AppColors.cadetGray,

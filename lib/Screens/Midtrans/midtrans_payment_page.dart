@@ -12,7 +12,7 @@ import 'package:hotelbookingapp/Screens/Midtrans/store_code_alfamart_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_indomaret_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/virtual_number_page.dart';
 import 'package:hotelbookingapp/Shared/PaymentMethodMidtrans/data.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';

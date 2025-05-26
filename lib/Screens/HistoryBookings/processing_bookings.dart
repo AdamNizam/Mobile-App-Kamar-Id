@@ -4,7 +4,7 @@ import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_booking_processing.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 
 class ProcessingBooking extends StatefulWidget {
   const ProcessingBooking({super.key});

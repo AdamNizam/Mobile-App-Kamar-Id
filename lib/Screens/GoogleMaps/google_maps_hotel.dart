@@ -6,6 +6,7 @@ class GoogleMapsHotel extends StatefulWidget {
   final LatLng initialPosition;
   final String title;
   final String snippet;
+  final double? zoom;
   final double? heightMap;
   final double? widthMap;
 
@@ -14,6 +15,7 @@ class GoogleMapsHotel extends StatefulWidget {
     required this.initialPosition,
     required this.title,
     required this.snippet,
+    this.zoom,
     this.heightMap = 370,
     this.widthMap = 600,
   });
@@ -61,7 +63,7 @@ class _GoogleMapsHotelState extends State<GoogleMapsHotel> {
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: widget.initialPosition,
-                zoom: 12.0,
+                zoom: widget.zoom ?? 12.0,
               ),
               markers: _markers,
               zoomControlsEnabled: true,

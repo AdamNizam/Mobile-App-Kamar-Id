@@ -5,10 +5,14 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 class DefaultValue extends StatelessWidget {
   final String imageSvg;
   final String text;
+  final double? width;
+  final double? height;
   const DefaultValue({
     super.key,
     required this.imageSvg,
     required this.text,
+    this.height = 200,
+    this.width = 200,
   });
 
   @override
@@ -20,8 +24,8 @@ class DefaultValue extends StatelessWidget {
           SvgPicture.asset(
             imageSvg,
             semanticsLabel: text,
-            width: 200,
-            height: 200,
+            width: width,
+            height: height,
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 10),

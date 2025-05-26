@@ -12,6 +12,7 @@ class HotelAllModel {
   final double? price;
   final double? reviewScore;
   final HasWishList? hasWishList;
+  final List<Room>? rooms;
 
   HotelAllModel({
     this.id,
@@ -25,6 +26,7 @@ class HotelAllModel {
     this.price,
     this.reviewScore,
     this.hasWishList,
+    this.rooms,
   });
 
   factory HotelAllModel.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class HotelAllModel {
       hasWishList: json["has_wish_list"] == null
           ? null
           : HasWishList.fromJson(json["has_wish_list"]),
+      rooms: List<Room>.from(json["rooms"].map((x) => Room.fromJson(x))),
     );
   }
 
@@ -63,7 +66,8 @@ class HotelAllModel {
       'is_featured': isFeatured,
       'price': price,
       'review_score': reviewScore,
-      "has_wish_list": hasWishList,
+      'has_wish_list': hasWishList,
+      'rooms': rooms
     };
   }
 }
@@ -98,5 +102,69 @@ class HasWishList {
         "object_id": objectId,
         "object_model": objectModel,
         "user_id": userId,
+      };
+}
+
+class Room {
+  final int id;
+  final String title;
+  final dynamic content;
+  final int imageId;
+  final String gallery;
+  final dynamic video;
+  final String price;
+  final int parentId;
+  final int number;
+  final int beds;
+  final int size;
+  final int adults;
+  final int children;
+
+  Room({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.imageId,
+    required this.gallery,
+    required this.video,
+    required this.price,
+    required this.parentId,
+    required this.number,
+    required this.beds,
+    required this.size,
+    required this.adults,
+    required this.children,
+  });
+
+  factory Room.fromJson(Map<String, dynamic> json) => Room(
+        id: json["id"],
+        title: json["title"],
+        content: json["content"],
+        imageId: json["image_id"],
+        gallery: json["gallery"],
+        video: json["video"],
+        price: json["price"],
+        parentId: json["parent_id"],
+        number: json["number"],
+        beds: json["beds"],
+        size: json["size"],
+        adults: json["adults"],
+        children: json["children"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "content": content,
+        "image_id": imageId,
+        "gallery": gallery,
+        "video": video,
+        "price": price,
+        "parent_id": parentId,
+        "number": number,
+        "beds": beds,
+        "size": size,
+        "adults": adults,
+        "children": children,
       };
 }

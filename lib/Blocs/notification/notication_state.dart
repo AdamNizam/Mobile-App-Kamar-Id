@@ -29,3 +29,12 @@ final class NoticationSuccess extends NoticationState {
   @override
   List<Object> get props => [readData, unreadData];
 }
+
+final class ReadNotificationSuccess extends NoticationState {
+  final Map<String, dynamic> unreadData;
+
+  const ReadNotificationSuccess(this.unreadData);
+
+  @override
+  List<Object> get props => [unreadData];
+}

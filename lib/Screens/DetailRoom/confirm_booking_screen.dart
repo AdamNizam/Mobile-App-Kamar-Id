@@ -13,7 +13,7 @@ import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/custom_methods.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -231,7 +231,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     city: userState.data.city ?? '',
                                     state: userState.data.state ?? '',
                                     zipCode: userState.data.zipCode.toString(),
-                                    country: userState.data.country!,
+                                    country: userState.data.country ?? 'ID',
                                     customerNotes: '',
                                     paymentGateway: 'midtrans',
                                     termConditions: 'on',

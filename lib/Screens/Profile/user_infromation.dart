@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
@@ -29,6 +29,7 @@ class _UserInformationState extends State<UserInformation> {
 
   String? fullname;
   String? email;
+  String? imageProfile = '';
   String? selectedCountry;
 
   @override
@@ -38,6 +39,7 @@ class _UserInformationState extends State<UserInformation> {
     if (userState is UserSuccess) {
       fullname = userState.data.name;
       email = userState.data.email;
+      imageProfile = userState.data.avatarThumbUrl;
 
       fullNameController.text = userState.data.name;
       firstNameController.text = userState.data.firstName;
@@ -82,11 +84,16 @@ class _UserInformationState extends State<UserInformation> {
                     Center(
                       child: Stack(
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 35,
-                            backgroundImage: AssetImage(
-                              'images/user_default_profile.png',
-                            ),
+                            backgroundImage:
+                                (imageProfile == null || imageProfile!.isEmpty)
+                                    ? const AssetImage(
+                                        'images/user_default_profile.png',
+                                      )
+                                    : NetworkImage(
+                                        imageProfile!,
+                                      ) as ImageProvider<Object>?,
                           ),
                           Positioned(
                             bottom: -0,

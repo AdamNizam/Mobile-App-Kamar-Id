@@ -193,7 +193,15 @@ class _HotelsCard2State extends State<HotelsCard2> {
                             ],
                           ),
                           const SizedBox(height: 5.0),
-                          const TextRemaining(text: '12 Rooms Left')
+                          (widget.hotel.rooms!.isNotEmpty)
+                              ? TextRemaining(
+                                  text:
+                                      '${widget.hotel.rooms![0].number} rooms availbale',
+                                )
+                              : const TextRemaining(
+                                  text: 'soldout',
+                                  color: AppColors.redAwesome,
+                                ),
                         ],
                       ),
                     ),

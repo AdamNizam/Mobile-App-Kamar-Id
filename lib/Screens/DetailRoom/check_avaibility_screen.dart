@@ -12,7 +12,7 @@ import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_room_selection
 import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -260,6 +260,8 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     const DefaultValue(
                       imageSvg: 'images/avaibility.svg',
                       text: 'Search your room',
+                      height: 130,
+                      width: 130,
                     ),
                   const SizedBox(height: 20),
                 ],

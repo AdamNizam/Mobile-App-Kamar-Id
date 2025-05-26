@@ -45,21 +45,3 @@ final class AuthSuccess extends AuthState {
   @override
   List<Object> get props => [data];
 }
-
-final class AuthSuccessWithFacebook extends AuthState {
-  final LoginResponse data;
-
-  const AuthSuccessWithFacebook(this.data);
-
-  @override
-  List<Object> get props => [data];
-}
-
-final class AuthSuccessWithGoogle extends AuthState {
-  final LoginResponse data;
-
-  const AuthSuccessWithGoogle(this.data);
-
-  @override
-  List<Object> get props => [data];
-}

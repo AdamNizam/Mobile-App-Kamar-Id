@@ -9,7 +9,7 @@ import 'package:hotelbookingapp/Providers/facebook_provider.dart';
 import 'package:hotelbookingapp/Providers/google_provider.dart';
 import 'package:hotelbookingapp/Screens/Authentication/getstarted.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';

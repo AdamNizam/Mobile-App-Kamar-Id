@@ -15,7 +15,7 @@ import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
-import 'package:hotelbookingapp/Shared/shared_notificatios.dart';
+import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Themes/colors.dart';
@@ -366,7 +366,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
                                   const SizedBox(height: 10),
 
-                                  if (state.data.rowData!.location != null)
+                                  if (state.data.rowData?.mapLat != null &&
+                                      state.data.rowData?.mapLng != null)
                                     Column(
                                       children: [
                                         // Google Maps
@@ -382,17 +383,18 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         GoogleMapsHotel(
                                           initialPosition: LatLng(
                                             double.parse(state
-                                                .data.rowData!.location!.mapLat
+                                                .data.rowData!.mapLat
                                                 .toString()),
                                             double.parse(state
-                                                .data.rowData!.location!.mapLng
+                                                .data.rowData!.mapLng
                                                 .toString()),
                                           ),
-                                          title: state.data.rowData!.title
-                                              .toString(),
-                                          snippet: state
-                                              .data.rowData!.location!.name
-                                              .toString(),
+                                          title:
+                                              state.data.rowData?.title ?? '',
+                                          snippet:
+                                              state.data.rowData?.address ?? '',
+                                          zoom: state.data.rowData!.mapZoom
+                                              ?.toDouble(),
                                         ),
                                       ],
                                     ),
