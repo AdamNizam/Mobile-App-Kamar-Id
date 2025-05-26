@@ -148,7 +148,7 @@ class _RegisterState extends State<Register> {
                         Row(
                           children: [
                             Checkbox(
-                              activeColor: AppColors.redDark,
+                              activeColor: AppColors.redAwesome,
                               value: isChecked,
                               onChanged: (value) {
                                 setState(() {

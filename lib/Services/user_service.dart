@@ -34,7 +34,7 @@ class UserService {
     }
   }
 
-  Future<ResultUserUpdate> updatePorfile(RequestUserUpdate data) async {
+  Future<ResultUserUpdate> updateProfile(RequestUserUpdate data) async {
     try {
       final token = await AuthService().getToken();
 
@@ -47,12 +47,27 @@ class UserService {
         body: jsonEncode(data.toJson()),
       );
 
-      print('Response API Update Profile: ${res.body}');
+      print(
+        'Response API Update Profile & status code ${res.statusCode}: ${res.body}',
+      );
 
       if (res.statusCode == 200) {
-        return ResultUserUpdate.fromJson(jsonDecode(res.body));
+        final decoded = jsonDecode(res.body);
+
+        if (decoded['status'] == 1) {
+          return ResultUserUpdate.fromJson(decoded);
+        } else {
+          // Ubah Map jadi string
+          final messageMap = decoded['message'] as Map<String, dynamic>;
+          final messageList =
+              messageMap.values.expand((e) => e as List).toList();
+          final messageString = messageList.join('\n');
+
+          throw messageString; // hanya teks error
+        }
       } else {
-        throw jsonDecode(res.body)['message'];
+        final error = jsonDecode(res.body)['message'];
+        throw error.toString();
       }
     } catch (error) {
       rethrow;

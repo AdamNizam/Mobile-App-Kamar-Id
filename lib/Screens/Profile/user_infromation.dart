@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
@@ -17,6 +18,12 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
+  String? fullname;
+  String? email;
+  String? imageProfile = '';
+  String? selectedCountry;
+  final ImagePicker _picker = ImagePicker();
+
   final fullNameController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -27,14 +34,10 @@ class _UserInformationState extends State<UserInformation> {
   final stateController = TextEditingController();
   final zipCodeController = TextEditingController();
 
-  String? fullname;
-  String? email;
-  String? imageProfile = '';
-  String? selectedCountry;
-
   @override
   void initState() {
     super.initState();
+    _getLostData();
     final userState = context.read<UserBloc>().state;
     if (userState is UserSuccess) {
       fullname = userState.data.name;
@@ -59,16 +62,31 @@ class _UserInformationState extends State<UserInformation> {
     "Eng": "English",
   };
 
+  Future<void> _getImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      print('Gambar dipilih: ${pickedFile.path}');
+    }
+  }
+
+  Future<void> _getLostData() async {
+    final LostDataResponse response = await _picker.retrieveLostData();
+    if (!response.isEmpty && response.file != null) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateUserBloc, UpdateUserState>(
       builder: (context, state) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (state is UpdateUserSuccess) {
-            showCustomSnackbar(context, state.data.message.userName[0]);
+            showCustomSnackbar(context, 'Update User Success');
           }
           if (state is UpdateUserFailed) {
-            showCustomSnackbar(context, 'update failed');
+            showCustomSnackbar(context, state.error);
           }
         });
         return Scaffold(
@@ -76,177 +94,11 @@ class _UserInformationState extends State<UserInformation> {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Stack(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundImage:
-                                (imageProfile == null || imageProfile!.isEmpty)
-                                    ? const AssetImage(
-                                        'images/user_default_profile.png',
-                                      )
-                                    : NetworkImage(
-                                        imageProfile!,
-                                      ) as ImageProvider<Object>?,
-                          ),
-                          Positioned(
-                            bottom: -0,
-                            right: -0,
-                            child: GestureDetector(
-                              onTap: () {
-                                // Aksi upload image, misalnya showModalBottomSheet atau pick image
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
-                                ),
-                                child: const Icon(
-                                  Icons.camera_alt,
-                                  size: 18,
-                                  color: AppColors.cadetGray,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Center(
-                      child: Text(
-                        fullname ?? '',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.text1Color,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Text(
-                        email ?? '',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: AppColors.text2Color,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    CustomTextField(
-                      icon: Icons.person,
-                      label: 'User Name',
-                      controller: fullNameController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.person_outline,
-                      label: 'First Name',
-                      controller: firstNameController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.person_outline,
-                      label: 'Last Name',
-                      controller: lastNameController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.email,
-                      label: 'Email Address',
-                      controller: emailController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.phone,
-                      label: 'Phone Number',
-                      controller: phoneController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.home,
-                      label: 'Street Address',
-                      controller: streetAddressController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.location_city,
-                      label: 'City',
-                      controller: cityController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.location_on,
-                      label: 'State',
-                      controller: stateController,
-                    ),
-                    CustomTextField(
-                      icon: Icons.markunread_mailbox,
-                      label: 'Zip Code',
-                      controller: zipCodeController,
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.textFormFieldBorderColor),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.public, color: Colors.black54),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: DropdownButtonFormField<String>(
-                              isDense: true,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.zero,
-                              ),
-                              value: selectedCountry,
-                              hint: const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Select Country",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              items: countryList.entries.map((entry) {
-                                return DropdownMenuItem<String>(
-                                  value: entry.key,
-                                  child: Text(
-                                    entry.value,
-                                    style: const TextStyle(
-                                        fontSize: 14, color: Colors.black54),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedCountry = value;
-                                });
-                              },
-                              dropdownColor: AppColors.white,
-                              icon: const Icon(Icons.arrow_drop_down,
-                                  color: Colors.black54),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                  ],
-                ),
-              ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                  child: Column(
+                    children: [_imageProfile(), _dataProfileUser()],
+                  )),
             ),
           ),
           bottomNavigationBar: Padding(
@@ -281,6 +133,215 @@ class _UserInformationState extends State<UserInformation> {
           ),
         );
       },
+    );
+  }
+
+  Widget _imageProfile() {
+    return Column(
+      children: [
+        Center(
+          child: Stack(
+            children: [
+              CircleAvatar(
+                radius: 35,
+                backgroundImage: (imageProfile == null || imageProfile!.isEmpty)
+                    ? const AssetImage(
+                        'images/user_default_profile.png',
+                      )
+                    : NetworkImage(
+                        imageProfile!,
+                      ) as ImageProvider<Object>?,
+              ),
+              Positioned(
+                bottom: -0,
+                right: -0,
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      backgroundColor: AppColors.white,
+                      elevation: 0,
+                      builder: (BuildContext ctx) {
+                        return SafeArea(
+                          child: Wrap(
+                            children: <Widget>[
+                              ListTile(
+                                leading: const Icon(
+                                  Icons.camera_alt,
+                                  color: AppColors.buttonColor,
+                                ),
+                                title: const Text('Camera'),
+                                onTap: () {
+                                  Navigator.of(ctx).pop();
+                                  _getImage(ImageSource.camera);
+                                },
+                              ),
+                              ListTile(
+                                leading: const Icon(
+                                  Icons.photo_library,
+                                  color: AppColors.buttonColor,
+                                ),
+                                title: const Text('Gallery'),
+                                onTap: () {
+                                  Navigator.of(ctx).pop();
+                                  _getImage(ImageSource.gallery);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.white, width: 2),
+                    ),
+                    child: const Icon(
+                      Icons.camera_alt,
+                      size: 18,
+                      color: AppColors.cadetGray,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _dataProfileUser() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        Center(
+          child: Text(
+            fullname ?? '',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text1Color,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Center(
+          child: Text(
+            email ?? '',
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppColors.text2Color,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        CustomTextField(
+          icon: Icons.person,
+          label: 'User Name',
+          controller: fullNameController,
+        ),
+        CustomTextField(
+          icon: Icons.person_outline,
+          label: 'First Name',
+          controller: firstNameController,
+        ),
+        CustomTextField(
+          icon: Icons.person_outline,
+          label: 'Last Name',
+          controller: lastNameController,
+        ),
+        CustomTextField(
+          icon: Icons.email,
+          label: 'Email Address',
+          controller: emailController,
+        ),
+        CustomTextField(
+          icon: Icons.phone,
+          label: 'Phone Number',
+          controller: phoneController,
+        ),
+        CustomTextField(
+          icon: Icons.home,
+          label: 'Street Address',
+          controller: streetAddressController,
+        ),
+        CustomTextField(
+          icon: Icons.location_city,
+          label: 'City',
+          controller: cityController,
+        ),
+        CustomTextField(
+          icon: Icons.location_on,
+          label: 'State',
+          controller: stateController,
+        ),
+        CustomTextField(
+          icon: Icons.markunread_mailbox,
+          label: 'Zip Code',
+          controller: zipCodeController,
+        ),
+        const SizedBox(height: 10),
+        Container(
+          height: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.textFormFieldBorderColor),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.public, color: Colors.black54),
+              const SizedBox(width: 10),
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  isDense: true,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                  value: selectedCountry,
+                  hint: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Select Country",
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  items: countryList.entries.map((entry) {
+                    return DropdownMenuItem<String>(
+                      value: entry.key,
+                      child: Text(
+                        entry.value,
+                        style: const TextStyle(
+                            fontSize: 14, color: Colors.black54),
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedCountry = value;
+                    });
+                  },
+                  dropdownColor: AppColors.white,
+                  icon:
+                      const Icon(Icons.arrow_drop_down, color: Colors.black54),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 25),
+      ],
     );
   }
 }

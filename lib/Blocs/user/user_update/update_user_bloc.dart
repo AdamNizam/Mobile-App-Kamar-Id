@@ -16,7 +16,7 @@ class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
         try {
           emit(UpdateUserLoading());
 
-          final data = await UserService().updatePorfile(event.dataRequest);
+          final data = await UserService().updateProfile(event.dataRequest);
 
           emit(UpdateUserSuccess(data));
         } catch (error) {

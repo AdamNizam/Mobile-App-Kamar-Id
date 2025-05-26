@@ -157,7 +157,7 @@ Widget _buildCounter(
             onPressed: onRemove,
             icon: const Icon(
               Icons.remove,
-              color: AppColors.redDark,
+              color: AppColors.redAwesome,
             ),
           ),
           Text(value.toString(), style: const TextStyle(fontSize: 16)),

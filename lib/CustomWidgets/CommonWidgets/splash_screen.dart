@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.tab1Color,
+      backgroundColor: AppColors.tabColor,
       body: SafeArea(
         child: Stack(
           children: [

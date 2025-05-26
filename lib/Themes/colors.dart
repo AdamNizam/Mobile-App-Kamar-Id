@@ -4,10 +4,8 @@ class AppColors {
   // static const Color tabColor = Color(0xff2C3E50);
   // static const Color tabColor = Color(0xff2980B9);
   static const Color tabColor = Color(0xff144C79);
-  static const Color tab1Color = Color(0xff144C79);
   static const Color bgColor = Color(0xffECEFF1);
   static const Color buttonColor = Color(0xff144C79);
-  static const Color purple = Color(0xff9C27B0);
   // static const Color buttonColor = Color(0xff2980B9);
   // static const Color buttonColor = Color(0xffC0392B);
   static const Color button2Color = Color(0xff2980B9);
@@ -18,13 +16,11 @@ class AppColors {
   static const Color text2Color = Color(0xff95A5A6);
   static const Color text3Color = Color(0xffC0392B);
   static const Color strokColor = Color(0xffBDC3C7);
-  static const Color redDark = Color(0xff891e0c);
   static const Color white = Color(0xffffffff);
   static const Color black = Color(0xff37474F);
   static const Color redAwesome = Color(0xffff2052);
   static const Color redAuburn = Color(0xffa52a2a);
   static const Color green = Color(0xff558B2F);
-  static const Color orange = Color(0xffEF6C00);
   static const Color brightMaroon = Color(0xffc32148);
   static const Color amberColor = Color(0xffffbf00);
   static const Color doggerBlue = Color(0xff1e90ff);

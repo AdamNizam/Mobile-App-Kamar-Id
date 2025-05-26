@@ -2,11 +2,11 @@ import 'dart:convert';
 
 class ResultUserUpdate {
   final int status;
-  final Message message;
+  final Message? message;
 
   ResultUserUpdate({
     required this.status,
-    required this.message,
+    this.message,
   });
 
   factory ResultUserUpdate.fromRawJson(String str) =>
@@ -22,7 +22,7 @@ class ResultUserUpdate {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "message": message.toJson(),
+        "message": message?.toJson(),
       };
 }
 

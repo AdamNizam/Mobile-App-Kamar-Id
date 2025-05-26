@@ -28,7 +28,7 @@ class StatusPayment extends StatelessWidget {
         break;
       case 'pending':
       default:
-        statusColor = AppColors.orange;
+        statusColor = AppColors.cadetGray;
         statusIcon = Icons.pending;
     }
 
