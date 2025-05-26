@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';

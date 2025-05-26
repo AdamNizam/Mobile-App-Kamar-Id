@@ -7,7 +7,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
-import 'package:hotelbookingapp/Shared/custom_contollers.dart';
+import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';

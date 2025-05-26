@@ -15,7 +15,7 @@ import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
 import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Themes/colors.dart';

@@ -4,7 +4,7 @@ import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_booking_paid.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 
 class PaidBooking extends StatefulWidget {
   const PaidBooking({super.key});

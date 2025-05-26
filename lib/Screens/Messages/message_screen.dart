@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/chat_tittle.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class MessageScreen extends StatelessWidget {

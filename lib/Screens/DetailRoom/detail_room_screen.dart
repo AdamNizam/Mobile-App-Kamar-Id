@@ -14,8 +14,8 @@ import 'package:hotelbookingapp/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/confirm_booking_screen.dart';
-import 'package:hotelbookingapp/Shared/custom_methods.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class DetailRoomScreen extends StatefulWidget {

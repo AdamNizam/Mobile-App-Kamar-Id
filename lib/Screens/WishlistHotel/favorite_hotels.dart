@@ -5,7 +5,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
 import 'package:hotelbookingapp/Screens/WishlistHotel/favorite_cards.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 
 class FavoriteHotels extends StatefulWidget {
   final VoidCallback? onBack;

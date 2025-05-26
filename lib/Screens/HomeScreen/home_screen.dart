@@ -7,7 +7,7 @@ import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/Models/hotel_model.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card1.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card2.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 
 import '../../CustomWidgets/CommonWidgets/address_widget.dart';
 import '../../CustomWidgets/CommonWidgets/categories_widget.dart';

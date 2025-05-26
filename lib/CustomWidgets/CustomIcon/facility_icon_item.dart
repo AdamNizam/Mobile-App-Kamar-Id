@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
-import 'package:hotelbookingapp/Shared/custom_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class FacilityIconItem extends StatelessWidget {

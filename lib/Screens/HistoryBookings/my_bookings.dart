@@ -3,7 +3,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
-import 'package:hotelbookingapp/Shared/custom_snackbar.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 import 'cancelled_bookings.dart';
