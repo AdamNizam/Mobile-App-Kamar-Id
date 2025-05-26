@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
@@ -93,6 +94,32 @@ class UserService {
         return ResultUpdatePassword.fromJson(jsonDecode(res.body));
       } else {
         throw jsonDecode(res.body)['message'];
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> uploadImageProfile(File file) async {
+    try {
+      final token = await AuthService().getToken();
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl/admin/module/media/store'),
+      );
+
+      request.headers['Authorization'] = 'Bearer $token';
+
+      request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw jsonDecode(response.body)['message'] ?? 'Gagal upload file';
       }
     } catch (error) {
       rethrow;

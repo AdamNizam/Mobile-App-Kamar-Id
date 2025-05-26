@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Shared/shared_data.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
@@ -38,6 +40,25 @@ class _UserInformationState extends State<UserInformation> {
   void initState() {
     super.initState();
     _getLostData();
+    _getDataUser();
+  }
+
+  Future<void> _getImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      print('Gambar dipilih: ${pickedFile.path}');
+    }
+  }
+
+  Future<void> _getLostData() async {
+    final LostDataResponse response = await _picker.retrieveLostData();
+    if (!response.isEmpty && response.file != null) {
+      setState(() {});
+    }
+  }
+
+  Future<void> _getDataUser() async {
     final userState = context.read<UserBloc>().state;
     if (userState is UserSuccess) {
       fullname = userState.data.name;
@@ -57,26 +78,6 @@ class _UserInformationState extends State<UserInformation> {
     }
   }
 
-  final Map<String, String> countryList = {
-    "ID": "Indonesia",
-    "Eng": "English",
-  };
-
-  Future<void> _getImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
-
-    if (pickedFile != null) {
-      print('Gambar dipilih: ${pickedFile.path}');
-    }
-  }
-
-  Future<void> _getLostData() async {
-    final LostDataResponse response = await _picker.retrieveLostData();
-    if (!response.isEmpty && response.file != null) {
-      setState(() {});
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UpdateUserBloc, UpdateUserState>(
@@ -89,6 +90,16 @@ class _UserInformationState extends State<UserInformation> {
             showCustomSnackbar(context, state.error);
           }
         });
+        if (state is UpdateUserLoading) {
+          return Scaffold(
+            body: Center(
+              child: LoadingAnimationWidget.hexagonDots(
+                color: AppColors.buttonColor,
+                size: 50,
+              ),
+            ),
+          );
+        }
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -142,15 +153,24 @@ class _UserInformationState extends State<UserInformation> {
         Center(
           child: Stack(
             children: [
-              CircleAvatar(
-                radius: 35,
-                backgroundImage: (imageProfile == null || imageProfile!.isEmpty)
-                    ? const AssetImage(
-                        'images/user_default_profile.png',
-                      )
-                    : NetworkImage(
-                        imageProfile!,
-                      ) as ImageProvider<Object>?,
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.white,
+                    width: 3,
+                  ),
+                ),
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: (imageProfile == null)
+                      ? const AssetImage(
+                          'images/user_default_profile.png',
+                        )
+                      : NetworkImage(
+                          imageProfile!,
+                        ) as ImageProvider<Object>?,
+                ),
               ),
               Positioned(
                 bottom: -0,
@@ -161,33 +181,36 @@ class _UserInformationState extends State<UserInformation> {
                       context: context,
                       backgroundColor: AppColors.white,
                       elevation: 0,
-                      builder: (BuildContext ctx) {
+                      builder: (BuildContext context) {
                         return SafeArea(
-                          child: Wrap(
-                            children: <Widget>[
-                              ListTile(
-                                leading: const Icon(
-                                  Icons.camera_alt,
-                                  color: AppColors.buttonColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              children: <Widget>[
+                                ListTile(
+                                  leading: const Icon(
+                                    Icons.camera_alt,
+                                    color: AppColors.buttonColor,
+                                  ),
+                                  title: const Text('Camera'),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    _getImage(ImageSource.camera);
+                                  },
                                 ),
-                                title: const Text('Camera'),
-                                onTap: () {
-                                  Navigator.of(ctx).pop();
-                                  _getImage(ImageSource.camera);
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(
-                                  Icons.photo_library,
-                                  color: AppColors.buttonColor,
+                                ListTile(
+                                  leading: const Icon(
+                                    Icons.photo_library,
+                                    color: AppColors.buttonColor,
+                                  ),
+                                  title: const Text('Gallery'),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    _getImage(ImageSource.gallery);
+                                  },
                                 ),
-                                title: const Text('Gallery'),
-                                onTap: () {
-                                  Navigator.of(ctx).pop();
-                                  _getImage(ImageSource.gallery);
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },

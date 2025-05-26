@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class TextRemaining extends StatelessWidget {
@@ -18,15 +18,13 @@ class TextRemaining extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: color),
+        border: Border.all(color: color.withOpacity(0.2)),
       ),
-      child: Text(
-        text,
-        style: GoogleFonts.poppins(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: color,
-        ),
+      child: Text1(
+        text1: text,
+        size: 12,
+        fontWeight: FontWeight.w600,
+        color: color,
       ),
     );
   }

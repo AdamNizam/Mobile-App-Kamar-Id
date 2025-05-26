@@ -63,3 +63,8 @@ final List<Map<String, dynamic>> csStoreData = [
     'size': 50,
   },
 ];
+
+final Map<String, String> countryList = {
+  "ID": "Indonesia",
+  "Eng": "English",
+};
