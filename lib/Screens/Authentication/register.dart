@@ -53,6 +53,7 @@ class _RegisterState extends State<Register> {
                 builder: (_) => const MessageSuccess(
                   title: 'Register Success!',
                   message: 'Please, Verified your email',
+                  urlRoute: '/login',
                 ),
               ),
             );

@@ -7,10 +7,10 @@ sealed class UpdateUserEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PostUserUpdateEvent extends UpdateUserEvent {
+class PostDataUpdateEvent extends UpdateUserEvent {
   final RequestUserUpdate dataRequest;
 
-  const PostUserUpdateEvent(this.dataRequest);
+  const PostDataUpdateEvent(this.dataRequest);
 
   @override
   List<Object> get props => [dataRequest];
@@ -23,4 +23,13 @@ class PostUpdatePasswordEvent extends UpdateUserEvent {
 
   @override
   List<Object> get props => [dataRequest];
+}
+
+class UploadProfileEvent extends UpdateUserEvent {
+  final File imageRequest;
+
+  const UploadProfileEvent(this.imageRequest);
+
+  @override
+  List<Object> get props => [imageRequest];
 }

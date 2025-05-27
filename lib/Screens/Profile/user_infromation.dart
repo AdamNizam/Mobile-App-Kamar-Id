@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
 import 'package:hotelbookingapp/Shared/shared_data.dart';
@@ -22,9 +24,9 @@ class UserInformation extends StatefulWidget {
 class _UserInformationState extends State<UserInformation> {
   String? fullname;
   String? email;
-  String? imageProfile = '';
+  String? imageProfile;
   String? selectedCountry;
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker imagePicker = ImagePicker();
 
   final fullNameController = TextEditingController();
   final firstNameController = TextEditingController();
@@ -44,15 +46,22 @@ class _UserInformationState extends State<UserInformation> {
   }
 
   Future<void> _getImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
+    final XFile? pickedFile = await imagePicker.pickImage(source: source);
+    if (!mounted) return;
 
-    if (pickedFile != null) {
-      print('Gambar dipilih: ${pickedFile.path}');
+    if (pickedFile == null) {
+      showCustomSnackbar(context, 'Image invalid');
+      return;
     }
+
+    debugPrint('Location Path Image: ${pickedFile.path}');
+    context.read<UpdateUserBloc>().add(UploadProfileEvent(
+          File(pickedFile.path),
+        ));
   }
 
   Future<void> _getLostData() async {
-    final LostDataResponse response = await _picker.retrieveLostData();
+    final LostDataResponse response = await imagePicker.retrieveLostData();
     if (!response.isEmpty && response.file != null) {
       setState(() {});
     }
@@ -80,8 +89,8 @@ class _UserInformationState extends State<UserInformation> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UpdateUserBloc, UpdateUserState>(
-      builder: (context, state) {
+    return BlocConsumer<UpdateUserBloc, UpdateUserState>(
+      listener: (context, state) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (state is UpdateUserSuccess) {
             showCustomSnackbar(context, 'Update User Success');
@@ -89,7 +98,15 @@ class _UserInformationState extends State<UserInformation> {
           if (state is UpdateUserFailed) {
             showCustomSnackbar(context, state.error);
           }
+          if (state is UploadImageLoading) {
+            debugPrint('Loading Image Profile');
+          }
+          if (state is UpdateProfileSuccess) {
+            debugPrint('sucess Upload image');
+          }
         });
+      },
+      builder: (context, state) {
         if (state is UpdateUserLoading) {
           return Scaffold(
             body: Center(
@@ -105,11 +122,12 @@ class _UserInformationState extends State<UserInformation> {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
-                  child: Column(
-                    children: [_imageProfile(), _dataProfileUser()],
-                  )),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                child: Column(
+                  children: [_imageProfile(), _dataProfileUser()],
+                ),
+              ),
             ),
           ),
           bottomNavigationBar: Padding(
@@ -138,7 +156,7 @@ class _UserInformationState extends State<UserInformation> {
                 // print('Data Update User ${jsonEncode(dataRequest.toJson())}');
                 context
                     .read<UpdateUserBloc>()
-                    .add(PostUserUpdateEvent(dataRequest));
+                    .add(PostDataUpdateEvent(dataRequest));
               },
             ),
           ),

@@ -37,3 +37,14 @@ final class UpdatePasswordSuccess extends UpdateUserState {
   @override
   List<Object> get props => [data];
 }
+
+final class UpdateProfileSuccess extends UpdateUserState {
+  final Map<String, dynamic> data;
+
+  const UpdateProfileSuccess(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+final class UploadImageLoading extends UpdateUserState {}

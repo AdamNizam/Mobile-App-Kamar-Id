@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Screens/Authentication/message_success.dart';
 import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
@@ -23,15 +23,15 @@ class ProfileScreen extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, authState) {
         Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const MessageSuccess(
-              title: 'Logout Success!',
-              message: 'your acount is log out in sistem',
+            context,
+            MaterialPageRoute(
+              builder: (_) => const MessageSuccess(
+                title: 'Logout Success!',
+                message: 'your account is logout in sistem',
+                urlRoute: '/',
+              ),
             ),
-          ),
-          (Route<dynamic> route) => false,
-        );
+            (route) => false);
       },
       builder: (context, authState) {
         if (authState is AuthLoading) {

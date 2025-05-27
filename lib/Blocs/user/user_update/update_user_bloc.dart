@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
@@ -12,7 +14,7 @@ part 'update_user_state.dart';
 class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
   UpdateUserBloc() : super(UpdateUserInitial()) {
     on<UpdateUserEvent>((event, emit) async {
-      if (event is PostUserUpdateEvent) {
+      if (event is PostDataUpdateEvent) {
         try {
           emit(UpdateUserLoading());
 
@@ -34,6 +36,21 @@ class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
           emit(UpdatePasswordSuccess(data));
         } catch (error) {
           print('Error Update User: $error');
+          emit(UpdateUserFailed(error.toString()));
+        }
+      }
+
+      if (event is UploadProfileEvent) {
+        try {
+          emit(UploadImageLoading());
+
+          emit(
+            UpdateProfileSuccess(
+              await UserService().uploadImageProfile(event.imageRequest),
+            ),
+          );
+        } catch (error) {
+          print('Error Upload Image: $error');
           emit(UpdateUserFailed(error.toString()));
         }
       }

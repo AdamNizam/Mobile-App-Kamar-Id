@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
-import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
@@ -17,16 +16,7 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   final currentPasswordController = TextEditingController();
-
   final newPasswordController = TextEditingController();
-
-  void _saveChanges() {
-    final dataRequest = FormUpdatePassword(
-      currentPassword: currentPasswordController.text,
-      newPassword: newPasswordController.text,
-    );
-    context.read<UpdateUserBloc>().add(PostUpdatePasswordEvent(dataRequest));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,18 +62,16 @@ class _ChangePasswordState extends State<ChangePassword> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
-        child: BlocBuilder<UpdateUserBloc, UpdateUserState>(
-          builder: (context, state) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (state is UpdateUserFailed) {
-                showCustomSnackbar(context, state.error);
-              }
-              if (state is UpdatePasswordSuccess) {
-                showCustomSnackbar(context, state.data.message);
-              }
-            });
-
-            return CustomButton(text: "Change Password", onTap: _saveChanges);
+        child: CustomButton(
+          text: "Change Password",
+          onTap: () {
+            final dataRequest = FormUpdatePassword(
+              currentPassword: currentPasswordController.text,
+              newPassword: newPasswordController.text,
+            );
+            context.read<UpdateUserBloc>().add(
+                  PostUpdatePasswordEvent(dataRequest),
+                );
           },
         ),
       ),

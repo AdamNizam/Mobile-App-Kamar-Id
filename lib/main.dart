@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/user_profile/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/splash_screen.dart';

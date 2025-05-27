@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/main.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
@@ -11,11 +10,13 @@ import '../../Themes/colors.dart';
 class MessageSuccess extends StatefulWidget {
   final String title;
   final String message;
+  final String urlRoute;
 
   const MessageSuccess({
     super.key,
     required this.title,
     required this.message,
+    required this.urlRoute,
   });
 
   @override
@@ -100,11 +101,8 @@ class _MessageSuccessState extends State<MessageSuccess>
                       CustomButton(
                         text: 'Back',
                         onTap: () {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (_) => const MyApp()),
-                            (route) => false,
-                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, widget.urlRoute, (route) => false);
                         },
                       )
                     ],
