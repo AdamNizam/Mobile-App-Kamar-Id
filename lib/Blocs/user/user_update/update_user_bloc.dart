@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Models/UserModel/result_image_profile.dart';
 import 'package:hotelbookingapp/Models/UserModel/result_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/result_user_update.dart';
 import 'package:hotelbookingapp/Services/user_service.dart';

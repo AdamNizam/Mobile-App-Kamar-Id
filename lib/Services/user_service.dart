@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Models/UserModel/result_image_profile.dart';
 import 'package:hotelbookingapp/Models/UserModel/result_update_password.dart';
 import 'package:hotelbookingapp/Models/UserModel/result_user_update.dart';
 import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
@@ -100,28 +102,42 @@ class UserService {
     }
   }
 
-  Future<Map<String, dynamic>> uploadImageProfile(File file) async {
+  Future<ResultImageProfile> uploadImageProfile(File file) async {
     try {
       final token = await AuthService().getToken();
 
-      var request = http.MultipartRequest(
+      var res = http.MultipartRequest(
         'POST',
         Uri.parse('$baseUrl/admin/module/media/store'),
       );
 
-      request.headers['Authorization'] = 'Bearer $token';
+      res.headers['Authorization'] = 'Bearer $token';
+      res.files.add(await http.MultipartFile.fromPath('file', file.path));
 
-      request.files.add(await http.MultipartFile.fromPath('file', file.path));
-
-      var streamedResponse = await request.send();
+      var streamedResponse = await res.send();
       var response = await http.Response.fromStream(streamedResponse);
 
+      debugPrint(
+          'Response Upload Image & status code ${response.statusCode}: ${response.body}');
+
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        final data = jsonDecode(response.body);
+
+        if (data['status'] == 1 && data['uploaded'] == 1) {
+          return ResultImageProfile.fromJson(data);
+        } else {
+          final errorMessage =
+              data['error']?['message'] ?? data['message'] ?? 'Upload gagal';
+          throw Exception(errorMessage);
+        }
       } else {
-        throw jsonDecode(response.body)['message'] ?? 'Gagal upload file';
+        final errorData = jsonDecode(response.body);
+        throw Exception(
+          errorData['message'] ?? 'Terjadi kesalahan pada server',
+        );
       }
     } catch (error) {
+      // Bisa juga ditambahkan debugPrint atau logging di sini
       rethrow;
     }
   }

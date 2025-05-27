@@ -39,7 +39,7 @@ final class UpdatePasswordSuccess extends UpdateUserState {
 }
 
 final class UpdateProfileSuccess extends UpdateUserState {
-  final Map<String, dynamic> data;
+  final ResultImageProfile data;
 
   const UpdateProfileSuccess(this.data);
 

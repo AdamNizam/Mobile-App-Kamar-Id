@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 
 import '../../Themes/colors.dart';
 
@@ -46,59 +47,73 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height,
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      width: double.infinity,
-      padding: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.textFormFieldBorderColor),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: TextFormField(
-        controller: widget.controller,
-        onChanged: widget.onChanged,
-        focusNode: _focusNode,
-        obscureText: _isObscured,
-        style: const TextStyle(
-          color: Colors.black54,
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: widget.label,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
-          hintStyle: const TextStyle(
-            color: Colors.black54,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text1(
+            text1: widget.label,
+            color: AppColors.cadetGray,
+            size: 12,
           ),
-          prefixIcon: widget.icon != null
-              ? Icon(
-                  widget.icon,
-                  size: 20,
-                  color: Colors.black54,
-                )
-              : null,
-          suffixIcon: widget.icon2 != null
-              ? IconButton(
-                  icon: Icon(
-                    _currentIcon2,
-                    size: 20,
-                    color: Colors.black54,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isObscured = !_isObscured;
-                      _currentIcon2 =
-                          _isObscured ? widget.icon2! : Icons.visibility;
-                    });
-                  },
-                )
-              : null,
-        ),
+          Container(
+            height: widget.height,
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            width: double.infinity,
+            padding: const EdgeInsets.all(3.0),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(color: AppColors.beauBlue),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: TextFormField(
+              controller: widget.controller,
+              onChanged: widget.onChanged,
+              focusNode: _focusNode,
+              obscureText: _isObscured,
+              style: const TextStyle(
+                color: AppColors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Enter your ${widget.label.toLowerCase()}',
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
+                hintStyle: const TextStyle(
+                  color: AppColors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+                prefixIcon: widget.icon != null
+                    ? Icon(
+                        widget.icon,
+                        size: 20,
+                        color: AppColors.black,
+                      )
+                    : null,
+                suffixIcon: widget.icon2 != null
+                    ? IconButton(
+                        icon: Icon(
+                          _currentIcon2,
+                          size: 20,
+                          color: AppColors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscured = !_isObscured;
+                            _currentIcon2 =
+                                _isObscured ? widget.icon2! : Icons.visibility;
+                          });
+                        },
+                      )
+                    : null,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
