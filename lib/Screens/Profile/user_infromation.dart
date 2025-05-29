@@ -375,7 +375,7 @@ class _UserInformationState extends State<UserInformation> {
         ),
         const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Column(
             children: [
               GestureDetector(

@@ -48,7 +48,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -64,7 +64,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               color: AppColors.white,
-              border: Border.all(color: AppColors.beauBlue),
+              border: Border.all(color: AppColors.amberColor),
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: TextFormField(

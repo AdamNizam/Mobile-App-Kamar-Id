@@ -11,9 +11,10 @@ import 'package:hotelbookingapp/Screens/Authentication/login_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
+import 'package:hotelbookingapp/app_state_wrapper.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AppStateWrapper());
 }
 
 class MyApp extends StatelessWidget {

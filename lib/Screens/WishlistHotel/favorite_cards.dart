@@ -79,7 +79,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(2),
+                padding: const EdgeInsets.all(4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -93,7 +93,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                               data.image ?? 'https://picsum.photos/400/300',
                               fit: BoxFit.cover,
                               width: 120,
-                              height: 120,
+                              height: 128,
                             ),
                           ),
                         ),
