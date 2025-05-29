@@ -1,15 +1,14 @@
 class UserModel {
   final int id;
-  final String name;
-  final String firstName;
-  final String lastName;
-  final String email;
+  final String? name;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
   final DateTime? emailVerifiedAt;
   final String? twoFactorSecret;
   final String? twoFactorRecoveryCodes;
   final String? address;
   final String? address2;
-  final String phone;
   final DateTime? birthday;
   final String? city;
   final String? state;
@@ -24,6 +23,7 @@ class UserModel {
   final String? businessName;
   final String? verifySubmitStatus;
   final String? isVerified;
+  final String? phone;
   final int activeStatus;
   final int darkMode;
   final String? stripeCustomerId;
@@ -37,16 +37,16 @@ class UserModel {
 
   UserModel({
     required this.id,
-    required this.name,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    this.name,
+    this.firstName,
+    this.lastName,
+    this.email,
     this.emailVerifiedAt,
     this.twoFactorSecret,
     this.twoFactorRecoveryCodes,
     this.address,
     this.address2,
-    required this.phone,
+    this.phone,
     this.birthday,
     this.city,
     this.state,

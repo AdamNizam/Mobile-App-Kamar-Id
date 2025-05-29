@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/Screens/Authentication/login_screen.dart';
 import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
-import 'package:hotelbookingapp/app_state_wrapper.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
@@ -23,7 +23,10 @@ class ProfileScreen extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, authState) {
         if (authState is AuthSuccess) {
-          AppStateWrapper.of(context)?.restartApp();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const Login()),
+          );
         }
       },
       builder: (context, authState) {
@@ -61,45 +64,112 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 20),
                           Center(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: AppColors.white,
-                                  width: 3,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color:
+                                          userState.data.emailVerifiedAt != null
+                                              ? AppColors.white
+                                              : AppColors.redAwesome,
+                                      width: 3,
+                                    ),
+                                  ),
+                                  child: CircleAvatar(
+                                    radius: 35,
+                                    backgroundImage:
+                                        (userState.data.avatarThumbUrl ==
+                                                    null ||
+                                                userState.data.avatarThumbUrl!
+                                                    .isEmpty)
+                                            ? const AssetImage(
+                                                'images/user_default_profile.png',
+                                              )
+                                            : NetworkImage(
+                                                userState.data.avatarThumbUrl!,
+                                              ) as ImageProvider<Object>,
+                                  ),
                                 ),
-                              ),
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundImage:
-                                    (userState.data.avatarThumbUrl == null ||
-                                            userState
-                                                .data.avatarThumbUrl!.isEmpty)
-                                        ? const AssetImage(
-                                            'images/user_default_profile.png',
-                                          )
-                                        : NetworkImage(
-                                            userState.data.avatarThumbUrl!,
-                                          ) as ImageProvider<Object>,
-                              ),
+                                // Icon X di pojok kanan atas
+                                Positioned(
+                                  right: 0,
+                                  bottom: 8,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          userState.data.emailVerifiedAt != null
+                                              ? AppColors.green
+                                              : AppColors.redAwesome,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      userState.data.emailVerifiedAt != null
+                                          ? Icons.check
+                                          : Icons.close,
+                                      size: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            userState.data.name,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          if (userState.data.emailVerifiedAt == null)
+                            Column(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text1(
+                                        text1: 'Email is not verified, ',
+                                        size: 13,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.redAwesome,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: const Text1(
+                                    text1: 'Verify Now',
+                                    color: AppColors.white,
+                                    size: 14,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            userState.data.email,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: AppColors.cadetGray,
+                          if (userState.data.emailVerifiedAt != null)
+                            Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                Text1(
+                                  text1:
+                                      userState.data.name ?? 'no information',
+                                  size: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                const SizedBox(height: 4),
+                                Text1(
+                                  text1: userState.data.email ?? '',
+                                  size: 16,
+                                  color: AppColors.cadetGray,
+                                ),
+                              ],
                             ),
-                          ),
                         ],
                       );
                     }

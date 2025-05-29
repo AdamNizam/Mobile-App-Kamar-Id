@@ -191,24 +191,28 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               child: BlocProvider(
                 create: (context) => CheckoutBloc(),
                 child: BlocConsumer<CheckoutBloc, CheckoutState>(
-                  listener: (context, state) {
-                    if (state is CheckoutFailed) {
-                      showCustomSnackbar(context, state.error);
+                  listener: (context, chekOutState) {
+                    if (chekOutState is CheckoutFailed) {
+                      showCustomSnackbar(context, chekOutState.error);
                     }
-                    if (state is CheckoutSuccess) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MidtransPaymentPage(
-                            totalPrice: int.parse(widget.totalAmount),
-                            orderId: widget.orderId,
-                            emailUser: userState.data.email,
-                            firstName: userState.data.firstName,
-                            lastName: userState.data.lastName,
-                            phone: userState.data.phone,
+                    if (chekOutState is CheckoutSuccess) {
+                      if (userState.data.emailVerifiedAt != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MidtransPaymentPage(
+                              totalPrice: int.parse(widget.totalAmount),
+                              orderId: widget.orderId,
+                              emailUser: userState.data.email,
+                              firstName: userState.data.firstName,
+                              lastName: userState.data.lastName,
+                              phone: userState.data.phone,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      } else {
+                        showCustomSnackbar(context, 'email is not verified');
+                      }
                     }
                   },
                   builder: (context, state) {
@@ -222,10 +226,10 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 onTap: () async {
                                   final dataCheckout = RequestChekout(
                                     code: widget.orderId,
-                                    firstName: userState.data.firstName,
-                                    lastName: userState.data.lastName,
-                                    email: userState.data.email,
-                                    phone: userState.data.phone,
+                                    firstName: userState.data.firstName ?? '',
+                                    lastName: userState.data.lastName ?? '',
+                                    email: userState.data.email ?? '',
+                                    phone: userState.data.phone ?? '',
                                     addressLine1: userState.data.address ?? '',
                                     addressLine2: userState.data.address2 ?? '',
                                     city: userState.data.city ?? '',

@@ -40,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AuthSuccess(data));
           } catch (error) {
             print('Login failed: $error');
-            emit(const AuthFailed('Login failed'));
+            emit(AuthFailed(error.toString()));
           }
         }
 

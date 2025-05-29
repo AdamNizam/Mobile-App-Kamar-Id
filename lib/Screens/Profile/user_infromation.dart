@@ -79,11 +79,11 @@ class _UserInformationState extends State<UserInformation> {
       email = userState.data.email;
       imageProfile = userState.data.avatarThumbUrl;
 
-      fullNameController.text = userState.data.name;
-      firstNameController.text = userState.data.firstName;
-      lastNameController.text = userState.data.lastName;
-      emailController.text = userState.data.email;
-      phoneController.text = userState.data.phone;
+      fullNameController.text = userState.data.name ?? '';
+      firstNameController.text = userState.data.firstName ?? '';
+      lastNameController.text = userState.data.lastName ?? '';
+      emailController.text = userState.data.email ?? '';
+      phoneController.text = userState.data.phone ?? '';
       streetAddressController.text = userState.data.address ?? '';
       cityController.text = userState.data.city ?? '';
       stateController.text = userState.data.state ?? '';
