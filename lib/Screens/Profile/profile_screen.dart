@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
-import 'package:hotelbookingapp/Screens/Authentication/login_screen.dart';
 import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
+import 'package:hotelbookingapp/root.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
@@ -20,208 +20,186 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, authState) {
-        if (authState is AuthSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const Login()),
-          );
-        }
-      },
-      builder: (context, authState) {
-        if (authState is AuthLoading) {
-          return Center(
-            child: LoadingAnimationWidget.hexagonDots(
-              color: AppColors.tabColor,
-              size: 50,
-            ),
-          );
-        }
-        return Scaffold(
-          body: SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
-              children: [
-                const SizedBox(height: 5),
-                BlocConsumer<UserBloc, UserState>(
-                  listener: (context, userState) {
-                    if (userState is UserFailed) {
-                      showCustomSnackbar(context, userState.error);
-                    }
-                  },
-                  builder: (context, userState) {
-                    if (userState is UserLoading) {
-                      return Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: AppColors.tabColor,
-                          size: 30,
-                        ),
-                      );
-                    }
-                    if (userState is UserSuccess) {
-                      return Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          Center(
-                            child: Stack(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color:
-                                          userState.data.emailVerifiedAt != null
-                                              ? AppColors.white
-                                              : AppColors.redAwesome,
-                                      width: 3,
-                                    ),
-                                  ),
-                                  child: CircleAvatar(
-                                    radius: 35,
-                                    backgroundImage:
-                                        (userState.data.avatarThumbUrl ==
-                                                    null ||
-                                                userState.data.avatarThumbUrl!
-                                                    .isEmpty)
-                                            ? const AssetImage(
-                                                'images/user_default_profile.png',
-                                              )
-                                            : NetworkImage(
-                                                userState.data.avatarThumbUrl!,
-                                              ) as ImageProvider<Object>,
-                                  ),
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
+          children: [
+            const SizedBox(height: 5),
+            BlocConsumer<UserBloc, UserState>(
+              listener: (context, userState) {
+                if (userState is UserFailed) {
+                  showCustomSnackbar(context, userState.error);
+                }
+              },
+              builder: (context, userState) {
+                if (userState is UserLoading) {
+                  return Center(
+                    child: LoadingAnimationWidget.staggeredDotsWave(
+                      color: AppColors.tabColor,
+                      size: 30,
+                    ),
+                  );
+                }
+                if (userState is UserSuccess) {
+                  return Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Center(
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: userState.data.emailVerifiedAt != null
+                                      ? AppColors.white
+                                      : AppColors.redAwesome,
+                                  width: 3,
                                 ),
-                                // Icon X di pojok kanan atas
-                                Positioned(
-                                  right: 0,
-                                  bottom: 8,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          userState.data.emailVerifiedAt != null
-                                              ? AppColors.green
-                                              : AppColors.redAwesome,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Icon(
-                                      userState.data.emailVerifiedAt != null
-                                          ? Icons.check
-                                          : Icons.close,
-                                      size: 16,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
+                              child: CircleAvatar(
+                                radius: 35,
+                                backgroundImage:
+                                    (userState.data.avatarThumbUrl == null ||
+                                            userState
+                                                .data.avatarThumbUrl!.isEmpty)
+                                        ? const AssetImage(
+                                            'images/user_default_profile.png',
+                                          )
+                                        : NetworkImage(
+                                            userState.data.avatarThumbUrl!,
+                                          ) as ImageProvider<Object>,
+                              ),
                             ),
-                          ),
-                          if (userState.data.emailVerifiedAt == null)
-                            Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text1(
-                                        text1: 'Email is not verified, ',
-                                        size: 13,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ],
-                                  ),
+                            // Icon X di pojok kanan atas
+                            Positioned(
+                              right: 0,
+                              bottom: 8,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: userState.data.emailVerifiedAt != null
+                                      ? AppColors.green
+                                      : AppColors.redAwesome,
+                                  shape: BoxShape.circle,
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.redAwesome,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 10,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  child: const Text1(
-                                    text1: 'Verify Now',
-                                    color: AppColors.white,
-                                    size: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          if (userState.data.emailVerifiedAt != null)
-                            Column(
-                              children: [
-                                const SizedBox(height: 10),
-                                Text1(
-                                  text1:
-                                      userState.data.name ?? 'no information',
-                                  size: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                const SizedBox(height: 4),
-                                Text1(
-                                  text1: userState.data.email ?? '',
+                                child: Icon(
+                                  userState.data.emailVerifiedAt != null
+                                      ? Icons.check
+                                      : Icons.close,
                                   size: 16,
-                                  color: AppColors.cadetGray,
+                                  color: Colors.white,
                                 ),
-                              ],
+                              ),
                             ),
-                        ],
-                      );
-                    }
-                    return const Center(
-                      child: Text1(text1: "No data available"),
-                    );
-                  },
-                ),
-                const SizedBox(height: 10),
-                ProfileRow(
-                  leadingIcon: Icons.person,
-                  title: 'Your Profile',
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const UserInformation()));
-                  },
-                ),
-                ProfileRow(
-                  leadingIcon: Icons.lock,
-                  title: 'Change Password',
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ChangePassword()));
-                  },
-                ),
-                ProfileRow(
-                  leadingIcon: Icons.settings,
-                  title: 'Settings',
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SettingsScreen()));
-                  },
-                ),
-                ProfileRow(
-                    leadingIcon: Icons.support_agent,
-                    title: 'Customer service',
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CustomerServiceScreen()));
-                    }),
-                ProfileRow(
-                  leadingIcon: Icons.logout,
-                  title: 'Logout',
-                  onTap: () {
-                    context.read<AuthBloc>().add(AuthLogout());
-                  },
-                ),
-              ],
+                          ],
+                        ),
+                      ),
+                      if (userState.data.emailVerifiedAt == null)
+                        Column(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text1(
+                                    text1: 'Email is not verified, ',
+                                    size: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.redAwesome,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: const Text1(
+                                text1: 'Verify Now',
+                                color: AppColors.white,
+                                size: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      if (userState.data.emailVerifiedAt != null)
+                        Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            Text1(
+                              text1: userState.data.name ?? 'no information',
+                              size: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(height: 4),
+                            Text1(
+                              text1: userState.data.email ?? '',
+                              size: 16,
+                              color: AppColors.cadetGray,
+                            ),
+                          ],
+                        ),
+                    ],
+                  );
+                }
+                return const Center(
+                  child: Text1(text1: "No data available"),
+                );
+              },
             ),
-          ),
-        );
-      },
+            const SizedBox(height: 10),
+            ProfileRow(
+              leadingIcon: Icons.person,
+              title: 'Your Profile',
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const UserInformation()));
+              },
+            ),
+            ProfileRow(
+              leadingIcon: Icons.lock,
+              title: 'Change Password',
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ChangePassword()));
+              },
+            ),
+            ProfileRow(
+              leadingIcon: Icons.settings,
+              title: 'Settings',
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SettingsScreen()));
+              },
+            ),
+            ProfileRow(
+                leadingIcon: Icons.support_agent,
+                title: 'Customer service',
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CustomerServiceScreen()));
+                }),
+            ProfileRow(
+              leadingIcon: Icons.logout,
+              title: 'Logout',
+              onTap: () {
+                context.read<AuthBloc>().add(AuthLogout());
+                AppRoot.of(context)?.resetAppState();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
