@@ -37,6 +37,31 @@ class BookingService {
     }
   }
 
+  Future<ResultChekout> doToChekout(RequestChekout data) async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.post(
+        Uri.parse('$baseUrl/booking/doCheckout'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data.toJson()),
+      );
+
+      print('Response API do Chekout: ${res.body}');
+
+      if (res.statusCode == 200) {
+        return ResultChekout.fromJson(jsonDecode(res.body));
+      } else {
+        throw jsonDecode(res.body)['error'] ?? 'Checkout failed!';
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<HistoryBookingModel> getHistoryBooking() async {
     try {
       final token = await AuthService().getToken();
@@ -56,31 +81,6 @@ class BookingService {
       }
       throw jsonDecode(res.body)['message'];
     } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<ResultChekout> doToChekout(RequestChekout data) async {
-    try {
-      final token = await AuthService().getToken();
-
-      final res = await http.post(
-        Uri.parse('$baseUrl/booking/doCheckout'),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(data.toJson()),
-      );
-
-      print('Response do Chekout: ${res.body}');
-
-      if (res.statusCode == 200) {
-        return ResultChekout.fromJson(jsonDecode(res.body));
-      } else {
-        throw jsonDecode(res.body)['error'] ?? 'Checkout failed!';
-      }
-    } catch (error) {
       rethrow;
     }
   }

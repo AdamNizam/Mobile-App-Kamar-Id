@@ -106,7 +106,7 @@ class CardAvailbilityState extends State<CardAvailbility> {
                       child: Column(
                         children: [
                           CustomTextEllipsis(
-                            text: widget.dataRoom.title ?? "No-Data",
+                            text: widget.dataRoom.title ?? "No information",
                             size: 14,
                             fontWeight: FontWeight.w700,
                             color: AppColors.black,

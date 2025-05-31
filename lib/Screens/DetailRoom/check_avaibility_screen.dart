@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/custom_nav_title.dart';
@@ -231,9 +232,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                   const SizedBox(height: 15),
                   if (state is CheckAvaibilitySuccess)
                     if (state.data.rooms == null || state.data.rooms!.isEmpty)
-                      const DefaultValue(
+                      DefaultValue(
                         imageSvg: 'images/soldout.svg',
-                        text: 'SOLDOUT ROOM',
+                        text: AppLocalizations.of(context)!.textSoldoutRoom,
                       )
                     else
                       Expanded(
@@ -259,7 +260,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                   else
                     const DefaultValue(
                       imageSvg: 'images/avaibility.svg',
-                      text: 'Search your room',
+                      text: 'Search your room now',
                       height: 130,
                       width: 130,
                     ),

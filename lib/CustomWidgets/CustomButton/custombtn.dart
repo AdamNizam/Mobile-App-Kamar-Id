@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 
 import '../../Themes/colors.dart';
 
@@ -30,11 +31,12 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
         ),
         child: Center(
-            child: Text(
-          text,
-          style:
-              const TextStyle(color: AppColors.buttonTextColor, fontSize: 18),
-        )),
+          child: Text1(
+            text1: text,
+            color: AppColors.buttonTextColor,
+            size: 18,
+          ),
+        ),
       ),
     );
   }

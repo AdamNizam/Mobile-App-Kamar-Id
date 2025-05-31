@@ -1,6 +1,7 @@
 import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
@@ -84,8 +85,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       (state.data.rowData!.id != null)
                                           ? GestureDetector(
                                               onTap: () {
-                                                showCustomSnackbar(context,
-                                                    'fitur is not available');
+                                                showCustomSnackbar(
+                                                  context,
+                                                  AppLocalizations.of(context)!
+                                                      .textFiturIsNotAvailable,
+                                                );
                                               },
                                               child: const Icon(
                                                 Icons.favorite,
@@ -95,8 +99,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                             )
                                           : GestureDetector(
                                               onTap: () {
-                                                showCustomSnackbar(context,
-                                                    'fitur is not available');
+                                                showCustomSnackbar(
+                                                  context,
+                                                  AppLocalizations.of(context)!
+                                                      .textFiturIsNotAvailable,
+                                                );
                                               },
                                               child: const Icon(
                                                 Icons.favorite_outline,
@@ -180,7 +187,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                 CustomTextEllipsis(
                                                   text:
                                                       state.data.author!.name ??
-                                                          'Unknown Author',
+                                                          'No Author',
                                                   size: 13,
                                                   color: AppColors.black,
                                                   fontWeight: FontWeight.w600,
@@ -452,7 +459,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ),
                                       SizedBox(height: 25),
                                       RatingReviewDetail(
-                                        text: 'Staf',
+                                        text: 'Staff',
                                         rate: 0.33,
                                         star: 7.5,
                                         color: AppColors.amberColor,
@@ -487,7 +494,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ),
                                       SizedBox(height: 5),
                                       RatingReviewDetail(
-                                        text: 'Lokasi',
+                                        text: 'Pelayanan',
                                         rate: 0.40,
                                         star: 7.5,
                                         color: AppColors.amberColor,
@@ -578,7 +585,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                   vertical: 12,
                 ),
                 child: CustomButton(
-                  text: 'Select Room',
+                  text: AppLocalizations.of(context)!.textSelecRoom,
                   onTap: () {
                     if (state.data.rowData == null) {
                       showCustomSnackbar(context, 'Hotel not available');

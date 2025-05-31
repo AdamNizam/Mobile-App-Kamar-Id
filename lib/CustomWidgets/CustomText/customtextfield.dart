@@ -73,13 +73,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusNode: _focusNode,
               obscureText: _isObscured,
               style: const TextStyle(
-                color: AppColors.black,
+                color: AppColors.cadetGray,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Enter your ${widget.label.toLowerCase()}',
+                hintText: widget.label.toLowerCase(),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
                 hintStyle: const TextStyle(

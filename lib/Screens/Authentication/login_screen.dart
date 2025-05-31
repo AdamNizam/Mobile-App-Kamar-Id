@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
@@ -53,7 +54,7 @@ class _LogInState extends State<Login> {
       // final accessToken = userData['accessToken'];
       context.read<AuthBloc>().add(AuthGoogleEvent(userData['accessToken']));
     } else {
-      showCustomSnackbar(context, 'Login Google dibatalkan atau gagal');
+      showCustomSnackbar(context, 'Gagal masuk dengan akun Google');
     }
   }
 
@@ -65,7 +66,7 @@ class _LogInState extends State<Login> {
       final accessToken = facebookAuthService.accessToken?.token;
       context.read<AuthBloc>().add(AuthFacebookEvent(accessToken!));
     } else {
-      showCustomSnackbar(context, 'Gagal login dengan Facebook');
+      showCustomSnackbar(context, 'Gagal masuk dengan akun Facebook');
     }
   }
 
@@ -127,16 +128,16 @@ class _LogInState extends State<Login> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      const Center(
+                      Center(
                         child: Text1(
-                          text1: 'Please Enter your account',
+                          text1: AppLocalizations.of(context)!.descTopLog,
                           size: 16,
                         ),
                       ),
                       const SizedBox(height: 10),
                       CustomTextField(
                         icon: Icons.email,
-                        label: 'Email Address',
+                        label: AppLocalizations.of(context)!.labelTextEmail,
                         controller: emailController,
                       ),
                       const SizedBox(height: 7),
@@ -144,7 +145,7 @@ class _LogInState extends State<Login> {
                         icon: Icons.lock,
                         icon2: Icons.visibility_off,
                         obscureText: true,
-                        label: 'Password',
+                        label: AppLocalizations.of(context)!.labelTextPassword,
                         controller: passwordController,
                       ),
                       const SizedBox(height: 8),
@@ -156,25 +157,28 @@ class _LogInState extends State<Login> {
                                 builder: (_) => const ForgotPassword()),
                           );
                         },
-                        child: const Align(
+                        child: Align(
                           alignment: Alignment.centerRight,
                           child: Padding(
-                            padding: EdgeInsets.only(top: 4),
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(
-                                color: AppColors.buttonColor,
-                                fontSize: 13,
-                              ),
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text1(
+                              text1:
+                                  AppLocalizations.of(context)!.forgetPassword,
+                              color: AppColors.buttonColor,
+                              size: 13,
                             ),
                           ),
                         ),
                       ),
                       CustomButton(
-                        text: 'Log In',
+                        text: AppLocalizations.of(context)!.textLogin,
                         onTap: handleLogin,
                       ),
-                      const Center(child: Text2(text2: 'Or')),
+                      Center(
+                        child: Text2(
+                          text2: AppLocalizations.of(context)!.textOr,
+                        ),
+                      ),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -192,12 +196,14 @@ class _LogInState extends State<Login> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 200),
+                      const SizedBox(height: 150),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text1(
-                              text1: "Do you want create new account? "),
+                          Text1(
+                            text1:
+                                '${AppLocalizations.of(context)!.descBottomLog}? ',
+                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -206,12 +212,10 @@ class _LogInState extends State<Login> {
                                     builder: (_) => const Register()),
                               );
                             },
-                            child: const Text(
-                              'Register',
-                              style: TextStyle(
-                                color: AppColors.buttonColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Text1(
+                              text1: AppLocalizations.of(context)!.textRegister,
+                              color: AppColors.buttonColor,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],

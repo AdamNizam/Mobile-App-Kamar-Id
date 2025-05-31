@@ -12,7 +12,7 @@ import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
-import '../DetailHotel/hotel_details_screen.dart';
+import '../DetailHotel/hotel_detail_screen.dart';
 
 class HotelsCard1 extends StatefulWidget {
   final HotelAllModel hotel;

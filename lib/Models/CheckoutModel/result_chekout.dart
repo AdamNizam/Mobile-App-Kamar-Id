@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 class ResultChekout {
-  final String url;
+  final String? url;
+  final String? snapToken;
 
   ResultChekout({
-    required this.url,
+    this.url,
+    this.snapToken,
   });
 
   factory ResultChekout.fromRawJson(String str) =>
@@ -14,9 +16,11 @@ class ResultChekout {
 
   factory ResultChekout.fromJson(Map<String, dynamic> json) => ResultChekout(
         url: json["url"],
+        snapToken: json["snap_token"],
       );
 
   Map<String, dynamic> toJson() => {
         "url": url,
+        "snap_token": snapToken,
       };
 }

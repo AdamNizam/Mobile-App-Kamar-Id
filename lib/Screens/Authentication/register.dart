@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
@@ -105,43 +106,45 @@ class _RegisterState extends State<Register> {
                               ],
                             ),
                             const SizedBox(height: 20),
-                            const Text(
-                              'Create new Account',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
+                            Text1(
+                              text1: AppLocalizations.of(context)!.descTopReg,
+                              size: 16,
                             ),
                           ],
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
                           icon: Icons.person,
-                          label: 'First Name',
+                          label:
+                              AppLocalizations.of(context)!.labelTextFirstName,
                           controller: firstNameController,
                         ),
                         const SizedBox(height: 7),
                         CustomTextField(
                           icon: Icons.person,
-                          label: 'Last Name',
+                          label:
+                              AppLocalizations.of(context)!.labelTextLastNamr,
                           controller: lastNameController,
                         ),
                         const SizedBox(height: 7),
                         CustomTextField(
                           icon: Icons.email,
-                          label: 'Email Address',
+                          label: AppLocalizations.of(context)!.labelTextEmail,
                           controller: emailController,
                         ),
                         const SizedBox(height: 7),
                         CustomTextField(
                           icon: Icons.phone,
-                          label: 'Phone Number',
+                          label: AppLocalizations.of(context)!
+                              .labelTextPhoneNumber,
                           controller: phoneController,
                         ),
                         const SizedBox(height: 7),
                         CustomTextField(
                           icon: Icons.lock,
                           icon2: Icons.visibility_off,
-                          label: 'Password',
+                          label:
+                              AppLocalizations.of(context)!.labelTextPassword,
                           obscureText: true,
                           controller: passwordController,
                         ),
@@ -157,10 +160,12 @@ class _RegisterState extends State<Register> {
                                 });
                               },
                             ),
-                            const Expanded(
-                              child: Text(
-                                'Saya telah membaca dan menerima Syarat dan Kebijakan Privasi',
-                                style: TextStyle(fontSize: 14),
+                            Expanded(
+                              child: Text1(
+                                text1: AppLocalizations.of(context)!
+                                    .labeTextPrivacy,
+                                size: 14,
+                                color: AppColors.black,
                               ),
                             ),
                           ],
@@ -198,7 +203,11 @@ class _RegisterState extends State<Register> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text1(text1: "Already have an account? "),
+                            Text1(
+                              text1:
+                                  AppLocalizations.of(context)!.descBottomReg,
+                              color: AppColors.cadetGray,
+                            ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -207,12 +216,10 @@ class _RegisterState extends State<Register> {
                                       builder: (_) => const Login()),
                                 );
                               },
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
-                                  color: AppColors.buttonColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: Text1(
+                                text1: AppLocalizations.of(context)!.textLogin,
+                                color: AppColors.buttonColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
