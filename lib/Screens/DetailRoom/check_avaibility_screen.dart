@@ -212,17 +212,17 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       children: [
                         CustomTextEllipsis(
-                          text: 'Available Rooms',
+                          text: AppLocalizations.of(context)!.textAvailableRoom,
                           size: 16,
                           fontWeight: FontWeight.w500,
                         ),
-                        SizedBox(height: 2),
-                        Divider(
+                        const SizedBox(height: 2),
+                        const Divider(
                           color: AppColors.strokColor,
                           thickness: 2,
                         ),
@@ -258,9 +258,9 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                         ),
                       )
                   else
-                    const DefaultValue(
+                    DefaultValue(
                       imageSvg: 'images/avaibility.svg',
-                      text: 'Search your room now',
+                      text: AppLocalizations.of(context)!.textSearchRoom,
                       height: 130,
                       width: 130,
                     ),

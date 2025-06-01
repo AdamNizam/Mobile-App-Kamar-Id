@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/paid_bookings.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/processing_bookings.dart';
@@ -27,12 +28,15 @@ class MyBookingsScreen extends StatelessWidget {
             }
           },
           onTap: () {
-            showCustomSnackbar(context, 'fitur is not avaibale');
+            showCustomSnackbar(
+              context,
+              AppLocalizations.of(context)!.textFiturIsNotAvailable,
+            );
           },
         ),
-        body: const SafeArea(
+        body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 12,
               vertical: 16,
             ),
@@ -42,29 +46,29 @@ class MyBookingsScreen extends StatelessWidget {
                   isScrollable: true,
                   tabAlignment: TabAlignment.start,
                   indicatorColor: AppColors.buttonColor,
-                  labelPadding: EdgeInsets.symmetric(horizontal: 16),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 16),
                   labelColor: AppColors.buttonColor,
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.buttonColor,
                   ),
-                  unselectedLabelStyle: TextStyle(
+                  unselectedLabelStyle: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.cadetGray,
                   ),
                   tabs: [
-                    Tab(text: 'All booking'),
-                    Tab(text: 'Proses'),
-                    Tab(text: 'Paid'),
-                    Tab(text: 'Completed'),
-                    Tab(text: 'Cancel'),
-                    Tab(text: 'Refund'),
+                    Tab(text: AppLocalizations.of(context)!.textAllBooking),
+                    Tab(text: AppLocalizations.of(context)!.textProcess),
+                    Tab(text: AppLocalizations.of(context)!.textPaid),
+                    Tab(text: AppLocalizations.of(context)!.textCompleted),
+                    Tab(text: AppLocalizations.of(context)!.textCancel),
+                    const Tab(text: 'Refund'),
                   ],
                 ),
-                SizedBox(height: 5),
-                Expanded(
+                const SizedBox(height: 5),
+                const Expanded(
                   child: TabBarView(
                     children: [
                       MaintenanceScreen(),

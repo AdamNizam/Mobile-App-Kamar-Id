@@ -172,7 +172,7 @@ class _RegisterState extends State<Register> {
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
-                          text: 'Register now',
+                          text: AppLocalizations.of(context)!.textBtnRegister,
                           onTap: () {
                             if (validate()) {
                               if (isChecked) {
@@ -189,16 +189,20 @@ class _RegisterState extends State<Register> {
                                     );
                               } else {
                                 showCustomSnackbar(
-                                    context, 'You Dont Cheklist');
+                                  context,
+                                  AppLocalizations.of(context)!.messagePrivacy,
+                                );
                               }
                             } else {
                               showCustomSnackbar(
-                                  context, 'All field must be entered');
+                                context,
+                                AppLocalizations.of(context)!.messagePrivacy,
+                              );
                             }
                           },
                         ),
                         const SizedBox(
-                          height: 70,
+                          height: 50,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

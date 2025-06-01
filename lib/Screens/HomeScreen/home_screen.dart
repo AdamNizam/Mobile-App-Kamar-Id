@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_card.dart';
@@ -89,12 +90,14 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => const AllCategoriesScreen()),
                     );
                   },
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text1(text1: 'Categories', size: 18),
+                      Text1(
+                          text1: AppLocalizations.of(context)!.textCategories,
+                          size: 18),
                       Text11(
-                        text2: 'See All',
+                        text2: AppLocalizations.of(context)!.textSeeAll,
                         color: AppColors.tabColor,
                       ),
                     ],
@@ -238,8 +241,8 @@ class _HomePageState extends State<HomePage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text1(
-                text1: 'Recomended For You',
+              Text1(
+                text1: AppLocalizations.of(context)!.textRecomended,
                 size: 18,
               ),
               const SizedBox(height: 10),
@@ -255,8 +258,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              const Text1(
-                text1: 'All The Hotels',
+              Text1(
+                text1: AppLocalizations.of(context)!.textAllHotels,
                 size: 18,
               ),
               const SizedBox(height: 10.0),
@@ -274,7 +277,10 @@ class _HomePageState extends State<HomePage> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text1(text1: 'Recomended For You', size: 18),
+            Text1(
+              text1: AppLocalizations.of(context)!.textRecomended,
+              size: 18,
+            ),
             const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -286,7 +292,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text1(text1: 'All The Hotels', size: 18),
+            Text1(
+              text1: AppLocalizations.of(context)!.textAllHotels,
+              size: 18,
+            ),
             const SizedBox(height: 10),
             Column(
               children: List.generate(

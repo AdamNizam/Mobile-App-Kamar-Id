@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
@@ -118,7 +119,8 @@ class _HotelsCard2State extends State<HotelsCard2> {
                             children: [
                               Expanded(
                                   child: CustomTextEllipsis(
-                                text: widget.hotel.title ?? 'No tittle info',
+                                text: widget.hotel.title ??
+                                    AppLocalizations.of(context)!.textNoInfo,
                                 size: 13,
                                 color: AppColors.black,
                                 fontWeight: FontWeight.w600,
@@ -170,7 +172,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                               Expanded(
                                 child: CustomTextEllipsis(
                                   text: widget.hotel.address ??
-                                      'No location info',
+                                      AppLocalizations.of(context)!.textNoInfo,
                                   size: 13,
                                 ),
                               ),

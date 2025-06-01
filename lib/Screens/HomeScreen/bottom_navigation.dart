@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/drawer_widget.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/home_screen.dart';
@@ -69,24 +70,24 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
             topRight: Radius.circular(20),
           ),
           child: BottomNavigationBar(
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
+                icon: const Icon(Icons.home),
+                label: AppLocalizations.of(context)!.textHome,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.history),
-                label: 'history',
+                icon: const Icon(Icons.history),
+                label: AppLocalizations.of(context)!.textHistory,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.message),
-                label: 'Pesan',
+                icon: const Icon(Icons.message),
+                label: AppLocalizations.of(context)!.textMessage,
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
                 label: 'Wishlist',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: 'Profile',
               ),

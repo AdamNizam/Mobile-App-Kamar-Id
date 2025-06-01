@@ -54,7 +54,10 @@ class _LogInState extends State<Login> {
       // final accessToken = userData['accessToken'];
       context.read<AuthBloc>().add(AuthGoogleEvent(userData['accessToken']));
     } else {
-      showCustomSnackbar(context, 'Gagal masuk dengan akun Google');
+      showCustomSnackbar(
+        context,
+        AppLocalizations.of(context)!.messageLogWithGoogle,
+      );
     }
   }
 
@@ -66,7 +69,10 @@ class _LogInState extends State<Login> {
       final accessToken = facebookAuthService.accessToken?.token;
       context.read<AuthBloc>().add(AuthFacebookEvent(accessToken!));
     } else {
-      showCustomSnackbar(context, 'Gagal masuk dengan akun Facebook');
+      showCustomSnackbar(
+        context,
+        AppLocalizations.of(context)!.messageLogWithFacebook,
+      );
     }
   }
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_slide_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/facility_icon_item.dart';
@@ -114,7 +114,7 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                           const SizedBox(height: 10),
                           CustomTextOverflow(
                             text: widget.dataRoom.terms?.the8.parent.title ??
-                                'no information',
+                                AppLocalizations.of(context)!.textNoInformation,
                             size: 16,
                             fontWeight: FontWeight.w600,
                             color: AppColors.black,
@@ -190,11 +190,11 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
           TextFormField(
             controller: _controller,
             readOnly: true,
-            decoration: const InputDecoration(
-              labelText: "Select Room",
-              labelStyle: TextStyle(color: AppColors.buttonColor),
-              suffixIcon: Icon(Icons.arrow_drop_down),
-              focusedBorder: UnderlineInputBorder(
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.textSelecRoom,
+              labelStyle: const TextStyle(color: AppColors.buttonColor),
+              suffixIcon: const Icon(Icons.arrow_drop_down),
+              focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.buttonColor,
                   width: 2,
@@ -267,13 +267,11 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: Text(
-                        'Confirm',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.white,
-                        ),
+                      child: const Text1(
+                        text1: 'Confirm',
+                        size: 16,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.white,
                       ),
                       onPressed: () async {
                         final dataCart = RequestAddToChart(

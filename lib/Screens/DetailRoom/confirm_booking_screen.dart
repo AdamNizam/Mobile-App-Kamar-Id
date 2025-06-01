@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
@@ -67,7 +68,10 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                 Navigator.pop(context);
               },
               onTap: () {
-                showCustomSnackbar(context, 'fitur is not available');
+                showCustomSnackbar(
+                  context,
+                  AppLocalizations.of(context)!.textFiturIsNotAvailable,
+                );
               },
             ),
             body: SafeArea(
@@ -107,7 +111,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                               children: [
                                 CustomTextOverflow(
                                   text: widget.dataHotel.title ??
-                                      'No information',
+                                      AppLocalizations.of(context)!.textNoInfo,
                                   fontWeight: FontWeight.w600,
                                   size: 14,
                                   color: AppColors.black,
@@ -132,7 +136,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                     Expanded(
                                       child: Text1(
                                         text1: widget.dataHotel.address ??
-                                            'No information',
+                                            AppLocalizations.of(context)!
+                                                .textNoInfo,
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.cadetGray,
                                         size: 13,
@@ -211,7 +216,11 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                           ),
                         );
                       } else {
-                        showCustomSnackbar(context, 'email is not verified');
+                        showCustomSnackbar(
+                          context,
+                          AppLocalizations.of(context)!
+                              .messageEmailNotVerirfied,
+                        );
                       }
                     }
                   },
@@ -222,7 +231,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         state is CheckoutLoading
                             ? const CustomButtonLoading()
                             : CustomButton(
-                                text: 'Book Now',
+                                text: AppLocalizations.of(context)!.textBooking,
                                 onTap: () async {
                                   final dataCheckout = RequestChekout(
                                     code: widget.orderId,

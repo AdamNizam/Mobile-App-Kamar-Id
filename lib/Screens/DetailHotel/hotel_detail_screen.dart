@@ -127,7 +127,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       Expanded(
                                         child: Text1(
                                           text1: state.data.rowData?.address ??
-                                              'No location info',
+                                              AppLocalizations.of(context)!
+                                                  .textNoInfo,
                                           size: 13,
                                         ),
                                       ),
@@ -187,7 +188,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                 CustomTextEllipsis(
                                                   text:
                                                       state.data.author!.name ??
-                                                          'No Author',
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .textNoAuthor,
                                                   size: 13,
                                                   color: AppColors.black,
                                                   fontWeight: FontWeight.w600,
@@ -206,8 +209,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   ),
                                   const SizedBox(height: 10),
                                   // Deskripsi hotel
-                                  const CustomTextEllipsis(
-                                    text: 'Hotel Description',
+                                  CustomTextEllipsis(
+                                    text: AppLocalizations.of(context)!
+                                        .textDescription,
                                     size: 14,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.black,
@@ -222,8 +226,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     height: 10,
                                   ),
                                   // Location Category Hotel
-                                  const CustomTextEllipsis(
-                                    text: 'Location Category',
+                                  CustomTextEllipsis(
+                                    text: AppLocalizations.of(context)!
+                                        .textLocCategory,
                                     size: 14,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.black,
@@ -259,8 +264,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const CustomTextEllipsis(
-                                          text: 'Extra Price',
+                                        CustomTextEllipsis(
+                                          text: AppLocalizations.of(context)!
+                                              .textExtraPrice,
                                           size: 14,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.black,
@@ -288,8 +294,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       .data.rowData!.serviceFee!.isNotEmpty)
                                     Column(
                                       children: [
-                                        const CustomTextEllipsis(
-                                          text: 'Serive Fee',
+                                        CustomTextEllipsis(
+                                          text: AppLocalizations.of(context)!
+                                              .textServiceFee,
                                           size: 14,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.black,
@@ -406,11 +413,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ],
                                     ),
                                   const SizedBox(height: 10),
-                                  const Column(
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Row(
+                                      const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
@@ -433,10 +440,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
-                                      Center(
+                                      const Center(
                                         child: Column(
                                           children: [
                                             Text(
@@ -457,50 +464,48 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 25),
+                                      const SizedBox(height: 25),
                                       RatingReviewDetail(
-                                        text: 'Staff',
+                                        text: AppLocalizations.of(context)!
+                                            .textStaff,
                                         rate: 0.33,
                                         star: 7.5,
                                         color: AppColors.amberColor,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       RatingReviewDetail(
-                                        text: 'Kenyamanan',
+                                        text: AppLocalizations.of(context)!
+                                            .textFreeWifi,
                                         rate: 0.99,
                                         star: 7.5,
                                         color: AppColors.amberColor,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       RatingReviewDetail(
-                                        text: 'Free Wi-Fi',
+                                        text: AppLocalizations.of(context)!
+                                            .textService,
                                         rate: 0.79,
                                         star: 3.5,
                                         color: AppColors.amberColor,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       RatingReviewDetail(
-                                        text: 'Fasilitas',
+                                        text: AppLocalizations.of(context)!
+                                            .textCleanliness,
                                         rate: 0.70,
                                         star: 0.5,
                                         color: AppColors.amberColor,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       RatingReviewDetail(
-                                        text: 'Kebersihan',
+                                        text: AppLocalizations.of(context)!
+                                            .textLuxury,
                                         rate: 0.67,
                                         star: 2.0,
                                         color: AppColors.amberColor,
                                       ),
-                                      SizedBox(height: 5),
-                                      RatingReviewDetail(
-                                        text: 'Pelayanan',
-                                        rate: 0.40,
-                                        star: 7.5,
-                                        color: AppColors.amberColor,
-                                      ),
-                                      SizedBox(height: 20),
-                                      ReviewContainer(
+                                      const SizedBox(height: 5),
+                                      const ReviewContainer(
                                         image: 'images/c3.png',
                                         text1: 'Michael Johnson',
                                         text2: '3.8',
@@ -508,7 +513,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         reviewText:
                                             'Decent hotel but had some noise issues from the street.',
                                       ),
-                                      ReviewContainer(
+                                      const ReviewContainer(
                                         image: 'images/c4.png',
                                         text1: 'Emily Davis',
                                         text2: '5.0',
@@ -516,7 +521,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         reviewText:
                                             'Absolutely perfect! The amenities were top-notch and the view was amazing.',
                                       ),
-                                      ReviewContainer(
+                                      const ReviewContainer(
                                         image: 'images/c5.png',
                                         text1: 'William Brown',
                                         text2: '2.5',

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
@@ -98,13 +99,14 @@ class ProfileScreen extends StatelessWidget {
                       if (userState.data.emailVerifiedAt == null)
                         Column(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text1(
-                                    text1: 'Email is not verified, ',
+                                    text1:
+                                        '${AppLocalizations.of(context)!.messageEmailNotVerirfied}, ',
                                     size: 13,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -136,7 +138,8 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height: 10),
                             Text1(
-                              text1: userState.data.name ?? 'no information',
+                              text1: userState.data.name ??
+                                  AppLocalizations.of(context)!.textNoInfo,
                               size: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -159,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ProfileRow(
               leadingIcon: Icons.person,
-              title: 'Your Profile',
+              title: AppLocalizations.of(context)!.textYourProfile,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const UserInformation()));
@@ -167,7 +170,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ProfileRow(
               leadingIcon: Icons.lock,
-              title: 'Change Password',
+              title: AppLocalizations.of(context)!.textChangePassword,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const ChangePassword()));
@@ -175,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ProfileRow(
               leadingIcon: Icons.settings,
-              title: 'Settings',
+              title: AppLocalizations.of(context)!.textSettings,
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const SettingsScreen()));
@@ -190,7 +193,7 @@ class ProfileScreen extends StatelessWidget {
                 }),
             ProfileRow(
               leadingIcon: Icons.logout,
-              title: 'Logout',
+              title: AppLocalizations.of(context)!.textLogout,
               onTap: () {
                 context.read<AuthBloc>().add(AuthLogout());
                 AppRoot.of(context)?.resetAppState();
