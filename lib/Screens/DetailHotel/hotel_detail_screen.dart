@@ -431,12 +431,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          Text(
-                                            '5.0',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          Text1(
+                                            text1: '5.0',
+                                            size: 18,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ],
                                       ),
@@ -446,20 +444,17 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       const Center(
                                         child: Column(
                                           children: [
-                                            Text(
-                                              '(1,092 Reviews)',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            Text1(
+                                              text1: '(1,092 Reviews)',
+                                              size: 18,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                             SizedBox(height: 4),
-                                            Text(
-                                              'Outstanding: Rated 0 with 0 Reviews.',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: AppColors.cadetGray,
-                                              ),
+                                            Text1(
+                                              text1:
+                                                  'Outstanding: Rated 0 with 0 Reviews.',
+                                              size: 14,
+                                              color: AppColors.cadetGray,
                                             ),
                                           ],
                                         ),
@@ -504,7 +499,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         star: 2.0,
                                         color: AppColors.amberColor,
                                       ),
-                                      const SizedBox(height: 5),
+                                      const SizedBox(height: 20),
                                       const ReviewContainer(
                                         image: 'images/c3.png',
                                         text1: 'Michael Johnson',

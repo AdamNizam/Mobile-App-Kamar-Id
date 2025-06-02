@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
@@ -19,8 +20,8 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(HotelSuccess(data));
           } catch (error) {
-            print('Get Data All Hotel Error : $error');
-            emit(const HotelFailed('Get data failed!'));
+            debugPrint('Failed Get All Hotel : $error');
+            emit(HotelFailed(error.toString()));
           }
         }
 
@@ -32,8 +33,8 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
 
             emit(GetAllHotelDetailSuccess(data));
           } catch (error) {
-            print('Get Data Detail Hotel: $error');
-            emit(const HotelFailed('Hotel not found'));
+            debugPrint('Failed Get Detail Hotel: $error');
+            emit(HotelFailed(error.toString()));
           }
         }
       },

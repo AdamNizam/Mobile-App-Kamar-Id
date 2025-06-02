@@ -24,8 +24,11 @@ class WishlistService {
 
       if (res.statusCode == 200) {
         return ResultWishlist.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
+      } else {
+        throw Exception(jsonDecode(res.body)['message']);
       }
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }

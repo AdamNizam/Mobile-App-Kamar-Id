@@ -54,8 +54,10 @@ class BookingService {
 
       if (res.statusCode == 200) {
         return ResultChekout.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
-        throw jsonDecode(res.body)['error'] ?? 'Checkout failed!';
+        throw jsonDecode(res.body)['meesage'];
       }
     } catch (error) {
       rethrow;
@@ -78,8 +80,11 @@ class BookingService {
 
       if (res.statusCode == 200) {
         return HistoryBookingModel.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
+      } else {
+        throw jsonDecode(res.body)['message'];
       }
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }

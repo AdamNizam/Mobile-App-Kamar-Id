@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Services/hotel_service.dart';
@@ -15,14 +16,14 @@ class CheckAvaibilityHotelBloc
         try {
           emit(CheckAvaibilityLoading());
 
-          final data = await HotelService().checkAvaibilityHotel(
-            event.dataRequest,
+          emit(
+            CheckAvaibilitySuccess(
+              await HotelService().checkAvaibility(event.dataRequest),
+            ),
           );
-
-          emit(CheckAvaibilitySuccess(data));
         } catch (error) {
-          print('Check Avaibility Error $error');
-          emit(const ChekAvaibilityFailed('Checking failed!'));
+          debugPrint('Failed Check Avaibility : $error');
+          emit(ChekAvaibilityFailed(error.toString()));
         }
       }
     });

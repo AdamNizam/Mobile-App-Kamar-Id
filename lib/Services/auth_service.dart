@@ -31,6 +31,8 @@ class AuthService {
         await saveToken(userResultLog);
 
         return userResultLog;
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
         throw Exception(jsonDecode(res.body)['message']);
       }
@@ -55,6 +57,8 @@ class AuthService {
           jsonDecode(res.body),
         );
         await saveToken(userResultLog);
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
         throw Exception(jsonDecode(res.body)['message']);
       }
@@ -80,6 +84,8 @@ class AuthService {
           jsonDecode(res.body),
         );
         await saveToken(userResultLog);
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
         throw Exception(jsonDecode(res.body)['message']);
       }

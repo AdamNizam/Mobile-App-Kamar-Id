@@ -11,7 +11,7 @@ class NotificationService {
     try {
       final token = await AuthService().getToken();
 
-      final response = await http.post(
+      final res = await http.post(
         Uri.parse('$baseUrl/notification/load-notify'),
         headers: {
           'Authorization': token,
@@ -20,17 +20,16 @@ class NotificationService {
         body: jsonEncode({'type': type}),
       );
 
-      print('Response API notification: ${response.body}');
+      print('Response API notification: ${res.body}');
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return ResultNotification.fromJson(data);
+      if (res.statusCode == 200) {
+        return ResultNotification.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
-        final error = jsonDecode(response.body);
-        throw Exception(error['message']);
+        throw jsonDecode(res.body)['message'];
       }
     } catch (e) {
-      print('Error: $e');
       rethrow;
     }
   }
@@ -54,9 +53,11 @@ class NotificationService {
 
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
+      } else {
+        throw jsonDecode(res.body)['message'];
       }
-
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }

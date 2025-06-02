@@ -9,7 +9,8 @@ class PaymentMidtransService {
   Future<ResultMidtransModel> payWithMidtrans(
       RequestMidtrans midtransModel) async {
     try {
-      final authHeader = 'Basic ${base64Encode(utf8.encode('$serverKey:'))}';
+      final authHeader =
+          'Basic ${base64Encode(utf8.encode('$serverKeyMidtrans:'))}';
 
       final res = await http.post(
         Uri.parse(midtransUrl),

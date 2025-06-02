@@ -41,7 +41,10 @@ class _LogInState extends State<Login> {
             ),
           );
     } else {
-      showCustomSnackbar(context, 'Enter your username & password');
+      showCustomSnackbar(
+        context,
+        AppLocalizations.of(context)!.messageLogUP,
+      );
     }
   }
 

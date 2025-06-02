@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hotelbookingapp/Models/ReviewModel/form_review.dart';
 import 'package:hotelbookingapp/Models/ReviewModel/result_review.dart';
 import 'package:hotelbookingapp/Services/review_service.dart';
@@ -18,8 +19,8 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
 
           emit(ReviewSuccess(data));
         } catch (error) {
-          print('Error Review : $error');
-          emit(const ReviewFailed('Review Failed!'));
+          debugPrint('Failed review hotel: $error');
+          emit(ReviewFailed(error.toString()));
         }
       }
     });

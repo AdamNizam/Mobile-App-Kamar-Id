@@ -16,7 +16,7 @@ class CustomTextField extends StatefulWidget {
     required this.label,
     this.icon,
     this.icon2,
-    this.height = 42,
+    this.height = 45,
     this.obscureText = false,
     this.controller,
     this.onChanged,
@@ -54,8 +54,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         children: [
           Text1(
             text1: widget.label,
-            color: AppColors.cadetGray,
-            size: 12,
+            color: AppColors.black,
+            size: 13,
           ),
           Container(
             height: widget.height,
@@ -64,8 +64,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
             padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               color: AppColors.white,
-              border: Border.all(color: AppColors.amberColor),
-              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: AppColors.beauBlue),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: TextFormField(
               controller: widget.controller,
@@ -73,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusNode: _focusNode,
               obscureText: _isObscured,
               style: const TextStyle(
-                color: AppColors.cadetGray,
+                color: AppColors.black,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
@@ -81,7 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 border: InputBorder.none,
                 hintText: widget.label.toLowerCase(),
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: -3),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: -1),
                 hintStyle: const TextStyle(
                   color: AppColors.black,
                   fontSize: 16,

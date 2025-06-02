@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_notification.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
@@ -26,13 +27,16 @@ class _NoticationScreenState extends State<NotificationScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppTopBar(
-        title: 'Notification',
+        title: AppLocalizations.of(context)!.textNotification,
         icon: Icons.notifications_active,
         onPop: () {
           Navigator.pop(context);
         },
         onTap: () {
-          showCustomSnackbar(context, 'fitur is not avaibale');
+          showCustomSnackbar(
+            context,
+            AppLocalizations.of(context)!.textFiturIsNotAvailable,
+          );
         },
       ),
       body: SingleChildScrollView(

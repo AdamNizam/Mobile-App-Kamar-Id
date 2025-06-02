@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/result_chekout.dart';
 import 'package:hotelbookingapp/Services/booking_service.dart';
@@ -18,7 +19,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
 
           emit(CheckoutSuccess(data));
         } catch (error) {
-          print('checkout error: $error');
+          debugPrint('checkout error: $error');
           emit(CheckoutFailed(error.toString()));
         }
       }

@@ -12,12 +12,13 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
-import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
+import 'package:hotelbookingapp/Providers/midtrans_provider.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:midtrans_sdk/midtrans_sdk.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
   final RowData dataHotel;
@@ -50,6 +51,18 @@ class ConfirmBookingScreen extends StatefulWidget {
 }
 
 class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
+  MidtransSDK? _midtrans;
+
+  @override
+  void initState() {
+    super.initState();
+    _initMidtrans();
+  }
+
+  Future<void> _initMidtrans() async {
+    _midtrans = await initializeMidtrans();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserBloc, UserState>(
@@ -196,31 +209,16 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               child: BlocProvider(
                 create: (context) => CheckoutBloc(),
                 child: BlocConsumer<CheckoutBloc, CheckoutState>(
-                  listener: (context, chekOutState) {
-                    if (chekOutState is CheckoutFailed) {
-                      showCustomSnackbar(context, chekOutState.error);
+                  listener: (context, checkOutState) {
+                    if (checkOutState is CheckoutFailed) {
+                      showCustomSnackbar(context, checkOutState.error);
                     }
-                    if (chekOutState is CheckoutSuccess) {
-                      if (userState.data.emailVerifiedAt != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MidtransPaymentPage(
-                              totalPrice: int.parse(widget.totalAmount),
-                              orderId: widget.orderId,
-                              emailUser: userState.data.email,
-                              firstName: userState.data.firstName,
-                              lastName: userState.data.lastName,
-                              phone: userState.data.phone,
-                            ),
-                          ),
-                        );
+                    if (checkOutState is CheckoutSuccess) {
+                      if (_midtrans != null) {
+                        _midtrans!.startPaymentUiFlow(
+                            token: checkOutState.data.snapToken);
                       } else {
-                        showCustomSnackbar(
-                          context,
-                          AppLocalizations.of(context)!
-                              .messageEmailNotVerirfied,
-                        );
+                        showCustomSnackbar(context, 'Midtrans Error');
                       }
                     }
                   },
@@ -231,7 +229,8 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         state is CheckoutLoading
                             ? const CustomButtonLoading()
                             : CustomButton(
-                                text: AppLocalizations.of(context)!.textBooking,
+                                text: AppLocalizations.of(context)!
+                                    .textBtnConfirm,
                                 onTap: () async {
                                   final dataCheckout = RequestChekout(
                                     code: widget.orderId,

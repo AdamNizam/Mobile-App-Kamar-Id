@@ -73,7 +73,7 @@ class _RegisterState extends State<Register> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 15),
@@ -202,7 +202,7 @@ class _RegisterState extends State<Register> {
                           },
                         ),
                         const SizedBox(
-                          height: 50,
+                          height: 20,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

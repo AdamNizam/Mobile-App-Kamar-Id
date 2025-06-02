@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showCustomSnackbar(BuildContext context, String message) {
@@ -29,14 +29,11 @@ void showCustomSnackbar(BuildContext context, String message) {
       children: [
         const SizedBox(width: 8),
         Expanded(
-          child: Text(
-            message,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              color: AppColors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-            ),
+          child: CustomTextOverflow(
+            text: message,
+            color: AppColors.white,
+            fontWeight: FontWeight.w500,
+            size: 14,
           ),
         ),
       ],
@@ -70,7 +67,7 @@ void showExpiredDialog(BuildContext context, String title, String message) {
               const SizedBox(height: 10),
               Text1(
                 text1: message,
-                size: 16,
+                size: 14,
                 color: AppColors.cadetGray,
               ),
             ],

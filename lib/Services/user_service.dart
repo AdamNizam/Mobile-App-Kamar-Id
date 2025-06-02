@@ -94,6 +94,8 @@ class UserService {
 
       if (res.statusCode == 200) {
         return ResultUpdatePassword.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
         throw jsonDecode(res.body)['message'];
       }
@@ -130,14 +132,12 @@ class UserService {
               data['error']?['message'] ?? data['message'] ?? 'Upload gagal';
           throw Exception(errorMessage);
         }
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error :  ${response.statusCode}");
       } else {
-        final errorData = jsonDecode(response.body);
-        throw Exception(
-          errorData['message'] ?? 'Terjadi kesalahan pada server',
-        );
+        throw Exception(jsonDecode(response.body)['message']);
       }
     } catch (error) {
-      // Bisa juga ditambahkan debugPrint atau logging di sini
       rethrow;
     }
   }

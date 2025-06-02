@@ -212,8 +212,8 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CustomTextEllipsis(
-                    text: 'Total Price :',
+                  CustomTextEllipsis(
+                    text: '${AppLocalizations.of(context)!.textTotalPrice} :',
                     size: 12,
                     color: AppColors.cadetGray,
                   ),
@@ -267,8 +267,8 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: const Text1(
-                        text1: 'Confirm',
+                      child: Text1(
+                        text1: AppLocalizations.of(context)!.textBtnConfirm,
                         size: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.white,

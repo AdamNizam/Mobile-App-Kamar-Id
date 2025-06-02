@@ -231,12 +231,10 @@ class ReviewContainer extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            reviewText,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
-            ),
+          Text1(
+            text1: reviewText,
+            size: 14,
+            color: Colors.black87,
           ),
         ],
       ),
@@ -259,12 +257,10 @@ class RatingRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-          ),
+        Text1(
+          text1: text,
+          size: 13,
+          fontWeight: FontWeight.w500,
         ),
         const SizedBox(width: 30),
         Expanded(

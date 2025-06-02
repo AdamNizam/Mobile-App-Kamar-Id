@@ -28,8 +28,10 @@ class HotelService {
         return List<HotelAllModel>.from(
           hotelList.map((hotel) => HotelAllModel.fromJson(hotel)),
         );
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
-        throw jsonDecode(res.body)['message'];
+        throw Exception(jsonDecode(res.body)['message']);
       }
     } catch (e) {
       rethrow;
@@ -53,15 +55,17 @@ class HotelService {
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);
         return HotelDetailModel.fromJson(data);
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
+      } else {
+        throw Exception(jsonDecode(res.body)['message']);
       }
-
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<ResultCheckAvaibility> checkAvaibilityHotel(
+  Future<ResultCheckAvaibility> checkAvaibility(
     RequestCheckAvaibility data,
   ) async {
     try {
@@ -81,8 +85,11 @@ class HotelService {
       if (res.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(res.body);
         return ResultCheckAvaibility.fromJson(data);
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
+      } else {
+        throw Exception(jsonDecode(res.body)['message']);
       }
-      throw jsonDecode(res.body)['message'];
     } catch (e) {
       rethrow;
     }

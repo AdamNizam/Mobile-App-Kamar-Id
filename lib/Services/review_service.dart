@@ -24,8 +24,10 @@ class ReviewService {
 
       if (res.statusCode == 200) {
         return ResultReview.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error:  ${res.statusCode}");
       } else {
-        throw jsonDecode(res.body)['message'] ?? 'Review Failed';
+        throw Exception(jsonDecode(res.body)['message']);
       }
     } catch (e) {
       rethrow;
