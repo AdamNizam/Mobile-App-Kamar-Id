@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
+import '../../CustomWidgets/CustomText/text1.dart';
 import '../../Themes/colors.dart';
 
 class WriteReviews extends StatefulWidget {

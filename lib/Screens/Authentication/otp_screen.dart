@@ -4,8 +4,8 @@ import 'package:hotelbookingapp/Screens/Authentication/resend_otp_screen.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
+import '../../CustomWidgets/CustomText/text1.dart';
 import '../../Themes/colors.dart';
 import '../HomeScreen/home_screen.dart';
 

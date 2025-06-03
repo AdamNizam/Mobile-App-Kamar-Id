@@ -1,6 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -23,20 +23,14 @@ void showCustomSnackbar(BuildContext context, String message) {
         offset: const Offset(2, 2),
       ),
     ],
-    duration: const Duration(seconds: 2),
-    messageText: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(width: 8),
-        Expanded(
-          child: CustomTextOverflow(
-            text: message,
-            color: AppColors.white,
-            fontWeight: FontWeight.w500,
-            size: 14,
-          ),
-        ),
-      ],
+    duration: const Duration(seconds: 4),
+    messageText: Center(
+      child: CustomTextOverflow(
+        text: message,
+        color: AppColors.white,
+        fontWeight: FontWeight.w500,
+        size: 14,
+      ),
     ),
   ).show(context);
 }

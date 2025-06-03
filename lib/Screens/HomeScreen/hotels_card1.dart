@@ -4,14 +4,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 
-import '../../CustomWidgets/CustomText/detailstext1.dart';
-import '../../CustomWidgets/CustomText/detailstext2.dart';
 import '../../Themes/colors.dart';
 import '../DetailHotel/hotel_detail_screen.dart';
 
@@ -73,7 +73,7 @@ class _HotelsCard1State extends State<HotelsCard1> {
       },
       child: Container(
         margin: const EdgeInsets.all(8),
-        width: 190,
+        width: 210,
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(12),
@@ -96,7 +96,7 @@ class _HotelsCard1State extends State<HotelsCard1> {
                     CarouselCardImage(
                       pageController: _pageController,
                       imageUrls: _imageUrls,
-                      width: 190,
+                      width: 210,
                       height: 130,
                     ),
                     StarRatingHotel(
@@ -174,23 +174,18 @@ class _HotelsCard1State extends State<HotelsCard1> {
                         ],
                       ),
                       const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Text1(
-                            text1: widget.hotel.price != null
-                                ? "Rp${widget.hotel.price}"
-                                : '0',
-                            size: 14,
-                            color: AppColors.buttonColor,
-                          ),
-                          const Text2(text2: '/night', size: 14),
-                        ],
+                      const TextDiscount(initialPrice: 'Rp2.000.00'),
+                      const SizedBox(height: 5),
+                      TextPrice(
+                        price: AppLocalizations.of(context)!.textNight(
+                          widget.hotel.price.toString(),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       (widget.hotel.rooms!.isNotEmpty)
                           ? TextRemaining(
-                              text:
-                                  '${widget.hotel.rooms![0].number} rooms availbale',
+                              text: AppLocalizations.of(context)!
+                                  .textRemaining(widget.hotel.rooms!.length),
                             )
                           : const TextRemaining(
                               text: 'soldout',

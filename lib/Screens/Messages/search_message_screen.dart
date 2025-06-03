@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
-import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
+import '../../CustomWidgets/CustomText/text1.dart';
 import '../../Themes/colors.dart';
 
 class SearchMessagesScreen extends StatelessWidget {

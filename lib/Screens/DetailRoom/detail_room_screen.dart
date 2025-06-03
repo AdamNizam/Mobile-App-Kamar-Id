@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_slide_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/facility_icon_item.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_price_selection_modal.dart';

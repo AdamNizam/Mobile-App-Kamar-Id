@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/custom_icon1_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/custom_icon2_avaibility.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';

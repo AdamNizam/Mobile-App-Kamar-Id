@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/CustomText/detailstext1.dart'; // Assuming this is your custom Text widget
+import '../../CustomWidgets/CustomText/text1.dart'; // Assuming this is your custom Text widget
 import '../../Themes/colors.dart'; // Ensure AppColors has the new color scheme for your hotel booking app
 
 class AllCategoriesScreen extends StatefulWidget {

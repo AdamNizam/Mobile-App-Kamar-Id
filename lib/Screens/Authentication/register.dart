@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Screens/Authentication/message_success.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';

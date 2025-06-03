@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../Themes/colors.dart';
-import '../CustomText/detailstext1.dart';
+import '../CustomText/text1.dart';
 
 class CategoryCard extends StatelessWidget {
   final IconData icon;

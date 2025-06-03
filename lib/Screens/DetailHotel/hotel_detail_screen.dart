@@ -7,8 +7,9 @@ import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/category_location_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_slide_image.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/check_avaibility_screen.dart';
@@ -68,10 +69,31 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                             ),
                             const SizedBox(height: 10),
                             Padding(
-                              padding: const EdgeInsets.all(14),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 10,
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 4),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.redAwesome,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(6)),
+                                    ),
+                                    child: const Text1(
+                                      text1: 'Featured',
+                                      color: AppColors.white,
+                                      size: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
                                   Row(
                                     children: [
                                       CustomTextEllipsis(
@@ -135,6 +157,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     ],
                                   ),
                                   const SizedBox(height: 10),
+                                  const TextDiscount(
+                                    initialPrice: 'Rp2.000.00',
+                                    size: 14,
+                                  ),
+                                  const SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -150,20 +177,17 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ),
                                       const Spacer(),
                                       Text1(
-                                        text1:
-                                            'Rp${state.data.rowData!.price.toString()}',
-                                        size: 15,
+                                        text1: AppLocalizations.of(context)!
+                                            .textNight(state.data.rowData!.price
+                                                .toString()),
+                                        size: 14,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.buttonColor,
-                                      ),
-                                      const Text1(
-                                        text1: '/night',
-                                        size: 14,
-                                        color: AppColors.cadetGray,
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 10),
+
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -324,13 +348,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     ),
 
                                   const SizedBox(height: 10),
-                                  // Offer Hotel
-                                  const CustomTextEllipsis(
-                                    text: 'Rules Hotel',
-                                    size: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.black,
-                                  ),
                                   Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -385,9 +402,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     Column(
                                       children: [
                                         // Google Maps
-                                        const Center(
+                                        Center(
                                           child: CustomTextEllipsis(
-                                            text: 'Location Hotel',
+                                            text: AppLocalizations.of(context)!
+                                                .textLocHotel,
                                             size: 14,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.black,
@@ -548,32 +566,13 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                     );
                   },
                   backgroundColor: AppColors.buttonColor,
-                  child: Stack(
+                  child: const Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.message,
                         color: AppColors.white,
                         size: 26,
-                      ),
-                      Positioned(
-                        right: -3,
-                        top: -8,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: const BoxDecoration(
-                            color: AppColors.redAwesome,
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Text(
-                            '1',
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),

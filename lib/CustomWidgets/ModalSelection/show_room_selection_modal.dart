@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 typedef RoomSelectionCallback = void Function(int room, int adult, int child);
@@ -95,30 +96,41 @@ class _RoomSelectionContentState extends State<_RoomSelectionContent> {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          const SizedBox(height: 10),
-          const Text(
-            "Select Room & Guests",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               children: [
-                _buildCounter("Room", room, incrementRoom, decrementRoom),
-                _buildCounter("Adult", adult, incrementAdult, decrementAdult),
-                _buildCounter("Child (0 - 17 years)", child, incrementChild,
-                    decrementChild),
+                _buildCounter(
+                  AppLocalizations.of(context)!.textRoom,
+                  room,
+                  incrementRoom,
+                  decrementRoom,
+                ),
+                _buildCounter(
+                  AppLocalizations.of(context)!.textAdult,
+                  adult,
+                  incrementAdult,
+                  decrementAdult,
+                ),
+                _buildCounter(
+                  AppLocalizations.of(context)!.textChild,
+                  child,
+                  incrementChild,
+                  decrementChild,
+                ),
               ],
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            "Total: $room Room, ${adult + child} Guest",
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+          Text1(
+            text1: AppLocalizations.of(context)!.textSelectGuest(
+              '${adult + child}',
+              '$room',
             ),
+            size: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
           ),
           const SizedBox(height: 16),
           ElevatedButton(
@@ -133,9 +145,10 @@ class _RoomSelectionContentState extends State<_RoomSelectionContent> {
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
-            child: const Text(
-              "Save",
-              style: TextStyle(fontSize: 16, color: AppColors.white),
+            child: Text1(
+              text1: AppLocalizations.of(context)!.textSave,
+              size: 16,
+              color: AppColors.white,
             ),
           ),
         ],

@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/custom_nav_title.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_avaibility.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_date_selection_modal.dart';
 import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_room_selection_modal.dart';
@@ -294,11 +295,12 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           size: 24,
           color: AppColors.buttonColor,
         ),
-        title: Text(
-          checkInDate != null && checkOutDate != null
+        title: Text1(
+          text1: checkInDate != null && checkOutDate != null
               ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - ${checkOutDate!.difference(checkInDate!).inDays} night"
               : "Check In - Check Out",
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
+          size: 14,
+          fontWeight: FontWeight.w400,
         ),
         onTap: _selectDates,
       ),
@@ -325,10 +327,10 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
           size: 24,
           color: AppColors.buttonColor,
         ),
-        title: Text(
-          "$room Room - $adult Adult - $child Child",
-          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400),
-        ),
+        title: Text1(
+            text1: "$room Room - $adult Adult - $child Child",
+            size: 14,
+            fontWeight: FontWeight.w400),
         onTap: _selectRoom,
       ),
     );

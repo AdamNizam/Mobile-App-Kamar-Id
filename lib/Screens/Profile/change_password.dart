@@ -5,7 +5,7 @@ import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/customtextfield.dart';
-import '../../CustomWidgets/CustomText/detailstext1.dart';
+import '../../CustomWidgets/CustomText/text1.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});

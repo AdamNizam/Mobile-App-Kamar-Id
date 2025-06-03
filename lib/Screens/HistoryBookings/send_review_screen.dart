@@ -11,8 +11,8 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
+import '../../CustomWidgets/CustomText/text1.dart';
 
 class SendReviewScreen extends StatefulWidget {
   final DataHistory dataHistory;

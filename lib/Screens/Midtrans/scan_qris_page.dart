@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';

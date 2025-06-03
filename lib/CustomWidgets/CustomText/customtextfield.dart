@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 
 import '../../Themes/colors.dart';
 

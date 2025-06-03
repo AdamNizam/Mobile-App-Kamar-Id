@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
@@ -41,9 +43,11 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    "Select Date",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  CustomTextEllipsis(
+                    text: AppLocalizations.of(context)!.textSelectDate,
+                    size: 16,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.black,
                   ),
                   const SizedBox(height: 8),
                   const TabBar(
@@ -131,21 +135,11 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                       ],
                     ),
                   ),
-                  Text(
-                    'Start from: Rp${startPriceSelection ?? "0"} - Rp${endPriceSelection ?? "0"}',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: AppColors.buttonColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "${DateFormat('d MMM').format(checkInDate)} - ${DateFormat('d MMM').format(checkOutDate)} (${checkOutDate.difference(checkInDate).inDays} night)",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  Text1(
+                    text1:
+                        "${DateFormat('d MMM').format(checkInDate)} - ${DateFormat('d MMM').format(checkOutDate)} (${AppLocalizations.of(context)!.textAmountNight(checkOutDate.difference(checkInDate).inDays)})",
+                    size: 16,
+                    fontWeight: FontWeight.w500,
                   ),
                   const SizedBox(height: 26),
                   ElevatedButton(
@@ -153,7 +147,7 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                       if (!checkOutDate.isAfter(checkInDate)) {
                         showCustomSnackbar(
                           context,
-                          'Tanggal check-out harus lebih dari tanggal check-in.',
+                          AppLocalizations.of(context)!.messageRequired,
                         );
                         return;
                       }
@@ -170,12 +164,10 @@ Future<Map<String, DateTime>?> showDateSelectionModal(
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.white,
-                      ),
+                    child: Text1(
+                      text1: AppLocalizations.of(context)!.textSave,
+                      size: 16,
+                      color: AppColors.white,
                     ),
                   ),
                 ],

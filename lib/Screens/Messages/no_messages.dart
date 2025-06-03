@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Messages/message_screen.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/detailstext1.dart';
 import '../../CustomWidgets/CustomText/detailstext2.dart';
+import '../../CustomWidgets/CustomText/text1.dart';
 
 class NoMessages extends StatelessWidget {
   const NoMessages({super.key});

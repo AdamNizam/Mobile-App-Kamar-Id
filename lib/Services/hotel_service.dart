@@ -53,8 +53,7 @@ class HotelService {
       print('Response API Get Detail hotel slug: ($slug) :  ${res.body}');
 
       if (res.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(res.body);
-        return HotelDetailModel.fromJson(data);
+        return HotelDetailModel.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 500) {
         throw Exception("Server error :  ${res.statusCode}");
       } else {

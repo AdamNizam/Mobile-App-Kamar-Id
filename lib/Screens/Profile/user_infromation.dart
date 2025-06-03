@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
 import 'package:hotelbookingapp/Shared/shared_data.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';

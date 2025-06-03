@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/notification/notication_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Screens/Notifications/notifications_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -38,7 +39,8 @@ class _HomeWidgteState extends State<HomeWidgte> {
           builder: (context, state) {
             if (state is UserSuccess) {
               return Text1(
-                text1: 'Hi, ${state.data.name}',
+                text1: AppLocalizations.of(context)!
+                    .textHi(state.data.name ?? 'you'),
                 size: 16,
                 fontWeight: FontWeight.w500,
                 color: AppColors.white,

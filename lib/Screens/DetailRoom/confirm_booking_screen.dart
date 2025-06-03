@@ -8,7 +8,7 @@ import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_loading.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
