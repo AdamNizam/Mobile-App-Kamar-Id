@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -156,22 +157,10 @@ class _HotelsCard1State extends State<HotelsCard1> {
                         ],
                       ),
                       const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_pin,
-                            size: 20,
-                            color: AppColors.buttonColor,
-                          ),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: CustomTextEllipsis(
-                              text: widget.hotel.address ??
-                                  AppLocalizations.of(context)!.textNoInfo,
-                              size: 13,
-                            ),
-                          ),
-                        ],
+                      TextLocation(
+                        locationText: widget.hotel.address ??
+                            AppLocalizations.of(context)!.textNoInfo,
+                        cutText: true,
                       ),
                       const SizedBox(height: 5),
                       const TextDiscount(initialPrice: 'Rp2.000.00'),

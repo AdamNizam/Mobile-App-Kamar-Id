@@ -11,6 +11,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_covert_html.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/check_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
@@ -136,25 +137,10 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     ],
                                   ),
                                   const SizedBox(height: 10),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Icon(
-                                        Icons.location_on,
-                                        size: 20,
-                                        color: AppColors.buttonColor,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text1(
-                                          text1: state.data.rowData?.address ??
-                                              AppLocalizations.of(context)!
-                                                  .textNoInfo,
-                                          size: 13,
-                                        ),
-                                      ),
-                                    ],
+                                  TextLocation(
+                                    locationText: state.data.rowData?.address ??
+                                        AppLocalizations.of(context)!
+                                            .textNoInfo,
                                   ),
                                   const SizedBox(height: 10),
                                   const TextDiscount(

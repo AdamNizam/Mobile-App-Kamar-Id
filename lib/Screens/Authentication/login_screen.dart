@@ -14,7 +14,7 @@ import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/customtextfield.dart';
+import '../../CustomWidgets/CustomText/custom_text_field.dart';
 import '../../CustomWidgets/CustomText/text2.dart';
 import '../../Themes/colors.dart';
 import 'forgotpassword.dart';

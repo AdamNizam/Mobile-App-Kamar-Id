@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/customtextfield.dart';
+import '../../CustomWidgets/CustomText/custom_text_field.dart';
 import '../../CustomWidgets/CustomText/text1.dart';
 import '../../CustomWidgets/CustomText/text2.dart';
 

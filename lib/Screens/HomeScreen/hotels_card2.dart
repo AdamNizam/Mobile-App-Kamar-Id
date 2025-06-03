@@ -6,6 +6,7 @@ import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -160,23 +161,11 @@ class _HotelsCard2State extends State<HotelsCard2> {
                               )
                             ],
                           ),
-                          const SizedBox(height: 5.0),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_pin,
-                                size: 20,
-                                color: AppColors.tabColor,
-                              ),
-                              const SizedBox(width: 4.0),
-                              Expanded(
-                                child: CustomTextEllipsis(
-                                  text: widget.hotel.address ??
-                                      AppLocalizations.of(context)!.textNoInfo,
-                                  size: 13,
-                                ),
-                              ),
-                            ],
+                          const SizedBox(height: 5),
+                          TextLocation(
+                            locationText: widget.hotel.address ??
+                                AppLocalizations.of(context)!.textNoInfo,
+                            cutText: true,
                           ),
                           const SizedBox(height: 5),
                           const TextDiscount(initialPrice: 'Rp2.00.00'),
@@ -187,17 +176,16 @@ class _HotelsCard2State extends State<HotelsCard2> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          (widget.hotel.rooms!.isNotEmpty)
-                              ? TextRemaining(
-                                  text: AppLocalizations.of(context)!
-                                      .textRemaining(
+                          TextRemaining(
+                            text: (widget.hotel.rooms!.isNotEmpty)
+                                ? AppLocalizations.of(context)!.textRemaining(
                                     widget.hotel.rooms!.length,
-                                  ),
-                                )
-                              : const TextRemaining(
-                                  text: 'soldout',
-                                  color: AppColors.redAwesome,
-                                ),
+                                  )
+                                : 'soldout',
+                            color: (widget.hotel.rooms!.isNotEmpty)
+                                ? AppColors.green
+                                : AppColors.redAwesome,
+                          ),
                           const SizedBox(height: 3),
                         ],
                       ),

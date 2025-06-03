@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/customtextfield.dart';
+import '../../CustomWidgets/CustomText/custom_text_field.dart';
 import '../../Themes/colors.dart';
 
 class UserInformation extends StatefulWidget {

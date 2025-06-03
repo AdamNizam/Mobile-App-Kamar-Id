@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/CustomBar/customapp_bar.dart';
-import '../../CustomWidgets/CustomText/customtextfield.dart';
+import '../../CustomWidgets/CustomText/custom_text_field.dart';
 
 class EnterLocationScreen extends StatelessWidget {
   const EnterLocationScreen({super.key});

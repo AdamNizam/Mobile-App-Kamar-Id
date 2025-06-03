@@ -4,7 +4,7 @@ import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
 
 import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/customtextfield.dart';
+import '../../CustomWidgets/CustomText/custom_text_field.dart';
 import '../../CustomWidgets/CustomText/text1.dart';
 
 class ChangePassword extends StatefulWidget {
