@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/Models/hotel_model.dart';

@@ -1,8 +1,8 @@
 // file: hotel_image_carousel.dart
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/detailstext2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../Themes/colors.dart'; // sesuaikan path
