@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -127,13 +128,11 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
               Center(
                 child: Column(
                   children: [
-                    Text(
-                      'Pay Via Indomaret',
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+                    const Text1(
+                      text1: 'Pay Via Indomaret',
+                      size: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -145,13 +144,12 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                         color: AppColors.beauBlue,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
-                        'Expired time: ${formatDuration(_remainingTime)}',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: AppColors.buttonColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      child: Text1(
+                        text1:
+                            'Expired time: ${formatDuration(_remainingTime)}',
+                        size: 14,
+                        color: AppColors.buttonColor,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -161,17 +159,17 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
               const SizedBox(height: 24),
 
               // Instruction
-              Text(
-                'Tunjukkan kode pembayaran ini ke kasir Indomaret',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, color: AppColors.cadetGray),
-              ),
+              const Text1(
+                  text1: 'Tunjukkan kode pembayaran ini ke kasir Indomaret',
+                  size: 14,
+                  color: AppColors.cadetGray),
+
               const SizedBox(height: 10),
-              Text(
-                'Payment Code :',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, color: AppColors.cadetGray),
-              ),
+              const Text1(
+                  text1: 'Payment Code :',
+                  size: 14,
+                  color: AppColors.cadetGray),
+
               const SizedBox(height: 5),
               Container(
                 decoration: BoxDecoration(
@@ -191,7 +189,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                         Expanded(
                           child: SelectableText(
                             widget.data.paymentCode ?? '',
-                            style: GoogleFonts.poppins(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black87,
@@ -222,11 +220,9 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                'Merchant ID :',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, color: AppColors.cadetGray),
-              ),
+              const Text1(
+                  text1: 'Merchant ID :', size: 14, color: AppColors.cadetGray),
+
               const SizedBox(height: 5),
               Container(
                 decoration: BoxDecoration(
@@ -246,7 +242,7 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                         Expanded(
                           child: SelectableText(
                             widget.data.merchantId ?? '',
-                            style: GoogleFonts.poppins(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black87,
@@ -278,11 +274,11 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
               ),
               const SizedBox(height: 24),
 
-              Text(
-                'Cara Pembayaran:',
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              Text2(
+                  text2: 'Cara Pembayaran:',
+                  size: 16,
+                  fontWeight: FontWeight.bold),
+
               const SizedBox(height: 10),
               ...[
                 '1. Kunjungi Indomaret terdekat.',
@@ -291,21 +287,20 @@ class _VirtualNumberPageState extends State<StoreCodeIndomaretPage>
                 '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)} dan simpan struk sebagai bukti.',
               ].map((step) => Padding(
                     padding: const EdgeInsets.only(bottom: 6),
-                    child: Text(
-                      step,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: AppColors.cadetGray,
-                      ),
+                    child: Text2(
+                      text2: step,
+                      size: 14,
+                      color: AppColors.cadetGray,
                     ),
                   )),
 
               const Spacer(),
-              Text(
-                '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
-                style: GoogleFonts.poppins(
-                    fontSize: 12, color: Colors.grey.shade500),
-                textAlign: TextAlign.center,
+              Center(
+                child: Text2(
+                    text2:
+                        '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
+                    size: 12,
+                    color: Colors.grey.shade500),
               ),
             ],
           ),

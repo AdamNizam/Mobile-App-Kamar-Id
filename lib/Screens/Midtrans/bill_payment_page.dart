@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -127,13 +128,11 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
               Center(
                 child: Column(
                   children: [
-                    Text(
-                      'Bill Mandiri payment ',
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+                    const Text1(
+                      text1: 'Bill Mandiri payment ',
+                      size: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -145,13 +144,12 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
                         color: AppColors.beauBlue,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
-                        'Expired time: ${formatDuration(_remainingTime)}',
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: AppColors.buttonColor,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      child: Text1(
+                        text1:
+                            'Expired time: ${formatDuration(_remainingTime)}',
+                        size: 14,
+                        color: AppColors.buttonColor,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -161,17 +159,16 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
               const SizedBox(height: 24),
 
               // Instruction
-              Text(
-                'Please copy this number, and paste it into your payment BANK.',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, color: AppColors.cadetGray),
-              ),
+              const Text1(
+                  text1:
+                      'Please copy this number, and paste it into your payment BANK.',
+                  size: 14,
+                  color: AppColors.cadetGray),
+
               const SizedBox(height: 10),
-              Text(
-                'Biller Code:',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, color: AppColors.cadetGray),
-              ),
+              const Text1(
+                  text1: 'Biller Code:', size: 14, color: AppColors.cadetGray),
+
               const SizedBox(height: 5),
               Container(
                 decoration: BoxDecoration(
@@ -191,7 +188,7 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
                         Expanded(
                           child: SelectableText(
                             widget.data.paymentCode ?? '',
-                            style: GoogleFonts.poppins(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black87,
@@ -222,11 +219,8 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                'Bill key:',
-                style: GoogleFonts.poppins(
-                    fontSize: 14, color: AppColors.cadetGray),
-              ),
+              const Text1(
+                  text1: 'Bill key:', size: 14, color: AppColors.cadetGray),
               const SizedBox(height: 5),
               Container(
                 decoration: BoxDecoration(
@@ -246,7 +240,7 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
                         Expanded(
                           child: SelectableText(
                             widget.data.merchantId ?? '',
-                            style: GoogleFonts.poppins(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black87,
@@ -278,34 +272,35 @@ class _VirtualNumberPageState extends State<BillPaymentPage>
               ),
               const SizedBox(height: 24),
 
-              Text(
-                'Cara Pembayaran:',
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              const Text2(
+                  text2: 'Cara Pembayaran:',
+                  size: 16,
+                  fontWeight: FontWeight.bold),
+
               const SizedBox(height: 10),
               ...[
                 '1. Buka aplikasi mobile banking anda',
                 '2. Pilih menu pembayaran dengan Virtual Account.',
                 '3. Masukkan nomor Virtual Account di atas.',
                 '4. Selesaikan pembayaran ${formatMidtransGrossAmount(widget.data.grossAmount)}',
-              ].map((step) => Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Text(
-                      step,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: AppColors.cadetGray,
-                      ),
-                    ),
-                  )),
+              ].map(
+                (step) => Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text2(
+                    text2: step,
+                    size: 14,
+                    color: AppColors.cadetGray,
+                  ),
+                ),
+              ),
 
               const Spacer(),
-              Text(
-                '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
-                style: GoogleFonts.poppins(
-                    fontSize: 12, color: Colors.grey.shade500),
-                textAlign: TextAlign.center,
+              Center(
+                child: Text2(
+                    text2:
+                        '*Kode ini hanya bisa digunakan satu kali dan akan kedaluwarsa dalam waktu yang tertera di atas.',
+                    size: 12,
+                    color: Colors.grey.shade500),
               ),
             ],
           ),

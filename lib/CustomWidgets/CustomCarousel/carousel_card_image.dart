@@ -71,7 +71,7 @@ class LabelFeatured extends StatelessWidget {
       top: 0,
       left: 0,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: const BoxDecoration(
           color: AppColors.redAwesome,
           borderRadius: BorderRadius.only(

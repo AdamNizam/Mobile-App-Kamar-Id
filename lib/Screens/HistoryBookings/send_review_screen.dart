@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Models/ReviewModel/form_review.dart';
@@ -44,13 +43,11 @@ class SendReviewScreenState extends State<SendReviewScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-            color: AppColors.cadetGray,
-          ),
+        Text1(
+          text1: title,
+          fontWeight: FontWeight.w600,
+          size: 14,
+          color: AppColors.cadetGray,
         ),
         const SizedBox(height: 5),
         Row(
@@ -84,13 +81,11 @@ class SendReviewScreenState extends State<SendReviewScreen> {
         elevation: 0,
         centerTitle: true,
         backgroundColor: AppColors.bgColor,
-        title: Text(
-          'Review Your Stay',
-          style: GoogleFonts.poppins(
-            color: AppColors.cadetGray,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
+        title: const Text1(
+          text1: 'Review Your Stay',
+          color: AppColors.cadetGray,
+          fontWeight: FontWeight.w600,
+          size: 16,
         ),
       ),
       body: SafeArea(
@@ -138,13 +133,11 @@ class SendReviewScreenState extends State<SendReviewScreen> {
                   ),
                 ),
               ),
-              Text(
-                'Review Title',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: AppColors.cadetGray,
-                ),
+              const Text1(
+                text1: 'Review Title',
+                fontWeight: FontWeight.w600,
+                size: 14,
+                color: AppColors.cadetGray,
               ),
               const SizedBox(height: 8),
               Container(
@@ -156,7 +149,7 @@ class SendReviewScreenState extends State<SendReviewScreen> {
                 child: TextFormField(
                   controller: _titleController,
                   maxLines: 1,
-                  style: GoogleFonts.poppins(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                   decoration: const InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -167,13 +160,11 @@ class SendReviewScreenState extends State<SendReviewScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              Text(
-                'Your Review',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  color: AppColors.cadetGray,
-                ),
+              const Text1(
+                text1: 'Your Review',
+                fontWeight: FontWeight.w600,
+                size: 14,
+                color: AppColors.cadetGray,
               ),
               const SizedBox(height: 8),
               Container(
@@ -185,7 +176,7 @@ class SendReviewScreenState extends State<SendReviewScreen> {
                 child: TextFormField(
                   controller: _commentController,
                   maxLines: 6,
-                  style: GoogleFonts.poppins(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                   decoration: const InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 12),

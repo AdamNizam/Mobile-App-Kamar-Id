@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CustomTextEllipsis extends StatelessWidget {
@@ -22,7 +21,7 @@ class CustomTextEllipsis extends StatelessWidget {
       text,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: GoogleFonts.poppins(
+      style: TextStyle(
         fontSize: size,
         fontWeight: fontWeight,
         color: color,

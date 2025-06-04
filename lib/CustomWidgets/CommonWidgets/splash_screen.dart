@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -79,13 +79,11 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(width: 10),
                     SlideTransition(
                       position: _textAnimation,
-                      child: Text(
-                        'Kamar.Id',
-                        style: GoogleFonts.poppins(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.white,
-                        ),
+                      child: const Text1(
+                        text1: 'Kamar.Id',
+                        size: 28,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.white,
                       ),
                     ),
                   ],

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_check_avaibility.dart';
+import 'package:hotelbookingapp/Models/HotelModel/request_filter_model.dart';
+import 'package:hotelbookingapp/Models/HotelModel/result_filter_model.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +52,8 @@ class HotelService {
         },
       );
 
-      print('Response API Get Detail hotel slug: ($slug) :  ${res.body}');
+      print(
+          '${res.statusCode} Response API Get Detail hotel slug: ($slug) :  ${res.body}');
 
       if (res.statusCode == 200) {
         return HotelDetailModel.fromJson(jsonDecode(res.body));
@@ -79,11 +82,41 @@ class HotelService {
         body: jsonEncode(data.toJson()),
       );
 
-      print('Result API check Avaibility ${res.body}');
+      print('${res.statusCode} Result API check Avaibility ${res.body}');
 
       if (res.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(res.body);
-        return ResultCheckAvaibility.fromJson(data);
+        // final Map<String, dynamic> data = json.decode(res.body);
+        // return ResultCheckAvaibility.fromJson(data);
+        return ResultCheckAvaibility.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
+      } else {
+        throw Exception(jsonDecode(res.body)['message']);
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ResultFilterModel> filterHotel(
+    RequestFilterModel data,
+  ) async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.post(
+        Uri.parse('$baseUrl/hotel/'),
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data.toJson()),
+      );
+
+      print('${res.statusCode} = Result API Filter Hotel: ${res.body}');
+
+      if (res.statusCode == 200) {
+        return ResultFilterModel.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 500) {
         throw Exception("Server error :  ${res.statusCode}");
       } else {

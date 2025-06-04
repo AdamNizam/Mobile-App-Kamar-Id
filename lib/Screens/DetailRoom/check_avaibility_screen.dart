@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/custom_nav_title.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_avaibility.dart';
@@ -149,21 +148,18 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                                 color: AppColors.white,
                                                 size: 27,
                                               )
-                                            : Row(
+                                            : const Row(
                                                 children: [
-                                                  const Icon(
+                                                  Icon(
                                                     Icons
                                                         .location_searching_rounded,
                                                     size: 22,
                                                   ),
-                                                  const SizedBox(width: 3),
-                                                  Text(
-                                                    'Checking',
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                  SizedBox(width: 3),
+                                                  Text1(
+                                                    text1: 'Checking',
+                                                    size: 16,
+                                                    fontWeight: FontWeight.w500,
                                                   ),
                                                 ],
                                               ),

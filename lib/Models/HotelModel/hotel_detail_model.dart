@@ -51,6 +51,7 @@ class RowData {
   final String? mapLng;
   final int? mapZoom;
   final String? price;
+  final double? starRate;
   final double? reviewScore;
   final int? enableExtraPrice;
   final List<ExtraPrice>? extraPrice;
@@ -71,6 +72,7 @@ class RowData {
     this.video,
     this.locationId,
     this.address,
+    this.starRate,
     this.mapLat,
     this.mapLng,
     this.mapZoom,
@@ -95,6 +97,7 @@ class RowData {
       isFeatured: json["is_featured"],
       gallery: json["gallery"],
       video: json["video"],
+      starRate: json["star_rate"],
       locationId: json['location_id'],
       address: json['address'],
       mapLat: json['map_lat'],
@@ -138,6 +141,7 @@ class RowData {
       'mapLng': mapLng,
       'mapZoom': mapZoom,
       'price': price,
+      "star_rate": starRate,
       'reviewScore': reviewScore,
       'enableExtraPrice': enableExtraPrice,
       'extraPrice': extraPrice?.map((e) => e.toJson()).toList(),

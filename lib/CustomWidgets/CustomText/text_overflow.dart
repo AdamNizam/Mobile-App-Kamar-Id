@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CustomTextOverflow extends StatelessWidget {
@@ -20,7 +19,7 @@ class CustomTextOverflow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.poppins(
+      style: TextStyle(
         fontSize: size,
         fontWeight: fontWeight,
         color: color,

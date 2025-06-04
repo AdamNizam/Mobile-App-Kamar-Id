@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class RatingReviewDetail extends StatelessWidget {
@@ -22,20 +22,16 @@ class RatingReviewDetail extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(
-              text,
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
+            Text1(
+              text1: text,
+              size: 14,
+              fontWeight: FontWeight.w500,
             ),
             const Spacer(),
-            Text(
-              star.toString(),
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+            Text1(
+              text1: star.toString(),
+              size: 14,
+              fontWeight: FontWeight.w400,
             ),
             Icon(
               Icons.star,

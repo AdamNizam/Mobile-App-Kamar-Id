@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class TaskCardService extends StatefulWidget {
@@ -42,12 +42,10 @@ class TaskCardServiceState extends State<TaskCardService> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.title,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Text1(
+                  text1: widget.title,
+                  size: 14,
+                  fontWeight: FontWeight.w600,
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -59,12 +57,10 @@ class TaskCardServiceState extends State<TaskCardService> {
                 ),
               ],
             ),
-            Text(
-              widget.clientName,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-              ),
+            Text1(
+              text1: widget.clientName,
+              size: 16,
+              color: Colors.black,
             ),
           ],
         ),

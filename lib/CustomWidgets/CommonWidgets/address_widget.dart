@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class AddressWidget extends StatelessWidget {
@@ -9,24 +9,21 @@ class AddressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
-        const Icon(
+        Icon(
           Icons.location_on,
           color: AppColors.white,
           size: 25,
         ),
-        const SizedBox(
+        SizedBox(
           width: 3,
         ),
-        Text(
-          'Kuta Mandlika ,NTB',
-          style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: AppColors.white,
-            letterSpacing: 1.2,
-          ),
+        Text1(
+          text1: 'Kuta Mandlika ,NTB',
+          size: 14,
+          fontWeight: FontWeight.w500,
+          color: AppColors.white,
         ),
       ],
     );

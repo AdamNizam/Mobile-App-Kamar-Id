@@ -92,49 +92,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      CustomTextEllipsis(
-                                        text: state.data.rowData!.title
-                                            .toString(),
-                                        size: 15,
-                                        color: AppColors.black,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      const Spacer(),
-                                      (state.data.rowData!.id != null)
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                showCustomSnackbar(
-                                                  context,
-                                                  AppLocalizations.of(context)!
-                                                      .textFiturIsNotAvailable,
-                                                );
-                                              },
-                                              child: const Icon(
-                                                Icons.favorite,
-                                                color: AppColors.redAwesome,
-                                                size: 22,
-                                              ),
-                                            )
-                                          : GestureDetector(
-                                              onTap: () {
-                                                showCustomSnackbar(
-                                                  context,
-                                                  AppLocalizations.of(context)!
-                                                      .textFiturIsNotAvailable,
-                                                );
-                                              },
-                                              child: const Icon(
-                                                Icons.favorite_outline,
-                                                color: AppColors.redAwesome,
-                                                size: 22,
-                                              ),
-                                            ),
-                                    ],
+                                  const SizedBox(height: 10),
+                                  CustomTextEllipsis(
+                                    text: state.data.rowData!.title ??
+                                        AppLocalizations.of(context)!
+                                            .textNoInfo,
+                                    size: 15,
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                   const SizedBox(height: 10),
                                   TextLocation(
@@ -144,24 +109,13 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   ),
                                   const SizedBox(height: 10),
                                   const TextDiscount(
-                                    initialPrice: 'Rp2.000.00',
+                                    initialPrice: '2.000.000',
                                     size: 14,
                                   ),
                                   const SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      RatingBar.readOnly(
-                                        initialRating: state
-                                                .data.rowData!.reviewScore
-                                                ?.toDouble() ??
-                                            3,
-                                        filledIcon: Icons.star,
-                                        emptyIcon: Icons.star_border,
-                                        filledColor: AppColors.amberColor,
-                                        size: 24,
-                                      ),
-                                      const Spacer(),
                                       Text1(
                                         text1: AppLocalizations.of(context)!
                                             .textNight(state.data.rowData!.price
@@ -169,6 +123,17 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         size: 14,
                                         fontWeight: FontWeight.w500,
                                         color: AppColors.buttonColor,
+                                      ),
+                                      const Spacer(),
+                                      RatingBar.readOnly(
+                                        initialRating: state
+                                                .data.rowData!.starRate
+                                                ?.toDouble() ??
+                                            0,
+                                        filledIcon: Icons.star,
+                                        emptyIcon: Icons.star_border,
+                                        filledColor: AppColors.amberColor,
+                                        size: 24,
                                       ),
                                     ],
                                   ),
@@ -421,22 +386,25 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Row(
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           RatingBar.readOnly(
-                                            initialRating: 3,
+                                            initialRating:
+                                                state.data.rowData!.starRate ??
+                                                    0.0,
                                             filledIcon: Icons.star,
                                             emptyIcon: Icons.star_border,
                                             filledColor: AppColors.amberColor,
                                             size: 28,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Text1(
-                                            text1: '5.0',
+                                            text1:
+                                                '${state.data.rowData!.reviewScore ?? 0}',
                                             size: 18,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -449,7 +417,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         child: Column(
                                           children: [
                                             Text1(
-                                              text1: '(1,092 Reviews)',
+                                              text1: '(0 Reviews)',
                                               size: 18,
                                               fontWeight: FontWeight.bold,
                                             ),

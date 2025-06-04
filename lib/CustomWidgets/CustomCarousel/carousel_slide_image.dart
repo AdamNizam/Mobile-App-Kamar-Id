@@ -76,15 +76,16 @@ class CarouselSlideImage extends StatelessWidget {
           child: Row(
             children: [
               CustomButtonIcon(
-                icon: Icons.share,
+                icon: Icons.favorite,
                 size: 20,
+                color: AppColors.redAwesome,
                 onTap: () {
                   showCustomSnackbar(context, 'Fitur belum tersedia!');
                 },
               ),
               const SizedBox(width: 5),
               CustomButtonIcon(
-                icon: Icons.more_vert,
+                icon: Icons.share,
                 size: 20,
                 onTap: () {
                   showCustomSnackbar(context, 'Fitur belum tersedia!');

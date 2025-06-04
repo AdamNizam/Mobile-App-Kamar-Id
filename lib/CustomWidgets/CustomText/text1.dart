@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../Themes/colors.dart';
 
@@ -21,12 +20,10 @@ class Text1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text1,
-      style: GoogleFonts.roboto(
-        textStyle: TextStyle(
-          color: color,
-          fontWeight: fontWeight, // Adjustable font weight
-          fontSize: size,
-        ),
+      style: TextStyle(
+        color: color,
+        fontWeight: fontWeight, // Adjustable font weight
+        fontSize: size,
       ),
     );
   }

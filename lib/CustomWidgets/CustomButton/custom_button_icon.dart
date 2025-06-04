@@ -4,6 +4,7 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 class CustomButtonIcon extends StatelessWidget {
   final IconData icon;
   final double size;
+  final Color color;
   final VoidCallback onTap;
 
   const CustomButtonIcon({
@@ -11,6 +12,7 @@ class CustomButtonIcon extends StatelessWidget {
     required this.icon,
     required this.size,
     required this.onTap,
+    this.color = AppColors.buttonColor,
   });
 
   @override
@@ -21,7 +23,7 @@ class CustomButtonIcon extends StatelessWidget {
         icon: Icon(
           icon,
           size: size,
-          color: AppColors.buttonColor,
+          color: color,
         ),
         onPressed: onTap,
       ),

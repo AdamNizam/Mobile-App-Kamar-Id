@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class TextConvertHTML extends StatelessWidget {
@@ -21,7 +20,7 @@ class TextConvertHTML extends StatelessWidget {
   Widget build(BuildContext context) {
     return HtmlWidget(
       text,
-      textStyle: GoogleFonts.poppins(
+      textStyle: TextStyle(
         fontSize: size,
         fontWeight: fontWeight,
         color: color,

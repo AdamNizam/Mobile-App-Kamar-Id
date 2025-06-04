@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class StatusPayment extends StatelessWidget {
@@ -45,13 +45,11 @@ class StatusPayment extends StatelessWidget {
         children: [
           Icon(statusIcon, color: statusColor, size: 20),
           const SizedBox(width: 8),
-          Text(
-            lowerStatus[0].toUpperCase() + lowerStatus.substring(1),
-            style: GoogleFonts.poppins(
-              color: statusColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
+          Text1(
+            text1: lowerStatus[0].toUpperCase() + lowerStatus.substring(1),
+            color: statusColor,
+            size: 14,
+            fontWeight: FontWeight.w600,
           ),
         ],
       ),

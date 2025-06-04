@@ -84,12 +84,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 10),
                 InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const AllCategoriesScreen()),
-                    );
-                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -102,6 +96,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const AllCategoriesScreen()),
+                    );
+                  },
                 ),
                 const SizedBox(height: 9),
                 const CategoriesWidget(),

@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
@@ -101,7 +102,7 @@ class _HotelsCard2State extends State<HotelsCard2> {
                       starRate: widget.hotel.starRate?.toInt(),
                       reviewScore: widget.hotel.reviewScore,
                     ),
-                    const LabelFeatured()
+                    if (widget.hotel.id != 12) const LabelFeatured()
                   ]),
                   const SizedBox(width: 8),
                   Expanded(
@@ -177,6 +178,11 @@ class _HotelsCard2State extends State<HotelsCard2> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 5),
+                          if (widget.hotel.id != 12)
+                            const TextDiscount(
+                              initialPrice: '4.000.000',
+                            ),
                           const SizedBox(height: 5),
                           TextPrice(
                             price: AppLocalizations.of(context)!.textNight(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -79,13 +79,11 @@ class NotificationCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  content,
-                  style: GoogleFonts.poppins(
-                    color: AppColors.cadetGray,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
+                Text1(
+                  text1: content,
+                  color: AppColors.cadetGray,
+                  fontWeight: FontWeight.w400,
+                  size: 12,
                 ),
                 const SizedBox(height: 6),
                 Row(

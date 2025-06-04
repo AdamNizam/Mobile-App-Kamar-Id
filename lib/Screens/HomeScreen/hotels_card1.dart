@@ -103,7 +103,7 @@ class _HotelsCard1State extends State<HotelsCard1> {
                       starRate: widget.hotel.starRate?.toInt(),
                       reviewScore: widget.hotel.reviewScore,
                     ),
-                    const LabelFeatured()
+                    if (widget.hotel.id != 12) const LabelFeatured()
                   ],
                 ),
                 Padding(
@@ -174,7 +174,9 @@ class _HotelsCard1State extends State<HotelsCard1> {
                         ],
                       ),
                       const SizedBox(height: 5),
-                      TextDiscount(initialPrice: widget.hotel.price.toString()),
+                      if (widget.hotel.id != 12)
+                        TextDiscount(
+                            initialPrice: widget.hotel.price.toString()),
                       const SizedBox(height: 5),
                       TextPrice(
                         price:
