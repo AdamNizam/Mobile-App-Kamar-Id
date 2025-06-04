@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../CustomText/text1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 
 class CustomDropdown extends StatefulWidget {
   final String label;

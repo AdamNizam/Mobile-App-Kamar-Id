@@ -22,7 +22,7 @@ class TextDiscount extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            initialPrice,
+            'Rp$initialPrice',
             style: TextStyle(
               fontSize: size,
               fontWeight: FontWeight.w500,
