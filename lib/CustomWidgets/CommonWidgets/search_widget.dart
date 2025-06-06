@@ -10,10 +10,16 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
+
     return Row(
       children: [
         Expanded(
           child: TextFormField(
+            controller: searchController,
+            onChanged: (value) {
+              print("Inputan sekarang: $value");
+            },
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 1, horizontal: 10),

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/Blocs/filter/filter_hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
+import 'package:hotelbookingapp/Models/HotelModel/request_filter_model.dart';
+import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showFilterSelectionModal(BuildContext context) {
@@ -9,7 +14,7 @@ void showFilterSelectionModal(BuildContext context) {
   DateTime? checkOutDate;
 
   double minPrice = 0;
-  double maxPrice = 1000000;
+  double maxPrice = 2000000;
   RangeValues priceRange = const RangeValues(100000, 500000);
 
   Future<void> selectDate(BuildContext context, bool isCheckIn,
@@ -26,7 +31,7 @@ void showFilterSelectionModal(BuildContext context) {
             dialogTheme: const DialogTheme(elevation: 0),
             colorScheme: const ColorScheme.light(
               primary: AppColors.buttonColor,
-              onPrimary: AppColors.buttonColor,
+              onPrimary: AppColors.white,
               onSurface: AppColors.black,
             ),
             textButtonTheme: TextButtonThemeData(
@@ -75,11 +80,10 @@ void showFilterSelectionModal(BuildContext context) {
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  const SizedBox(height: 16),
-
-                  /// Check-in Date
+                  const SizedBox(height: 8),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
+                    horizontalTitleGap: 0,
                     title: const CustomTextEllipsis(
                       text: 'Check-in',
                       size: 14,
@@ -94,18 +98,18 @@ void showFilterSelectionModal(BuildContext context) {
                           });
                         });
                       },
-                      child: Text(
-                        checkInDate != null
+                      child: Text1(
+                        text1: checkInDate != null
                             ? '${checkInDate!.day}/${checkInDate!.month}/${checkInDate!.year}'
-                            : 'Pilih tanggal',
-                        style: const TextStyle(color: AppColors.buttonColor),
+                            : AppLocalizations.of(context)!.textSelectDate,
+                        color: AppColors.button2Color,
+                        size: 15,
                       ),
                     ),
                   ),
-
-                  /// Check-out Date
                   ListTile(
                     contentPadding: EdgeInsets.zero,
+                    horizontalTitleGap: 0,
                     title: const CustomTextEllipsis(
                       text: 'Check-out',
                       size: 14,
@@ -120,22 +124,20 @@ void showFilterSelectionModal(BuildContext context) {
                           });
                         });
                       },
-                      child: Text(
-                        checkOutDate != null
+                      child: Text1(
+                        text1: checkOutDate != null
                             ? '${checkOutDate!.day}/${checkOutDate!.month}/${checkOutDate!.year}'
-                            : 'Pilih tanggal',
-                        style: const TextStyle(color: AppColors.buttonColor),
+                            : AppLocalizations.of(context)!.textSelectDate,
+                        color: AppColors.button2Color,
+                        size: 15,
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 24),
-
-                  /// Price Range Slider
-                  Align(
+                  const SizedBox(height: 8),
+                  const Align(
                     alignment: Alignment.centerLeft,
-                    child: const CustomTextEllipsis(
-                      text: 'Harga (Rp)',
+                    child: CustomTextEllipsis(
+                      text: 'Harga',
                       size: 14,
                       color: AppColors.black,
                       fontWeight: FontWeight.w500,
@@ -147,7 +149,8 @@ void showFilterSelectionModal(BuildContext context) {
                     min: minPrice,
                     max: maxPrice,
                     divisions: 20,
-                    activeColor: AppColors.buttonColor,
+                    activeColor: AppColors.button2Color,
+                    inactiveColor: AppColors.beauBlue,
                     labels: RangeLabels(
                       'Rp${priceRange.start.toInt()}',
                       'Rp${priceRange.end.toInt()}',
@@ -161,20 +164,24 @@ void showFilterSelectionModal(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Rp${priceRange.start.toInt()}'),
-                      Text('Rp${priceRange.end.toInt()}'),
+                      Text1(text1: 'Rp${formatToRp(priceRange.start.toInt())}'),
+                      Text1(text1: 'Rp${formatToRp(priceRange.end.toInt())}'),
                     ],
                   ),
-
                   const SizedBox(height: 24),
-
-                  /// Save Button
                   CustomButton(
-                    text: 'Simpan',
+                    text: AppLocalizations.of(context)!.textSave,
                     onTap: () {
-                      showCustomSnackbar(context,
-                          'Filter diterapkan: Harga Rp${priceRange.start.toInt()} - Rp${priceRange.end.toInt()}');
-                      Navigator.pop(context);
+                      final dataRequest = RequestFilterModel(
+                        locationId: 310,
+                        start: '$checkInDate',
+                        end: '$checkOutDate',
+                        date: '$checkInDate, $checkOutDate',
+                        priceRange: '$minPrice;$maxPrice',
+                      );
+                      context.read<FilterHotelBloc>().add(
+                            PostFilterHotel(dataRequest),
+                          );
                     },
                   ),
                   const SizedBox(height: 16),

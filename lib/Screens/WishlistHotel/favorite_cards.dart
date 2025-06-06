@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
@@ -93,7 +96,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                               data.image ?? 'https://picsum.photos/400/300',
                               fit: BoxFit.cover,
                               width: 120,
-                              height: 128,
+                              height: 150,
                             ),
                           ),
                         ),
@@ -208,34 +211,32 @@ class _FavoriteCardState extends State<FavoriteCard>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 6),
-                            const Row(
+                            const SizedBox(height: 5),
+                            Row(
                               children: [
-                                Icon(Icons.location_on,
+                                const Icon(Icons.location_on,
                                     size: 18, color: AppColors.tabColor),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Expanded(
                                   child: Text1(
-                                    text1: 'no location info',
+                                    text1: AppLocalizations.of(context)!
+                                        .textNoInfo,
                                     size: 13,
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 6),
-                            const TextRemaining(
-                              text: '12 Rooms Left',
+                            const SizedBox(height: 5),
+                            const TextDiscount(initialPrice: '2.000.00'),
+                            const SizedBox(height: 5),
+                            TextPrice(
+                              price: AppLocalizations.of(context)!
+                                  .textNight(data.price),
                             ),
-                            const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Text1(
-                                  text1: data.price,
-                                  size: 16,
-                                  color: AppColors.tabColor,
-                                ),
-                                const Text2(text2: '/night'),
-                              ],
+                            const SizedBox(height: 5),
+                            TextRemaining(
+                              text: AppLocalizations.of(context)!
+                                  .textRemaining('1'),
                             ),
                           ],
                         ),
