@@ -85,8 +85,6 @@ class HotelService {
       print('${res.statusCode} Result API check Avaibility ${res.body}');
 
       if (res.statusCode == 200) {
-        // final Map<String, dynamic> data = json.decode(res.body);
-        // return ResultCheckAvaibility.fromJson(data);
         return ResultCheckAvaibility.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 500) {
         throw Exception("Server error :  ${res.statusCode}");
@@ -98,25 +96,27 @@ class HotelService {
     }
   }
 
-  Future<ResultFilterModel> filterHotel(
+  Future<List<ResultFilterModel>> filterHotel(
     RequestFilterModel data,
   ) async {
     try {
       final token = await AuthService().getToken();
 
       final res = await http.post(
-        Uri.parse('$baseUrl/hotel/'),
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(data.toJson()),
-      );
+          Uri.parse('https://develop.tripordare.com/public/api/hotel'),
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data.toFormData());
 
       print('${res.statusCode} = Result API Filter Hotel: ${res.body}');
 
       if (res.statusCode == 200) {
-        return ResultFilterModel.fromJson(jsonDecode(res.body));
+        final hotelList = jsonDecode(res.body)['data']['rows']['data'];
+        return List<ResultFilterModel>.from(
+          hotelList.map((hotel) => ResultFilterModel.fromJson(hotel)),
+        );
       } else if (res.statusCode == 500) {
         throw Exception("Server error :  ${res.statusCode}");
       } else {

@@ -15,7 +15,7 @@ void showFilterSelectionModal(BuildContext context) {
 
   double minPrice = 0;
   double maxPrice = 2000000;
-  RangeValues priceRange = const RangeValues(100000, 500000);
+  RangeValues priceRange = const RangeValues(0, 2000000);
 
   Future<void> selectDate(BuildContext context, bool isCheckIn,
       Function(DateTime) onDatePicked) async {
@@ -173,11 +173,10 @@ void showFilterSelectionModal(BuildContext context) {
                     text: AppLocalizations.of(context)!.textSave,
                     onTap: () {
                       final dataRequest = RequestFilterModel(
-                        locationId: 310,
-                        start: '$checkInDate',
-                        end: '$checkOutDate',
-                        date: '$checkInDate, $checkOutDate',
-                        priceRange: '$minPrice;$maxPrice',
+                        start: '07/06/2025',
+                        end: '09/06/2025',
+                        date: '2025-06-07 - 2025-06-09',
+                        priceRange: '200000;300000',
                       );
                       context.read<FilterHotelBloc>().add(
                             PostFilterHotel(dataRequest),

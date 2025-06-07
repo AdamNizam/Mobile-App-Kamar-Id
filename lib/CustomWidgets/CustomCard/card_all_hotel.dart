@@ -14,16 +14,16 @@ import 'package:hotelbookingapp/Screens/DetailHotel/hotel_detail_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
-class HotelsCard2 extends StatefulWidget {
+class CardAllHotel extends StatefulWidget {
   final HotelAllModel hotel;
 
-  const HotelsCard2({super.key, required this.hotel});
+  const CardAllHotel({super.key, required this.hotel});
 
   @override
-  State<HotelsCard2> createState() => _HotelsCard2State();
+  State<CardAllHotel> createState() => _CardAllHotelState();
 }
 
-class _HotelsCard2State extends State<HotelsCard2> {
+class _CardAllHotelState extends State<CardAllHotel> {
   late PageController _pageController;
   late bool isWishlisted;
   late AutoSliderController _autoSliderController;

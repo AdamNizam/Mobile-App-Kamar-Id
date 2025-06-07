@@ -21,7 +21,7 @@ final class FilterHotelFailed extends FilterHotelState {
 }
 
 final class FilterHotelSuccess extends FilterHotelState {
-  final ResultFilterModel hotels;
+  final List<ResultFilterModel> hotels;
 
   const FilterHotelSuccess(this.hotels);
 

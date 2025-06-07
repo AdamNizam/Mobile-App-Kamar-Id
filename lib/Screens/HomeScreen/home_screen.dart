@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/Blocs/filter/filter_hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_all_hotel.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_all_recomended.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_filter.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
-import 'package:hotelbookingapp/Models/hotel_model.dart';
-import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card1.dart';
-import 'package:hotelbookingapp/Screens/HomeScreen/hotels_card2.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 
 import '../../CustomWidgets/CommonWidgets/address_widget.dart';
@@ -29,29 +29,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int totalNotification = 0;
-
-  final List<HotelModel> products = [
-    HotelModel(
-        imagePath: 'images/AdventureHotels.jpg',
-        name: 'AdventureHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/CapsuleHotels.jpg',
-        name: 'CapsuleHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/CapsuleHotels.jpg',
-        name: 'CapsuleHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/CapsuleHotels.jpg',
-        name: 'CapsuleHotels',
-        date: '4.5'),
-    HotelModel(
-        imagePath: 'images/CapsuleHotels.jpg',
-        name: 'CapsuleHotels',
-        date: '4.5'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,116 +93,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _resultSearchHotel() {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: products.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          products[index].imagePath,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 90,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              right: 12, top: 4, bottom: 4),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text1(text1: products[index].name),
-                                  const Spacer(),
-                                  const Icon(Icons.favorite_outline,
-                                      color: Colors.red, size: 20),
-                                ],
-                              ),
-                              const SizedBox(height: 5.0),
-                              const Row(
-                                children: [
-                                  Icon(Icons.location_pin,
-                                      size: 23.0, color: AppColors.tabColor),
-                                  SizedBox(width: 4.0),
-                                  Text2(text2: 'UK 32 Street'),
-                                  Spacer(),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.star,
-                                          size: 20.0,
-                                          color: AppColors.tabColor),
-                                      Icon(Icons.star,
-                                          size: 20.0,
-                                          color: AppColors.tabColor),
-                                      Icon(Icons.star,
-                                          size: 20.0,
-                                          color: AppColors.tabColor),
-                                    ],
-                                  ),
-                                  SizedBox(width: 4.0),
-                                  Text2(text2: '4.5'),
-                                ],
-                              ),
-                              const SizedBox(height: 5.0),
-                              const Row(
-                                children: [
-                                  Text11(
-                                      text2: '10% Off',
-                                      color: AppColors.tabColor),
-                                  Spacer(),
-                                  Row(
-                                    children: [
-                                      Text1(
-                                          text1: '\$12.00',
-                                          size: 18,
-                                          color: AppColors.tabColor),
-                                      Text2(text2: '/night'),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+    return BlocBuilder<FilterHotelBloc, FilterHotelState>(
+        builder: (context, filterState) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (filterState is FilterHotelFailed) {
+          showCustomSnackbar(context, filterState.error);
+        }
+      });
+      if (filterState is FilterHotelSuccess) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: filterState.hotels.map((data) {
+            return CardFilter(
+              data: data,
+            );
+          }).toList(),
         );
-      },
-    );
+      }
+
+      return Container();
+    });
   }
 
   Widget _homeAllHotel() {
@@ -250,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: hotelState.data.map((hotel) {
-                    return HotelsCard1(
+                    return CardAllRecomended(
                       key: ValueKey(hotel.id),
                       hotel: hotel,
                     );
@@ -265,7 +152,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10.0),
               Column(
                 children: hotelState.data.map((hotel) {
-                  return HotelsCard2(
+                  return CardAllHotel(
                     key: ValueKey(hotel.id),
                     hotel: hotel,
                   );
