@@ -9,6 +9,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_filter.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CommonWidgets/address_widget.dart';
 import '../../CustomWidgets/CommonWidgets/categories_widget.dart';
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 9),
                 const CategoriesWidget(),
                 const SizedBox(height: 16),
-                _homeAllHotel()
+                _resultSearchHotel()
               ],
             ),
           ),
@@ -100,6 +101,14 @@ class _HomePageState extends State<HomePage> {
           showCustomSnackbar(context, filterState.error);
         }
       });
+      if (filterState is FilterHotelLoading) {
+        return Center(
+          child: LoadingAnimationWidget.hexagonDots(
+            color: AppColors.buttonColor,
+            size: 30,
+          ),
+        );
+      }
       if (filterState is FilterHotelSuccess) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +120,7 @@ class _HomePageState extends State<HomePage> {
         );
       }
 
-      return Container();
+      return _homeAllHotel();
     });
   }
 

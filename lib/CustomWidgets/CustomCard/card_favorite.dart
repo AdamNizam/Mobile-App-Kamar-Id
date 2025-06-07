@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
@@ -11,6 +12,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
+import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -25,48 +27,51 @@ class FavoriteCard extends StatefulWidget {
 
 class _FavoriteCardState extends State<FavoriteCard>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _slideAnimation;
-  late Animation<double> _fadeAnimation;
+  late PageController _pageController;
+  late bool isWishlisted;
+  late AutoSliderController _autoSliderController;
+  late HotelCardAnimation _cardAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
+    _pageController = PageController(initialPage: 0);
+    _autoSliderController = AutoSliderController(
+      pageController: _pageController,
+      itemCount: _imageUrls.length,
     );
+    _autoSliderController.start();
 
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
-
-    _controller.forward();
+    // Inisialisasi animasi
+    _cardAnimation = HotelCardAnimation.init(vsync: this);
+    _cardAnimation.controller.forward();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _pageController.dispose();
+    _autoSliderController.dispose();
+    _cardAnimation.controller.dispose();
     super.dispose();
+  }
+
+  List<String> get _imageUrls {
+    return [
+      if (widget.data.image != null && widget.data.image!.isNotEmpty)
+        widget.data.image!,
+      if (widget.data.image != null && widget.data.image!.isNotEmpty)
+        widget.data.image!,
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     final data = widget.data;
 
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: SlideTransition(
-        position: _slideAnimation,
+    return SlideTransition(
+      position: _cardAnimation.slideAnimation,
+      child: FadeTransition(
+        opacity: _cardAnimation.fadeAnimation,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
           child: GestureDetector(

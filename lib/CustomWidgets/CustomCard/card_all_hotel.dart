@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
@@ -23,10 +24,12 @@ class CardAllHotel extends StatefulWidget {
   State<CardAllHotel> createState() => _CardAllHotelState();
 }
 
-class _CardAllHotelState extends State<CardAllHotel> {
+class _CardAllHotelState extends State<CardAllHotel>
+    with TickerProviderStateMixin {
   late PageController _pageController;
   late bool isWishlisted;
   late AutoSliderController _autoSliderController;
+  late HotelCardAnimation _cardAnimation;
 
   @override
   void initState() {
@@ -38,12 +41,17 @@ class _CardAllHotelState extends State<CardAllHotel> {
       itemCount: _imageUrls.length,
     );
     _autoSliderController.start();
+
+    // Inisialisasi animasi
+    _cardAnimation = HotelCardAnimation.init(vsync: this);
+    _cardAnimation.controller.forward();
   }
 
   @override
   void dispose() {
     _pageController.dispose();
     _autoSliderController.dispose();
+    _cardAnimation.controller.dispose();
     super.dispose();
   }
 
@@ -59,156 +67,175 @@ class _CardAllHotelState extends State<CardAllHotel> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => HotelDetailsScreen(
-                slug: widget.hotel.slug,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(children: [
-                    CarouselCardImage(
-                      pageController: _pageController,
-                      imageUrls: _imageUrls,
-                      width: 120,
-                      height: 147,
-                    ),
-                    StarRatingHotel(
-                      starRate: widget.hotel.starRate?.toInt(),
-                      reviewScore: widget.hotel.reviewScore,
-                    ),
-                    if (widget.hotel.id != 12) const LabelFeatured()
-                  ]),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 6,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                  child: CustomTextEllipsis(
-                                text: widget.hotel.title ??
-                                    AppLocalizations.of(context)!.textNoInfo,
-                                size: 13,
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w600,
-                              )),
-                              const SizedBox(width: 8), // beri jarak sedikit
-                              BlocConsumer<PostWishlistBloc, PostWishlistState>(
-                                listener: (context, state) {
-                                  if (state is PostWishlistSuccess) {
-                                    context
-                                        .read<HotelBloc>()
-                                        .add(GetAllHotels());
-                                  }
-                                  if (state is PostWishlistLoading) {
-                                    print('OK Loading');
-                                  }
-                                },
-                                builder: (context, state) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      context.read<PostWishlistBloc>().add(
-                                            PostData(
-                                              RequestWishlist(
-                                                objectId: widget.hotel.id!,
-                                              ),
-                                            ),
-                                          );
-                                    },
-                                    child: Icon(
-                                      isWishlisted
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      color: AppColors.redAwesome,
-                                      size: 22,
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 5.0),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_pin,
-                                size: 20,
-                                color: AppColors.tabColor,
-                              ),
-                              const SizedBox(width: 4.0),
-                              Expanded(
-                                child: CustomTextEllipsis(
-                                  text: widget.hotel.address ??
-                                      AppLocalizations.of(context)!.textNoInfo,
-                                  size: 13,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          if (widget.hotel.id != 12)
-                            const TextDiscount(
-                              initialPrice: '4.000.000',
-                            ),
-                          const SizedBox(height: 5),
-                          TextPrice(
-                            price: AppLocalizations.of(context)!.textNight(
-                              widget.hotel.price.toString(),
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          (widget.hotel.rooms!.isNotEmpty)
-                              ? TextRemaining(
-                                  text: AppLocalizations.of(context)!
-                                      .textRemaining(
-                                    widget.hotel.rooms!.length,
-                                  ),
-                                )
-                              : const TextRemaining(
-                                  text: 'soldout',
-                                  color: AppColors.redAwesome,
-                                ),
-                          const SizedBox(height: 3),
-                        ],
-                      ),
-                    ),
+    return SlideTransition(
+      position: _cardAnimation.slideAnimation,
+      child: FadeTransition(
+        opacity: _cardAnimation.fadeAnimation,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => HotelDetailsScreen(
+                    slug: widget.hotel.slug,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-            ],
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            CarouselCardImage(
+                              pageController: _pageController,
+                              imageUrls: _imageUrls,
+                              width: 120,
+                              height: 145,
+                            ),
+                            StarRatingHotel(
+                              starRate: widget.hotel.starRate?.toInt(),
+                              reviewScore: widget.hotel.reviewScore,
+                            ),
+                            if (widget.hotel.id != 12) const LabelFeatured()
+                          ],
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 6,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                        child: CustomTextEllipsis(
+                                      text: widget.hotel.title ??
+                                          AppLocalizations.of(context)!
+                                              .textNoInfo,
+                                      size: 13,
+                                      color: AppColors.black,
+                                      fontWeight: FontWeight.w600,
+                                    )),
+                                    const SizedBox(
+                                        width: 8), // beri jarak sedikit
+                                    BlocConsumer<PostWishlistBloc,
+                                        PostWishlistState>(
+                                      listener: (context, state) {
+                                        if (state is PostWishlistSuccess) {
+                                          context
+                                              .read<HotelBloc>()
+                                              .add(GetAllHotels());
+                                        }
+                                        if (state is PostWishlistLoading) {
+                                          print('OK Loading');
+                                        }
+                                      },
+                                      builder: (context, state) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<PostWishlistBloc>()
+                                                .add(
+                                                  PostData(
+                                                    RequestWishlist(
+                                                      objectId:
+                                                          widget.hotel.id!,
+                                                    ),
+                                                  ),
+                                                );
+                                          },
+                                          child: Icon(
+                                            isWishlisted
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: AppColors.redAwesome,
+                                            size: 22,
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 5.0),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.location_pin,
+                                      size: 20,
+                                      color: AppColors.tabColor,
+                                    ),
+                                    const SizedBox(width: 4.0),
+                                    Expanded(
+                                      child: CustomTextEllipsis(
+                                        text: widget.hotel.address ??
+                                            AppLocalizations.of(context)!
+                                                .textNoInfo,
+                                        size: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                if (widget.hotel.id != 12)
+                                  const TextDiscount(
+                                    initialPrice: '4.000.000',
+                                  ),
+                                const SizedBox(height: 5),
+                                TextPrice(
+                                  price:
+                                      AppLocalizations.of(context)!.textNight(
+                                    widget.hotel.price.toString(),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                (widget.hotel.rooms!.isNotEmpty)
+                                    ? TextRemaining(
+                                        text: AppLocalizations.of(context)!
+                                            .textRemaining(
+                                          widget.hotel.rooms!.length,
+                                        ),
+                                      )
+                                    : const TextRemaining(
+                                        text: 'soldout',
+                                        color: AppColors.redAwesome,
+                                      ),
+                                const SizedBox(height: 3),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),

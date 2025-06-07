@@ -2,31 +2,37 @@ import 'dart:convert';
 
 class ResultFilterModel {
   final int id;
-  final String title;
+  final String? title;
   final String slug;
   final String content;
-  final String imageId;
-  final String bannerImageId;
-  final dynamic locationId;
-  final String address;
-  final String price;
-  final String checkInTime;
-  final String checkOutTime;
-  final String status;
+  final String? imageId;
+  final String? bannerImageId;
+  final String? address;
+  final String? mapLat;
+  final String? mapLng;
+  final int? mapZoom;
+  final dynamic isFeatured;
+  final dynamic starRate;
+  final String? price;
+  final dynamic salePrice;
+  final String? status;
 
   ResultFilterModel({
     required this.id,
-    required this.title,
+    this.title,
     required this.slug,
     required this.content,
-    required this.imageId,
-    required this.bannerImageId,
-    required this.locationId,
-    required this.address,
-    required this.price,
-    required this.checkInTime,
-    required this.checkOutTime,
-    required this.status,
+    this.imageId,
+    this.bannerImageId,
+    this.address,
+    this.mapLat,
+    this.mapLng,
+    this.mapZoom,
+    this.isFeatured,
+    this.starRate,
+    this.price,
+    this.salePrice,
+    this.status,
   });
 
   factory ResultFilterModel.fromRawJson(String str) =>
@@ -42,11 +48,14 @@ class ResultFilterModel {
         content: json["content"],
         imageId: json["image_id"],
         bannerImageId: json["banner_image_id"],
-        locationId: json["location_id"],
         address: json["address"],
+        mapLat: json["map_lat"],
+        mapLng: json["map_lng"],
+        mapZoom: json["map_zoom"],
+        isFeatured: json["is_featured"],
+        starRate: json["star_rate"],
         price: json["price"],
-        checkInTime: json["check_in_time"],
-        checkOutTime: json["check_out_time"],
+        salePrice: json["sale_price"],
         status: json["status"],
       );
 
@@ -57,11 +66,14 @@ class ResultFilterModel {
         "content": content,
         "image_id": imageId,
         "banner_image_id": bannerImageId,
-        "location_id": locationId,
         "address": address,
+        "map_lat": mapLat,
+        "map_lng": mapLng,
+        "map_zoom": mapZoom,
+        "is_featured": isFeatured,
+        "star_rate": starRate,
         "price": price,
-        "check_in_time": checkInTime,
-        "check_out_time": checkOutTime,
+        "sale_price": salePrice,
         "status": status,
       };
 }
