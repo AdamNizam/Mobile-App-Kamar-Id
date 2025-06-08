@@ -5,7 +5,9 @@ import 'package:hotelbookingapp/Blocs/booking/booking_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_booking_paid.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
 import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
+import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 class PaidBooking extends StatefulWidget {
   const PaidBooking({super.key});
@@ -64,6 +66,30 @@ class _PaidBookingState extends State<PaidBooking> {
               ),
             ),
           ],
+        ),
+        floatingActionButton: SizedBox(
+          width: 48,
+          height: 48,
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const NoMessages(),
+                ),
+              );
+            },
+            backgroundColor: AppColors.buttonColor,
+            child: const Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(
+                  Icons.message,
+                  color: AppColors.white,
+                  size: 26,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -15,7 +15,6 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/task_card_service.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/check_avaibility_screen.dart';
 import 'package:hotelbookingapp/Screens/GoogleMaps/google_maps_hotel.dart';
-import 'package:hotelbookingapp/Screens/Messages/no_messages.dart';
 import 'package:hotelbookingapp/Screens/Reviews/rating_review_detail.dart';
 import 'package:hotelbookingapp/Screens/Reviews/reviews.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -102,8 +101,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                   const SizedBox(height: 10),
-                                  TextLocation(
-                                    locationText: state.data.rowData?.address ??
+                                  TextLocation1(
+                                    address: state.data.rowData?.address ??
                                         AppLocalizations.of(context)!
                                             .textNoInfo,
                                   ),
@@ -149,10 +148,15 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                         children: [
                                           CircleAvatar(
                                             radius: 18,
-                                            backgroundImage: NetworkImage(
-                                              state.data.author?.avatar ??
-                                                  'https://via.placeholder.com/150',
-                                            ),
+                                            backgroundImage: (state
+                                                        .data.author?.avatar ==
+                                                    null)
+                                                ? const AssetImage(
+                                                    'images/user_default_profile.png',
+                                                  )
+                                                : NetworkImage(state
+                                                        .data.author!.avatar)
+                                                    as ImageProvider<Object>,
                                           ),
                                           const SizedBox(width: 10),
                                           Expanded(
@@ -506,30 +510,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                       ),
                     ),
                   ],
-                ),
-              ),
-              floatingActionButton: SizedBox(
-                width: 48,
-                height: 48,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const NoMessages(),
-                      ),
-                    );
-                  },
-                  backgroundColor: AppColors.buttonColor,
-                  child: const Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Icon(
-                        Icons.message,
-                        color: AppColors.white,
-                        size: 26,
-                      ),
-                    ],
-                  ),
                 ),
               ),
               bottomNavigationBar: Padding(

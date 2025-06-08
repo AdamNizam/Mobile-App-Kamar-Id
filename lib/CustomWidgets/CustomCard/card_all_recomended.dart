@@ -7,6 +7,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -86,7 +87,9 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
           },
           child: Container(
             margin: const EdgeInsets.all(8),
-            width: 210,
+            padding: const EdgeInsets.all(4),
+            width: 200,
+            height: 290,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(12),
@@ -113,10 +116,10 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                           height: 130,
                         ),
                         StarRatingHotel(
-                          starRate: widget.hotel.starRate?.toInt(),
+                          starRate: 1,
                           reviewScore: widget.hotel.reviewScore,
                         ),
-                        if (widget.hotel.id != 12) const LabelFeatured()
+                        const LabelFeatured()
                       ],
                     ),
                     Padding(
@@ -171,22 +174,9 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                             ],
                           ),
                           const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_pin,
-                                size: 20,
-                                color: AppColors.buttonColor,
-                              ),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: CustomTextEllipsis(
-                                  text: widget.hotel.address ??
-                                      AppLocalizations.of(context)!.textNoInfo,
-                                  size: 13,
-                                ),
-                              ),
-                            ],
+                          TextLocation2(
+                            address: widget.hotel.address ??
+                                AppLocalizations.of(context)!.textNoInfo,
                           ),
                           const SizedBox(height: 5),
                           if (widget.hotel.id != 12)
@@ -198,7 +188,7 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                             price: AppLocalizations.of(context)!
                                 .textNight('200.000'),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 5),
                           (widget.hotel.rooms!.isNotEmpty)
                               ? TextRemaining(
                                   text: AppLocalizations.of(context)!

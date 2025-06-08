@@ -7,6 +7,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -114,7 +115,7 @@ class _CardAllHotelState extends State<CardAllHotel>
                               height: 145,
                             ),
                             StarRatingHotel(
-                              starRate: widget.hotel.starRate?.toInt(),
+                              starRate: 1,
                               reviewScore: widget.hotel.reviewScore,
                             ),
                             if (widget.hotel.id != 12) const LabelFeatured()
@@ -134,14 +135,15 @@ class _CardAllHotelState extends State<CardAllHotel>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                        child: CustomTextEllipsis(
-                                      text: widget.hotel.title ??
-                                          AppLocalizations.of(context)!
-                                              .textNoInfo,
-                                      size: 13,
-                                      color: AppColors.black,
-                                      fontWeight: FontWeight.w600,
-                                    )),
+                                      child: CustomTextEllipsis(
+                                        text: widget.hotel.title ??
+                                            AppLocalizations.of(context)!
+                                                .textNoInfo,
+                                        size: 13,
+                                        color: AppColors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                     const SizedBox(
                                         width: 8), // beri jarak sedikit
                                     BlocConsumer<PostWishlistBloc,
@@ -182,24 +184,10 @@ class _CardAllHotelState extends State<CardAllHotel>
                                     )
                                   ],
                                 ),
-                                const SizedBox(height: 5.0),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.location_pin,
-                                      size: 20,
-                                      color: AppColors.tabColor,
-                                    ),
-                                    const SizedBox(width: 4.0),
-                                    Expanded(
-                                      child: CustomTextEllipsis(
-                                        text: widget.hotel.address ??
-                                            AppLocalizations.of(context)!
-                                                .textNoInfo,
-                                        size: 13,
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(height: 5),
+                                TextLocation2(
+                                  address: widget.hotel.address ??
+                                      AppLocalizations.of(context)!.textNoInfo,
                                 ),
                                 const SizedBox(height: 5),
                                 if (widget.hotel.id != 12)

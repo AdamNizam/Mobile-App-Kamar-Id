@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class TextDiscount extends StatelessWidget {
@@ -34,13 +35,11 @@ class TextDiscount extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
-                'Diskon 45%',
-                style: TextStyle(
-                  fontSize: size,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.redAwesome,
-                ),
+              Text1(
+                text1: 'Diskon 45%',
+                size: size,
+                fontWeight: FontWeight.bold,
+                color: AppColors.redAwesome,
               ),
               const Icon(
                 Icons.discount,

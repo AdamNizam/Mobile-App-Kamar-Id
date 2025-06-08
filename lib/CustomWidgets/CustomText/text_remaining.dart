@@ -24,7 +24,7 @@ class TextRemaining extends StatelessWidget {
         const SizedBox(width: 4),
         Text1(
           text1: text,
-          size: 13,
+          size: 12,
           fontWeight: FontWeight.w600,
           color: color,
         ),

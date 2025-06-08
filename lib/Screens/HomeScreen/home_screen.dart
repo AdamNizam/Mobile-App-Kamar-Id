@@ -111,12 +111,24 @@ class _HomePageState extends State<HomePage> {
       }
       if (filterState is FilterHotelSuccess) {
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: filterState.hotels.map((data) {
-            return CardFilter(
-              data: data,
-            );
-          }).toList(),
+          children: [
+            Text1(
+              text1: AppLocalizations.of(context)!.textFilterResult,
+              size: 14,
+            ),
+            const SizedBox(height: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: filterState.hotels.map((data) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: CardFilter(
+                    data: data,
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
         );
       }
 

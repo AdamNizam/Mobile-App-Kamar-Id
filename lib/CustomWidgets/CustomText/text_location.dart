@@ -3,15 +3,12 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
-class TextLocation extends StatelessWidget {
-  final String locationText;
-  final double sizeText;
-  final bool cutText;
-  const TextLocation(
-      {super.key,
-      required this.locationText,
-      this.sizeText = 13,
-      this.cutText = false});
+class TextLocation1 extends StatelessWidget {
+  final String address;
+  const TextLocation1({
+    super.key,
+    required this.address,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +22,35 @@ class TextLocation extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: cutText
-              ? CustomTextEllipsis(
-                  text: locationText,
-                  size: sizeText,
-                )
-              : Text1(
-                  text1: locationText,
-                  size: sizeText,
-                ),
+          child: Text1(
+            text1: address,
+            size: 13,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TextLocation2 extends StatelessWidget {
+  final String address;
+  const TextLocation2({super.key, required this.address});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(
+          Icons.location_pin,
+          size: 20,
+          color: AppColors.tabColor,
+        ),
+        const SizedBox(width: 4.0),
+        Expanded(
+          child: CustomTextEllipsis(
+            text: address,
+            size: 13,
+          ),
         ),
       ],
     );

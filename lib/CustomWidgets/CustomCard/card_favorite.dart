@@ -4,9 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
@@ -93,80 +93,17 @@ class _FavoriteCardState extends State<FavoriteCard>
                   children: [
                     Stack(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Hero(
-                            tag: data.id,
-                            child: Image.network(
-                              data.image ?? 'https://picsum.photos/400/300',
-                              fit: BoxFit.cover,
-                              width: 120,
-                              height: 150,
-                            ),
-                          ),
+                        CarouselCardImage(
+                          pageController: _pageController,
+                          imageUrls: _imageUrls,
+                          width: 120,
+                          height: 145,
                         ),
-                        // if (data.isFeatured == 1)
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 5,
-                            ),
-                            decoration: const BoxDecoration(
-                              color: AppColors.redAwesome,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                bottomRight: Radius.circular(12),
-                              ),
-                            ),
-                            child: const Text1(
-                              text1: 'Featured',
-                              color: AppColors.white,
-                              size: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                        const StarRatingHotel(
+                          starRate: 1,
+                          reviewScore: 0,
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            width: 50,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: const BoxDecoration(
-                              color: AppColors.amberColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                bottomRight: Radius.circular(12),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Row(
-                                  children: List.generate(
-                                    1,
-                                    (index) => const Icon(
-                                      Icons.star,
-                                      size: 15,
-                                      color: AppColors.white,
-                                    ),
-                                  ),
-                                ),
-                                const Text2(
-                                  text2: '0.0',
-                                  fontWeight: FontWeight.bold,
-                                  size: 10,
-                                  color: AppColors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        if (widget.data.id != 12) const LabelFeatured()
                       ],
                     ),
                     const SizedBox(width: 12),
@@ -217,19 +154,8 @@ class _FavoriteCardState extends State<FavoriteCard>
                               ],
                             ),
                             const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                const Icon(Icons.location_on,
-                                    size: 18, color: AppColors.tabColor),
-                                const SizedBox(width: 4),
-                                Expanded(
-                                  child: Text1(
-                                    text1: AppLocalizations.of(context)!
-                                        .textNoInfo,
-                                    size: 13,
-                                  ),
-                                ),
-                              ],
+                            TextLocation2(
+                              address: AppLocalizations.of(context)!.textNoInfo,
                             ),
                             const SizedBox(height: 5),
                             const TextDiscount(initialPrice: '2.000.00'),

@@ -80,3 +80,13 @@ String formatMidtransGrossAmount(String amountString) {
   double amount = double.tryParse(amountString) ?? 0;
   return formatter.format(amount.toInt());
 }
+
+// example : 07/06/2025
+String formatDateToSlash(DateTime dateTime) {
+  return DateFormat('dd/MM/yyyy').format(dateTime);
+}
+
+// example :  2025-06-07
+String formatDateToDash(DateTime dateTime) {
+  return DateFormat('yyyy-MM-dd').format(dateTime);
+}

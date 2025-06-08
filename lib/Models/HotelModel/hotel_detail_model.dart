@@ -325,7 +325,7 @@ class Author {
   final dynamic state;
   final String? country;
   final String? userName;
-  final String? avatar;
+  final dynamic avatar;
 
   Author({
     this.id,

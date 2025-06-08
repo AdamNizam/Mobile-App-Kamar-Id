@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_filter_model.dart';
+import 'package:hotelbookingapp/Screens/DetailHotel/hotel_detail_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_contollers.dart';
-import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CardFilter extends StatefulWidget {
@@ -73,7 +73,13 @@ class _CardFilterState extends State<CardFilter>
         opacity: _cardAnimation.fadeAnimation,
         child: GestureDetector(
           onTap: () {
-            showCustomSnackbar(context, 'fitur is not available');
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => HotelDetailsScreen(
+                  slug: data.slug,
+                ),
+              ),
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -96,8 +102,8 @@ class _CardFilterState extends State<CardFilter>
                         width: 120,
                         height: 145,
                       ),
-                      StarRatingHotel(
-                        starRate: widget.data.starRate?.toInt(),
+                      const StarRatingHotel(
+                        starRate: 1,
                         reviewScore: 0.5,
                       ),
                       if (widget.data.id != 12) const LabelFeatured()
@@ -106,30 +112,21 @@ class _CardFilterState extends State<CardFilter>
                   const SizedBox(width: 12),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 4.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextOverflow(
-                            text: data.title ?? '',
+                            text: data.title ??
+                                AppLocalizations.of(context)!.textNoInfo,
                             color: AppColors.black,
                             size: 14,
                             fontWeight: FontWeight.w600,
                           ),
                           const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              const Icon(Icons.location_on,
-                                  size: 18, color: AppColors.tabColor),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text1(
-                                  text1:
-                                      AppLocalizations.of(context)!.textNoInfo,
-                                  size: 13,
-                                ),
-                              ),
-                            ],
+                          TextLocation2(
+                            address: data.address ??
+                                AppLocalizations.of(context)!.textNoInfo,
                           ),
                           const SizedBox(height: 5),
                           const TextDiscount(initialPrice: '2.000.00'),
@@ -140,9 +137,8 @@ class _CardFilterState extends State<CardFilter>
                           ),
                           const SizedBox(height: 5),
                           TextRemaining(
-                            text: AppLocalizations.of(context)!
-                                .textRemaining('1'),
-                          ),
+                              text: AppLocalizations.of(context)!
+                                  .textRemaining('1')),
                         ],
                       ),
                     ),

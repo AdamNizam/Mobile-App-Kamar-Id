@@ -1,3 +1,4 @@
+import 'package:custom_rating_bar/custom_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,15 +8,16 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_filter_model.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 void showFilterSelectionModal(BuildContext context) {
   DateTime? checkInDate;
   DateTime? checkOutDate;
-
+  double selectedRating = 0;
   double minPrice = 0;
   double maxPrice = 2000000;
-  RangeValues priceRange = const RangeValues(0, 2000000);
+  RangeValues priceRange = const RangeValues(100000, 1000000);
 
   Future<void> selectDate(BuildContext context, bool isCheckIn,
       Function(DateTime) onDatePicked) async {
@@ -71,6 +73,7 @@ void showFilterSelectionModal(BuildContext context) {
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     width: 40,
@@ -80,7 +83,7 @@ void showFilterSelectionModal(BuildContext context) {
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 5),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     horizontalTitleGap: 0,
@@ -133,17 +136,46 @@ void showFilterSelectionModal(BuildContext context) {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  const Align(
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      RatingBar(
+                        filledIcon: Icons.star,
+                        emptyIcon: Icons.star_border,
+                        halfFilledIcon: Icons.star_half,
+                        isHalfAllowed: true,
+                        initialRating: selectedRating,
+                        maxRating: 5,
+                        size: 32,
+                        filledColor: Colors.amber,
+                        onRatingChanged: (rating) {
+                          setState(() {
+                            selectedRating = rating;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      if (selectedRating > 0)
+                        Text1(
+                          text1: '${selectedRating.toStringAsFixed(1)} bintang',
+                          size: 14,
+                          color: AppColors.button2Color,
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: CustomTextEllipsis(
-                      text: 'Harga',
+                      text: AppLocalizations.of(context)!.textPrice,
                       size: 14,
                       color: AppColors.black,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 5),
                   RangeSlider(
                     values: priceRange,
                     min: minPrice,
@@ -162,25 +194,33 @@ void showFilterSelectionModal(BuildContext context) {
                     },
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text1(text1: 'Rp${formatToRp(priceRange.start.toInt())}'),
                       Text1(text1: 'Rp${formatToRp(priceRange.end.toInt())}'),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   CustomButton(
                     text: AppLocalizations.of(context)!.textSave,
                     onTap: () {
-                      final dataRequest = RequestFilterModel(
-                        start: '07/06/2025',
-                        end: '09/06/2025',
-                        date: '2025-06-07 - 2025-06-09',
-                        priceRange: '200000;300000',
-                      );
-                      context.read<FilterHotelBloc>().add(
-                            PostFilterHotel(dataRequest),
-                          );
+                      if (checkInDate != null && checkOutDate != null) {
+                        Navigator.of(context).pop();
+
+                        context.read<FilterHotelBloc>().add(
+                              PostFilterHotel(
+                                RequestFilterModel(
+                                  start: formatDateToDash(checkInDate!),
+                                  end: formatDateToDash(checkOutDate!),
+                                  date:
+                                      '${formatDateToSlash(checkInDate!)} - ${formatDateToSlash(checkOutDate!)}',
+                                  priceRange: '$minPrice;$maxPrice',
+                                ),
+                              ),
+                            );
+                      }
+                      showCustomSnackbar(
+                          context, AppLocalizations.of(context)!.messageNoDate);
                     },
                   ),
                   const SizedBox(height: 16),
