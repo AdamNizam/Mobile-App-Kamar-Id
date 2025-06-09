@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/booking_detail_row.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_status_booking.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/row_booking_widget.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/detail_history_booking.dart';

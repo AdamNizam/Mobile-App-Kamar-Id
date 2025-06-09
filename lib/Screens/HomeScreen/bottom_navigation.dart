@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/drawer_widget.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/my_bookings.dart';
 import 'package:hotelbookingapp/Screens/HomeScreen/home_screen.dart';
 import 'package:hotelbookingapp/Screens/Messages/message_screen.dart';
@@ -53,7 +52,6 @@ class _BottomNavigationHomeState extends State<BottomNavigationHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerWidget(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: Container(
         height: 70,

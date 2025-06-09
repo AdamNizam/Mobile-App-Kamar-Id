@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'categorycard.dart';
+import '../CustomCard/card_category.dart';
 
 class CategoriesWidget extends StatelessWidget {
   const CategoriesWidget({

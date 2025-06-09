@@ -13,7 +13,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../CustomWidgets/CommonWidgets/address_widget.dart';
 import '../../CustomWidgets/CommonWidgets/categories_widget.dart';
-import '../../CustomWidgets/CommonWidgets/drawer_widget.dart';
 import '../../CustomWidgets/CommonWidgets/home_widget.dart';
 import '../../CustomWidgets/CommonWidgets/search_widget.dart';
 import '../../CustomWidgets/CustomText/text1.dart';
@@ -34,7 +33,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerWidget(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
