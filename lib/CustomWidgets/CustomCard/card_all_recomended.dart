@@ -82,7 +82,7 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
             );
           },
           child: Container(
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.all(6),
             padding: const EdgeInsets.all(4),
             width: 200,
             height: 290,

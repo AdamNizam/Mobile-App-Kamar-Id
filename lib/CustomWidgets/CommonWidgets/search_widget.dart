@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/ModalSelection/show_filter_selection_modal.dart';
+import 'package:hotelbookingapp/Screens/ModalSelection/show_filter_selection_modal.dart';
 
 import '../../Themes/colors.dart';
 
