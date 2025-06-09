@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../CustomWidgets/CustomText/custom_text_field.dart';
 import '../../CustomWidgets/CustomText/text1.dart';
 import '../../CustomWidgets/CustomText/text2.dart';
@@ -18,7 +17,6 @@ class SearchMessagesScreen extends StatelessWidget {
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-              child: CustomAppBar(text: 'Search Messages', text1: ''),
             ),
             const SizedBox(height: 10),
             const Padding(

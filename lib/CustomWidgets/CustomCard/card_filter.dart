@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_name_hotel.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_filter_model.dart';
@@ -116,12 +116,10 @@ class _CardFilterState extends State<CardFilter>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomTextOverflow(
-                            text: data.title ??
+                          TextNameHotel(
+                            idHotel: data.id,
+                            title: data.title ??
                                 AppLocalizations.of(context)!.textNoInfo,
-                            color: AppColors.black,
-                            size: 14,
-                            fontWeight: FontWeight.w600,
                           ),
                           const SizedBox(height: 5),
                           TextLocation2(

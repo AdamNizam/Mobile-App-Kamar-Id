@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_name_hotel.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_detail_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 
@@ -127,51 +123,10 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CustomTextEllipsis(
-                                  text: widget.hotel.title ??
-                                      AppLocalizations.of(context)!.textNoInfo,
-                                  size: 13,
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              BlocConsumer<PostWishlistBloc, PostWishlistState>(
-                                listener: (context, state) {
-                                  if (state is PostWishlistSuccess) {
-                                    context
-                                        .read<HotelBloc>()
-                                        .add(GetAllHotels());
-                                  }
-                                  if (state is PostWishlistLoading) {
-                                    print('OK Loading');
-                                  }
-                                },
-                                builder: (context, state) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      context.read<PostWishlistBloc>().add(
-                                            PostData(
-                                              RequestWishlist(
-                                                objectId: widget.hotel.id!,
-                                              ),
-                                            ),
-                                          );
-                                    },
-                                    child: Icon(
-                                      isWishlisted
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      color: AppColors.redAwesome,
-                                      size: 22,
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
+                          TextNameHotel(
+                            idHotel: widget.hotel.id!,
+                            title: widget.hotel.title ??
+                                AppLocalizations.of(context)!.textNoInfo,
                           ),
                           const SizedBox(height: 5),
                           TextLocation2(

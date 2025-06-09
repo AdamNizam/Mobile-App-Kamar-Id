@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Screens/Reviews/writereview.dart';
 
-import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../CustomWidgets/CustomButton/custombtn.dart';
 import '../../CustomWidgets/CustomText/text1.dart';
 import '../../Themes/colors.dart';
@@ -20,7 +19,6 @@ class Reviews extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                const CustomAppBar(text: 'Hotel Reviews', text1: ''),
                 const SizedBox(height: 20),
                 const Center(
                   child: AnimatedSwitcher(

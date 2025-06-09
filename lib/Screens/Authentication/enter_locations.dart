@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/CustomBar/customapp_bar.dart';
 import '../../CustomWidgets/CustomText/custom_text_field.dart';
 
 class EnterLocationScreen extends StatelessWidget {
@@ -15,7 +14,6 @@ class EnterLocationScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(text: 'Enter Your Location', text1: ''),
               SizedBox(
                 height: 16,
               ),

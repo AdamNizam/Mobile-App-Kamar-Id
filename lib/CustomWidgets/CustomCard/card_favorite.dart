@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_name_hotel.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Models/WishlistModel/wishlist_model.dart';
 import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -113,46 +109,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: CustomTextOverflow(
-                                    text: data.title,
-                                    color: AppColors.black,
-                                    size: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                BlocConsumer<PostWishlistBloc,
-                                    PostWishlistState>(
-                                  listener: (context, state) {
-                                    context
-                                        .read<GetWishlistBloc>()
-                                        .add(GetData());
-                                  },
-                                  builder: (context, stateWishlist) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        context.read<PostWishlistBloc>().add(
-                                              PostData(
-                                                RequestWishlist(
-                                                  objectId: widget.data.id,
-                                                ),
-                                              ),
-                                            );
-                                      },
-                                      child: const Icon(
-                                        Icons.favorite,
-                                        color: AppColors.redAwesome,
-                                        size: 22,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
+                            TextNameHotel(idHotel: data.id, title: data.title),
                             const SizedBox(height: 5),
                             TextLocation2(
                               address: AppLocalizations.of(context)!.textNoInfo,
@@ -169,6 +126,7 @@ class _FavoriteCardState extends State<FavoriteCard>
                               text: AppLocalizations.of(context)!
                                   .textRemaining('1'),
                             ),
+                            const SizedBox(width: 5),
                           ],
                         ),
                       ),
