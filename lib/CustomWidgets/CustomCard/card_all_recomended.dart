@@ -18,7 +18,7 @@ import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import '../../Themes/colors.dart';
 
 class CardAllRecomended extends StatefulWidget {
-  final HotelAllModel hotel;
+  final Datum hotel;
 
   const CardAllRecomended({
     super.key,
@@ -115,9 +115,9 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                           width: 210,
                           height: 130,
                         ),
-                        StarRatingHotel(
+                        const StarRatingHotel(
                           starRate: 1,
-                          reviewScore: widget.hotel.reviewScore,
+                          reviewScore: 0.5,
                         ),
                         const LabelFeatured()
                       ],
@@ -180,13 +180,13 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                           ),
                           const SizedBox(height: 5),
                           if (widget.hotel.id != 12)
-                            TextDiscount(
-                              initialPrice: widget.hotel.price.toString(),
+                            const TextDiscount(
+                              initialPrice: '200.000',
                             ),
                           const SizedBox(height: 5),
                           TextPrice(
                             price: AppLocalizations.of(context)!
-                                .textNight('200.000'),
+                                .textNight('${widget.hotel.price}'),
                           ),
                           const SizedBox(height: 5),
                           (widget.hotel.rooms!.isNotEmpty)

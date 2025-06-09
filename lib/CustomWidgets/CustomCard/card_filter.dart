@@ -100,7 +100,7 @@ class _CardFilterState extends State<CardFilter>
                         pageController: _pageController,
                         imageUrls: _imageUrls,
                         width: 120,
-                        height: 145,
+                        height: 150,
                       ),
                       const StarRatingHotel(
                         starRate: 1,
@@ -139,6 +139,7 @@ class _CardFilterState extends State<CardFilter>
                           TextRemaining(
                               text: AppLocalizations.of(context)!
                                   .textRemaining('1')),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),

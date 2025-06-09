@@ -35,7 +35,7 @@ class CarouselCardImage extends StatelessWidget {
             return Image.network(
               imageUrls.isNotEmpty
                   ? imageUrls[index]
-                  : 'https://via.placeholder.com/190x130',
+                  : 'https://picsum.photos/400/300',
               width: 190,
               height: 130,
               fit: BoxFit.cover,

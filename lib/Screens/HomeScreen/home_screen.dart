@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: hotelState.data.map((hotel) {
+                  children: hotelState.data.data!.rows!.data!.map((hotel) {
                     return CardAllRecomended(
                       key: ValueKey(hotel.id),
                       hotel: hotel,
@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 10.0),
               Column(
-                children: hotelState.data.map((hotel) {
+                children: hotelState.data.data!.rows!.data!.map((hotel) {
                   return CardAllHotel(
                     key: ValueKey(hotel.id),
                     hotel: hotel,

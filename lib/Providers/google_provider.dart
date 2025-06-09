@@ -30,7 +30,7 @@ class GoogleService {
       return userData;
     } catch (error) {
       debugPrint('Google Sign-In Error: $error');
-      return null;
+      rethrow;
     }
   }
 

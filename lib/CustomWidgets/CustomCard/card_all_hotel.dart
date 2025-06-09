@@ -17,7 +17,7 @@ import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class CardAllHotel extends StatefulWidget {
-  final HotelAllModel hotel;
+  final Datum hotel;
 
   const CardAllHotel({super.key, required this.hotel});
 
@@ -114,9 +114,9 @@ class _CardAllHotelState extends State<CardAllHotel>
                               width: 120,
                               height: 145,
                             ),
-                            StarRatingHotel(
+                            const StarRatingHotel(
                               starRate: 1,
-                              reviewScore: widget.hotel.reviewScore,
+                              reviewScore: 0.5,
                             ),
                             if (widget.hotel.id != 12) const LabelFeatured()
                           ],

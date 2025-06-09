@@ -159,6 +159,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
                                                   Text1(
                                                     text1: 'Checking',
                                                     size: 16,
+                                                    color: AppColors.white,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ],

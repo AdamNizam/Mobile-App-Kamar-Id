@@ -23,7 +23,7 @@ final class HotelFailed extends HotelState {
 }
 
 class HotelSuccess extends HotelState {
-  final List<HotelAllModel> data;
+  final HotelAllModel data;
 
   const HotelSuccess(this.data);
 

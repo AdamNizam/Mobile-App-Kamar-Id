@@ -68,7 +68,7 @@
   "textProcess": "Process",
   "textRecomended": "Recomended For You",
   "textRegister": "Register",
-  "textRemaining": "Only {amount} room left",
+  "textRemaining": "{amount} room available",
   "textReview": "Review",
   "textRoom": "Room",
   "textSave": "Save",

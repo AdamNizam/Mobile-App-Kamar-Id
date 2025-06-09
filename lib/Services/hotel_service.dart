@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 import '../Models/HotelModel/result_check_avaibility.dart';
 
 class HotelService {
-  Future<List<HotelAllModel>> gethAllHotels() async {
+  Future<HotelAllModel> gethAllHotels() async {
     try {
       final token = await AuthService().getToken();
 
@@ -26,10 +26,7 @@ class HotelService {
       print('Response Get All Hotel:  ${res.body}');
 
       if (res.statusCode == 200) {
-        final hotelList = jsonDecode(res.body)['data']['rows']['data'];
-        return List<HotelAllModel>.from(
-          hotelList.map((hotel) => HotelAllModel.fromJson(hotel)),
-        );
+        return HotelAllModel.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 500) {
         throw Exception("Server error :  ${res.statusCode}");
       } else {
