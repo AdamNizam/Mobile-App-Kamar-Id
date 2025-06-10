@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/filter/filter_hotel_bloc.dart';
+import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
+import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Models/HotelModel/request_filter_model.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -17,14 +19,7 @@ void showFilterSelectionModal(BuildContext context) {
   double maxPrice = 2000000;
   RangeValues priceRange = const RangeValues(100000, 1000000);
   int? selectedRating;
-  String? selectedLocation;
-
-  final List<String> locations = [
-    'Jakarta',
-    'Bandung',
-    'Surabaya',
-    'Yogyakarta',
-  ];
+  int? locationId;
 
   Future<void> selectDate(BuildContext context, bool isCheckIn,
       Function(DateTime) onDatePicked) async {
@@ -61,22 +56,31 @@ void showFilterSelectionModal(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.white,
+    backgroundColor: AppColors.bgColor,
     elevation: 0,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
     ),
     builder: (context) {
-      return Padding(
-        padding: EdgeInsets.fromLTRB(
-          20,
-          24,
-          20,
-          MediaQuery.of(context).viewInsets.bottom + 16,
-        ),
-        child: StatefulBuilder(
-          builder: (context, setState) {
-            return ConstrainedBox(
+      List<ListLocation>? locationParent = [];
+
+      dynamic selectedLocation;
+
+      return StatefulBuilder(
+        builder: (context, setState) {
+          final state = context.watch<HotelBloc>().state;
+          if (state is HotelSuccess) {
+            final listLocation = state.data.data?.listLocation;
+
+            if (listLocation != null && listLocation.isNotEmpty) {
+              locationParent = listLocation;
+              // selectedLocation ??= listLocation[0];
+            }
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            child: Container(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.6,
               ),
@@ -95,39 +99,39 @@ void showFilterSelectionModal(BuildContext context) {
                         ),
                       ),
                     ),
-                    const Center(
-                      child: Text1(
-                        text1: 'Filter Hotel',
-                        fontWeight: FontWeight.w600,
-                        size: 16,
-                      ),
-                    ),
                     const SizedBox(height: 10),
                     Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColors.beauBlue),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: AppColors.beauBlue),
+                      ),
+                      child: DropdownButton<dynamic>(
+                        isExpanded: true,
+                        underline: const SizedBox(),
+                        value: selectedLocation,
+                        hint: const Row(
+                          children: [
+                            Icon(
+                              Icons.place,
+                              color: AppColors.doggerBlue,
+                            ),
+                            SizedBox(width: 8),
+                            Text2(
+                              text2: 'Cari lokasi anda saat ini',
+                              color: AppColors.black,
+                              size: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ],
                         ),
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          underline: const SizedBox(),
-                          value: selectedLocation,
-                          hint: const Row(
-                            children: [
-                              Icon(Icons.map, color: Colors.blue),
-                              SizedBox(width: 8),
-                              Text2(
-                                text2: 'Cari lokasi anda saat ini',
-                                color: AppColors.black,
-                                size: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ],
-                          ),
-                          items: locations.map((location) {
-                            return DropdownMenuItem<String>(
+                        items: locationParent!.expand((location) {
+                          final List<DropdownMenuItem<dynamic>> items = [];
+
+                          items.add(
+                            DropdownMenuItem<dynamic>(
                               value: location,
                               child: Row(
                                 children: [
@@ -137,24 +141,66 @@ void showFilterSelectionModal(BuildContext context) {
                                   ),
                                   const SizedBox(width: 8),
                                   Text2(
-                                    text2: location,
+                                    text2: location.name ?? '',
                                     color: AppColors.black,
                                     size: 13,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ],
                               ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedLocation = value!;
-                            });
-                            // Simpan nilainya atau lakukan sesuatu
-                            print('Lokasi dipilih: $selectedLocation');
-                          },
-                        )),
-                    const SizedBox(height: 12),
+                            ),
+                          );
+
+                          // Child items
+                          if (location.children != null &&
+                              location.children!.isNotEmpty) {
+                            for (var child in location.children!) {
+                              items.add(
+                                DropdownMenuItem<dynamic>(
+                                  value: child,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.place,
+                                          color: AppColors.doggerBlue,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text2(
+                                          text2: child.name ?? '',
+                                          color: AppColors.black,
+                                          size: 13,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+
+                          return items;
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedLocation = value;
+
+                            print('Tipe value: ${value.runtimeType}');
+
+                            if (value is ListLocation) {
+                              print('Parent dipilih: ${value.name}');
+                            }
+                            if (value is Term) {
+                              locationId = value.id!;
+                              print('Child dipilih: ${value.name}');
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
@@ -172,7 +218,7 @@ void showFilterSelectionModal(BuildContext context) {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 5),
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
@@ -196,7 +242,7 @@ void showFilterSelectionModal(BuildContext context) {
                       fontWeight: FontWeight.w500,
                       size: 14,
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
                     RangeSlider(
                       values: priceRange,
                       min: minPrice,
@@ -257,6 +303,7 @@ void showFilterSelectionModal(BuildContext context) {
                           context.read<FilterHotelBloc>().add(
                                 PostFilterHotel(
                                   RequestFilterModel(
+                                    locationId: locationId,
                                     start: formatDateToDash(checkInDate!),
                                     end: formatDateToDash(checkOutDate!),
                                     date:
@@ -277,9 +324,9 @@ void showFilterSelectionModal(BuildContext context) {
                   ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       );
     },
   );
@@ -292,8 +339,9 @@ Widget _buildDateCard({
   required BuildContext context,
 }) {
   return Container(
-    padding: const EdgeInsets.all(14),
+    padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
+      color: AppColors.white,
       border: Border.all(color: AppColors.beauBlue),
       borderRadius: BorderRadius.circular(12),
     ),
@@ -301,25 +349,12 @@ Widget _buildDateCard({
       children: [
         Icon(icon, color: AppColors.black),
         const SizedBox(width: 12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text1(
-              text1: label,
-              color: AppColors.black,
-              size: 13,
-              fontWeight: FontWeight.w600,
-            ),
-            const SizedBox(height: 4),
-            Text1(
-              text1: date != null
-                  ? '${date.day}/${date.month}/${date.year}'
-                  : AppLocalizations.of(context)!.textSelectDate,
-              color: AppColors.doggerBlue,
-              size: 13,
-              fontWeight: FontWeight.w400,
-            ),
-          ],
+        Text1(
+          text1:
+              date != null ? '${date.day}/${date.month}/${date.year}' : label,
+          color: AppColors.black,
+          size: 13,
+          fontWeight: FontWeight.w600,
         ),
       ],
     ),
