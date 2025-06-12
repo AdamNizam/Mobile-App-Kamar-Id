@@ -1,3 +1,4 @@
+import 'package:cupertino_range_slider_improved/cupertino_range_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,11 +16,15 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 void showFilterSelectionModal(BuildContext context) {
   DateTime? checkInDate;
   DateTime? checkOutDate;
-  double minPrice = 0;
-  double maxPrice = 2000000;
-  RangeValues priceRange = const RangeValues(100000, 1000000);
-  int? selectedRating;
+  double min = 200000;
+  double max = 1500000;
+
+  double minVal = 400000;
+  double maxVal = 1200000;
   int? locationId;
+  int? expandedIndex;
+
+  List<int> selectedAttributes = [];
 
   Future<void> selectDate(BuildContext context, bool isCheckIn,
       Function(DateTime) onDatePicked) async {
@@ -59,27 +64,26 @@ void showFilterSelectionModal(BuildContext context) {
     backgroundColor: AppColors.bgColor,
     elevation: 0,
     shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(24),
+      ),
     ),
     builder: (context) {
       List<ListLocation>? locationParent = [];
+      List<Attribute>? attributesCategory = [];
 
       dynamic selectedLocation;
 
       return StatefulBuilder(
         builder: (context, setState) {
-          final state = context.watch<HotelBloc>().state;
-          if (state is HotelSuccess) {
-            final listLocation = state.data.data?.listLocation;
-
-            if (listLocation != null && listLocation.isNotEmpty) {
-              locationParent = listLocation;
-              // selectedLocation ??= listLocation[0];
-            }
+          final hotelState = context.watch<HotelBloc>().state;
+          if (hotelState is HotelSuccess) {
+            locationParent = hotelState.data.data?.listLocation;
+            attributesCategory = hotelState.data.data?.attributes;
           }
 
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             child: Container(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.6,
@@ -105,8 +109,10 @@ void showFilterSelectionModal(BuildContext context) {
                           horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppColors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColors.beauBlue),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.beauBlue,
+                        ),
                       ),
                       child: DropdownButton<dynamic>(
                         isExpanded: true,
@@ -116,14 +122,14 @@ void showFilterSelectionModal(BuildContext context) {
                           children: [
                             Icon(
                               Icons.place,
-                              color: AppColors.doggerBlue,
+                              color: AppColors.button2Color,
                             ),
                             SizedBox(width: 8),
                             Text2(
                               text2: 'Cari lokasi anda saat ini',
                               color: AppColors.black,
                               size: 14,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                             ),
                           ],
                         ),
@@ -137,11 +143,11 @@ void showFilterSelectionModal(BuildContext context) {
                                 children: [
                                   const Icon(
                                     Icons.place,
-                                    color: AppColors.doggerBlue,
+                                    color: AppColors.button2Color,
                                   ),
                                   const SizedBox(width: 8),
                                   Text2(
-                                    text2: location.name ?? '',
+                                    text2: '${location.name}',
                                     color: AppColors.black,
                                     size: 13,
                                     fontWeight: FontWeight.w600,
@@ -164,7 +170,7 @@ void showFilterSelectionModal(BuildContext context) {
                                       children: [
                                         const Icon(
                                           Icons.place,
-                                          color: AppColors.doggerBlue,
+                                          color: AppColors.button2Color,
                                         ),
                                         const SizedBox(width: 8),
                                         Text2(
@@ -237,62 +243,147 @@ void showFilterSelectionModal(BuildContext context) {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text1(
-                      text1: 'Rentang Harga (Rp)',
-                      fontWeight: FontWeight.w500,
-                      size: 14,
-                    ),
-                    const SizedBox(height: 10),
-                    RangeSlider(
-                      values: priceRange,
-                      min: minPrice,
-                      max: maxPrice,
-                      divisions: 20,
-                      labels: RangeLabels(
-                        'Rp${priceRange.start.toInt()}',
-                        'Rp${priceRange.end.toInt()}',
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.beauBlue,
+                        ),
                       ),
-                      onChanged: (values) {
-                        setState(() => priceRange = values);
-                      },
-                      activeColor: AppColors.doggerBlue,
-                      inactiveColor: AppColors.doggerBlue.withOpacity(0.2),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text1(
-                            text1: 'Rp${formatToRp(priceRange.start.toInt())}'),
-                        Text1(text1: 'Rp${formatToRp(priceRange.end.toInt())}'),
-                      ],
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          const Text1(
+                            text1: 'Rentang Harga (Rp)',
+                            fontWeight: FontWeight.w500,
+                            size: 12,
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            width: double.infinity,
+                            child: CupertinoRangeSlider(
+                              min: min,
+                              max: max,
+                              minValue: minVal,
+                              maxValue: maxVal,
+                              onMinChanged: (val) {
+                                setState(() {
+                                  minVal = val;
+                                });
+                              },
+                              onMaxChanged: (val) {
+                                setState(() {
+                                  maxVal = val;
+                                });
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text1(text1: 'Rp${formatToRp(minVal.toInt())}'),
+                              Text1(text1: 'Rp${formatToRp(maxVal.toInt())}'),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 10),
-                    const Text1(
-                      text1: 'Review Score',
-                      fontWeight: FontWeight.w500,
-                      size: 14,
-                    ),
-                    const SizedBox(height: 10),
-                    Wrap(
-                      spacing: 8,
-                      children: List.generate(5, (index) {
-                        final rating = index + 1;
-                        return ChoiceChip(
-                          label: Text('$rating ★'),
-                          selected: selectedRating == rating,
-                          onSelected: (selected) {
-                            setState(() =>
-                                selectedRating = selected ? rating : null);
-                          },
-                          selectedColor: AppColors.doggerBlue,
-                          backgroundColor: AppColors.white,
-                          labelStyle: TextStyle(
-                            color: selectedRating == rating
-                                ? Colors.white
-                                : AppColors.black,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          attributesCategory!.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        var atr = entry.value;
+
+                        bool isExpanded = expandedIndex == index;
+
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 3,
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                tileColor: AppColors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                leading: const Icon(
+                                  Icons.label_important,
+                                  size: 24,
+                                  color: AppColors.button2Color,
+                                ),
+                                title: Text1(
+                                  text1: '${atr.name}',
+                                  fontWeight: FontWeight.w500,
+                                  size: 13,
+                                ),
+                                trailing: Icon(
+                                  isExpanded
+                                      ? Icons.expand_less
+                                      : Icons.expand_more,
+                                  size: 24,
+                                  color: AppColors.black,
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    expandedIndex = isExpanded ? null : index;
+                                  });
+                                },
+                              ),
+                              if (isExpanded)
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.all(12),
+                                  child: Column(
+                                    children: atr.terms!.map((subAttr) {
+                                      return CheckboxListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        contentPadding: EdgeInsets.zero,
+                                        activeColor: AppColors.button2Color,
+                                        value: selectedAttributes
+                                            .contains(subAttr.id),
+                                        onChanged: isExpanded
+                                            ? (bool? value) {
+                                                setState(() {
+                                                  print(
+                                                      "Checkbox ${subAttr.name} diubah: $value");
+                                                  if (value == true) {
+                                                    selectedAttributes
+                                                        .add(subAttr.id!);
+                                                  } else {
+                                                    selectedAttributes
+                                                        .remove(subAttr.id);
+                                                  }
+                                                });
+                                              }
+                                            : null,
+                                        title: Text1(
+                                          text1: '${subAttr.name}',
+                                          size: 13,
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                            ],
                           ),
                         );
-                      }),
+                      }).toList(),
                     ),
                     const SizedBox(height: 16),
                     CustomButton(
@@ -309,7 +400,7 @@ void showFilterSelectionModal(BuildContext context) {
                                     date:
                                         '${formatDateToSlash(checkInDate!)} - ${formatDateToSlash(checkOutDate!)}',
                                     priceRange:
-                                        '${priceRange.start.toInt()};${priceRange.end.toInt()}',
+                                        '${minVal.toInt()};${maxVal.toInt()}',
                                   ),
                                 ),
                               );
@@ -342,19 +433,24 @@ Widget _buildDateCard({
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: AppColors.white,
-      border: Border.all(color: AppColors.beauBlue),
+      border: Border.all(
+        color: AppColors.beauBlue,
+      ),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Row(
       children: [
-        Icon(icon, color: AppColors.black),
+        Icon(
+          icon,
+          color: date != null ? AppColors.button2Color : AppColors.black,
+        ),
         const SizedBox(width: 12),
         Text1(
           text1:
               date != null ? '${date.day}/${date.month}/${date.year}' : label,
           color: AppColors.black,
-          size: 13,
-          fontWeight: FontWeight.w600,
+          size: 14,
+          fontWeight: FontWeight.w400,
         ),
       ],
     ),

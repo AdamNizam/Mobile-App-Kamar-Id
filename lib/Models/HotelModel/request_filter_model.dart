@@ -18,18 +18,28 @@ class RequestFilterModel {
     this.terms,
     this.reviewScore,
   });
-
-  // Buat map sesuai x-www-form-urlencoded
   Map<String, dynamic> toFormData() {
-    return {
-      'location_id': locationId!,
+    final Map<String, dynamic> data = {
       'start': start,
       'end': end,
       'date': date,
-      'price_range': priceRange,
-      'star_rate': starRate,
-      'terms': terms,
-      'review_score': reviewScore,
     };
+
+    if (locationId != null) data['location_id'] = locationId.toString();
+    if (priceRange != null) data['price_range'] = priceRange;
+
+    if (starRate != null && starRate!.isNotEmpty) {
+      data['star_rate'] = starRate!.map((e) => e.toString()).join(',');
+    }
+
+    if (terms != null && terms!.isNotEmpty) {
+      data['terms'] = terms!.map((e) => e.toString()).join(',');
+    }
+
+    if (reviewScore != null && reviewScore!.isNotEmpty) {
+      data['review_score'] = reviewScore!.map((e) => e.toString()).join(',');
+    }
+
+    return data;
   }
 }

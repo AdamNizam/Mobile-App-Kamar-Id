@@ -19,7 +19,7 @@ class CarouselSlideImage extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 260,
+          height: 280,
           width: double.infinity,
           child: PageView.builder(
             controller: pageController,
@@ -35,7 +35,7 @@ class CarouselSlideImage extends StatelessWidget {
                 child: imageUrl != null
                     ? Image.network(
                         imageUrl,
-                        height: 260,
+                        height: 280,
                         width: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {

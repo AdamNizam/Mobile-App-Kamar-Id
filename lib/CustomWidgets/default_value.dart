@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
+import 'package:hotelbookingapp/Themes/colors.dart';
 
 class DefaultValue extends StatelessWidget {
   final String imageSvg;
@@ -28,12 +29,11 @@ class DefaultValue extends StatelessWidget {
             height: height,
             fit: BoxFit.contain,
           ),
-          const SizedBox(height: 10),
           Text1(
             text1: text,
             size: 16,
             fontWeight: FontWeight.w400,
-            color: Colors.grey,
+            color: AppColors.black,
           ),
         ],
       ),

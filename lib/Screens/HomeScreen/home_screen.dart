@@ -8,6 +8,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_all_recomended.dar
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_filter.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_card.dart';
 import 'package:hotelbookingapp/CustomWidgets/Shimmers/shimmer_list.dart';
+import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -115,17 +116,22 @@ class _HomePageState extends State<HomePage> {
               size: 14,
             ),
             const SizedBox(height: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: filterState.hotels.map((data) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: CardFilter(
-                    data: data,
+            filterState.hotels.isNotEmpty
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: filterState.hotels.map((data) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: CardFilter(
+                          data: data,
+                        ),
+                      );
+                    }).toList(),
+                  )
+                : const DefaultValue(
+                    imageSvg: 'images/empty_wishlisht.svg',
+                    text: 'Hotel is not available',
                   ),
-                );
-              }).toList(),
-            ),
           ],
         );
       }
