@@ -144,16 +144,11 @@ class _CardAllRecomendedState extends State<CardAllRecomended>
                                 .textNight('${widget.hotel.price}'),
                           ),
                           const SizedBox(height: 5),
-                          (widget.hotel.rooms!.isNotEmpty)
-                              ? TextRemaining(
-                                  text: AppLocalizations.of(context)!
-                                      .textRemaining(
-                                          widget.hotel.rooms!.length),
-                                )
-                              : const TextRemaining(
-                                  text: 'soldout',
-                                  color: AppColors.redAwesome,
-                                ),
+                          if (widget.hotel.rooms!.isNotEmpty)
+                            TextRemaining(
+                              text: AppLocalizations.of(context)!
+                                  .textRemaining(widget.hotel.rooms!.length),
+                            ),
                         ],
                       ),
                     ),

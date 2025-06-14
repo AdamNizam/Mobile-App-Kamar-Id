@@ -68,3 +68,5 @@ final Map<String, String> countryList = {
   "ID": "Indonesia",
   "Eng": "English",
 };
+
+final List<double> scores = [1.0, 2.0, 3.0, 4.0, 5.0];

@@ -13,6 +13,7 @@ class AppColors {
   static const Color textFormFieldBorderColor = Color(0xffB2BABB);
   static const Color textFormFieldLabelColor = Color(0xff2C3E50);
   static const Color text1Color = Color(0xff2C3E50);
+  static const Color blueGrey = Color(0xffECEFF1);
   static const Color text2Color = Color(0xff95A5A6);
   static const Color text3Color = Color(0xffC0392B);
   static const Color strokColor = Color(0xffBDC3C7);

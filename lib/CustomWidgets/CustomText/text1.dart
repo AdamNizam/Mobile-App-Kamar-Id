@@ -11,7 +11,7 @@ class Text1 extends StatelessWidget {
   const Text1({
     super.key,
     required this.text1,
-    this.color = AppColors.text1Color,
+    this.color = AppColors.black,
     this.size = 14,
     this.fontWeight = FontWeight.w500,
   });

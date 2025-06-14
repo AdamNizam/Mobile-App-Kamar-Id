@@ -1,4 +1,12 @@
-import 'package:cupertino_range_slider_improved/cupertino_range_slider.dart';
+import 'dart:convert';
+
+import 'package:animated_rating_stars/animated_rating_stars.dart';
+import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/tooltip/tooltip.dart';
+import 'package:another_xlider/models/tooltip/tooltip_box.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,15 +24,16 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 void showFilterSelectionModal(BuildContext context) {
   DateTime? checkInDate;
   DateTime? checkOutDate;
-  double min = 200000;
-  double max = 1500000;
 
-  double minVal = 400000;
-  double maxVal = 1200000;
-  int? locationId;
+  double minVal = 200000;
+  double maxVal = 500000;
   int? expandedIndex;
 
-  List<int> selectedAttributes = [];
+  int? selectedLocationId;
+
+  List<int> selectedTerms = [];
+  List<int> selectedStarRate = [];
+  List<int> selectedReviewScore = [];
 
   Future<void> selectDate(BuildContext context, bool isCheckIn,
       Function(DateTime) onDatePicked) async {
@@ -83,10 +92,10 @@ void showFilterSelectionModal(BuildContext context) {
           }
 
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
             child: Container(
               constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.6,
+                maxHeight: MediaQuery.of(context).size.height * 0.8,
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -105,13 +114,15 @@ void showFilterSelectionModal(BuildContext context) {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: AppColors.beauBlue,
+                          color: selectedLocation != null
+                              ? AppColors.buttonColor
+                              : AppColors.blueGrey,
+                          width: 1,
                         ),
                       ),
                       child: DropdownButton<dynamic>(
@@ -122,14 +133,15 @@ void showFilterSelectionModal(BuildContext context) {
                           children: [
                             Icon(
                               Icons.place,
-                              color: AppColors.button2Color,
+                              color: AppColors.cadetGray,
+                              size: 20,
                             ),
                             SizedBox(width: 8),
                             Text2(
                               text2: 'Cari lokasi anda saat ini',
-                              color: AppColors.black,
+                              fontWeight: FontWeight.w500,
                               size: 14,
-                              fontWeight: FontWeight.w400,
+                              color: AppColors.cadetGray,
                             ),
                           ],
                         ),
@@ -143,14 +155,15 @@ void showFilterSelectionModal(BuildContext context) {
                                 children: [
                                   const Icon(
                                     Icons.place,
-                                    color: AppColors.button2Color,
+                                    color: AppColors.cadetGray,
+                                    size: 20,
                                   ),
                                   const SizedBox(width: 8),
                                   Text2(
                                     text2: '${location.name}',
                                     color: AppColors.black,
                                     size: 13,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ],
                               ),
@@ -169,7 +182,7 @@ void showFilterSelectionModal(BuildContext context) {
                                     child: Row(
                                       children: [
                                         const Icon(
-                                          Icons.place,
+                                          Icons.subdirectory_arrow_right,
                                           color: AppColors.button2Color,
                                         ),
                                         const SizedBox(width: 8),
@@ -199,7 +212,7 @@ void showFilterSelectionModal(BuildContext context) {
                               print('Parent dipilih: ${value.name}');
                             }
                             if (value is Term) {
-                              locationId = value.id!;
+                              selectedLocationId = value.id!;
                               print('Child dipilih: ${value.name}');
                             }
                           });
@@ -244,53 +257,249 @@ void showFilterSelectionModal(BuildContext context) {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.beauBlue,
-                        ),
-                      ),
+                      decoration: const BoxDecoration(color: AppColors.bgColor),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text1(
-                            text1: 'Rentang Harga (Rp)',
+                            text1: 'Rentan harga :',
                             fontWeight: FontWeight.w500,
-                            size: 12,
+                            color: AppColors.cadetGray,
+                            size: 13,
                           ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: double.infinity,
-                            child: CupertinoRangeSlider(
-                              min: min,
-                              max: max,
-                              minValue: minVal,
-                              maxValue: maxVal,
-                              onMinChanged: (val) {
-                                setState(() {
-                                  minVal = val;
-                                });
-                              },
-                              onMaxChanged: (val) {
-                                setState(() {
-                                  maxVal = val;
-                                });
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 5),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text1(text1: 'Rp${formatToRp(minVal.toInt())}'),
-                              Text1(text1: 'Rp${formatToRp(maxVal.toInt())}'),
+                              Text1(
+                                text1: 'Min Rp${formatToRp(minVal.toInt())}',
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.cadetGray,
+                                size: 12,
+                              ),
+                              Text1(
+                                text1: 'Max Rp${formatToRp(maxVal.toInt())}',
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.cadetGray,
+                                size: 12,
+                              ),
                             ],
+                          ),
+                          FlutterSlider(
+                            values: [minVal, maxVal],
+                            rangeSlider: true,
+                            max: 2000000,
+                            min: 0,
+                            handlerHeight: 24,
+                            handlerWidth: 24,
+                            handler: FlutterSliderHandler(
+                              decoration:
+                                  const BoxDecoration(), // remove shadow
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue.withOpacity(0.8),
+                                  border:
+                                      Border.all(color: Colors.white, width: 2),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.blueAccent,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Icon(Icons.arrow_forward_ios,
+                                      size: 12, color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            rightHandler: FlutterSliderHandler(
+                              decoration: const BoxDecoration(),
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue.withOpacity(0.8),
+                                  border:
+                                      Border.all(color: Colors.white, width: 2),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.blueAccent,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Icon(Icons.arrow_back_ios,
+                                      size: 12, color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            tooltip: FlutterSliderTooltip(
+                              // format: (String value) => 'Rp${int.parse(value)}',
+                              textStyle: const TextStyle(fontSize: 12),
+                              boxStyle: FlutterSliderTooltipBox(
+                                decoration: BoxDecoration(
+                                  color: AppColors.buttonColor,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                            trackBar: const FlutterSliderTrackBar(
+                              activeTrackBarHeight: 4,
+                              inactiveTrackBarHeight: 4,
+                            ),
+                            handlerAnimation:
+                                const FlutterSliderHandlerAnimation(
+                              curve: Curves.elasticOut,
+                              reverseCurve: Curves.bounceIn,
+                              duration: Duration(milliseconds: 500),
+                              scale: 1.5,
+                            ),
+                            onDragging: (handlerIndex, lowerValue, upperValue) {
+                              setState(() {
+                                minVal = lowerValue;
+                                maxVal = upperValue;
+                              });
+                            },
                           ),
                         ],
                       ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text1(
+                          text1:
+                              'Rating hotel (${selectedStarRate.isNotEmpty ? 1 : 0})',
+                          fontWeight: FontWeight.w500,
+                          size: 14,
+                          color: AppColors.cadetGray,
+                        ),
+                        const SizedBox(width: 8),
+                        AnimatedRatingStars(
+                          initialRating: selectedStarRate.isNotEmpty
+                              ? selectedStarRate.first.toDouble()
+                              : 0.0,
+                          minRating: 0.0,
+                          maxRating: 5.0,
+                          filledColor: AppColors.amberColor,
+                          emptyColor: AppColors.cadetGray,
+                          filledIcon: Icons.star,
+                          halfFilledIcon: Icons.star_half,
+                          emptyIcon: Icons.star_border,
+                          customFilledIcon: Icons.star,
+                          customHalfFilledIcon: Icons.star_half,
+                          customEmptyIcon: Icons.star_border,
+                          displayRatingValue: false,
+                          interactiveTooltips: true,
+                          starSize: 25.0,
+                          animationDuration: const Duration(milliseconds: 300),
+                          animationCurve: Curves.easeInOut,
+                          readOnly: false,
+                          onChanged: (double rating) {
+                            setState(() {
+                              final selected = rating.round();
+                              if (selectedStarRate.contains(selected)) {
+                                selectedStarRate.remove(selected);
+                              } else {
+                                selectedStarRate
+                                    .clear(); // hanya 1 nilai yang didukung
+                                selectedStarRate.add(selected);
+                              }
+                            });
+                            print('Rating: $rating');
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text1(
+                          text1: 'Review Score :',
+                          fontWeight: FontWeight.w500,
+                          size: 14,
+                          color: AppColors.cadetGray,
+                        ),
+                        const SizedBox(height: 10),
+                        LayoutBuilder(
+                          builder: (context, constraints) {
+                            final double itemWidth =
+                                (constraints.maxWidth - 40) / 5;
+                            return Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: List.generate(5, (index) {
+                                int score = index + 1;
+                                bool isSelected =
+                                    selectedReviewScore.contains(score);
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (isSelected) {
+                                        selectedReviewScore.remove(score);
+                                      } else {
+                                        selectedReviewScore.add(score);
+                                      }
+                                    });
+                                  },
+                                  child: SizedBox(
+                                    width: itemWidth,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 6, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: isSelected
+                                            ? AppColors.button2Color
+                                                .withOpacity(0.1)
+                                            : Colors.transparent,
+                                        border: Border.all(
+                                          color: isSelected
+                                              ? AppColors.buttonColor
+                                              : AppColors.cadetGray,
+                                        ),
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text1(
+                                            text1: "$score.0",
+                                            color: AppColors.cadetGray,
+                                            fontWeight: FontWeight.w500,
+                                            size: 12,
+                                          ),
+                                          const SizedBox(width: 2),
+                                          Icon(
+                                            Icons.star,
+                                            size: 14,
+                                            color: isSelected
+                                                ? AppColors.buttonColor
+                                                : AppColors.cadetGray,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     Column(
@@ -299,116 +508,137 @@ void showFilterSelectionModal(BuildContext context) {
                           attributesCategory!.asMap().entries.map((entry) {
                         int index = entry.key;
                         var atr = entry.value;
-
                         bool isExpanded = expandedIndex == index;
 
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 3,
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                tileColor: AppColors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  expandedIndex = isExpanded ? null : index;
+                                });
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text1(
+                                        text1: '${atr.name}',
+                                        fontWeight: FontWeight.w500,
+                                        size: 14,
+                                        color: AppColors.cadetGray,
+                                      ),
+                                    ),
+                                    Icon(
+                                      isExpanded
+                                          ? Icons.expand_less
+                                          : Icons.expand_more,
+                                      size: 20,
+                                      color: AppColors.cadetGray,
+                                    ),
+                                  ],
                                 ),
-                                contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                leading: const Icon(
-                                  Icons.label_important,
-                                  size: 24,
-                                  color: AppColors.button2Color,
-                                ),
-                                title: Text1(
-                                  text1: '${atr.name}',
-                                  fontWeight: FontWeight.w500,
-                                  size: 13,
-                                ),
-                                trailing: Icon(
-                                  isExpanded
-                                      ? Icons.expand_less
-                                      : Icons.expand_more,
-                                  size: 24,
-                                  color: AppColors.black,
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    expandedIndex = isExpanded ? null : index;
-                                  });
-                                },
                               ),
-                              if (isExpanded)
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    children: atr.terms!.map((subAttr) {
-                                      return CheckboxListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        contentPadding: EdgeInsets.zero,
-                                        activeColor: AppColors.button2Color,
-                                        value: selectedAttributes
-                                            .contains(subAttr.id),
-                                        onChanged: isExpanded
-                                            ? (bool? value) {
-                                                setState(() {
-                                                  print(
-                                                      "Checkbox ${subAttr.name} diubah: $value");
-                                                  if (value == true) {
-                                                    selectedAttributes
-                                                        .add(subAttr.id!);
-                                                  } else {
-                                                    selectedAttributes
-                                                        .remove(subAttr.id);
-                                                  }
-                                                });
-                                              }
-                                            : null,
-                                        title: Text1(
-                                          text1: '${subAttr.name}',
-                                          size: 13,
+                            ),
+                            if (isExpanded)
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 8),
+                                child: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: atr.terms!.map((subAttr) {
+                                    bool isSelected =
+                                        selectedTerms.contains(subAttr.id);
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            selectedTerms.remove(subAttr.id!);
+                                          } else {
+                                            selectedTerms.add(subAttr.id!);
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 6, horizontal: 10),
+                                        decoration: BoxDecoration(
+                                          color: isSelected
+                                              ? AppColors.button2Color
+                                                  .withOpacity(0.1)
+                                              : Colors.transparent,
+                                          border: Border.all(
+                                            color: isSelected
+                                                ? AppColors.button2Color
+                                                : AppColors.cadetGray,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
-                                      );
-                                    }).toList(),
-                                  ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              isSelected
+                                                  ? Icons.check
+                                                  : Icons.add,
+                                              size: 16,
+                                              color: isSelected
+                                                  ? AppColors.button2Color
+                                                  : AppColors.cadetGray,
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text1(
+                                              text1: '${subAttr.name}',
+                                              size: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: isSelected
+                                                  ? AppColors.button2Color
+                                                  : AppColors.cadetGray,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
-                            ],
-                          ),
+                              ),
+                          ],
                         );
                       }).toList(),
                     ),
-                    const SizedBox(height: 16),
                     CustomButton(
                       text: AppLocalizations.of(context)!.textSave,
                       onTap: () {
                         if (checkInDate != null && checkOutDate != null) {
                           Navigator.of(context).pop();
-                          context.read<FilterHotelBloc>().add(
-                                PostFilterHotel(
-                                  RequestFilterModel(
-                                    locationId: locationId,
-                                    start: formatDateToDash(checkInDate!),
-                                    end: formatDateToDash(checkOutDate!),
-                                    date:
-                                        '${formatDateToSlash(checkInDate!)} - ${formatDateToSlash(checkOutDate!)}',
-                                    priceRange:
-                                        '${minVal.toInt()};${maxVal.toInt()}',
-                                  ),
-                                ),
-                              );
-                        } else {
-                          showCustomSnackbar(
-                            context,
-                            AppLocalizations.of(context)!.messageNoDate,
+
+                          final dataRequest = RequestFilterModel(
+                            locationId: selectedLocationId,
+                            start: formatDateToSlash(checkInDate!),
+                            end: formatDateToSlash(checkOutDate!),
+                            date:
+                                '${formatDateToSlash(checkInDate!)} - ${formatDateToSlash(checkOutDate!)}',
+                            priceRange: '${minVal.toInt()};${maxVal.toInt()}',
+                            starRate: selectedStarRate,
+                            terms: selectedTerms,
+                            reviewScore: selectedReviewScore,
                           );
+                          print(
+                            'Data Request FILTER HOTEL: ${jsonEncode(dataRequest.toFormData())}',
+                          );
+
+                          context
+                              .read<FilterHotelBloc>()
+                              .add(PostFilterHotel(dataRequest));
+                        } else {
+                          showCustomSnackbar(context,
+                              AppLocalizations.of(context)!.messageNoDate);
                         }
                       },
                     ),
@@ -430,11 +660,11 @@ Widget _buildDateCard({
   required BuildContext context,
 }) {
   return Container(
-    padding: const EdgeInsets.all(12),
+    padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
       color: AppColors.white,
       border: Border.all(
-        color: AppColors.beauBlue,
+        color: date != null ? AppColors.buttonColor : AppColors.blueGrey,
       ),
       borderRadius: BorderRadius.circular(12),
     ),
@@ -442,14 +672,14 @@ Widget _buildDateCard({
       children: [
         Icon(
           icon,
-          color: date != null ? AppColors.button2Color : AppColors.black,
+          color: AppColors.cadetGray,
+          size: 20,
         ),
         const SizedBox(width: 12),
         Text1(
-          text1:
-              date != null ? '${date.day}/${date.month}/${date.year}' : label,
-          color: AppColors.black,
-          size: 14,
+          text1: date != null ? formatDateToSlash(date) : label,
+          color: AppColors.cadetGray,
+          size: 13,
           fontWeight: FontWeight.w400,
         ),
       ],

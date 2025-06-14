@@ -5,6 +5,7 @@
 import FlutterMacOS
 import Foundation
 
+import animated_rating_stars
 import connectivity_plus
 import facebook_auth_desktop
 import file_selector_macos
@@ -14,6 +15,7 @@ import path_provider_foundation
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  AnimatedRatingStarsPlugin.register(with: registry.registrar(forPlugin: "AnimatedRatingStarsPlugin"))
   ConnectivityPlusPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlusPlugin"))
   FacebookAuthDesktopPlugin.register(with: registry.registrar(forPlugin: "FacebookAuthDesktopPlugin"))
   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
