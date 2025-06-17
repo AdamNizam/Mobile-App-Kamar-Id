@@ -7,7 +7,6 @@ import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
-import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/register.dart';
@@ -34,9 +33,6 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => UserBloc()..add(GetUserProfile()),
-          ),
-          BlocProvider(
-            create: (context) => PostWishlistBloc(),
           ),
           BlocProvider(
             create: (context) => UpdateUserBloc(),

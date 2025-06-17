@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/wishlist_widget.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_name_hotel.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
@@ -127,10 +128,29 @@ class _CardAllHotelState extends State<CardAllHotel>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextNameHotel(
-                                  idHotel: widget.hotel.id!,
-                                  title: widget.hotel.title ??
-                                      AppLocalizations.of(context)!.textNoInfo,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: CustomTextEllipsis(
+                                        text: '${widget.hotel.title}',
+                                        color: AppColors.black,
+                                        size: 13,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    (widget.hotel.hasWishList != null)
+                                        ? const Icon(
+                                            Icons.favorite,
+                                            color: AppColors.redAwesome,
+                                            size: 22,
+                                          )
+                                        : WishlistWidget(
+                                            idHotel: widget.hotel.id!,
+                                            icon: Icons.favorite_border,
+                                          )
+                                  ],
                                 ),
                                 const SizedBox(height: 5),
                                 TextLocation2(

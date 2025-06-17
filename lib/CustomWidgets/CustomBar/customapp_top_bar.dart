@@ -13,7 +13,7 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     required this.onPop,
     required this.onTap,
-    required this.icon,
+    this.icon,
   });
 
   @override
@@ -49,7 +49,7 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
       ],
       flexibleSpace: Container(
         decoration: const BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.bgColor,
         ),
       ),
       iconTheme: const IconThemeData(

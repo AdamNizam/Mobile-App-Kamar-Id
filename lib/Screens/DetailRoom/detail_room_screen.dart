@@ -103,15 +103,7 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                             fontWeight: FontWeight.w600,
                             color: AppColors.black,
                           ),
-
-                          // const SizedBox(height: 8),
-                          // CustomTextOverflow(
-                          //   text:
-                          //       ' ${widget.dataRoom.id} -- $numberSelected -- Enjoy a luxurious stay with world-class facilities and stunning ocean views.',
-                          //   size: 13,
-                          // ),
-
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 8),
                           CustomTextOverflow(
                             text: widget.dataRoom.terms?.the8.parent.title ??
                                 AppLocalizations.of(context)!.textNoInformation,

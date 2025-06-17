@@ -140,14 +140,16 @@ class ProfileScreen extends StatelessWidget {
                             Text1(
                               text1: userState.data.name ??
                                   AppLocalizations.of(context)!.textNoInfo,
-                              size: 18,
-                              fontWeight: FontWeight.bold,
+                              size: 16,
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w500,
                             ),
                             const SizedBox(height: 4),
                             Text1(
                               text1: userState.data.email ?? '',
-                              size: 16,
+                              size: 15,
                               color: AppColors.cadetGray,
+                              fontWeight: FontWeight.w400,
                             ),
                           ],
                         ),

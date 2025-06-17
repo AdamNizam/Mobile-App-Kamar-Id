@@ -213,7 +213,8 @@ void showFilterSelectionModal(BuildContext context) {
                             }
                             if (value is Term) {
                               selectedLocationId = value.id!;
-                              print('Child dipilih: ${value.name}');
+                              showCustomSnackbar(context,
+                                  'Lokasi yang dipilih: ${value.name}');
                             }
                           });
                         },
@@ -268,7 +269,100 @@ void showFilterSelectionModal(BuildContext context) {
                             color: AppColors.cadetGray,
                             size: 13,
                           ),
-                          const SizedBox(height: 5),
+                          FlutterSlider(
+                            values: [minVal, maxVal],
+                            rangeSlider: true,
+                            max: 2000000,
+                            min: 0,
+                            trackBar: const FlutterSliderTrackBar(
+                              activeTrackBarHeight: 4,
+                              inactiveTrackBarHeight: 4,
+                              activeTrackBar:
+                                  BoxDecoration(color: AppColors.buttonColor),
+                              inactiveTrackBar:
+                                  BoxDecoration(color: AppColors.beauBlue),
+                            ),
+                            handlerHeight: 24,
+                            handlerWidth: 24,
+                            handler: FlutterSliderHandler(
+                              decoration:
+                                  const BoxDecoration(), // remove shadow
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.buttonColor.withOpacity(0.8),
+                                  border: Border.all(
+                                      color: AppColors.white, width: 2),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: AppColors.doggerBlue,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.arrow_back_ios_new,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            rightHandler: FlutterSliderHandler(
+                              decoration: const BoxDecoration(),
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.buttonColor.withOpacity(0.8),
+                                  border:
+                                      Border.all(color: Colors.white, width: 2),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: AppColors.doggerBlue,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            tooltip: FlutterSliderTooltip(
+                              // format: (String value) => 'Rp${int.parse(value)}',
+                              textStyle: const TextStyle(fontSize: 12),
+                              boxStyle: FlutterSliderTooltipBox(
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                            handlerAnimation:
+                                const FlutterSliderHandlerAnimation(
+                              curve: Curves.elasticOut,
+                              reverseCurve: Curves.bounceIn,
+                              duration: Duration(milliseconds: 500),
+                              scale: 1.5,
+                            ),
+                            onDragging: (handlerIndex, lowerValue, upperValue) {
+                              setState(() {
+                                minVal = lowerValue;
+                                maxVal = upperValue;
+                              });
+                            },
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -285,90 +379,6 @@ void showFilterSelectionModal(BuildContext context) {
                                 size: 12,
                               ),
                             ],
-                          ),
-                          FlutterSlider(
-                            values: [minVal, maxVal],
-                            rangeSlider: true,
-                            max: 2000000,
-                            min: 0,
-                            handlerHeight: 24,
-                            handlerWidth: 24,
-                            handler: FlutterSliderHandler(
-                              decoration:
-                                  const BoxDecoration(), // remove shadow
-                              child: Container(
-                                width: 24,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue.withOpacity(0.8),
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.blueAccent,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: const Center(
-                                  child: Icon(Icons.arrow_forward_ios,
-                                      size: 12, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                            rightHandler: FlutterSliderHandler(
-                              decoration: const BoxDecoration(),
-                              child: Container(
-                                width: 24,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue.withOpacity(0.8),
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.blueAccent,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: const Center(
-                                  child: Icon(Icons.arrow_back_ios,
-                                      size: 12, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                            tooltip: FlutterSliderTooltip(
-                              // format: (String value) => 'Rp${int.parse(value)}',
-                              textStyle: const TextStyle(fontSize: 12),
-                              boxStyle: FlutterSliderTooltipBox(
-                                decoration: BoxDecoration(
-                                  color: AppColors.buttonColor,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                            ),
-                            trackBar: const FlutterSliderTrackBar(
-                              activeTrackBarHeight: 4,
-                              inactiveTrackBarHeight: 4,
-                            ),
-                            handlerAnimation:
-                                const FlutterSliderHandlerAnimation(
-                              curve: Curves.elasticOut,
-                              reverseCurve: Curves.bounceIn,
-                              duration: Duration(milliseconds: 500),
-                              scale: 1.5,
-                            ),
-                            onDragging: (handlerIndex, lowerValue, upperValue) {
-                              setState(() {
-                                minVal = lowerValue;
-                                maxVal = upperValue;
-                              });
-                            },
                           ),
                         ],
                       ),
@@ -401,7 +411,7 @@ void showFilterSelectionModal(BuildContext context) {
                           customEmptyIcon: Icons.star_border,
                           displayRatingValue: false,
                           interactiveTooltips: true,
-                          starSize: 25.0,
+                          starSize: 20.0,
                           animationDuration: const Duration(milliseconds: 300),
                           animationCurve: Curves.easeInOut,
                           readOnly: false,
@@ -411,8 +421,7 @@ void showFilterSelectionModal(BuildContext context) {
                               if (selectedStarRate.contains(selected)) {
                                 selectedStarRate.remove(selected);
                               } else {
-                                selectedStarRate
-                                    .clear(); // hanya 1 nilai yang didukung
+                                selectedStarRate.clear();
                                 selectedStarRate.add(selected);
                               }
                             });
@@ -569,12 +578,12 @@ void showFilterSelectionModal(BuildContext context) {
                                             vertical: 6, horizontal: 10),
                                         decoration: BoxDecoration(
                                           color: isSelected
-                                              ? AppColors.button2Color
+                                              ? AppColors.buttonColor
                                                   .withOpacity(0.1)
                                               : Colors.transparent,
                                           border: Border.all(
                                             color: isSelected
-                                                ? AppColors.button2Color
+                                                ? AppColors.buttonColor
                                                 : AppColors.cadetGray,
                                           ),
                                           borderRadius:
@@ -589,7 +598,7 @@ void showFilterSelectionModal(BuildContext context) {
                                                   : Icons.add,
                                               size: 16,
                                               color: isSelected
-                                                  ? AppColors.button2Color
+                                                  ? AppColors.buttonColor
                                                   : AppColors.cadetGray,
                                             ),
                                             const SizedBox(width: 4),
@@ -598,7 +607,7 @@ void showFilterSelectionModal(BuildContext context) {
                                               size: 12,
                                               fontWeight: FontWeight.w400,
                                               color: isSelected
-                                                  ? AppColors.button2Color
+                                                  ? AppColors.buttonColor
                                                   : AppColors.cadetGray,
                                             ),
                                           ],

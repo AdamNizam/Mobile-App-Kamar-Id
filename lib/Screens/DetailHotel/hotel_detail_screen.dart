@@ -477,28 +477,12 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                       ),
                                       const SizedBox(height: 20),
                                       const ReviewContainer(
-                                        image: 'images/c3.png',
+                                        image: 'https://picsum.photos/400/300',
                                         text1: 'Michael Johnson',
                                         text2: '3.8',
                                         text3: '2 weeks ago',
                                         reviewText:
                                             'Decent hotel but had some noise issues from the street.',
-                                      ),
-                                      const ReviewContainer(
-                                        image: 'images/c4.png',
-                                        text1: 'Emily Davis',
-                                        text2: '5.0',
-                                        text3: '1 month ago',
-                                        reviewText:
-                                            'Absolutely perfect! The amenities were top-notch and the view was amazing.',
-                                      ),
-                                      const ReviewContainer(
-                                        image: 'images/c5.png',
-                                        text1: 'William Brown',
-                                        text2: '2.5',
-                                        text3: '1 month ago',
-                                        reviewText:
-                                            'Not great. The room did not meet my expectations based on the photos.',
                                       ),
                                     ],
                                   )

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
 import 'package:hotelbookingapp/Shared/shared_data.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -126,7 +128,7 @@ class _UserInformationState extends State<UserInformation> {
       listener: (context, state) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (state is UpdateUserSuccess) {
-            showCustomSnackbar(context, 'Update User Success');
+            showCustomSnackbar(context, 'Update data Success');
           }
           if (state is UpdateUserFailed) {
             showCustomSnackbar(context, state.error);
@@ -137,6 +139,7 @@ class _UserInformationState extends State<UserInformation> {
             });
           }
           if (state is UpdateProfileSuccess) {
+            showCustomSnackbar(context, 'Upload image Success');
             setState(() {
               isLoading = false;
               avatarId = state.data.data!.id.toString();
@@ -157,12 +160,19 @@ class _UserInformationState extends State<UserInformation> {
           );
         }
         return Scaffold(
+          appBar: CustomAppTopBar(
+            title: 'Data Information',
+            onPop: () {
+              Navigator.pop(context);
+            },
+            onTap: () {},
+          ),
           body: SafeArea(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 child: Column(
                   children: [_imageProfile(), _dataProfileUser()],
                 ),
@@ -170,7 +180,7 @@ class _UserInformationState extends State<UserInformation> {
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
             child: CustomButton(
               text: 'Save changes',
               onTap: () {
@@ -308,23 +318,20 @@ class _UserInformationState extends State<UserInformation> {
       children: [
         const SizedBox(height: 10),
         Center(
-          child: Text(
-            fullname ?? '',
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.text1Color,
-            ),
+          child: Text2(
+            text2: fullname ?? '',
+            size: 16,
+            color: AppColors.black,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 4),
         Center(
-          child: Text(
-            email ?? '',
-            style: const TextStyle(
-              fontSize: 16,
-              color: AppColors.text2Color,
-            ),
+          child: Text2(
+            text2: email ?? '',
+            size: 15,
+            color: AppColors.cadetGray,
+            fontWeight: FontWeight.w400,
           ),
         ),
         const SizedBox(height: 8),

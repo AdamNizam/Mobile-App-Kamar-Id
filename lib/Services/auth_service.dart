@@ -97,7 +97,7 @@ class AuthService {
 
   Future<void> saveToken(LoginResponse userLog) async {
     if (userLog.token != null && userLog.token!.isNotEmpty) {
-      print('Token App Kamar.ID: ${userLog.token}');
+      debugPrint('Token App Kamar.ID: ${userLog.token}');
       await storage.write(key: 'token', value: userLog.token);
 
       if (userLog.expiresIn != null) {
@@ -114,7 +114,7 @@ class AuthService {
 
   Future<String> getToken() async {
     String? token = await storage.read(key: 'token');
-    print('Token App Kamar.ID: $token');
+    debugPrint('Token App Kamar.ID: $token');
     return token != null ? 'Bearer $token' : '';
   }
 
@@ -139,7 +139,7 @@ class AuthService {
         body: jsonEncode(data.toJson()),
       );
 
-      print('Register User Response: ${res.body}');
+      debugPrint('Register User Response: ${res.body}');
 
       if (res.statusCode == 200) {
         return RegisterResponse.fromJson(jsonDecode(res.body));
@@ -147,6 +147,27 @@ class AuthService {
         throw Exception(jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan');
       }
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> forgetPassword(String email) async {
+    final url = Uri.parse('$baseUrl/auth/forgot-password');
+    try {
+      final res = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email}),
+      );
+
+      debugPrint('${res.statusCode} Response API forget password ${res.body}');
+
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        return jsonDecode(res.body);
+      } else {
+        throw Exception(jsonDecode(res.body)['message']);
+      }
+    } catch (error) {
       rethrow;
     }
   }

@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/wishlist_widget.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_animation.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCarousel/carousel_card_image.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_discount.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_name_hotel.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
 import 'package:hotelbookingapp/Models/HotelModel/result_filter_model.dart';
@@ -116,10 +117,23 @@ class _CardFilterState extends State<CardFilter>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextNameHotel(
-                            idHotel: data.id,
-                            title: data.title ??
-                                AppLocalizations.of(context)!.textNoInfo,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: CustomTextEllipsis(
+                                  text: '${data.title}',
+                                  color: AppColors.black,
+                                  size: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              WishlistWidget(
+                                idHotel: data.id,
+                                icon: Icons.favorite_border,
+                              )
+                            ],
                           ),
                           const SizedBox(height: 5),
                           TextLocation2(

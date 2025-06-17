@@ -191,7 +191,7 @@ class ReviewContainer extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(30),
-                child: Image.asset(
+                child: Image.network(
                   image,
                   width: 50,
                   height: 50,
