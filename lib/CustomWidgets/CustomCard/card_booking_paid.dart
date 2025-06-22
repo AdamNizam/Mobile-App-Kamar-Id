@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_status_booking.dart';
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/row_booking_widget.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/detail_history_booking.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
+import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 
@@ -157,25 +159,34 @@ class _CardBookingPaidState extends State<CardBookingPaid>
                           BookingDetailRow(
                             icon: Icons.payments,
                             label: 'Total Payment',
-                            value:
-                                'Rp${formatToRp(double.parse(widget.data!.payNow).toInt())}',
+                            value: 'Rp${formatToRp(
+                              double.parse(widget.data!.payNow).toInt(),
+                            )}',
                           ),
                           BookingDetailRow(
                             icon: Icons.date_range,
                             label: 'Check-In',
-                            value: DateFormat('yyyy-MM-dd')
-                                .format(widget.data!.startDate),
+                            value: DateFormat('yyyy-MM-dd').format(
+                              widget.data!.startDate,
+                            ),
                           ),
                           BookingDetailRow(
                             icon: Icons.date_range,
                             label: 'Check-Out',
-                            value: DateFormat('yyyy-MM-dd')
-                                .format(widget.data!.endDate),
+                            value: DateFormat('yyyy-MM-dd').format(
+                              widget.data!.endDate,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 5),
+                    CustomOutlinedButton(
+                      text: 'Chat owner',
+                      onTap: () {
+                        showCustomSnackbar(context, 'Fitur is not available');
+                      },
+                    ),
                   ],
                 ),
               ),

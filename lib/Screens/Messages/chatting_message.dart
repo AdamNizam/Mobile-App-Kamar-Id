@@ -22,14 +22,16 @@ class ChattingMessage extends StatelessWidget {
         ),
         title: Row(
           children: [
-            Image.asset('images/c3.png', width: 30), // Image for hotel guest
+            Image.asset(
+              'images/user_default_profile.png',
+              width: 30,
+            ),
             const SizedBox(width: 10),
             const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text1(
-                  text1:
-                      'Admin Pandu Home Stay', // Placeholder for the guest's name
+                  text1: 'Admin Pandu Home Stay',
                 ),
                 Text2(
                   text2: 'Online',

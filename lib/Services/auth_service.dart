@@ -143,6 +143,8 @@ class AuthService {
 
       if (res.statusCode == 200) {
         return RegisterResponse.fromJson(jsonDecode(res.body));
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
         throw Exception(jsonDecode(res.body)['message'] ?? 'Terjadi kesalahan');
       }
@@ -160,10 +162,13 @@ class AuthService {
         body: jsonEncode({'email': email}),
       );
 
-      debugPrint('${res.statusCode} Response API forget password ${res.body}');
+      debugPrint(
+          'Stts Code :${res.statusCode} Response API forget password ${res.body}');
 
       if (res.statusCode >= 200 && res.statusCode < 300) {
         return jsonDecode(res.body);
+      } else if (res.statusCode == 500) {
+        throw Exception("Server error :  ${res.statusCode}");
       } else {
         throw Exception(jsonDecode(res.body)['message']);
       }

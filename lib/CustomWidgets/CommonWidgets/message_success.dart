@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../../CustomWidgets/CustomButton/custombtn.dart';
-import '../../CustomWidgets/CustomText/text1.dart';
-import '../../CustomWidgets/CustomText/text2.dart';
 import '../../Themes/colors.dart';
+import '../CustomButton/custombtn.dart';
+import '../CustomText/text1.dart';
+import '../CustomText/text2.dart';
 
 class MessageSuccess extends StatefulWidget {
   final String title;

@@ -54,7 +54,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         children: [
           Text1(
             text1: widget.label,
-            color: AppColors.black,
+            color: AppColors.cadetGray,
             size: 13,
           ),
           Container(
@@ -73,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusNode: _focusNode,
               obscureText: _isObscured,
               style: const TextStyle(
-                color: AppColors.black,
+                color: AppColors.cadetGray,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
@@ -83,7 +83,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: -1),
                 hintStyle: const TextStyle(
-                  color: AppColors.black,
+                  color: AppColors.cadetGray,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
@@ -91,7 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     ? Icon(
                         widget.icon,
                         size: 20,
-                        color: AppColors.black,
+                        color: AppColors.cadetGray,
                       )
                     : null,
                 suffixIcon: widget.icon2 != null
