@@ -55,7 +55,9 @@ class BookingService {
       if (res.statusCode == 200) {
         return ResultChekout.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 500) {
-        throw Exception("Server error :  ${res.statusCode}");
+        print('response api error 500: ${res.body}');
+        throw Exception(
+            "Server ${res.statusCode} ${jsonDecode(res.body)['errors']}");
       } else {
         throw jsonDecode(res.body)['meesage'];
       }

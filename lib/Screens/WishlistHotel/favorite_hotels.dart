@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/get_wishlist/get_wishlist_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_favorite.dart';
@@ -91,9 +92,10 @@ class FavoriteHotelsState extends State<FavoriteHotels>
                                         );
                                       }).toList(),
                                     )
-                                  : const DefaultValue(
+                                  : DefaultValue(
                                       imageSvg: 'images/empty_wishlisht.svg',
-                                      text: 'No Favorites Added',
+                                      text: AppLocalizations.of(context)!
+                                          .messageHotelIsnotAvailable,
                                     ),
                             ),
                           )

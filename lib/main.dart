@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Kamar.Id',
-          locale: const Locale('en', 'Eg'),
+          locale: const Locale('id', 'Id'),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           theme: ThemeData(

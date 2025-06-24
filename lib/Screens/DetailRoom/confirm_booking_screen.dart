@@ -222,11 +222,11 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                       }
                     }
                   },
-                  builder: (context, state) {
+                  builder: (context, checkOutState) {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        state is CheckoutLoading
+                        checkOutState is CheckoutLoading
                             ? const CustomButtonLoading()
                             : CustomButton(
                                 text: AppLocalizations.of(context)!

@@ -65,7 +65,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             decoration: BoxDecoration(
               color: AppColors.white,
               border: Border.all(color: AppColors.beauBlue),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(8.0),
             ),
             child: TextFormField(
               controller: widget.controller,

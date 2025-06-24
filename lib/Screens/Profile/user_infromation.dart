@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
@@ -35,7 +37,7 @@ class _UserInformationState extends State<UserInformation> {
   bool isLoading = false;
   final ImagePicker imagePicker = ImagePicker();
 
-  final fullNameController = TextEditingController();
+  final userNameController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -57,7 +59,7 @@ class _UserInformationState extends State<UserInformation> {
     if (!mounted) return;
 
     if (pickedFile == null) {
-      showCustomSnackbar(context, 'Image invalid');
+      showCustomSnackbar(context, '');
       return;
     }
 
@@ -81,7 +83,7 @@ class _UserInformationState extends State<UserInformation> {
       email = userState.data.email;
       imageProfile = userState.data.avatarThumbUrl;
 
-      fullNameController.text = userState.data.name ?? '';
+      userNameController.text = userState.data.userName ?? '';
       firstNameController.text = userState.data.firstName ?? '';
       lastNameController.text = userState.data.lastName ?? '';
       emailController.text = userState.data.email ?? '';
@@ -128,7 +130,10 @@ class _UserInformationState extends State<UserInformation> {
       listener: (context, state) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (state is UpdateUserSuccess) {
-            showCustomSnackbar(context, 'Update data Success');
+            showCustomSnackbar(
+              context,
+              AppLocalizations.of(context)!.messageUpdatedataSuccess,
+            );
           }
           if (state is UpdateUserFailed) {
             showCustomSnackbar(context, state.error);
@@ -139,7 +144,10 @@ class _UserInformationState extends State<UserInformation> {
             });
           }
           if (state is UpdateProfileSuccess) {
-            showCustomSnackbar(context, 'Upload image Success');
+            showCustomSnackbar(
+              context,
+              AppLocalizations.of(context)!.messageUploadImage,
+            );
             setState(() {
               isLoading = false;
               avatarId = state.data.data!.id.toString();
@@ -182,11 +190,11 @@ class _UserInformationState extends State<UserInformation> {
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
             child: CustomButton(
-              text: 'Save changes',
+              text: AppLocalizations.of(context)!.textSaveChanges,
               onTap: () {
                 final dataRequest = RequestUserUpdate(
                   businessName: '',
-                  userName: fullNameController.text,
+                  userName: userNameController.text,
                   email: emailController.text,
                   firstName: firstNameController.text,
                   lastName: lastNameController.text,
@@ -198,11 +206,11 @@ class _UserInformationState extends State<UserInformation> {
                   address2: '',
                   city: cityController.text,
                   state: stateController.text,
-                  country: selectedCountry!,
+                  country: selectedCountry ?? 'Id',
                   zipCode: zipCodeController.text,
                 );
 
-                // print('Data Update User ${jsonEncode(dataRequest.toJson())}');
+                print('Data Update User ${jsonEncode(dataRequest.toJson())}');
                 context
                     .read<UpdateUserBloc>()
                     .add(PostDataUpdateEvent(dataRequest));
@@ -337,58 +345,63 @@ class _UserInformationState extends State<UserInformation> {
         const SizedBox(height: 8),
         CustomTextField(
           icon: Icons.person,
-          label: 'Name',
-          controller: fullNameController,
+          label: AppLocalizations.of(context)!.labelUsername,
+          controller: userNameController,
         ),
         CustomTextField(
-          icon: Icons.person_outline,
-          label: 'First Name',
+          icon: Icons.person,
+          label: AppLocalizations.of(context)!.labelFirstName,
           controller: firstNameController,
         ),
         CustomTextField(
-          icon: Icons.person_outline,
-          label: 'Last Name',
+          icon: Icons.person,
+          label: AppLocalizations.of(context)!.labelLastName,
           controller: lastNameController,
         ),
         CustomTextField(
           icon: Icons.email,
-          label: 'Email Address',
+          label: AppLocalizations.of(context)!.labelTextEmail,
           controller: emailController,
         ),
         CustomTextField(
           icon: Icons.phone,
-          label: 'Phone Number',
+          label: AppLocalizations.of(context)!.labelPhoneNumber,
           controller: phoneController,
         ),
         CustomTextField(
           icon: Icons.home,
-          label: 'Street Address',
+          label: AppLocalizations.of(context)!.labelPhoneNumber,
           controller: streetAddressController,
         ),
         CustomTextField(
           icon: Icons.location_city,
-          label: 'City',
+          label: AppLocalizations.of(context)!.labelCity,
           controller: cityController,
         ),
         CustomTextField(
           icon: Icons.location_on,
-          label: 'State',
+          label: AppLocalizations.of(context)!.labelCompleteAddress,
           controller: stateController,
         ),
         CustomTextField(
           icon: Icons.markunread_mailbox,
-          label: 'Zip Code',
+          label: AppLocalizations.of(context)!.labelPosCode,
           controller: zipCodeController,
         ),
-        const SizedBox(height: 10),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
+          padding: const EdgeInsets.all(4),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text1(
+                text1: AppLocalizations.of(context)!.textSelectDate,
+                color: AppColors.cadetGray,
+                size: 13,
+              ),
               GestureDetector(
                 onTap: () => _selectDate(context),
                 child: Container(
-                    height: 40,
+                    height: 45,
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
                       color: AppColors.white,
@@ -398,23 +411,33 @@ class _UserInformationState extends State<UserInformation> {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          size: 20,
-                          color: AppColors.black,
-                        ),
+                        const Icon(Icons.calendar_today,
+                            color: AppColors.cadetGray),
                         const SizedBox(width: 8),
                         Text1(
                           text1: selectedDate != null
                               ? DateFormat('dd/MM/yyyy').format(selectedDate!)
-                              : 'Select Date',
+                              : AppLocalizations.of(context)!.textSelectDate,
+                          color: AppColors.cadetGray,
                         ),
                       ],
                     )),
               ),
-              const SizedBox(height: 15),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text1(
+                text1: AppLocalizations.of(context)!.labelSelectCountry,
+                color: AppColors.cadetGray,
+                size: 13,
+              ),
               Container(
-                height: 50,
+                height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                   color: AppColors.white,
@@ -423,7 +446,7 @@ class _UserInformationState extends State<UserInformation> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.public, color: Colors.black54),
+                    const Icon(Icons.public, color: AppColors.cadetGray),
                     const SizedBox(width: 10),
                     Expanded(
                       child: DropdownButtonFormField<String>(
@@ -433,14 +456,13 @@ class _UserInformationState extends State<UserInformation> {
                           contentPadding: EdgeInsets.zero,
                         ),
                         value: selectedCountry,
-                        hint: const Align(
+                        hint: Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Select Country",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 16,
-                            ),
+                          child: Text1(
+                            text1: AppLocalizations.of(context)!
+                                .labelSelectCountry,
+                            color: AppColors.cadetGray,
+                            size: 14,
                           ),
                         ),
                         items: countryList.entries.map((entry) {

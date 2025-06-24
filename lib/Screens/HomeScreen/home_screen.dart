@@ -128,9 +128,10 @@ class _HomePageState extends State<HomePage> {
                       );
                     }).toList(),
                   )
-                : const DefaultValue(
+                : DefaultValue(
                     imageSvg: 'images/empty_wishlisht.svg',
-                    text: 'Hotel is not available',
+                    text: AppLocalizations.of(context)!
+                        .messageHotelIsnotAvailable,
                   ),
           ],
         );

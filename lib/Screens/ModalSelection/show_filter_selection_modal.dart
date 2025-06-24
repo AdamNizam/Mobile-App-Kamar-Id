@@ -129,16 +129,17 @@ void showFilterSelectionModal(BuildContext context) {
                         isExpanded: true,
                         underline: const SizedBox(),
                         value: selectedLocation,
-                        hint: const Row(
+                        hint: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.place,
                               color: AppColors.cadetGray,
                               size: 20,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text2(
-                              text2: 'Cari lokasi anda saat ini',
+                              text2: AppLocalizations.of(context)!
+                                  .textSearchYourLocation,
                               fontWeight: FontWeight.w500,
                               size: 14,
                               color: AppColors.cadetGray,
@@ -213,8 +214,13 @@ void showFilterSelectionModal(BuildContext context) {
                             }
                             if (value is Term) {
                               selectedLocationId = value.id!;
-                              showCustomSnackbar(context,
-                                  'Lokasi yang dipilih: ${value.name}');
+                              showCustomSnackbar(
+                                context,
+                                AppLocalizations.of(context)!
+                                    .messageTheLocationYourChoose(
+                                  value.name ?? '-',
+                                ),
+                              );
                             }
                           });
                         },
@@ -295,19 +301,12 @@ void showFilterSelectionModal(BuildContext context) {
                                   color: AppColors.buttonColor.withOpacity(0.8),
                                   border: Border.all(
                                       color: AppColors.white, width: 2),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: AppColors.doggerBlue,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
                                 ),
                                 child: const Center(
                                   child: Icon(
-                                    Icons.arrow_back_ios_new,
+                                    Icons.circle,
                                     size: 12,
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                   ),
                                 ),
                               ),
@@ -322,19 +321,12 @@ void showFilterSelectionModal(BuildContext context) {
                                   color: AppColors.buttonColor.withOpacity(0.8),
                                   border:
                                       Border.all(color: Colors.white, width: 2),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: AppColors.doggerBlue,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
                                 ),
                                 child: const Center(
                                   child: Icon(
-                                    Icons.arrow_forward_ios,
+                                    Icons.circle,
                                     size: 12,
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                   ),
                                 ),
                               ),
@@ -389,7 +381,7 @@ void showFilterSelectionModal(BuildContext context) {
                       children: [
                         Text1(
                           text1:
-                              'Rating hotel (${selectedStarRate.isNotEmpty ? 1 : 0})',
+                              '${AppLocalizations.of(context)!.textRatingHotel} (${selectedStarRate.isNotEmpty ? 1 : 0})',
                           fontWeight: FontWeight.w500,
                           size: 14,
                           color: AppColors.cadetGray,
@@ -434,8 +426,8 @@ void showFilterSelectionModal(BuildContext context) {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text1(
-                          text1: 'Review Score :',
+                        Text1(
+                          text1: AppLocalizations.of(context)!.textReviewScore,
                           fontWeight: FontWeight.w500,
                           size: 14,
                           color: AppColors.cadetGray,

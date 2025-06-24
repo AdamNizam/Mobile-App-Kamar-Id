@@ -48,7 +48,8 @@ class _NoticationScreenState extends State<NotificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text1(
-                  text1: 'Unread message (${widget.unreadData.total})',
+                  text1: AppLocalizations.of(context)!
+                      .textUnreadMessage(widget.unreadData.total),
                   size: 12,
                   color: AppColors.cadetGray,
                 ),
@@ -75,7 +76,8 @@ class _NoticationScreenState extends State<NotificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text1(
-                  text1: 'Read message  (${widget.readData.total})',
+                  text1: AppLocalizations.of(context)!
+                      .textReadMessage(widget.readData.total),
                   size: 13,
                   color: AppColors.cadetGray,
                 ),

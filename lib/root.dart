@@ -18,7 +18,7 @@ class _AppRootState extends State<AppRoot> {
 
   void resetAppState() {
     setState(() {
-      appKey = UniqueKey(); // mengganti key => rebuild semua state
+      appKey = UniqueKey();
     });
   }
 
