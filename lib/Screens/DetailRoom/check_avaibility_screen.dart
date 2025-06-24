@@ -78,8 +78,7 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
               BlocConsumer<CheckAvaibilityHotelBloc, CheckAvaibilityHotelState>(
             listener: (context, state) {
               if (state is ChekAvaibilityFailed) {
-                showCustomSnackbar(
-                    context, 'Failed to check availability: ${state.error}');
+                showCustomSnackbar(context, state.error);
               }
               if (state is CheckAvaibilitySuccess) {
                 setState(() {

@@ -109,13 +109,22 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              widget.dataHotel.imageId ??
-                                  'https://via.placeholder.com/150',
-                              width: 75,
-                              height: 75,
-                              fit: BoxFit.cover,
-                            ),
+                            child: (widget.dataHotel.bannerImageId != null)
+                                ? Image.network(
+                                    widget.dataHotel.imageId!,
+                                    width: 75,
+                                    height: 75,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const SizedBox(
+                                    width: 105,
+                                    height: 140,
+                                    child: Icon(
+                                      Icons.image_rounded,
+                                      size: 105,
+                                      color: AppColors.beauBlue,
+                                    ),
+                                  ),
                           ),
                           const SizedBox(width: 16),
                           Expanded(

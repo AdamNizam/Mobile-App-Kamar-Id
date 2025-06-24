@@ -5,7 +5,7 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 import '../CustomText/text1.dart';
 
 class CategoryLocationCard extends StatelessWidget {
-  final String icon;
+  final String? icon;
   final String title;
 
   const CategoryLocationCard({
@@ -18,23 +18,24 @@ class CategoryLocationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.all(15.0),
-          margin: const EdgeInsets.symmetric(horizontal: 15.0),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: AppColors.beauBlue,
-              width: 2,
+        if (icon != null)
+          Container(
+            padding: const EdgeInsets.all(15.0),
+            margin: const EdgeInsets.symmetric(horizontal: 15.0),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppColors.beauBlue,
+                width: 2,
+              ),
+            ),
+            child: Icon(
+              getIcon(icon!),
+              color: AppColors.buttonColor,
+              size: 25,
             ),
           ),
-          child: Icon(
-            getIcon(icon),
-            color: AppColors.buttonColor,
-            size: 25,
-          ),
-        ),
         const SizedBox(height: 8.0),
         Center(
           child: Text1(

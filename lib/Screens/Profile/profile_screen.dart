@@ -156,9 +156,7 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   );
                 }
-                return const Center(
-                  child: Text1(text1: "No data available"),
-                );
+                return Container();
               },
             ),
             const SizedBox(height: 10),

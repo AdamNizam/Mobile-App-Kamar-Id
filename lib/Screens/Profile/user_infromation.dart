@@ -169,7 +169,7 @@ class _UserInformationState extends State<UserInformation> {
         }
         return Scaffold(
           appBar: CustomAppTopBar(
-            title: 'Data Information',
+            title: AppLocalizations.of(context)!.textDataInformation,
             onPop: () {
               Navigator.pop(context);
             },

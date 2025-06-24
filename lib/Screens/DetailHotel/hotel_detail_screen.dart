@@ -199,7 +199,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                   if (state.data.rowData!.content != null)
                                     TextConvertHTML(
                                       text: state.data.rowData!.content ??
-                                          'No Description info',
+                                          AppLocalizations.of(context)!
+                                              .textNoInfo,
                                     ),
                                   const SizedBox(
                                     height: 10,
@@ -225,8 +226,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                                   .map(
                                                 (category) {
                                                   return CategoryLocationCard(
-                                                    icon: category.iconClass ??
-                                                        '',
+                                                    icon: category.iconClass,
                                                     title: category.name
                                                         .toString(),
                                                   );

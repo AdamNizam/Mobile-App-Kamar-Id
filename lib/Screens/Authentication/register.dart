@@ -95,13 +95,11 @@ class _RegisterState extends State<Register> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                const Text(
-                                  'Kamar.Id',
-                                  style: TextStyle(
-                                    fontSize: 27,
-                                    color: AppColors.buttonColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                const Text1(
+                                  text1: 'Kamar.Id',
+                                  size: 25,
+                                  color: AppColors.buttonColor,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ],
                             ),
