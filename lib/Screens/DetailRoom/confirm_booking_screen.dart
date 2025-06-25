@@ -241,30 +241,42 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                 text: AppLocalizations.of(context)!
                                     .textBtnConfirm,
                                 onTap: () async {
-                                  final dataCheckout = RequestChekout(
-                                    code: widget.orderId,
-                                    firstName: userState.data.firstName ?? '',
-                                    lastName: userState.data.lastName ?? '',
-                                    email: userState.data.email ?? '',
-                                    phone: userState.data.phone ?? '',
-                                    addressLine1: userState.data.address ?? '',
-                                    addressLine2: userState.data.address2 ?? '',
-                                    city: userState.data.city ?? '',
-                                    state: userState.data.state ?? '',
-                                    zipCode: userState.data.zipCode.toString(),
-                                    country: userState.data.country ?? 'ID',
-                                    customerNotes: '',
-                                    paymentGateway: 'midtrans',
-                                    termConditions: 'on',
-                                    couponCode: null,
-                                  );
+                                  if (userState.data.firstName != null &&
+                                      userState.data.lastName != null &&
+                                      userState.data.phone != null) {
+                                    final dataCheckout = RequestChekout(
+                                      code: widget.orderId,
+                                      firstName: userState.data.firstName ?? '',
+                                      lastName: userState.data.lastName ?? '',
+                                      email: userState.data.email ?? '',
+                                      phone: userState.data.phone ?? '',
+                                      addressLine1:
+                                          userState.data.address ?? '',
+                                      addressLine2:
+                                          userState.data.address2 ?? '',
+                                      city: userState.data.city ?? '',
+                                      state: userState.data.state ?? '',
+                                      zipCode:
+                                          userState.data.zipCode.toString(),
+                                      country: userState.data.country ?? 'ID',
+                                      customerNotes: '',
+                                      paymentGateway: 'midtrans',
+                                      termConditions: 'on',
+                                      couponCode: null,
+                                    );
 
-                                  print(
-                                      'data checkout: ${jsonEncode(dataCheckout.toJson())}');
+                                    print(
+                                        'data checkout: ${jsonEncode(dataCheckout.toJson())}');
 
-                                  context
-                                      .read<CheckoutBloc>()
-                                      .add(CheckoutSubmitEvent(dataCheckout));
+                                    context
+                                        .read<CheckoutBloc>()
+                                        .add(CheckoutSubmitEvent(dataCheckout));
+                                  } else {
+                                    showCustomSnackbar(
+                                      context,
+                                      'Data Profile anda belum lengkap',
+                                    );
+                                  }
                                 },
                               ),
                       ],
