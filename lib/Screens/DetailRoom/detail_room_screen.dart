@@ -233,7 +233,7 @@ class _DetailRoomScreenState extends State<DetailRoomScreen> {
                             dataHotel: widget.dataHotel,
                             checkIn: widget.checkIn,
                             checkOut: widget.checkOut,
-                            roomType: widget.dataRoom.title!,
+                            roomType: widget.dataRoom.title ?? '',
                             room: numberSelected,
                             adult: widget.adult,
                             child: widget.child,

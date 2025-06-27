@@ -12,13 +12,11 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
-import 'package:hotelbookingapp/Providers/midtrans_provider.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:midtrans_sdk/midtrans_sdk.dart';
 
 class ConfirmBookingScreen extends StatefulWidget {
   final RowData dataHotel;
@@ -51,17 +49,17 @@ class ConfirmBookingScreen extends StatefulWidget {
 }
 
 class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
-  MidtransSDK? _midtrans;
+  // MidtransSDK? _midtrans;
 
-  @override
-  void initState() {
-    super.initState();
-    _initMidtrans();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initMidtrans();
+  // }
 
-  Future<void> _initMidtrans() async {
-    _midtrans = await initializeMidtrans();
-  }
+  // Future<void> _initMidtrans() async {
+  //   _midtrans = await initializeMidtrans();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -218,17 +216,14 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               child: BlocProvider(
                 create: (context) => CheckoutBloc(),
                 child: BlocConsumer<CheckoutBloc, CheckoutState>(
-                  listener: (context, checkOutState) {
+                  listener: (context, checkOutState) async {
+                    if (checkOutState is CheckoutSuccess) {
+                      showCustomSnackbar(context,
+                          'Snap token ${checkOutState.data.snapToken}');
+                    }
+
                     if (checkOutState is CheckoutFailed) {
                       showCustomSnackbar(context, checkOutState.error);
-                    }
-                    if (checkOutState is CheckoutSuccess) {
-                      if (_midtrans != null) {
-                        _midtrans!.startPaymentUiFlow(
-                            token: checkOutState.data.snapToken);
-                      } else {
-                        showCustomSnackbar(context, 'Midtrans Error');
-                      }
                     }
                   },
                   builder: (context, checkOutState) {

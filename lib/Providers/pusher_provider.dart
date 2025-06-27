@@ -1,9 +1,11 @@
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
-class PusherService {
+class PusherProvider {
   static final PusherChannelsFlutter _pusher =
       PusherChannelsFlutter.getInstance();
+
+  static Function(PusherEvent)? onMessageReceived;
 
   static Future<void> initialize() async {
     try {
@@ -22,8 +24,18 @@ class PusherService {
 
       await _pusher.subscribe(channelName: 'presence-chatbox');
       await _pusher.connect();
-    } catch (e) {
-      print("PusherService Error: $e");
+    } catch (error) {
+      print("PusherService Error: $error");
+      rethrow;
+    }
+  }
+
+  static void _onEvent(PusherEvent event) {
+    print("Pusher Event: ${event.eventName}, data: ${event.data}");
+
+    // ✅ Kirim hanya event tertentu ke listener luar
+    if (event.eventName == 'new-message') {
+      onMessageReceived?.call(event);
     }
   }
 
@@ -38,10 +50,6 @@ class PusherService {
 
   static void _onSubscriptionSucceeded(String channelName, dynamic data) {
     print("Pusher: Subscribed to $channelName, data: $data");
-  }
-
-  static void _onEvent(PusherEvent event) {
-    print("Pusher Event: ${event.eventName}, data: ${event.data}");
   }
 
   static void _onSubscriptionError(String message, dynamic e) {
