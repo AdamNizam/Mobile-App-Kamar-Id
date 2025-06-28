@@ -13,7 +13,7 @@ class PaymentMidtransService {
           'Basic ${base64Encode(utf8.encode('$serverKeyMidtrans:'))}';
 
       final res = await http.post(
-        Uri.parse(midtransUrl),
+        Uri.parse(midtransUrlMidtrans),
         headers: {
           'Authorization': authHeader,
           'Content-Type': 'application/json',

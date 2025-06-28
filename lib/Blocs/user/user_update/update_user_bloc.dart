@@ -36,7 +36,7 @@ class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
 
           emit(UpdatePasswordSuccess(data));
         } catch (error) {
-          print('Error Update User: $error');
+          print('Error Update password: $error');
           emit(UpdateUserFailed(error.toString()));
         }
       }

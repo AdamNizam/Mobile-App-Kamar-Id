@@ -60,13 +60,7 @@ class UserService {
         if (decoded['status'] == 1) {
           return ResultUserUpdate.fromJson(decoded);
         } else {
-          // Ubah Map jadi string
-          final messageMap = decoded['message'] as Map<String, dynamic>;
-          final messageList =
-              messageMap.values.expand((e) => e as List).toList();
-          final messageString = messageList.join('\n');
-
-          throw messageString; // hanya teks error
+          throw decoded['message']?.toString() ?? '-';
         }
       } else {
         final error = jsonDecode(res.body)['message'];

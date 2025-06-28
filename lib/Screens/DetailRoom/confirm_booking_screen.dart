@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/chekout/checkout_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_data/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_loading.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
@@ -12,6 +12,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Screens/WebView/payment_webview.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
@@ -49,18 +50,6 @@ class ConfirmBookingScreen extends StatefulWidget {
 }
 
 class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
-  // MidtransSDK? _midtrans;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _initMidtrans();
-  // }
-
-  // Future<void> _initMidtrans() async {
-  //   _midtrans = await initializeMidtrans();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserBloc, UserState>(
@@ -216,14 +205,21 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
               child: BlocProvider(
                 create: (context) => CheckoutBloc(),
                 child: BlocConsumer<CheckoutBloc, CheckoutState>(
-                  listener: (context, checkOutState) async {
+                  listener: (context, checkOutState) {
                     if (checkOutState is CheckoutSuccess) {
-                      showCustomSnackbar(context,
-                          'Snap token ${checkOutState.data.snapToken}');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentWebView(url: checkOutState.data.url!),
+                        ),
+                      );
                     }
 
                     if (checkOutState is CheckoutFailed) {
-                      showCustomSnackbar(context, checkOutState.error);
+                      if (context.mounted) {
+                        showCustomSnackbar(context, checkOutState.error);
+                      }
                     }
                   },
                   builder: (context, checkOutState) {
@@ -235,7 +231,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                             : CustomButton(
                                 text: AppLocalizations.of(context)!
                                     .textBtnConfirm,
-                                onTap: () async {
+                                onTap: () {
                                   if (userState.data.firstName != null &&
                                       userState.data.lastName != null &&
                                       userState.data.phone != null) {
@@ -260,7 +256,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                                       couponCode: null,
                                     );
 
-                                    print(
+                                    debugPrint(
                                         'data checkout: ${jsonEncode(dataCheckout.toJson())}');
 
                                     context

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/filter/filter_hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/forget_password/forget_password_bloc.dart';
 import 'package:hotelbookingapp/Blocs/hotel/hotel_bloc.dart';
 import 'package:hotelbookingapp/Blocs/review_booking/review_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_data/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/splash_screen.dart';
 import 'package:hotelbookingapp/Screens/Authentication/login_screen.dart';
@@ -15,7 +16,8 @@ import 'package:hotelbookingapp/Screens/HomeScreen/bottom_navigation.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:hotelbookingapp/root.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const AppRoot());
 }
 

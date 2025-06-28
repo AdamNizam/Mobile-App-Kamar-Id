@@ -12,7 +12,7 @@
         android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:usesCleartextTraffic">
+        tools:replace="android:label,android:usesCleartextTraffic">
 
         <!-- Google Maps API Key -->
         <meta-data

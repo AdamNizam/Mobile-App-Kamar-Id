@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/notification/notication_bloc.dart';
-import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_data/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Screens/Notifications/notifications_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';

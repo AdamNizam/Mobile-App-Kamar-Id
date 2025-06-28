@@ -4,7 +4,7 @@ const String merchantBaseUrl = 'https://develop.tripordare.com';
 
 // Midtrans
 const String serverKeyMidtrans = 'SB-Mid-server-04Ukt2P7mZjxUFy-NQYZV5XH';
-const String midtransUrl = 'https://api.sandbox.midtrans.com/v2/charge';
+const String midtransUrlMidtrans = 'https://api.sandbox.midtrans.com/v2/charge';
 const String clientKeyMidtrans = 'SB-Mid-client-ocCgOSGM04T-cphq';
 
 // Pusher

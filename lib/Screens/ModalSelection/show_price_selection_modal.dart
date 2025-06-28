@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
@@ -143,12 +145,10 @@ void showPriceRoomModal({
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  child: const Text(
-                    "Save",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.white,
-                    ),
+                  child: Text1(
+                    text1: AppLocalizations.of(context)!.textSave,
+                    size: 16,
+                    color: AppColors.white,
                   ),
                 ),
               ],

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hotelbookingapp/Blocs/user/data_user/user_bloc.dart';
+import 'package:hotelbookingapp/Blocs/user/user_data/user_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
@@ -59,7 +59,6 @@ class _UserInformationState extends State<UserInformation> {
     if (!mounted) return;
 
     if (pickedFile == null) {
-      showCustomSnackbar(context, '');
       return;
     }
 
@@ -370,7 +369,7 @@ class _UserInformationState extends State<UserInformation> {
         ),
         CustomTextField(
           icon: Icons.home,
-          label: AppLocalizations.of(context)!.labelPhoneNumber,
+          label: AppLocalizations.of(context)!.labelStreetAddress,
           controller: streetAddressController,
         ),
         CustomTextField(
