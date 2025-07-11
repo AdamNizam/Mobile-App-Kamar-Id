@@ -12,6 +12,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
 import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Screens/WebView/payment_webview.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
@@ -175,7 +176,7 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _detailRow(
-                            'Check-In',
+                            'Check-In ${widget.totalAmount}',
                             DateFormat('EEEE, MMMM dd, yyyy')
                                 .format(widget.checkIn),
                           ),
@@ -217,9 +218,19 @@ class _ConfirmBookingScreenState extends State<ConfirmBookingScreen> {
                     }
 
                     if (checkOutState is CheckoutFailed) {
-                      if (context.mounted) {
-                        showCustomSnackbar(context, checkOutState.error);
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MidtransPaymentPage(
+                            totalPrice: extractNumber(widget.totalAmount),
+                            orderId: widget.orderId,
+                            emailUser: userState.data.email,
+                            firstName: userState.data.firstName,
+                            lastName: userState.data.lastName,
+                            phone: userState.data.phone,
+                          ),
+                        ),
+                      );
                     }
                   },
                   builder: (context, checkOutState) {

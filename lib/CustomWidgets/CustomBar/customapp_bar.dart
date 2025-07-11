@@ -18,17 +18,13 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-          vertical: 5,
-          horizontal: 10), // Decreased vertical padding for reduced height
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
-        color:
-            backgroundColor, // Use the background color passed or default to purpleAccent
-        borderRadius:
-            BorderRadius.circular(8), // Added border radius for rounded corners
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1), // Subtle shadow
+            color: Colors.black.withOpacity(0.1),
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3), // Shadow position

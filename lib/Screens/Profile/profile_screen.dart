@@ -10,6 +10,7 @@ import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
+import 'package:hotelbookingapp/locale_cubit.dart';
 import 'package:hotelbookingapp/root.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -192,6 +193,22 @@ class ProfileScreen extends StatelessWidget {
                       builder: (context) => const CustomerServiceScreen()));
                 }),
             ProfileRow(
+              leadingIcon: Icons.language,
+              title: 'Languages',
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(16)),
+                  ),
+                  builder: (context) {
+                    return const LanguageSelector();
+                  },
+                );
+              },
+            ),
+            ProfileRow(
               leadingIcon: Icons.logout,
               title: AppLocalizations.of(context)!.textLogout,
               onTap: () {
@@ -202,6 +219,55 @@ class ProfileScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class LanguageSelector extends StatelessWidget {
+  const LanguageSelector({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final currentLocale = context.watch<LocaleCubit>().state;
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            "Pilih Bahasa",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+
+          // Indonesia Option
+          ListTile(
+            leading: const Text("🇮🇩"),
+            title: const Text("Bahasa Indonesia"),
+            trailing: currentLocale.languageCode == 'id'
+                ? const Icon(Icons.check, color: Colors.green)
+                : null,
+            onTap: () {
+              context.read<LocaleCubit>().switchToIndonesian();
+              Navigator.pop(context);
+            },
+          ),
+
+          // English Option
+          ListTile(
+            leading: const Text("🇺🇸"),
+            title: const Text("English"),
+            trailing: currentLocale.languageCode == 'en'
+                ? const Icon(Icons.check, color: Colors.green)
+                : null,
+            onTap: () {
+              context.read<LocaleCubit>().switchToEnglish();
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
     );
   }
