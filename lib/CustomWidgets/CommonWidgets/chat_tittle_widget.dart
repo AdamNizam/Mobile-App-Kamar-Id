@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
+import 'package:hotelbookingapp/Models/ChatModel/result_get_contacts.dart';
 import 'package:hotelbookingapp/Screens/Messages/chatting_message.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 
 class ChatTile extends StatelessWidget {
-  final String name;
+  final Contact data;
   final String message;
   final String time;
   final String avatar;
@@ -13,7 +14,7 @@ class ChatTile extends StatelessWidget {
 
   const ChatTile({
     super.key,
-    required this.name,
+    required this.data,
     required this.message,
     required this.time,
     required this.avatar,
@@ -32,7 +33,7 @@ class ChatTile extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(backgroundImage: NetworkImage(avatar)),
         title: CustomTextEllipsis(
-          text: name,
+          text: data.name ?? '',
           size: 14,
           fontWeight: FontWeight.bold,
           color: AppColors.black,

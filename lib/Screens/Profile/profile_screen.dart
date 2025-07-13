@@ -11,7 +11,7 @@ import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:hotelbookingapp/locale_cubit.dart';
-import 'package:hotelbookingapp/root.dart';
+import 'package:hotelbookingapp/main.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../Settings/settings_screen.dart';
@@ -212,8 +212,8 @@ class ProfileScreen extends StatelessWidget {
               leadingIcon: Icons.logout,
               title: AppLocalizations.of(context)!.textLogout,
               onTap: () {
-                context.read<AuthBloc>().add(AuthLogout());
                 AppRoot.of(context)?.resetAppState();
+                context.read<AuthBloc>().add(AuthLogout());
                 Navigator.pushReplacementNamed(context, '/login');
               },
             ),

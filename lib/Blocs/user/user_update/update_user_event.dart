@@ -25,10 +25,10 @@ class PostUpdatePasswordEvent extends UpdateUserEvent {
   List<Object> get props => [dataRequest];
 }
 
-class UploadProfileEvent extends UpdateUserEvent {
+class UploadImageProfileEvent extends UpdateUserEvent {
   final File imageRequest;
 
-  const UploadProfileEvent(this.imageRequest);
+  const UploadImageProfileEvent(this.imageRequest);
 
   @override
   List<Object> get props => [imageRequest];

@@ -1,6 +1,6 @@
 // Url
 const String baseUrl = 'https://develop.tripordare.com/api';
-const String baseUrlChat = 'https://develop.tripordare.com/chatify/api/';
+const String baseUrlChat = 'https://develop.tripordare.com/chatify/api';
 
 // Midtrans
 const String serverKeyMidtrans = 'SB-Mid-server-04Ukt2P7mZjxUFy-NQYZV5XH';

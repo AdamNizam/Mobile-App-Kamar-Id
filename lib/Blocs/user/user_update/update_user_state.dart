@@ -38,13 +38,15 @@ final class UpdatePasswordSuccess extends UpdateUserState {
   List<Object> get props => [data];
 }
 
-final class UpdateProfileSuccess extends UpdateUserState {
+final class UploadImageLoadingScccess extends UpdateUserState {
   final ResultImageProfile data;
 
-  const UpdateProfileSuccess(this.data);
+  const UploadImageLoadingScccess(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
 final class UploadImageLoading extends UpdateUserState {}
+
+final class UploadImageFailed extends UpdateUserState {}

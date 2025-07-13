@@ -10,6 +10,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
 import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Screens/ModalSelection/show_source_image_selection_modal.dart';
 import 'package:hotelbookingapp/Shared/shared_data.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -50,32 +51,6 @@ class _UserInformationState extends State<UserInformation> {
   @override
   void initState() {
     super.initState();
-    _getLostData();
-    _getDataUser();
-  }
-
-  Future<void> _getImage(ImageSource source) async {
-    final XFile? pickedFile = await imagePicker.pickImage(source: source);
-    if (!mounted) return;
-
-    if (pickedFile == null) {
-      return;
-    }
-
-    debugPrint('Location Path Image: ${pickedFile.path}');
-    context.read<UpdateUserBloc>().add(UploadProfileEvent(
-          File(pickedFile.path),
-        ));
-  }
-
-  Future<void> _getLostData() async {
-    final LostDataResponse response = await imagePicker.retrieveLostData();
-    if (!response.isEmpty && response.file != null) {
-      setState(() {});
-    }
-  }
-
-  Future<void> _getDataUser() async {
     final userState = context.read<UserBloc>().state;
     if (userState is UserSuccess) {
       fullname = userState.data.name;
@@ -93,6 +68,17 @@ class _UserInformationState extends State<UserInformation> {
       zipCodeController.text = userState.data.zipCode?.toString() ?? '';
       selectedCountry = userState.data.country;
     }
+  }
+
+  Future<void> uploadImage(ImageSource source) async {
+    final XFile? pickedFile = await imagePicker.pickImage(source: source);
+
+    if (!mounted || pickedFile == null) return;
+
+    debugPrint('Location Path Image: ${pickedFile.path}');
+    context.read<UpdateUserBloc>().add(
+          UploadImageProfileEvent(File(pickedFile.path)),
+        );
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -142,7 +128,12 @@ class _UserInformationState extends State<UserInformation> {
               isLoading = true;
             });
           }
-          if (state is UpdateProfileSuccess) {
+          if (state is UploadImageFailed) {
+            setState(() {
+              isLoading = false;
+            });
+          }
+          if (state is UploadImageLoadingScccess) {
             showCustomSnackbar(
               context,
               AppLocalizations.of(context)!.messageUploadImage,
@@ -209,7 +200,8 @@ class _UserInformationState extends State<UserInformation> {
                   zipCode: zipCodeController.text,
                 );
 
-                print('Data Update User ${jsonEncode(dataRequest.toJson())}');
+                debugPrint(
+                    'Data Update User ${jsonEncode(dataRequest.toJson())}');
                 context
                     .read<UpdateUserBloc>()
                     .add(PostDataUpdateEvent(dataRequest));
@@ -256,42 +248,10 @@ class _UserInformationState extends State<UserInformation> {
                       right: -0,
                       child: GestureDetector(
                         onTap: () {
-                          showModalBottomSheet(
+                          showSourceImageSelectionModal(
                             context: context,
-                            backgroundColor: AppColors.white,
-                            elevation: 0,
-                            builder: (BuildContext context) {
-                              return SafeArea(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Wrap(
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: const Icon(
-                                          Icons.camera_alt,
-                                          color: AppColors.buttonColor,
-                                        ),
-                                        title: const Text('Camera'),
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          _getImage(ImageSource.camera);
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading: const Icon(
-                                          Icons.photo_library,
-                                          color: AppColors.buttonColor,
-                                        ),
-                                        title: const Text('Gallery'),
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          _getImage(ImageSource.gallery);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
+                            onImageSelected: (source) {
+                              uploadImage(source); // fungsi kamu
                             },
                           );
                         },

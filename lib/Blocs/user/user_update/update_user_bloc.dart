@@ -41,18 +41,18 @@ class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
         }
       }
 
-      if (event is UploadProfileEvent) {
+      if (event is UploadImageProfileEvent) {
         try {
           emit(UploadImageLoading());
 
           emit(
-            UpdateProfileSuccess(
+            UploadImageLoadingScccess(
               await UserService().uploadImageProfile(event.imageRequest),
             ),
           );
         } catch (error) {
           print('Error Upload Image: $error');
-          emit(UpdateUserFailed(error.toString()));
+          emit(UploadImageFailed());
         }
       }
     });

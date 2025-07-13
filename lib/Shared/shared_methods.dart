@@ -85,8 +85,3 @@ String formatMidtransGrossAmount(String amountString) {
 String formatDateToSlash(DateTime dateTime) {
   return DateFormat('dd/MM/yyyy').format(dateTime);
 }
-
-// example :  2025-06-07
-String formatDateToDash(DateTime dateTime) {
-  return DateFormat('yyyy-MM-dd').format(dateTime);
-}
