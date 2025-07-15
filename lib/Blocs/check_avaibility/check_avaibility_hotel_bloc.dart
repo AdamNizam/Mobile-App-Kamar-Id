@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hotelbookingapp/Data/Api/hotel_service.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/request_check_avaibility.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/result_check_avaibility.dart';
-import 'package:hotelbookingapp/Data/Api/Services/hotel_service.dart';
 
 part 'check_avaibility_hotel_event.dart';
 part 'check_avaibility_hotel_state.dart';

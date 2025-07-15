@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hotelbookingapp/Data/Api/review_service.dart';
 import 'package:hotelbookingapp/Data/Models/ReviewModel/form_review.dart';
 import 'package:hotelbookingapp/Data/Models/ReviewModel/result_review.dart';
-import 'package:hotelbookingapp/Data/Api/Services/review_service.dart';
 
 part 'review_event.dart';
 part 'review_state.dart';

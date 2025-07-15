@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Data/Api/Services/auth_service.dart';
+import 'package:hotelbookingapp/Data/Api/auth_service.dart';
 
 part 'forget_password_event.dart';
 part 'forget_password_state.dart';

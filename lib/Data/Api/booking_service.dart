@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:hotelbookingapp/Data/Api/auth_service.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/result_add_to_chart.dart';
 import 'package:hotelbookingapp/Data/Models/CheckoutModel/request_chekout.dart';
 import 'package:hotelbookingapp/Data/Models/CheckoutModel/result_chekout.dart';
-import 'package:hotelbookingapp/Data/Api/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 

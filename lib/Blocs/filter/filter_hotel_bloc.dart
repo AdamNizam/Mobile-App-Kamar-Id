@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Data/Api/hotel_service.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/request_filter_model.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/result_filter_model.dart';
-import 'package:hotelbookingapp/Data/Api/Services/hotel_service.dart';
 
 part 'filter_hotel_event.dart';
 part 'filter_hotel_state.dart';

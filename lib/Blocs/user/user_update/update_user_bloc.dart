@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hotelbookingapp/Data/Api/user_service.dart';
 import 'package:hotelbookingapp/Data/Models/UserModel/form_update_password.dart';
 import 'package:hotelbookingapp/Data/Models/UserModel/request_user_update.dart';
 import 'package:hotelbookingapp/Data/Models/UserModel/result_image_profile.dart';
 import 'package:hotelbookingapp/Data/Models/UserModel/result_update_password.dart';
 import 'package:hotelbookingapp/Data/Models/UserModel/result_user_update.dart';
-import 'package:hotelbookingapp/Data/Api/Services/user_service.dart';
 
 part 'update_user_event.dart';
 part 'update_user_state.dart';

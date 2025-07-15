@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Data/Api/Services/auth_service.dart';
+import 'package:hotelbookingapp/Data/Api/auth_service.dart';
 import 'package:hotelbookingapp/Data/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Data/Models/AuthModel/form_register_model.dart';
 import 'package:hotelbookingapp/Data/Models/AuthModel/result_login.dart';

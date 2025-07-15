@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Data/Api/Services/hotel_service.dart';
+import 'package:hotelbookingapp/Data/Api/hotel_service.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_detail_model.dart';
 

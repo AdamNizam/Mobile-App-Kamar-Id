@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Data/Api/Services/booking_service.dart';
+import 'package:hotelbookingapp/Data/Api/booking_service.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/request_add_to_chart.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/result_add_to_chart.dart';
