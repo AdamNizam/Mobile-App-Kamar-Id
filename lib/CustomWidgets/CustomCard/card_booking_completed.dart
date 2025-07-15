@@ -3,7 +3,7 @@ import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/label_status_booking
 import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/row_booking_widget.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
+import 'package:hotelbookingapp/Data/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/detail_history_booking.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/send_review_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';

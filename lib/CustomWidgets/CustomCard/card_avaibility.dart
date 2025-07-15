@@ -3,8 +3,8 @@ import 'package:hotelbookingapp/CustomWidgets/CustomIcon/custom_icon1_avaibility
 import 'package:hotelbookingapp/CustomWidgets/CustomIcon/custom_icon2_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
-import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
+import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Data/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Screens/DetailRoom/detail_room_screen.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 

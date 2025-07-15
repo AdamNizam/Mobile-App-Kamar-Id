@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
-import 'package:hotelbookingapp/Services/notification_service.dart';
+import 'package:hotelbookingapp/Data/Models/NotificationModel/result_notification.dart';
+import 'package:hotelbookingapp/Data/Api/Services/notification_service.dart';
 
 part 'notication_event.dart';
 part 'notication_state.dart';

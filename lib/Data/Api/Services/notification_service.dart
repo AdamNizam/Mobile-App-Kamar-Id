@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
-import 'package:hotelbookingapp/Services/auth_service.dart';
+import 'package:hotelbookingapp/Data/Models/NotificationModel/result_notification.dart';
+import 'package:hotelbookingapp/Data/Api/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 // Tempat baseUrl didefinisikan

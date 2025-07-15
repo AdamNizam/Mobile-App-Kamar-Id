@@ -10,8 +10,8 @@ import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_button_loading
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_overflow.dart';
-import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
-import 'package:hotelbookingapp/Models/HotelModel/hotel_detail_model.dart';
+import 'package:hotelbookingapp/Data/Models/CheckoutModel/request_chekout.dart';
+import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Screens/WebView/payment_webview.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';

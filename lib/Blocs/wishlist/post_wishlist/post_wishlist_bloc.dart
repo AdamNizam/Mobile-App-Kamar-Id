@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/result_wishlist.dart';
-import 'package:hotelbookingapp/Services/wishlist_service.dart';
+import 'package:hotelbookingapp/Data/Models/WishlistModel/request_wishlist.dart';
+import 'package:hotelbookingapp/Data/Models/WishlistModel/result_wishlist.dart';
+import 'package:hotelbookingapp/Data/Api/Services/wishlist_service.dart';
 
 part 'post_wishlist_event.dart';
 part 'post_wishlist_state.dart';

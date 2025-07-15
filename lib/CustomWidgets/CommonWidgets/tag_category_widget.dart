@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
-import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
+import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_notification.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
-import 'package:hotelbookingapp/Models/NotificationModel/result_notification.dart';
+import 'package:hotelbookingapp/Data/Models/NotificationModel/result_notification.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';

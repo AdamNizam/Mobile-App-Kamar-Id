@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/result_midtrans.dart';
-import 'package:hotelbookingapp/Services/midtrans_payment_service.dart';
+import 'package:hotelbookingapp/Data/Models/MidtransModel/request_midtrans.dart';
+import 'package:hotelbookingapp/Data/Models/MidtransModel/result_midtrans.dart';
+import 'package:hotelbookingapp/Data/Api/Services/midtrans_payment_service.dart';
 
 part 'midtrans_payment_event.dart';
 part 'midtrans_payment_state.dart';

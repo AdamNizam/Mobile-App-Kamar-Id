@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hotelbookingapp/Models/CheckoutModel/request_chekout.dart';
-import 'package:hotelbookingapp/Models/CheckoutModel/result_chekout.dart';
-import 'package:hotelbookingapp/Services/booking_service.dart';
+import 'package:hotelbookingapp/Data/Api/Services/booking_service.dart';
+import 'package:hotelbookingapp/Data/Models/CheckoutModel/request_chekout.dart';
+import 'package:hotelbookingapp/Data/Models/CheckoutModel/result_chekout.dart';
 
 part 'checkout_event.dart';
 part 'checkout_state.dart';

@@ -4,7 +4,7 @@ import 'package:hotelbookingapp/CustomWidgets/CommonWidgets/row_booking_widget.d
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custom_outline_button.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/Models/BookingModel/history_booking.model.dart';
+import 'package:hotelbookingapp/Data/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Screens/HistoryBookings/detail_history_booking.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/midtrans_payment_page.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';

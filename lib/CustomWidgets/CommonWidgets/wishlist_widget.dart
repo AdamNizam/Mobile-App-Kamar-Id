@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotelbookingapp/Blocs/wishlist/post_wishlist/post_wishlist_bloc.dart';
-import 'package:hotelbookingapp/Models/WishlistModel/request_wishlist.dart';
+import 'package:hotelbookingapp/Data/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

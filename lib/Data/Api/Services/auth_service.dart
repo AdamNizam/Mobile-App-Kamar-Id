@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
-import 'package:hotelbookingapp/Models/AuthModel/form_register_model.dart';
-import 'package:hotelbookingapp/Models/AuthModel/result_login.dart';
-import 'package:hotelbookingapp/Models/AuthModel/result_register.dart';
+import 'package:hotelbookingapp/Data/Models/AuthModel/form_login_model.dart';
+import 'package:hotelbookingapp/Data/Models/AuthModel/form_register_model.dart';
+import 'package:hotelbookingapp/Data/Models/AuthModel/result_login.dart';
+import 'package:hotelbookingapp/Data/Models/AuthModel/result_register.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 

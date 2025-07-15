@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/HotelModel/result_check_avaibility.dart';
+import 'package:hotelbookingapp/Data/Models/HotelModel/result_check_avaibility.dart';
 import 'package:hotelbookingapp/Shared/shared_methods.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 

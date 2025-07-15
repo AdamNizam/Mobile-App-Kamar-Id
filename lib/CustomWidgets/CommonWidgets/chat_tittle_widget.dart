@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
-import 'package:hotelbookingapp/Models/ChatModel/result_get_contacts.dart';
+import 'package:hotelbookingapp/Data/Models/ChatModel/result_get_contacts.dart';
 import 'package:hotelbookingapp/Screens/Messages/chatting_message.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 

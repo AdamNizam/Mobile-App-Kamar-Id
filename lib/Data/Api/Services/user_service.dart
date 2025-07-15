@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/UserModel/form_update_password.dart';
-import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
-import 'package:hotelbookingapp/Models/UserModel/result_image_profile.dart';
-import 'package:hotelbookingapp/Models/UserModel/result_update_password.dart';
-import 'package:hotelbookingapp/Models/UserModel/result_user_update.dart';
-import 'package:hotelbookingapp/Models/UserModel/user_model.dart';
-import 'package:hotelbookingapp/Services/auth_service.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/form_update_password.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/result_image_profile.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/result_update_password.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/result_user_update.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/user_model.dart';
+import 'package:hotelbookingapp/Data/Api/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 

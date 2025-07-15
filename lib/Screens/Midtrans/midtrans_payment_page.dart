@@ -6,7 +6,7 @@ import 'package:hotelbookingapp/Blocs/midtrans_payment/midtrans_payment_bloc.dar
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomButton/custombtn.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
-import 'package:hotelbookingapp/Models/MidtransModel/request_midtrans.dart';
+import 'package:hotelbookingapp/Data/Models/MidtransModel/request_midtrans.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/scan_qris_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_alfamart_page.dart';
 import 'package:hotelbookingapp/Screens/Midtrans/store_code_indomaret_page.dart';

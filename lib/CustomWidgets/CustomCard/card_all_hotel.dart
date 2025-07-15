@@ -8,7 +8,7 @@ import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_location.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_price.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text_remaining.dart';
-import 'package:hotelbookingapp/Models/HotelModel/hotel_all_model.dart';
+import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_all_model.dart';
 import 'package:hotelbookingapp/Screens/DetailHotel/hotel_detail_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_contollers.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';

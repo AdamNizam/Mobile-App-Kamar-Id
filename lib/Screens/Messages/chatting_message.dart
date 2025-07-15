@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Models/ChatModel/chat_message.dart';
+import 'package:hotelbookingapp/Data/Models/ChatModel/chat_message.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../CustomWidgets/CustomText/text1.dart';
