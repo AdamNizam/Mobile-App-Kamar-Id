@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/Screens/ModalSelection/show_source_image_selection_modal.dart';
-import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
+import 'package:hotelbookingapp/Models/ChatModel/chat_message.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../CustomWidgets/CustomText/text1.dart';
@@ -78,6 +77,8 @@ class ChatBody extends StatefulWidget {
 class _ChatBodyState extends State<ChatBody> {
   File? _selectedImage;
   final ImagePicker imagePicker = ImagePicker();
+  final TextEditingController _messageController = TextEditingController();
+  final List<ChatMessage> _messages = [];
 
   Future<void> uploadImage(ImageSource source) async {
     final XFile? pickedFile = await imagePicker.pickImage(source: source);
@@ -91,6 +92,33 @@ class _ChatBodyState extends State<ChatBody> {
     debugPrint('Location Path Image: ${pickedFile.path}');
   }
 
+  void sendMessage() {
+    final text = _messageController.text.trim();
+    if (text.isEmpty) return;
+
+    final message = ChatMessage(
+      text: text,
+      isSender: true,
+      time: TimeOfDay.now().format(context),
+    );
+
+    setState(() {
+      _messages.add(message);
+      _messageController.clear();
+    });
+
+    // Optional: Simulasi balasan otomatis
+    Future.delayed(const Duration(milliseconds: 800), () {
+      setState(() {
+        _messages.add(ChatMessage(
+          text: 'Ini balasan otomatis.',
+          isSender: false,
+          time: TimeOfDay.now().format(context),
+        ));
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -99,25 +127,22 @@ class _ChatBodyState extends State<ChatBody> {
         Expanded(
           child: Container(
             decoration: const BoxDecoration(
-              // color: AppColors.white,
               border: Border(
                 top: BorderSide(color: AppColors.beauBlue, width: 0.5),
                 bottom: BorderSide(color: AppColors.beauBlue, width: 0.5),
               ),
             ),
-            child: ListView(
-              children: const [
-                ChatBubble(
-                  text: 'Hello, How are you today?',
-                  isSender: true,
-                  time: '09:30 am',
-                ),
-                ChatBubble(
-                  text: 'I am fine , how about are you today?.',
-                  isSender: false,
-                  time: '09:31 am',
-                ),
-              ],
+            child: ListView.builder(
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final msg = _messages[index];
+                return ChatBubble(
+                  text: msg.text,
+                  isSender: msg.isSender,
+                  time: msg.time,
+                );
+              },
             ),
           ),
         ),
@@ -171,6 +196,7 @@ class _ChatBodyState extends State<ChatBody> {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: _messageController,
                       decoration: InputDecoration(
                         hintText: 'Type your message...',
                         filled: true,
@@ -181,12 +207,7 @@ class _ChatBodyState extends State<ChatBody> {
                             color: AppColors.redAwesome,
                           ),
                           onPressed: () {
-                            showSourceImageSelectionModal(
-                              context: context,
-                              onImageSelected: (source) {
-                                uploadImage(source);
-                              },
-                            );
+                            uploadImage(ImageSource.gallery);
                           },
                         ),
                         contentPadding: const EdgeInsets.symmetric(
@@ -204,9 +225,7 @@ class _ChatBodyState extends State<ChatBody> {
                   CircleAvatar(
                     backgroundColor: AppColors.buttonColor,
                     child: IconButton(
-                      onPressed: () {
-                        showCustomSnackbar(context, 'fitur is not available');
-                      },
+                      onPressed: sendMessage,
                       icon: const Icon(
                         Icons.send,
                         color: AppColors.white,
@@ -228,16 +247,12 @@ class ChatBubble extends StatelessWidget {
   final String text;
   final bool isSender;
   final String time;
-  final bool isVoiceMessage;
-  final bool isFile;
 
   const ChatBubble({
     super.key,
     required this.text,
     required this.isSender,
     required this.time,
-    this.isVoiceMessage = false,
-    this.isFile = false,
   });
 
   @override
@@ -248,80 +263,32 @@ class ChatBubble extends StatelessWidget {
         crossAxisAlignment:
             isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          if (!isVoiceMessage)
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-              decoration: BoxDecoration(
-                color: isSender ? AppColors.buttonColor : AppColors.white,
-                border: Border.all(
-                  color: AppColors.beauBlue,
-                ),
-                borderRadius: isSender
-                    ? const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      )
-                    : const BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-              ),
-              child: Text1(
-                text1: text,
-                size: 14,
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+            decoration: BoxDecoration(
+              color: isSender ? AppColors.buttonColor : AppColors.white,
+              border: Border.all(color: AppColors.beauBlue),
+              borderRadius: isSender
+                  ? const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    )
+                  : const BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+            ),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 14,
                 color: isSender ? AppColors.white : AppColors.black,
-                fontWeight: FontWeight.w400,
               ),
             ),
-          if (isVoiceMessage)
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 11),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const CircleAvatar(
-                      radius: 16,
-                      backgroundColor: Color(0xff000120),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                      )),
-                  const SizedBox(width: 10),
-                  Image.asset(
-                    'images/voice_message_icon.png', // Relevant icon for voice message
-                    color: const Color(0xff000120),
-                  )
-                ],
-              ),
-            ),
-          if (isFile)
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 11),
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.attach_file, color: Colors.blue),
-                  const SizedBox(width: 10),
-                  Text(
-                    text,
-                    style: const TextStyle(color: Colors.blue),
-                  )
-                ],
-              ),
-            ),
-          const SizedBox(
-            height: 7,
           ),
+          const SizedBox(height: 5),
           Text(
             time,
             style: const TextStyle(color: AppColors.cadetGray, fontSize: 12),

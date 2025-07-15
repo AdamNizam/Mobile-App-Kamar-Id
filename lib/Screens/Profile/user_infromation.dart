@@ -9,7 +9,7 @@ import 'package:hotelbookingapp/Blocs/user/user_update/update_user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text2.dart';
-import 'package:hotelbookingapp/Models/UserModel/request_user_update.dart';
+import 'package:hotelbookingapp/Data/Models/UserModel/request_user_update.dart';
 import 'package:hotelbookingapp/Screens/ModalSelection/show_source_image_selection_modal.dart';
 import 'package:hotelbookingapp/Shared/shared_data.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
-import 'package:hotelbookingapp/Models/AuthModel/form_login_model.dart';
+import 'package:hotelbookingapp/Data/Models/AuthModel/form_login_model.dart';
 import 'package:hotelbookingapp/Providers/facebook_provider.dart';
 import 'package:hotelbookingapp/Providers/google_provider.dart';
 import 'package:hotelbookingapp/Screens/Authentication/getstarted.dart';

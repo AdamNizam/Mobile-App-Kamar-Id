@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:hotelbookingapp/Models/ChatModel/from_send_message.dart';
-import 'package:hotelbookingapp/Models/ChatModel/result_get_contacts.dart';
+import 'package:hotelbookingapp/Data/Models/ChatModel/from_send_message.dart';
+import 'package:hotelbookingapp/Data/Models/ChatModel/result_get_contacts.dart';
 import 'package:hotelbookingapp/Services/auth_service.dart';
 import 'package:hotelbookingapp/Shared/shared_url.dart';
 import 'package:http/http.dart' as http;
