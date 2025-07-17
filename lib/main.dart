@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/chat/get_contact/get_contact_bloc.dart';
@@ -20,7 +19,6 @@ import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:hotelbookingapp/locale_cubit.dart';
 
 Future<void> main() async {
-  await dotenv.load();
   runApp(const AppRoot());
 }
 

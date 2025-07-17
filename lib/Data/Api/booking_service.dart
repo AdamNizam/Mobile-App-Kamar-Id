@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:hotelbookingapp/Data/Api/auth_service.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/history_booking.model.dart';
 import 'package:hotelbookingapp/Data/Models/BookingModel/request_add_to_chart.dart';
@@ -50,12 +51,12 @@ class BookingService {
         body: jsonEncode(data.toJson()),
       );
 
-      print('Response API do Chekout: ${res.body}');
+      debugPrint('Response API do Chekout: ${res.body}');
 
       if (res.statusCode == 200) {
         return ResultChekout.fromJson(jsonDecode(res.body));
       } else if (res.statusCode == 500) {
-        print('response api error 500: ${res.body}');
+        debugPrint('response api error 500: ${res.body}');
         throw Exception(
             "Server ${res.statusCode} ${jsonDecode(res.body)['errors']}");
       } else {
@@ -78,7 +79,7 @@ class BookingService {
         },
       );
 
-      print('Response GET History Booking ${res.body}');
+      debugPrint('Response GET History Booking ${res.body}');
 
       if (res.statusCode == 200) {
         return HistoryBookingModel.fromJson(jsonDecode(res.body));

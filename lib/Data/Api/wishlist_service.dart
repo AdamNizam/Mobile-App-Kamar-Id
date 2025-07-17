@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:hotelbookingapp/Data/Api/auth_service.dart';
 import 'package:hotelbookingapp/Data/Models/WishlistModel/request_wishlist.dart';
 import 'package:hotelbookingapp/Data/Models/WishlistModel/result_wishlist.dart';
 import 'package:hotelbookingapp/Data/Models/WishlistModel/wishlist_model.dart';
-import 'package:hotelbookingapp/services/auth_service.dart';
 import 'package:hotelbookingapp/shared/shared_url.dart';
 import 'package:http/http.dart' as http;
 

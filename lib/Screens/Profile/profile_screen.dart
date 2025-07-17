@@ -7,7 +7,9 @@ import 'package:hotelbookingapp/Blocs/auth/auth_bloc.dart';
 import 'package:hotelbookingapp/Blocs/user/user_data/user_bloc.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Screens/Profile/HelpCenter/customer_service.dart';
+import 'package:hotelbookingapp/Screens/Profile/HelpCenter/help_screen.dart';
 import 'package:hotelbookingapp/Screens/Profile/user_infromation.dart';
+import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 import 'package:hotelbookingapp/Shared/shared_snackbar.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
 import 'package:hotelbookingapp/locale_cubit.dart';
@@ -186,30 +188,31 @@ class ProfileScreen extends StatelessWidget {
               },
             ),
             ProfileRow(
-                leadingIcon: Icons.support_agent,
-                title: 'Customer service',
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const CustomerServiceScreen()));
-                }),
-            ProfileRow(
-              leadingIcon: Icons.language,
-              title: 'Languages',
+              leadingIcon: Icons.support_agent,
+              title: 'Customer service',
               onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16)),
-                  ),
-                  builder: (context) {
-                    return const LanguageSelector();
-                  },
-                );
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CustomerServiceScreen()));
               },
             ),
             ProfileRow(
-              leadingIcon: Icons.logout,
+              leadingIcon: Icons.help,
+              title: 'Help',
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const HelpScreen()));
+              },
+            ),
+            ProfileRow(
+              leadingIcon: Icons.privacy_tip,
+              title: 'Kententuan dan privasi',
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const MaintenanceScreen()));
+              },
+            ),
+            ProfileRow(
+              leadingIcon: Icons.logout_sharp,
               title: AppLocalizations.of(context)!.textLogout,
               onTap: () {
                 AppRoot.of(context)?.resetAppState();

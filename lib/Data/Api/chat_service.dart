@@ -52,7 +52,6 @@ class ChatService {
         'Accept': 'application/json',
       });
 
-      // Cek jika file tidak null
       if (dataRequest.file != null) {
         request.files.add(
           await http.MultipartFile.fromPath(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 
 import '../../Themes/colors.dart';
-import '../Profile/change_password.dart';
+import '../Profile/profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -17,21 +18,27 @@ class SettingsScreen extends StatelessWidget {
               height: 20,
             ),
             ProfileRow(
-                leadingIcon: Icons.notification_important_rounded,
-                title: 'Notifications',
-                onTap: () {}),
+                leadingIcon: Icons.delete,
+                title: 'Delete Account ',
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const MaintenanceScreen()));
+                }),
             ProfileRow(
-              leadingIcon: Icons.lock,
-              title: 'Password Manager',
+              leadingIcon: Icons.language,
+              title: 'Languages',
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ChangePassword()));
+                showModalBottomSheet(
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(16)),
+                  ),
+                  builder: (context) {
+                    return const LanguageSelector();
+                  },
+                );
               },
-            ),
-            ProfileRow(
-              leadingIcon: Icons.delete,
-              title: 'Delete Account ',
-              onTap: () {},
             ),
           ],
         ),
