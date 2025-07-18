@@ -29,11 +29,14 @@ class DefaultValue extends StatelessWidget {
             height: height,
             fit: BoxFit.contain,
           ),
+          const SizedBox(
+            height: 20,
+          ),
           Text1(
             text1: text,
             size: 16,
             fontWeight: FontWeight.w400,
-            color: AppColors.black,
+            color: AppColors.cadetGray,
           ),
         ],
       ),

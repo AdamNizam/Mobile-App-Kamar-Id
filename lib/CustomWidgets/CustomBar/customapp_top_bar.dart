@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
 import 'package:hotelbookingapp/Themes/colors.dart';
+
+import '../CustomText/text2.dart';
 
 class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -21,20 +22,25 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       centerTitle: true,
+      backgroundColor: AppColors.buttonColor,
+      foregroundColor: AppColors.white,
       leading: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
         child: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: AppColors.black,
+            color: AppColors.white,
             size: 24,
           ),
           onPressed: onPop,
         ),
       ),
-      title: Text1(
-        text1: title,
+      title: Text2(
+        text2: title,
         size: 18,
+        color: AppColors.white,
         fontWeight: FontWeight.bold,
       ),
       actions: [
@@ -42,18 +48,13 @@ class CustomAppTopBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: onTap,
           icon: Icon(
             icon,
-            color: AppColors.black,
+            color: AppColors.white,
             size: 22,
           ),
         )
       ],
-      flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.bgColor,
-        ),
-      ),
       iconTheme: const IconThemeData(
-        color: AppColors.black,
+        color: AppColors.white,
       ),
     );
   }

@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hotelbookingapp/Blocs/check_avaibility/check_avaibility_hotel_bloc.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomBar/custom_nav_title.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomCard/card_avaibility.dart';
 import 'package:hotelbookingapp/CustomWidgets/CustomText/text1.dart';
-import 'package:hotelbookingapp/CustomWidgets/CustomText/text_ellipsis.dart';
 import 'package:hotelbookingapp/CustomWidgets/default_value.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/hotel_detail_model.dart';
 import 'package:hotelbookingapp/Data/Models/HotelModel/request_check_avaibility.dart';
@@ -73,262 +72,221 @@ class _CheckAvailabilityScreenState extends State<CheckAvailabilityScreen> {
     return BlocProvider(
       create: (context) => CheckAvaibilityHotelBloc(),
       child: Scaffold(
-        body: SafeArea(
-          child:
-              BlocConsumer<CheckAvaibilityHotelBloc, CheckAvaibilityHotelState>(
-            listener: (context, state) {
-              if (state is ChekAvaibilityFailed) {
-                showCustomSnackbar(context, state.error);
-              }
-              if (state is CheckAvaibilitySuccess) {
-                setState(() {
-                  isLoading = false;
-                });
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Container(
-                    height: 285,
-                    decoration: BoxDecoration(
-                      color: AppColors.tabColor,
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.5),
-                          blurRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+        appBar: CustomAppTopBar(
+          title: 'Checking Hotel',
+          onPop: () {},
+          onTap: () {},
+        ),
+        body: BlocConsumer<CheckAvaibilityHotelBloc, CheckAvaibilityHotelState>(
+          listener: (context, state) {
+            if (state is ChekAvaibilityFailed) {
+              showCustomSnackbar(context, state.error);
+            }
+            if (state is CheckAvaibilitySuccess) {
+              setState(() {
+                isLoading = false;
+              });
+            }
+          },
+          builder: (context, state) {
+            return Stack(
+              children: [
+                Container(
+                  height: 90,
+                  color: AppColors.buttonColor,
+                  padding: const EdgeInsets.only(top: 10),
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Material(
+                          elevation: 4,
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: AppColors.amberColor,
+                                width: 2.5,
+                              ),
+                            ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(height: 8),
-                                CustomNavTitle(
-                                  title: widget.dataHotel.title!,
-                                  color: AppColors.white,
-                                ),
-                                const SizedBox(height: 20),
                                 _buildDateSelection(),
-                                const SizedBox(height: 10),
+                                divider(),
                                 _buildRoomSelection(),
-                                const SizedBox(height: 20),
-                                SizedBox(
-                                  height: 42,
-                                  width: 320,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: (checkInDate == null ||
-                                              checkOutDate == null ||
-                                              room == 0)
-                                          ? AppColors.beauBlue
-                                          : AppColors.amberColor,
-                                      foregroundColor: AppColors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                InkWell(
+                                  onTap: () {
+                                    if (checkInDate == null ||
+                                        checkOutDate == null ||
+                                        room == 0) {
+                                      showCustomSnackbar(
+                                        context,
+                                        'Please select Check In - Check Out & select Room',
+                                      );
+                                      return;
+                                    }
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+
+                                    final dataChecking = RequestCheckAvaibility(
+                                      hotelId: widget.dataHotel.id!,
+                                      startDate: checkInDate!,
+                                      endDate: checkOutDate!,
+                                      adults: adult,
+                                      children: child,
+                                    );
+
+                                    print(
+                                      'Data Checking: ${jsonEncode(dataChecking)}',
+                                    );
+
+                                    context
+                                        .read<CheckAvaibilityHotelBloc>()
+                                        .add(
+                                          PostCheckAvailabilityEvent(
+                                              dataChecking),
+                                        );
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.buttonColor,
+                                      borderRadius: BorderRadius.vertical(
+                                        bottom: Radius.circular(10),
                                       ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        isLoading
-                                            ? LoadingAnimationWidget
-                                                .fourRotatingDots(
-                                                color: AppColors.white,
-                                                size: 27,
-                                              )
-                                            : const Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons
-                                                        .location_searching_rounded,
-                                                    size: 22,
-                                                  ),
-                                                  SizedBox(width: 3),
-                                                  Text1(
-                                                    text1: 'Checking',
-                                                    size: 16,
-                                                    color: AppColors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ],
+                                    child: isLoading
+                                        ? LoadingAnimationWidget
+                                            .fourRotatingDots(
+                                            color: AppColors.white,
+                                            size: 27,
+                                          )
+                                        : const Center(
+                                            child: Text(
+                                              'Checking',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    16, // Ubah dari 1 ke 16 agar teks terlihat
+                                                fontWeight: FontWeight.w600,
                                               ),
-                                      ],
-                                    ),
-                                    onPressed: () {
-                                      if (checkInDate == null ||
-                                          checkOutDate == null ||
-                                          room == 0) {
-                                        showCustomSnackbar(
-                                          context,
-                                          'Please select Check In - Check Out & select Room',
-                                        );
-                                        return;
-                                      }
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-
-                                      final dataChecking =
-                                          RequestCheckAvaibility(
-                                        hotelId: widget.dataHotel.id!,
-                                        startDate: checkInDate!,
-                                        endDate: checkOutDate!,
-                                        adults: adult,
-                                        children: child,
-                                      );
-
-                                      print(
-                                        'Data Checking: ${jsonEncode(dataChecking)}',
-                                      );
-
-                                      context
-                                          .read<CheckAvaibilityHotelBloc>()
-                                          .add(
-                                            PostCheckAvailabilityEvent(
-                                                dataChecking),
-                                          );
-                                    },
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 20),
+                      if (state is CheckAvaibilitySuccess)
+                        if (state.data.rooms == null ||
+                            state.data.rooms!.isEmpty)
+                          DefaultValue(
+                            imageSvg: 'images/soldout.svg',
+                            text: AppLocalizations.of(context)!.textSoldoutRoom,
+                          )
+                        else
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: state.data.rooms!.length,
+                            itemBuilder: (context, index) {
+                              final dataRoom = state.data.rooms![index];
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                child: CardAvailbility(
+                                  dataRoom: dataRoom,
+                                  dataHotel: widget.dataHotel,
+                                  checkInDate: checkInDate!,
+                                  checkOutDate: checkOutDate!,
+                                  adult: adult,
+                                  child: child,
+                                ),
+                              );
+                            },
+                          )
+                      else
+                        DefaultValue(
+                          imageSvg: 'images/search-room.svg',
+                          text: AppLocalizations.of(context)!.textSearchRoom,
+                          height: 250,
+                          width: 250,
+                        ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      children: [
-                        CustomTextEllipsis(
-                          text: AppLocalizations.of(context)!.textAvailableRoom,
-                          size: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        const SizedBox(height: 2),
-                        const Divider(
-                          color: AppColors.strokColor,
-                          thickness: 2,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  if (state is CheckAvaibilitySuccess)
-                    if (state.data.rooms == null || state.data.rooms!.isEmpty)
-                      DefaultValue(
-                        imageSvg: 'images/soldout.svg',
-                        text: AppLocalizations.of(context)!.textSoldoutRoom,
-                      )
-                    else
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: state.data.rooms!.length,
-                          itemBuilder: (context, index) {
-                            final dataRoom = state.data.rooms![index];
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: CardAvailbility(
-                                dataRoom: dataRoom,
-                                dataHotel: widget.dataHotel,
-                                checkInDate: checkInDate!,
-                                checkOutDate: checkOutDate!,
-                                adult: adult,
-                                child: child,
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                  else
-                    DefaultValue(
-                      imageSvg: 'images/avaibility.svg',
-                      text: AppLocalizations.of(context)!.textSearchRoom,
-                      height: 130,
-                      width: 130,
-                    ),
-                  const SizedBox(height: 20),
-                ],
-              );
-            },
-          ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
   Widget _buildDateSelection() {
-    return Container(
-      width: 320,
-      height: 55,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          width: 2,
-          color: (checkInDate != null && checkOutDate != null)
-              ? AppColors.amberColor
-              : AppColors.beauBlue,
-        ),
+    return ListTile(
+      leading: const Icon(
+        Icons.calendar_month,
+        size: 24,
+        color: AppColors.buttonColor,
       ),
-      child: ListTile(
-        leading: const Icon(
-          Icons.calendar_month,
-          size: 24,
-          color: AppColors.buttonColor,
-        ),
-        title: Text1(
-          text1: checkInDate != null && checkOutDate != null
-              ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - ${checkOutDate!.difference(checkInDate!).inDays} night"
-              : "Check In - Check Out",
-          size: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        onTap: _selectDates,
+      title: Text1(
+        text1: checkInDate != null && checkOutDate != null
+            ? "${DateFormat('d MMM').format(checkInDate!)} - ${DateFormat('d MMM').format(checkOutDate!)} - ${checkOutDate!.difference(checkInDate!).inDays} night"
+            : "Check In - Check Out",
+        size: 14,
+        fontWeight: FontWeight.w400,
       ),
+      onTap: _selectDates,
     );
   }
 
   Widget _buildRoomSelection() {
-    return Container(
-      width: 320,
-      height: 55,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          width: 2,
-          color: (room == 1 && adult == 1)
-              ? AppColors.beauBlue
-              : AppColors.amberColor,
-        ),
+    return ListTile(
+      leading: const Icon(
+        Icons.hotel,
+        size: 24,
+        color: AppColors.buttonColor,
       ),
-      child: ListTile(
-        leading: const Icon(
-          Icons.hotel,
-          size: 24,
-          color: AppColors.buttonColor,
+      title: Text1(
+          text1: "$room Room - $adult Adult - $child Child",
+          size: 14,
+          fontWeight: FontWeight.w400),
+      onTap: _selectRoom,
+    );
+  }
+
+  Widget divider() {
+    return Divider(height: 1, color: Colors.grey.shade300);
+  }
+
+  Widget categoryIcon(IconData icon, String label, bool selected) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: selected ? Colors.white : Colors.transparent,
+            border: selected ? Border.all(color: Colors.white) : null,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Icon(icon, color: Colors.white),
         ),
-        title: Text1(
-            text1: "$room Room - $adult Adult - $child Child",
-            size: 14,
-            fontWeight: FontWeight.w400),
-        onTap: _selectRoom,
-      ),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(color: Colors.white)),
+      ],
     );
   }
 }

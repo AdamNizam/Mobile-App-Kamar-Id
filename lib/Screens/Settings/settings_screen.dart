@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelbookingapp/CustomWidgets/CustomBar/customapp_top_bar.dart';
 import 'package:hotelbookingapp/Screens/Status/maintenance_screen.dart';
 
 import '../../Themes/colors.dart';
@@ -10,13 +11,11 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppTopBar(title: 'Settings', onPop: () {}, onTap: () {}),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 20),
           children: [
-            const SizedBox(
-              height: 20,
-            ),
             ProfileRow(
                 leadingIcon: Icons.delete,
                 title: 'Delete Account ',
